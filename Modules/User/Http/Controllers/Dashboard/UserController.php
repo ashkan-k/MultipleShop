@@ -7,7 +7,10 @@ use App\Http\Traits\Uploader;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Hash;
 use Modules\User\Entities\User;
+use Modules\User\Http\Requests\UserRequest;
 
 class UserController extends Controller
 {
@@ -23,36 +26,36 @@ class UserController extends Controller
 
     public function create()
     {
-        return view('setting::dashboard.form');
+        return view('user::dashboard.form');
     }
 
     public function store(UserRequest $request)
     {
-        $avatar = $this->UploadFile($request, 'avatar' , 'avatars', $request->phone);
+        $avatar = $this->UploadFile($request, 'avatar' , 'avatars', $request->email);
 
-        $user = User::create(array_merge($request->validated(), ['avatar' => $avatar]));
+        $user = User::create(array_merge($request->all(), ['avatar' => $avatar]));
+        $user->email_verified_at = Carbon::now();
         $user->set_password($request->password);
-        $user->set_admin($request->is_admin || 0);
         return $this->SuccessRedirect('آیتم مورد نظر با موفقیت ثبت شد.', 'users.index');
     }
 
     public function edit(User $user)
     {
-        return view('setting::dashboard.form')->with('object', $user);
+        return view('user::dashboard.form')->with('object', $user);
     }
 
     public function update(UserRequest $request, User $user)
     {
-        $avatar = $this->UploadFile($request, 'avatar' , 'avatars', $user->phone, $user->avatar);
+        $avatar = $this->UploadFile($request, 'avatar' , 'avatars', $user->email, $user->avatar);
         $request['password'] = $request->password ? Hash::make($request->password) : $user->password;
 
-        $user->update(array_merge($request->validated(), ['avatar' => $avatar]));
+        $user->update(array_merge($request->all(), ['avatar' => $avatar]));
         return $this->SuccessRedirect('آیتم مورد نظر با موفقیت ویرایش شد.', 'users.index');
     }
 
     public function destroy(User $user)
     {
         $user->delete();
-        return $this->SuccessRedirect('آیتم مورد نظر با موفقیت حذف شد.', 'settings.index');
+        return $this->SuccessRedirect('آیتم مورد نظر با موفقیت حذف شد.', 'users.index');
     }
 }
