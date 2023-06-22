@@ -21,7 +21,7 @@ class SettingController extends Controller
 
     public function create()
     {
-        return view('dashboard.settings.form');
+        return view('setting::dashboard.form');
     }
 
     public function store(SettingRequest $request)

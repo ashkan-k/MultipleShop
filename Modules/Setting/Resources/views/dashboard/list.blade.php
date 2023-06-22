@@ -1,5 +1,5 @@
 @extends('layouts.admin-master')
-@section('titlePage','تنظیمات ها')
+@section('title','تنظیمات ها')
 @section('Styles')
 
 @endsection
@@ -28,7 +28,9 @@
                         </li>
                         <!--end::آیتم-->
                         <!--begin::آیتم-->
-                        <li class="breadcrumb-item text-muted">تنظیمات ها</li>
+                        <li class="breadcrumb-item text-muted">
+                            <a href="{{ route('settings.index') }}" class="text-muted text-hover-primary">تنظیمات ها</a>
+                        </li>
                         <!--end::آیتم-->
                     </ul>
                     <!--end::Breadcrumb-->
@@ -38,6 +40,8 @@
             <!--end::Toolbar container-->
         </div>
         <!--end::Toolbar-->
+
+
         <!--begin::Content-->
         <div id="kt_app_content" class="app-content flex-column-fluid">
             <!--begin::Content container-->
