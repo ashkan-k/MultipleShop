@@ -3,9 +3,6 @@
 @section('Styles')
 
 @endsection
-@section('Scripts')
-
-@endsection
 @section('content')
     <div class="d-flex flex-column flex-column-fluid">
         <!--begin::Toolbar-->
@@ -133,7 +130,7 @@
                                 <button onclick="window.location.href='{{ route('settings.create') }}'" type="button"
                                         class="btn btn-primary" data-bs-toggle="modal"
                                         data-bs-target="#kt_modal_add_user">
-                                    <i class="ki-duotone ki-plus fs-2"></i>افزودن کاربر
+                                    <i class="ki-duotone ki-plus fs-2"></i>افزودن تنظیمات
                                 </button>
                                 <!--end::Add user-->
                             </div>
@@ -187,8 +184,19 @@
                                                    data-kt-users-table-filter="delete_row">ویرایش</a>
                                             </div>
                                             <div class="menu-item px-3">
-                                                <a href="#" class="menu-link px-3"
-                                                   data-kt-users-table-filter="delete_row">حذف</a>
+
+                                                <form action="{{ route('settings.destroy' , $item->id) }}"
+                                                      id="delete_form_{{ $loop->index }}" method="post">
+                                                    @csrf
+                                                    @method('DELETE')
+
+                                                    <a onclick="return Delete('{{ $loop->index }}')"
+                                                       class="menu-link px-3"
+                                                       data-kt-users-table-filter="delete_row">حذف</a>
+
+                                                </form>
+
+
                                             </div>
                                         </div>
                                         <!--end::Menu-->
@@ -213,38 +221,9 @@
                                         </select></label></div>
                             </div>
 
-                            <div
-                                class="col-sm-12 col-md-7 d-flex align-items-center justify-content-center justify-content-md-end">
-                                <div class="dataTables_paginate paging_simple_numbers" id="kt_customers_table_paginate">
-                                    <ul class="pagination">
-                                        <li class="paginate_button page-item previous disabled"
-                                            id="kt_customers_table_previous"><a href="#"
-                                                                                aria-controls="kt_customers_table"
-                                                                                data-dt-idx="0" tabindex="0"
-                                                                                class="page-link"><i
-                                                    class="previous"></i></a></li>
-                                        <li class="paginate_button page-item active"><a href="#"
-                                                                                        aria-controls="kt_customers_table"
-                                                                                        data-dt-idx="1" tabindex="0"
-                                                                                        class="page-link">1</a></li>
-                                        <li class="paginate_button page-item "><a href="#"
-                                                                                  aria-controls="kt_customers_table"
-                                                                                  data-dt-idx="2" tabindex="0"
-                                                                                  class="page-link">2</a></li>
-                                        <li class="paginate_button page-item "><a href="#"
-                                                                                  aria-controls="kt_customers_table"
-                                                                                  data-dt-idx="3" tabindex="0"
-                                                                                  class="page-link">3</a></li>
-                                        <li class="paginate_button page-item "><a href="#"
-                                                                                  aria-controls="kt_customers_table"
-                                                                                  data-dt-idx="4" tabindex="0"
-                                                                                  class="page-link">4</a></li>
-                                        <li class="paginate_button page-item next" id="kt_customers_table_next"><a
-                                                href="#" aria-controls="kt_customers_table" data-dt-idx="5" tabindex="0"
-                                                class="page-link"><i class="next"></i></a></li>
-                                    </ul>
-                                </div>
-                            </div>
+
+                            {{ $objects->onEachSide(3)->links('dashboard.section.components.pagination') }}
+
                         </div>
 
                     </div>
@@ -257,3 +236,15 @@
         <!--end::Content-->
     </div>
 @endsection
+
+@section('Scripts')
+    @include('dashboard.section.components.sweet_alert')
+    @include('dashboard.section.components.delete')
+
+    <script>
+        app.controller('myCtrl', function ($scope, $http) {
+            @include('dashboard.section.components.bulk_actions.bulk_actions_js', ['items' => $objects, 'model' => 'Category'])
+        });
+    </script>
+@endsection
+

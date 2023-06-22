@@ -7,6 +7,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Setting\Entities\Setting;
+use Modules\Setting\Http\Requests\SettingRequest;
 
 class SettingController extends Controller
 {
@@ -20,31 +21,29 @@ class SettingController extends Controller
 
     public function create()
     {
-        return view('setting::create');
+        return view('dashboard.settings.form');
     }
 
-    public function store(Request $request)
+    public function store(SettingRequest $request)
     {
-        //
+        Setting::create($request->all());
+        return $this->SuccessRedirect('آیتم مورد نظر با موفقیت ثبت شد.', 'settings.index');
     }
 
-    public function show($id)
+    public function edit(Setting $setting)
     {
-        return view('setting::show');
+        return view('dashboard.settings.form', compact('setting'));
     }
 
-    public function edit($id)
+    public function update(SettingRequest $request, Setting $setting)
     {
-        return view('setting::edit');
+        $setting->update($request->all());
+        return $this->SuccessRedirect('آیتم مورد نظر با موفقیت ویرایش شد.', 'settings.index');
     }
 
-    public function update(Request $request, $id)
+    public function destroy(Setting $setting)
     {
-        //
-    }
-
-    public function destroy($id)
-    {
-        //
+        $setting->delete();
+        return $this->SuccessRedirect('آیتم مورد نظر با موفقیت حذف شد.', 'settings.index');
     }
 }

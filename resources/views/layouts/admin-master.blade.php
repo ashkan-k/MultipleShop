@@ -15,7 +15,7 @@ Like: www.facebook.com/keenthemes
 <!--begin::Head-->
 <head>
     <base href=""/>
-    <title>قالب مدیریتی مترونیک با 50 دمو جذاب</title>
+    <title>پنل | @yield('title', 'داشبورد')</title>
     <meta charset="utf-8"/>
     <meta name="description"
           content="The most advanced Bootstrap 5 Admin Theme with 40 unique prebuilt layouts on Themeforest trusted by 100,000 beginners و professionals. Multi-demo, حالت تیره, RTL support و complete React, Angular, Vue, Asp.Net Core, Rails, Spring, Blazor, Django, Express.js, Node.js, Flask, Symfony & Laravel versions. Grab your copy now و get life-time updates for free."/>
@@ -41,13 +41,35 @@ Like: www.facebook.com/keenthemes
     <link href="/admin/src/assets/plugins/global/plugins.bundle.rtl.css" rel="stylesheet" type="text/css"/>
     <link href="/admin/src/assets/css/style.bundle.rtl.css" rel="stylesheet" type="text/css"/>
     <!--end::Global Stylesheets Bundle-->
+
+    <link href="/select2/select2.min.css" rel="stylesheet"/>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.css"
+          id="theme-styles">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"
+          integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA=="
+          crossorigin="anonymous"/>
+
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <style>
+        .select2-selection--single{
+            height: 100% !important;
+        }
+    </style>
+
+    @yield('Styles')
+
 </head>
 <!--end::Head-->
 <!--begin::Body-->
 <body id="kt_app_body" data-kt-app-layout="dark-sidebar" data-kt-app-header-fixed="true"
       data-kt-app-sidebar-enabled="true" data-kt-app-sidebar-fixed="true" data-kt-app-sidebar-hoverable="true"
       data-kt-app-sidebar-push-header="true" data-kt-app-sidebar-push-toolbar="true"
-      data-kt-app-sidebar-push-footer="true" data-kt-app-toolbar-enabled="true" class="app-default">
+      data-kt-app-sidebar-push-footer="true" data-kt-app-toolbar-enabled="true" class="app-default"
+      ng-app="myApp" ng-controller="myCtrl">
 <!--begin::Theme mode setup on page load-->
 <script>var defaultThemeMode = "light";
     var themeMode;
@@ -72,10 +94,10 @@ Like: www.facebook.com/keenthemes
     <!--begin::Page-->
     <div class="app-page flex-column flex-column-fluid" id="kt_app_page">
         <!--begin::Header-->
+
         <div id="kt_app_header" class="app-header">
             <!--begin::Header container-->
-            <div class="app-container container-fluid d-flex align-items-stretch justify-content-between"
-                 id="kt_app_header_container">
+            <div class="app-container container-fluid d-flex align-items-stretch justify-content-between" id="kt_app_header_container">
                 <!--begin::Sidebar mobile toggle-->
                 <div class="d-flex align-items-center d-lg-none ms-n3 me-1 me-md-2" title="مشاهده sidebar menu">
                     <div class="btn btn-icon btn-active-color-primary w-35px h-35px" id="kt_app_sidebar_mobile_toggle">
@@ -89,28 +111,18 @@ Like: www.facebook.com/keenthemes
                 <!--begin::Mobile logo-->
                 <div class="d-flex align-items-center flex-grow-1 flex-lg-grow-0">
                     <a href="../../demo1/dist/index.html" class="d-lg-none">
-                        <img alt="Logo" src="/admin/src/assets/media/logos/default-small.svg" class="h-30px"/>
+                        <img alt="Logo" src="assets/media/logos/default-small.svg" class="h-30px">
                     </a>
                 </div>
                 <!--end::Mobile logo-->
                 <!--begin::Header wrapper-->
-                <div class="d-flex align-items-stretch justify-content-between flex-lg-grow-1"
-                     id="kt_app_header_wrapper">
+                <div class="d-flex align-items-stretch justify-content-between flex-lg-grow-1" id="kt_app_header_wrapper">
                     <!--begin::Menu wrapper-->
-                    <div class="app-header-menu app-header-mobile-drawer align-items-stretch" data-kt-drawer="true"
-                         data-kt-drawer-name="app-header-menu" data-kt-drawer-activate="{default: true, lg: false}"
-                         data-kt-drawer-overlay="true" data-kt-drawer-width="250px" data-kt-drawer-direction="end"
-                         data-kt-drawer-toggle="#kt_app_header_menu_toggle" data-kt-swapper="true"
-                         data-kt-swapper-mode="{default: 'append', lg: 'prepend'}"
-                         data-kt-swapper-parent="{default: '#kt_app_body', lg: '#kt_app_header_wrapper'}">
+                    <div class="app-header-menu app-header-mobile-drawer align-items-stretch" data-kt-drawer="true" data-kt-drawer-name="app-header-menu" data-kt-drawer-activate="{default: true, lg: false}" data-kt-drawer-overlay="true" data-kt-drawer-width="250px" data-kt-drawer-direction="end" data-kt-drawer-toggle="#kt_app_header_menu_toggle" data-kt-swapper="true" data-kt-swapper-mode="{default: 'append', lg: 'prepend'}" data-kt-swapper-parent="{default: '#kt_app_body', lg: '#kt_app_header_wrapper'}">
                         <!--begin::Menu-->
-                        <div
-                            class="menu menu-rounded menu-column menu-lg-row my-5 my-lg-0 align-items-stretch fw-semibold px-2 px-lg-0"
-                            id="kt_app_header_menu" data-kt-menu="true">
+                        <div class="menu menu-rounded menu-column menu-lg-row my-5 my-lg-0 align-items-stretch fw-semibold px-2 px-lg-0" id="kt_app_header_menu" data-kt-menu="true">
                             <!--begin:Menu item-->
-                            <div data-kt-menu-trigger="{default: 'click', lg: 'hover'}"
-                                 data-kt-menu-placement="bottom-end"
-                                 class="menu-item here show menu-here-bg menu-lg-down-accordion me-0 me-lg-2">
+                            <div data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="bottom-end" class="menu-item here menu-here-bg menu-lg-down-accordion me-0 me-lg-2">
                                 <!--begin:Menu link-->
                                 <span class="menu-link">
 											<span class="menu-title">داشبورد ها</span>
@@ -118,11 +130,9 @@ Like: www.facebook.com/keenthemes
 										</span>
                                 <!--end:Menu link-->
                                 <!--begin:Menu sub-->
-                                <div
-                                    class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown p-0 w-100 w-lg-850px">
+                                <div class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown p-0 w-100 w-lg-850px" style="">
                                     <!--begin:داشبورد ها menu-->
-                                    <div class="menu-state-bg menu-extended overflow-hidden overflow-lg-visible"
-                                         data-kt-menu-dismiss="true">
+                                    <div class="menu-state-bg menu-extended overflow-hidden overflow-lg-visible" data-kt-menu-dismiss="true">
                                         <!--begin:Row-->
                                         <div class="row">
                                             <!--begin:Col-->
@@ -134,10 +144,8 @@ Like: www.facebook.com/keenthemes
                                                         <!--begin:Menu item-->
                                                         <div class="menu-item p-0 m-0">
                                                             <!--begin:Menu link-->
-                                                            <a href="../../demo1/dist/index.html"
-                                                               class="menu-link active">
-																		<span
-                                                                            class="menu-custom-icon d-flex flex-center flex-shrink-0 rounded w-40px h-40px me-3">
+                                                            <a href="../../demo1/dist/index.html" class="menu-link active">
+																		<span class="menu-custom-icon d-flex flex-center flex-shrink-0 rounded w-40px h-40px me-3">
 																			<i class="ki-duotone ki-element-11 text-primary fs-1">
 																				<span class="path1"></span>
 																				<span class="path2"></span>
@@ -160,10 +168,8 @@ Like: www.facebook.com/keenthemes
                                                         <!--begin:Menu item-->
                                                         <div class="menu-item p-0 m-0">
                                                             <!--begin:Menu link-->
-                                                            <a href="../../demo1/dist/dashboards/ecommerce.html"
-                                                               class="menu-link">
-																		<span
-                                                                            class="menu-custom-icon d-flex flex-center flex-shrink-0 rounded w-40px h-40px me-3">
+                                                            <a href="../../demo1/dist/dashboards/ecommerce.html" class="menu-link">
+																		<span class="menu-custom-icon d-flex flex-center flex-shrink-0 rounded w-40px h-40px me-3">
 																			<i class="ki-duotone ki-basket text-danger fs-1">
 																				<span class="path1"></span>
 																				<span class="path2"></span>
@@ -186,10 +192,8 @@ Like: www.facebook.com/keenthemes
                                                         <!--begin:Menu item-->
                                                         <div class="menu-item p-0 m-0">
                                                             <!--begin:Menu link-->
-                                                            <a href="../../demo1/dist/dashboards/projects.html"
-                                                               class="menu-link">
-																		<span
-                                                                            class="menu-custom-icon d-flex flex-center flex-shrink-0 rounded w-40px h-40px me-3">
+                                                            <a href="../../demo1/dist/dashboards/projects.html" class="menu-link">
+																		<span class="menu-custom-icon d-flex flex-center flex-shrink-0 rounded w-40px h-40px me-3">
 																			<i class="ki-duotone ki-abstract-44 text-info fs-1">
 																				<span class="path1"></span>
 																				<span class="path2"></span>
@@ -210,10 +214,8 @@ Like: www.facebook.com/keenthemes
                                                         <!--begin:Menu item-->
                                                         <div class="menu-item p-0 m-0">
                                                             <!--begin:Menu link-->
-                                                            <a href="../../demo1/dist/dashboards/online-courses.html"
-                                                               class="menu-link">
-																		<span
-                                                                            class="menu-custom-icon d-flex flex-center flex-shrink-0 rounded w-40px h-40px me-3">
+                                                            <a href="../../demo1/dist/dashboards/online-courses.html" class="menu-link">
+																		<span class="menu-custom-icon d-flex flex-center flex-shrink-0 rounded w-40px h-40px me-3">
 																			<i class="ki-duotone ki-color-swatch text-success fs-1">
 																				<span class="path1"></span>
 																				<span class="path2"></span>
@@ -253,10 +255,8 @@ Like: www.facebook.com/keenthemes
                                                         <!--begin:Menu item-->
                                                         <div class="menu-item p-0 m-0">
                                                             <!--begin:Menu link-->
-                                                            <a href="../../demo1/dist/dashboards/marketing.html"
-                                                               class="menu-link">
-																		<span
-                                                                            class="menu-custom-icon d-flex flex-center flex-shrink-0 rounded w-40px h-40px me-3">
+                                                            <a href="../../demo1/dist/dashboards/marketing.html" class="menu-link">
+																		<span class="menu-custom-icon d-flex flex-center flex-shrink-0 rounded w-40px h-40px me-3">
 																			<i class="ki-duotone ki-chart-simple text-dark fs-1">
 																				<span class="path1"></span>
 																				<span class="path2"></span>
@@ -279,10 +279,8 @@ Like: www.facebook.com/keenthemes
                                                         <!--begin:Menu item-->
                                                         <div class="menu-item p-0 m-0">
                                                             <!--begin:Menu link-->
-                                                            <a href="../../demo1/dist/dashboards/bidding.html"
-                                                               class="menu-link">
-																		<span
-                                                                            class="menu-custom-icon d-flex flex-center flex-shrink-0 rounded w-40px h-40px me-3">
+                                                            <a href="../../demo1/dist/dashboards/bidding.html" class="menu-link">
+																		<span class="menu-custom-icon d-flex flex-center flex-shrink-0 rounded w-40px h-40px me-3">
 																			<i class="ki-duotone ki-switch text-warning fs-1">
 																				<span class="path1"></span>
 																				<span class="path2"></span>
@@ -303,10 +301,8 @@ Like: www.facebook.com/keenthemes
                                                         <!--begin:Menu item-->
                                                         <div class="menu-item p-0 m-0">
                                                             <!--begin:Menu link-->
-                                                            <a href="../../demo1/dist/dashboards/pos.html"
-                                                               class="menu-link">
-																		<span
-                                                                            class="menu-custom-icon d-flex flex-center flex-shrink-0 rounded w-40px h-40px me-3">
+                                                            <a href="../../demo1/dist/dashboards/pos.html" class="menu-link">
+																		<span class="menu-custom-icon d-flex flex-center flex-shrink-0 rounded w-40px h-40px me-3">
 																			<i class="ki-duotone ki-abstract-42 text-danger fs-1">
 																				<span class="path1"></span>
 																				<span class="path2"></span>
@@ -327,10 +323,8 @@ Like: www.facebook.com/keenthemes
                                                         <!--begin:Menu item-->
                                                         <div class="menu-item p-0 m-0">
                                                             <!--begin:Menu link-->
-                                                            <a href="../../demo1/dist/dashboards/call-center.html"
-                                                               class="menu-link">
-																		<span
-                                                                            class="menu-custom-icon d-flex flex-center flex-shrink-0 rounded w-40px h-40px me-3">
+                                                            <a href="../../demo1/dist/dashboards/call-center.html" class="menu-link">
+																		<span class="menu-custom-icon d-flex flex-center flex-shrink-0 rounded w-40px h-40px me-3">
 																			<i class="ki-duotone ki-call text-primary fs-1">
 																				<span class="path1"></span>
 																				<span class="path2"></span>
@@ -359,28 +353,22 @@ Like: www.facebook.com/keenthemes
                                                 <div class="d-flex flex-stack flex-wrap flex-lg-nowrap gap-2 mx-5">
                                                     <div class="d-flex flex-column me-5">
                                                         <div class="fs-6 fw-bold text-gray-800">صفحه فرود</div>
-                                                        <div class="fs-7 fw-semibold text-muted">تک صفحه فرود نمونه با
-                                                            قیمت
-                                                        </div>
+                                                        <div class="fs-7 fw-semibold text-muted">تک صفحه فرود نمونه با قیمت</div>
                                                     </div>
-                                                    <a href="../../demo1/dist/landing.html"
-                                                       class="btn btn-sm btn-primary fw-bold">کاوش کنید</a>
+                                                    <a href="../../demo1/dist/landing.html" class="btn btn-sm btn-primary fw-bold">کاوش کنید</a>
                                                 </div>
                                                 <!--end:صفحه فرود-->
                                             </div>
                                             <!--end:Col-->
                                             <!--begin:Col-->
-                                            <div
-                                                class="menu-more bg-light col-lg-4 py-3 px-3 py-lg-6 px-lg-6 rounded-end">
+                                            <div class="menu-more bg-light col-lg-4 py-3 px-3 py-lg-6 px-lg-6 rounded-end">
                                                 <!--begin:Heading-->
-                                                <h4 class="fs-6 fs-lg-4 text-gray-800 fw-bold mt-3 mb-3 ms-4">داشبورد
-                                                    ها</h4>
+                                                <h4 class="fs-6 fs-lg-4 text-gray-800 fw-bold mt-3 mb-3 ms-4">داشبورد ها</h4>
                                                 <!--end:Heading-->
                                                 <!--begin:Menu item-->
                                                 <div class="menu-item p-0 m-0">
                                                     <!--begin:Menu link-->
-                                                    <a href="../../demo1/dist/dashboards/logistics.html"
-                                                       class="menu-link py-2">
+                                                    <a href="../../demo1/dist/dashboards/logistics.html" class="menu-link py-2">
                                                         <span class="menu-title">حمل و نقل</span>
                                                     </a>
                                                     <!--end:Menu link-->
@@ -389,8 +377,7 @@ Like: www.facebook.com/keenthemes
                                                 <!--begin:Menu item-->
                                                 <div class="menu-item p-0 m-0">
                                                     <!--begin:Menu link-->
-                                                    <a href="../../demo1/dist/dashboards/website-analytics.html"
-                                                       class="menu-link py-2">
+                                                    <a href="../../demo1/dist/dashboards/website-analytics.html" class="menu-link py-2">
                                                         <span class="menu-title">وب سایت آنالیتیکس</span>
                                                     </a>
                                                     <!--end:Menu link-->
@@ -399,10 +386,8 @@ Like: www.facebook.com/keenthemes
                                                 <!--begin:Menu item-->
                                                 <div class="menu-item p-0 m-0">
                                                     <!--begin:Menu link-->
-                                                    <a href="../../demo1/dist/dashboards/finance-performance.html"
-                                                       class="menu-link py-2">
-                                                        <span
-                                                            class="menu-title">دارایی، مالیه، سرمایه گذاری کارایی</span>
+                                                    <a href="../../demo1/dist/dashboards/finance-performance.html" class="menu-link py-2">
+                                                        <span class="menu-title">دارایی، مالیه، سرمایه گذاری کارایی</span>
                                                     </a>
                                                     <!--end:Menu link-->
                                                 </div>
@@ -410,8 +395,7 @@ Like: www.facebook.com/keenthemes
                                                 <!--begin:Menu item-->
                                                 <div class="menu-item p-0 m-0">
                                                     <!--begin:Menu link-->
-                                                    <a href="../../demo1/dist/dashboards/store-analytics.html"
-                                                       class="menu-link py-2">
+                                                    <a href="../../demo1/dist/dashboards/store-analytics.html" class="menu-link py-2">
                                                         <span class="menu-title">فروشگاه آنالیتیکس</span>
                                                     </a>
                                                     <!--end:Menu link-->
@@ -420,8 +404,7 @@ Like: www.facebook.com/keenthemes
                                                 <!--begin:Menu item-->
                                                 <div class="menu-item p-0 m-0">
                                                     <!--begin:Menu link-->
-                                                    <a href="../../demo1/dist/dashboards/social.html"
-                                                       class="menu-link py-2">
+                                                    <a href="../../demo1/dist/dashboards/social.html" class="menu-link py-2">
                                                         <span class="menu-title">شبکه اجتماعی</span>
                                                     </a>
                                                     <!--end:Menu link-->
@@ -430,8 +413,7 @@ Like: www.facebook.com/keenthemes
                                                 <!--begin:Menu item-->
                                                 <div class="menu-item p-0 m-0">
                                                     <!--begin:Menu link-->
-                                                    <a href="../../demo1/dist/dashboards/delivery.html"
-                                                       class="menu-link py-2">
+                                                    <a href="../../demo1/dist/dashboards/delivery.html" class="menu-link py-2">
                                                         <span class="menu-title">تحویل</span>
                                                     </a>
                                                     <!--end:Menu link-->
@@ -440,8 +422,7 @@ Like: www.facebook.com/keenthemes
                                                 <!--begin:Menu item-->
                                                 <div class="menu-item p-0 m-0">
                                                     <!--begin:Menu link-->
-                                                    <a href="../../demo1/dist/dashboards/crypto.html"
-                                                       class="menu-link py-2">
+                                                    <a href="../../demo1/dist/dashboards/crypto.html" class="menu-link py-2">
                                                         <span class="menu-title">کریپتو</span>
                                                     </a>
                                                     <!--end:Menu link-->
@@ -450,8 +431,7 @@ Like: www.facebook.com/keenthemes
                                                 <!--begin:Menu item-->
                                                 <div class="menu-item p-0 m-0">
                                                     <!--begin:Menu link-->
-                                                    <a href="../../demo1/dist/dashboards/school.html"
-                                                       class="menu-link py-2">
+                                                    <a href="../../demo1/dist/dashboards/school.html" class="menu-link py-2">
                                                         <span class="menu-title">مدرسه</span>
                                                     </a>
                                                     <!--end:Menu link-->
@@ -460,8 +440,7 @@ Like: www.facebook.com/keenthemes
                                                 <!--begin:Menu item-->
                                                 <div class="menu-item p-0 m-0">
                                                     <!--begin:Menu link-->
-                                                    <a href="../../demo1/dist/dashboards/podcast.html"
-                                                       class="menu-link py-2">
+                                                    <a href="../../demo1/dist/dashboards/podcast.html" class="menu-link py-2">
                                                         <span class="menu-title">پادکست</span>
                                                     </a>
                                                     <!--end:Menu link-->
@@ -478,9 +457,7 @@ Like: www.facebook.com/keenthemes
                             </div>
                             <!--end:Menu item-->
                             <!--begin:Menu item-->
-                            <div data-kt-menu-trigger="{default: 'click', lg: 'hover'}"
-                                 data-kt-menu-placement="bottom-end"
-                                 class="menu-item menu-lg-down-accordion me-0 me-lg-2">
+                            <div data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="bottom-end" class="menu-item menu-lg-down-accordion me-0 me-lg-2">
                                 <!--begin:Menu link-->
                                 <span class="menu-link">
 											<span class="menu-title">صفحات</span>
@@ -488,46 +465,35 @@ Like: www.facebook.com/keenthemes
 										</span>
                                 <!--end:Menu link-->
                                 <!--begin:Menu sub-->
-                                <div class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown p-0">
+                                <div class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown p-0" style="">
                                     <!--begin:صفحات menu-->
                                     <div class="menu-active-bg px-4 px-lg-0">
                                         <!--begin:Tabs nav-->
                                         <div class="d-flex w-100 overflow-auto">
-                                            <ul class="nav nav-stretch nav-line-tabs fw-bold fs-6 p-0 p-lg-10 flex-nowrap flex-grow-1">
+                                            <ul class="nav nav-stretch nav-line-tabs fw-bold fs-6 p-0 p-lg-10 flex-nowrap flex-grow-1" role="tablist">
                                                 <!--begin:Nav item-->
-                                                <li class="nav-item mx-lg-1">
-                                                    <a class="nav-link py-3 py-lg-6 active text-active-primary" href="#"
-                                                       data-bs-toggle="tab"
-                                                       data-bs-target="#kt_app_header_menu_pages_pages">عمومی</a>
+                                                <li class="nav-item mx-lg-1" role="presentation">
+                                                    <a class="nav-link py-3 py-lg-6 active text-active-primary" href="#" data-bs-toggle="tab" data-bs-target="#kt_app_header_menu_pages_pages" aria-selected="true" role="tab">عمومی</a>
                                                 </li>
                                                 <!--end:Nav item-->
                                                 <!--begin:Nav item-->
-                                                <li class="nav-item mx-lg-1">
-                                                    <a class="nav-link py-3 py-lg-6 text-active-primary" href="#"
-                                                       data-bs-toggle="tab"
-                                                       data-bs-target="#kt_app_header_menu_pages_account">اکانت</a>
+                                                <li class="nav-item mx-lg-1" role="presentation">
+                                                    <a class="nav-link py-3 py-lg-6 text-active-primary" href="#" data-bs-toggle="tab" data-bs-target="#kt_app_header_menu_pages_account" aria-selected="false" tabindex="-1" role="tab">اکانت</a>
                                                 </li>
                                                 <!--end:Nav item-->
                                                 <!--begin:Nav item-->
-                                                <li class="nav-item mx-lg-1">
-                                                    <a class="nav-link py-3 py-lg-6 text-active-primary" href="#"
-                                                       data-bs-toggle="tab"
-                                                       data-bs-target="#kt_app_header_menu_pages_authentication">احراز
-                                                        هویت</a>
+                                                <li class="nav-item mx-lg-1" role="presentation">
+                                                    <a class="nav-link py-3 py-lg-6 text-active-primary" href="#" data-bs-toggle="tab" data-bs-target="#kt_app_header_menu_pages_authentication" aria-selected="false" tabindex="-1" role="tab">احراز هویت</a>
                                                 </li>
                                                 <!--end:Nav item-->
                                                 <!--begin:Nav item-->
-                                                <li class="nav-item mx-lg-1">
-                                                    <a class="nav-link py-3 py-lg-6 text-active-primary" href="#"
-                                                       data-bs-toggle="tab"
-                                                       data-bs-target="#kt_app_header_menu_pages_utilities">ابزارها</a>
+                                                <li class="nav-item mx-lg-1" role="presentation">
+                                                    <a class="nav-link py-3 py-lg-6 text-active-primary" href="#" data-bs-toggle="tab" data-bs-target="#kt_app_header_menu_pages_utilities" aria-selected="false" tabindex="-1" role="tab">ابزارها</a>
                                                 </li>
                                                 <!--end:Nav item-->
                                                 <!--begin:Nav item-->
-                                                <li class="nav-item mx-lg-1">
-                                                    <a class="nav-link py-3 py-lg-6 text-active-primary" href="#"
-                                                       data-bs-toggle="tab"
-                                                       data-bs-target="#kt_app_header_menu_pages_widgets">ابزارک</a>
+                                                <li class="nav-item mx-lg-1" role="presentation">
+                                                    <a class="nav-link py-3 py-lg-6 text-active-primary" href="#" data-bs-toggle="tab" data-bs-target="#kt_app_header_menu_pages_widgets" aria-selected="false" tabindex="-1" role="tab">ابزارک</a>
                                                 </li>
                                                 <!--end:Nav item-->
                                             </ul>
@@ -536,8 +502,7 @@ Like: www.facebook.com/keenthemes
                                         <!--begin:Tab content-->
                                         <div class="tab-content py-4 py-lg-8 px-lg-7">
                                             <!--begin:Tab pane-->
-                                            <div class="tab-pane active w-lg-1000px"
-                                                 id="kt_app_header_menu_pages_pages">
+                                            <div class="tab-pane active w-lg-1000px" id="kt_app_header_menu_pages_pages" role="tabpanel">
                                                 <!--begin:Row-->
                                                 <div class="row">
                                                     <!--begin:Col-->
@@ -547,14 +512,12 @@ Like: www.facebook.com/keenthemes
                                                             <!--begin:Col-->
                                                             <div class="col-lg-3 mb-6 mb-lg-0">
                                                                 <!--begin:Menu heading-->
-                                                                <h4 class="fs-6 fs-lg-4 fw-bold mb-3 ms-4">کاربر
-                                                                    پروفایل</h4>
+                                                                <h4 class="fs-6 fs-lg-4 fw-bold mb-3 ms-4">کاربر پروفایل</h4>
                                                                 <!--end:Menu heading-->
                                                                 <!--begin:Menu item-->
                                                                 <div class="menu-item p-0 m-0">
                                                                     <!--begin:Menu link-->
-                                                                    <a href="../../demo1/dist/pages/user-profile/overview.html"
-                                                                       class="menu-link">
+                                                                    <a href="../../demo1/dist/pages/user-profile/overview.html" class="menu-link">
                                                                         <span class="menu-title">بررسی اجمالی</span>
                                                                     </a>
                                                                     <!--end:Menu link-->
@@ -563,8 +526,7 @@ Like: www.facebook.com/keenthemes
                                                                 <!--begin:Menu item-->
                                                                 <div class="menu-item p-0 m-0">
                                                                     <!--begin:Menu link-->
-                                                                    <a href="../../demo1/dist/pages/user-profile/projects.html"
-                                                                       class="menu-link">
+                                                                    <a href="../../demo1/dist/pages/user-profile/projects.html" class="menu-link">
                                                                         <span class="menu-title">پروژه ها</span>
                                                                     </a>
                                                                     <!--end:Menu link-->
@@ -573,8 +535,7 @@ Like: www.facebook.com/keenthemes
                                                                 <!--begin:Menu item-->
                                                                 <div class="menu-item p-0 m-0">
                                                                     <!--begin:Menu link-->
-                                                                    <a href="../../demo1/dist/pages/user-profile/campaigns.html"
-                                                                       class="menu-link">
+                                                                    <a href="../../demo1/dist/pages/user-profile/campaigns.html" class="menu-link">
                                                                         <span class="menu-title">کمپین ها</span>
                                                                     </a>
                                                                     <!--end:Menu link-->
@@ -583,8 +544,7 @@ Like: www.facebook.com/keenthemes
                                                                 <!--begin:Menu item-->
                                                                 <div class="menu-item p-0 m-0">
                                                                     <!--begin:Menu link-->
-                                                                    <a href="../../demo1/dist/pages/user-profile/documents.html"
-                                                                       class="menu-link">
+                                                                    <a href="../../demo1/dist/pages/user-profile/documents.html" class="menu-link">
                                                                         <span class="menu-title">اسناد</span>
                                                                     </a>
                                                                     <!--end:Menu link-->
@@ -593,8 +553,7 @@ Like: www.facebook.com/keenthemes
                                                                 <!--begin:Menu item-->
                                                                 <div class="menu-item p-0 m-0">
                                                                     <!--begin:Menu link-->
-                                                                    <a href="../../demo1/dist/pages/user-profile/followers.html"
-                                                                       class="menu-link">
+                                                                    <a href="../../demo1/dist/pages/user-profile/followers.html" class="menu-link">
                                                                         <span class="menu-title">فالوورها</span>
                                                                     </a>
                                                                     <!--end:Menu link-->
@@ -603,8 +562,7 @@ Like: www.facebook.com/keenthemes
                                                                 <!--begin:Menu item-->
                                                                 <div class="menu-item p-0 m-0">
                                                                     <!--begin:Menu link-->
-                                                                    <a href="../../demo1/dist/pages/user-profile/activity.html"
-                                                                       class="menu-link">
+                                                                    <a href="../../demo1/dist/pages/user-profile/activity.html" class="menu-link">
                                                                         <span class="menu-title">فعالیت</span>
                                                                     </a>
                                                                     <!--end:Menu link-->
@@ -622,8 +580,7 @@ Like: www.facebook.com/keenthemes
                                                                     <!--begin:Menu item-->
                                                                     <div class="menu-item p-0 m-0">
                                                                         <!--begin:Menu link-->
-                                                                        <a href="../../demo1/dist/pages/about.html"
-                                                                           class="menu-link">
+                                                                        <a href="../../demo1/dist/pages/about.html" class="menu-link">
                                                                             <span class="menu-title">درباره ی ما</span>
                                                                         </a>
                                                                         <!--end:Menu link-->
@@ -632,8 +589,7 @@ Like: www.facebook.com/keenthemes
                                                                     <!--begin:Menu item-->
                                                                     <div class="menu-item p-0 m-0">
                                                                         <!--begin:Menu link-->
-                                                                        <a href="../../demo1/dist/pages/team.html"
-                                                                           class="menu-link">
+                                                                        <a href="../../demo1/dist/pages/team.html" class="menu-link">
                                                                             <span class="menu-title">تیم ما</span>
                                                                         </a>
                                                                         <!--end:Menu link-->
@@ -642,8 +598,7 @@ Like: www.facebook.com/keenthemes
                                                                     <!--begin:Menu item-->
                                                                     <div class="menu-item p-0 m-0">
                                                                         <!--begin:Menu link-->
-                                                                        <a href="../../demo1/dist/pages/contact.html"
-                                                                           class="menu-link">
+                                                                        <a href="../../demo1/dist/pages/contact.html" class="menu-link">
                                                                             <span class="menu-title">تماس با ما</span>
                                                                         </a>
                                                                         <!--end:Menu link-->
@@ -652,8 +607,7 @@ Like: www.facebook.com/keenthemes
                                                                     <!--begin:Menu item-->
                                                                     <div class="menu-item p-0 m-0">
                                                                         <!--begin:Menu link-->
-                                                                        <a href="../../demo1/dist/pages/licenses.html"
-                                                                           class="menu-link">
+                                                                        <a href="../../demo1/dist/pages/licenses.html" class="menu-link">
                                                                             <span class="menu-title">مجوزها</span>
                                                                         </a>
                                                                         <!--end:Menu link-->
@@ -662,8 +616,7 @@ Like: www.facebook.com/keenthemes
                                                                     <!--begin:Menu item-->
                                                                     <div class="menu-item p-0 m-0">
                                                                         <!--begin:Menu link-->
-                                                                        <a href="../../demo1/dist/pages/sitemap.html"
-                                                                           class="menu-link">
+                                                                        <a href="../../demo1/dist/pages/sitemap.html" class="menu-link">
                                                                             <span class="menu-title">نقشه سایت</span>
                                                                         </a>
                                                                         <!--end:Menu link-->
@@ -674,14 +627,12 @@ Like: www.facebook.com/keenthemes
                                                                 <!--begin:Menu section-->
                                                                 <div class="mb-0">
                                                                     <!--begin:Menu heading-->
-                                                                    <h4 class="fs-6 fs-lg-4 fw-bold mb-3 ms-4">
-                                                                        مشاغل</h4>
+                                                                    <h4 class="fs-6 fs-lg-4 fw-bold mb-3 ms-4">مشاغل</h4>
                                                                     <!--end:Menu heading-->
                                                                     <!--begin:Menu item-->
                                                                     <div class="menu-item p-0 m-0">
                                                                         <!--begin:Menu link-->
-                                                                        <a href="../../demo1/dist/pages/careers/list.html"
-                                                                           class="menu-link">
+                                                                        <a href="../../demo1/dist/pages/careers/list.html" class="menu-link">
                                                                             <span class="menu-title">لیست مشاغل</span>
                                                                         </a>
                                                                         <!--end:Menu link-->
@@ -690,8 +641,7 @@ Like: www.facebook.com/keenthemes
                                                                     <!--begin:Menu item-->
                                                                     <div class="menu-item p-0 m-0">
                                                                         <!--begin:Menu link-->
-                                                                        <a href="../../demo1/dist/pages/careers/apply.html"
-                                                                           class="menu-link">
+                                                                        <a href="../../demo1/dist/pages/careers/apply.html" class="menu-link">
                                                                             <span class="menu-title">مشاغل تایید</span>
                                                                         </a>
                                                                         <!--end:Menu link-->
@@ -706,14 +656,12 @@ Like: www.facebook.com/keenthemes
                                                                 <!--begin:Menu section-->
                                                                 <div class="mb-6">
                                                                     <!--begin:Menu heading-->
-                                                                    <h4 class="fs-6 fs-lg-4 fw-bold mb-3 ms-4">سوالات
-                                                                        متداول</h4>
+                                                                    <h4 class="fs-6 fs-lg-4 fw-bold mb-3 ms-4">سوالات متداول</h4>
                                                                     <!--end:Menu heading-->
                                                                     <!--begin:Menu item-->
                                                                     <div class="menu-item p-0 m-0">
                                                                         <!--begin:Menu link-->
-                                                                        <a href="../../demo1/dist/pages/faq/classic.html"
-                                                                           class="menu-link">
+                                                                        <a href="../../demo1/dist/pages/faq/classic.html" class="menu-link">
                                                                             <span class="menu-title">سوالات متداول کلاسیک</span>
                                                                         </a>
                                                                         <!--end:Menu link-->
@@ -722,8 +670,7 @@ Like: www.facebook.com/keenthemes
                                                                     <!--begin:Menu item-->
                                                                     <div class="menu-item p-0 m-0">
                                                                         <!--begin:Menu link-->
-                                                                        <a href="../../demo1/dist/pages/faq/extended.html"
-                                                                           class="menu-link">
+                                                                        <a href="../../demo1/dist/pages/faq/extended.html" class="menu-link">
                                                                             <span class="menu-title">سوالات متداول تمدید شده</span>
                                                                         </a>
                                                                         <!--end:Menu link-->
@@ -734,14 +681,12 @@ Like: www.facebook.com/keenthemes
                                                                 <!--begin:Menu section-->
                                                                 <div class="mb-6">
                                                                     <!--begin:Menu heading-->
-                                                                    <h4 class="fs-6 fs-lg-4 fw-bold mb-3 ms-4">
-                                                                        مقالات</h4>
+                                                                    <h4 class="fs-6 fs-lg-4 fw-bold mb-3 ms-4">مقالات</h4>
                                                                     <!--end:Menu heading-->
                                                                     <!--begin:Menu item-->
                                                                     <div class="menu-item p-0 m-0">
                                                                         <!--begin:Menu link-->
-                                                                        <a href="../../demo1/dist/pages/blog/home.html"
-                                                                           class="menu-link">
+                                                                        <a href="../../demo1/dist/pages/blog/home.html" class="menu-link">
                                                                             <span class="menu-title">مقالات خانه</span>
                                                                         </a>
                                                                         <!--end:Menu link-->
@@ -750,10 +695,8 @@ Like: www.facebook.com/keenthemes
                                                                     <!--begin:Menu item-->
                                                                     <div class="menu-item p-0 m-0">
                                                                         <!--begin:Menu link-->
-                                                                        <a href="../../demo1/dist/pages/blog/post.html"
-                                                                           class="menu-link">
-                                                                            <span
-                                                                                class="menu-title">صفحه تکی مقالات</span>
+                                                                        <a href="../../demo1/dist/pages/blog/post.html" class="menu-link">
+                                                                            <span class="menu-title">صفحه تکی مقالات</span>
                                                                         </a>
                                                                         <!--end:Menu link-->
                                                                     </div>
@@ -763,16 +706,13 @@ Like: www.facebook.com/keenthemes
                                                                 <!--begin:Menu section-->
                                                                 <div class="mb-0">
                                                                     <!--begin:Menu heading-->
-                                                                    <h4 class="fs-6 fs-lg-4 fw-bold mb-3 ms-4">قیمت
-                                                                        گذاری</h4>
+                                                                    <h4 class="fs-6 fs-lg-4 fw-bold mb-3 ms-4">قیمت گذاری</h4>
                                                                     <!--end:Menu heading-->
                                                                     <!--begin:Menu item-->
                                                                     <div class="menu-item p-0 m-0">
                                                                         <!--begin:Menu link-->
-                                                                        <a href="../../demo1/dist/pages/pricing/column.html"
-                                                                           class="menu-link">
-                                                                            <span
-                                                                                class="menu-title">قیمت گذاری ستونی</span>
+                                                                        <a href="../../demo1/dist/pages/pricing/column.html" class="menu-link">
+                                                                            <span class="menu-title">قیمت گذاری ستونی</span>
                                                                         </a>
                                                                         <!--end:Menu link-->
                                                                     </div>
@@ -780,10 +720,8 @@ Like: www.facebook.com/keenthemes
                                                                     <!--begin:Menu item-->
                                                                     <div class="menu-item p-0 m-0">
                                                                         <!--begin:Menu link-->
-                                                                        <a href="../../demo1/dist/pages/pricing/table.html"
-                                                                           class="menu-link">
-                                                                            <span
-                                                                                class="menu-title">جدول قیمت گذاری</span>
+                                                                        <a href="../../demo1/dist/pages/pricing/table.html" class="menu-link">
+                                                                            <span class="menu-title">جدول قیمت گذاری</span>
                                                                         </a>
                                                                         <!--end:Menu link-->
                                                                     </div>
@@ -797,14 +735,12 @@ Like: www.facebook.com/keenthemes
                                                                 <!--begin:Menu section-->
                                                                 <div class="mb-0">
                                                                     <!--begin:Menu heading-->
-                                                                    <h4 class="fs-6 fs-lg-4 fw-bold mb-3 ms-4">شبکه
-                                                                        اجتماعی</h4>
+                                                                    <h4 class="fs-6 fs-lg-4 fw-bold mb-3 ms-4">شبکه اجتماعی</h4>
                                                                     <!--end:Menu heading-->
                                                                     <!--begin:Menu item-->
                                                                     <div class="menu-item p-0 m-0">
                                                                         <!--begin:Menu link-->
-                                                                        <a href="../../demo1/dist/pages/social/feeds.html"
-                                                                           class="menu-link">
+                                                                        <a href="../../demo1/dist/pages/social/feeds.html" class="menu-link">
                                                                             <span class="menu-title">تغذیه</span>
                                                                         </a>
                                                                         <!--end:Menu link-->
@@ -813,8 +749,7 @@ Like: www.facebook.com/keenthemes
                                                                     <!--begin:Menu item-->
                                                                     <div class="menu-item p-0 m-0">
                                                                         <!--begin:Menu link-->
-                                                                        <a href="../../demo1/dist/pages/social/activity.html"
-                                                                           class="menu-link">
+                                                                        <a href="../../demo1/dist/pages/social/activity.html" class="menu-link">
                                                                             <span class="menu-title">فعالیت</span>
                                                                         </a>
                                                                         <!--end:Menu link-->
@@ -823,8 +758,7 @@ Like: www.facebook.com/keenthemes
                                                                     <!--begin:Menu item-->
                                                                     <div class="menu-item p-0 m-0">
                                                                         <!--begin:Menu link-->
-                                                                        <a href="../../demo1/dist/pages/social/followers.html"
-                                                                           class="menu-link">
+                                                                        <a href="../../demo1/dist/pages/social/followers.html" class="menu-link">
                                                                             <span class="menu-title">فالوورها</span>
                                                                         </a>
                                                                         <!--end:Menu link-->
@@ -833,8 +767,7 @@ Like: www.facebook.com/keenthemes
                                                                     <!--begin:Menu item-->
                                                                     <div class="menu-item p-0 m-0">
                                                                         <!--begin:Menu link-->
-                                                                        <a href="../../demo1/dist/pages/social/settings.html"
-                                                                           class="menu-link">
+                                                                        <a href="../../demo1/dist/pages/social/settings.html" class="menu-link">
                                                                             <span class="menu-title">تنظیمات</span>
                                                                         </a>
                                                                         <!--end:Menu link-->
@@ -850,8 +783,7 @@ Like: www.facebook.com/keenthemes
                                                     <!--end:Col-->
                                                     <!--begin:Col-->
                                                     <div class="col-lg-4">
-                                                        <img src="/admin/src/assets/media/stock/600x600/img-82.jpg"
-                                                             class="rounded mw-100" alt=""/>
+                                                        <img src="/admin/src/assets/media/stock/600x600/img-82.jpg" class="rounded mw-100" alt="">
                                                     </div>
                                                     <!--end:Col-->
                                                 </div>
@@ -859,7 +791,7 @@ Like: www.facebook.com/keenthemes
                                             </div>
                                             <!--end:Tab pane-->
                                             <!--begin:Tab pane-->
-                                            <div class="tab-pane w-lg-600px" id="kt_app_header_menu_pages_account">
+                                            <div class="tab-pane w-lg-600px" id="kt_app_header_menu_pages_account" role="tabpanel">
                                                 <!--begin:Row-->
                                                 <div class="row">
                                                     <!--begin:Col-->
@@ -871,8 +803,7 @@ Like: www.facebook.com/keenthemes
                                                                 <!--begin:Menu item-->
                                                                 <div class="menu-item p-0 m-0">
                                                                     <!--begin:Menu link-->
-                                                                    <a href="../../demo1/dist/account/overview.html"
-                                                                       class="menu-link">
+                                                                    <a href="../../demo1/dist/account/overview.html" class="menu-link">
                                                                         <span class="menu-title">بررسی اجمالی</span>
                                                                     </a>
                                                                     <!--end:Menu link-->
@@ -881,8 +812,7 @@ Like: www.facebook.com/keenthemes
                                                                 <!--begin:Menu item-->
                                                                 <div class="menu-item p-0 m-0">
                                                                     <!--begin:Menu link-->
-                                                                    <a href="../../demo1/dist/account/settings.html"
-                                                                       class="menu-link">
+                                                                    <a href="../../demo1/dist/account/settings.html" class="menu-link">
                                                                         <span class="menu-title">تنظیمات</span>
                                                                     </a>
                                                                     <!--end:Menu link-->
@@ -891,8 +821,7 @@ Like: www.facebook.com/keenthemes
                                                                 <!--begin:Menu item-->
                                                                 <div class="menu-item p-0 m-0">
                                                                     <!--begin:Menu link-->
-                                                                    <a href="../../demo1/dist/account/security.html"
-                                                                       class="menu-link">
+                                                                    <a href="../../demo1/dist/account/security.html" class="menu-link">
                                                                         <span class="menu-title">امنیت</span>
                                                                     </a>
                                                                     <!--end:Menu link-->
@@ -901,8 +830,7 @@ Like: www.facebook.com/keenthemes
                                                                 <!--begin:Menu item-->
                                                                 <div class="menu-item p-0 m-0">
                                                                     <!--begin:Menu link-->
-                                                                    <a href="../../demo1/dist/account/activity.html"
-                                                                       class="menu-link">
+                                                                    <a href="../../demo1/dist/account/activity.html" class="menu-link">
                                                                         <span class="menu-title">فعالیت</span>
                                                                     </a>
                                                                     <!--end:Menu link-->
@@ -911,8 +839,7 @@ Like: www.facebook.com/keenthemes
                                                                 <!--begin:Menu item-->
                                                                 <div class="menu-item p-0 m-0">
                                                                     <!--begin:Menu link-->
-                                                                    <a href="../../demo1/dist/account/billing.html"
-                                                                       class="menu-link">
+                                                                    <a href="../../demo1/dist/account/billing.html" class="menu-link">
                                                                         <span class="menu-title">صورتحساب</span>
                                                                     </a>
                                                                     <!--end:Menu link-->
@@ -925,8 +852,7 @@ Like: www.facebook.com/keenthemes
                                                                 <!--begin:Menu item-->
                                                                 <div class="menu-item p-0 m-0">
                                                                     <!--begin:Menu link-->
-                                                                    <a href="../../demo1/dist/account/statements.html"
-                                                                       class="menu-link">
+                                                                    <a href="../../demo1/dist/account/statements.html" class="menu-link">
                                                                         <span class="menu-title">بیانه ها</span>
                                                                     </a>
                                                                     <!--end:Menu link-->
@@ -935,8 +861,7 @@ Like: www.facebook.com/keenthemes
                                                                 <!--begin:Menu item-->
                                                                 <div class="menu-item p-0 m-0">
                                                                     <!--begin:Menu link-->
-                                                                    <a href="../../demo1/dist/account/referrals.html"
-                                                                       class="menu-link">
+                                                                    <a href="../../demo1/dist/account/referrals.html" class="menu-link">
                                                                         <span class="menu-title">مراجعات</span>
                                                                     </a>
                                                                     <!--end:Menu link-->
@@ -945,8 +870,7 @@ Like: www.facebook.com/keenthemes
                                                                 <!--begin:Menu item-->
                                                                 <div class="menu-item p-0 m-0">
                                                                     <!--begin:Menu link-->
-                                                                    <a href="../../demo1/dist/account/api-keys.html"
-                                                                       class="menu-link">
+                                                                    <a href="../../demo1/dist/account/api-keys.html" class="menu-link">
                                                                         <span class="menu-title">کلید ای پی ای</span>
                                                                     </a>
                                                                     <!--end:Menu link-->
@@ -955,8 +879,7 @@ Like: www.facebook.com/keenthemes
                                                                 <!--begin:Menu item-->
                                                                 <div class="menu-item p-0 m-0">
                                                                     <!--begin:Menu link-->
-                                                                    <a href="../../demo1/dist/account/logs.html"
-                                                                       class="menu-link">
+                                                                    <a href="../../demo1/dist/account/logs.html" class="menu-link">
                                                                         <span class="menu-title">گزارش</span>
                                                                     </a>
                                                                     <!--end:Menu link-->
@@ -970,8 +893,7 @@ Like: www.facebook.com/keenthemes
                                                     <!--end:Col-->
                                                     <!--begin:Col-->
                                                     <div class="col-lg-7">
-                                                        <img src="/admin/src/assets/media/stock/900x600/46.jpg"
-                                                             class="rounded mw-100" alt=""/>
+                                                        <img src="/admin/src/assets/media/stock/900x600/46.jpg" class="rounded mw-100" alt="">
                                                     </div>
                                                     <!--end:Col-->
                                                 </div>
@@ -979,8 +901,7 @@ Like: www.facebook.com/keenthemes
                                             </div>
                                             <!--end:Tab pane-->
                                             <!--begin:Tab pane-->
-                                            <div class="tab-pane w-lg-1000px"
-                                                 id="kt_app_header_menu_pages_authentication">
+                                            <div class="tab-pane w-lg-1000px" id="kt_app_header_menu_pages_authentication" role="tabpanel">
                                                 <!--begin:Row-->
                                                 <div class="row">
                                                     <!--begin:Col-->
@@ -988,14 +909,12 @@ Like: www.facebook.com/keenthemes
                                                         <!--begin:Menu section-->
                                                         <div class="mb-6">
                                                             <!--begin:Menu heading-->
-                                                            <h4 class="fs-6 fs-lg-4 fw-bold mb-3 ms-4">شرکت قالب
-                                                                بندی</h4>
+                                                            <h4 class="fs-6 fs-lg-4 fw-bold mb-3 ms-4">شرکت قالب بندی</h4>
                                                             <!--end:Menu heading-->
                                                             <!--begin:Menu item-->
                                                             <div class="menu-item p-0 m-0">
                                                                 <!--begin:Menu link-->
-                                                                <a href="../../demo1/dist/authentication/layouts/corporate/ورود.html"
-                                                                   class="menu-link">
+                                                                <a href="../../demo1/dist/authentication/layouts/corporate/ورود.html" class="menu-link">
                                                                     <span class="menu-title">ورود</span>
                                                                 </a>
                                                                 <!--end:Menu link-->
@@ -1004,8 +923,7 @@ Like: www.facebook.com/keenthemes
                                                             <!--begin:Menu item-->
                                                             <div class="menu-item p-0 m-0">
                                                                 <!--begin:Menu link-->
-                                                                <a href="../../demo1/dist/authentication/layouts/corporate/signup.html"
-                                                                   class="menu-link">
+                                                                <a href="../../demo1/dist/authentication/layouts/corporate/signup.html" class="menu-link">
                                                                     <span class="menu-title">ثبت نام</span>
                                                                 </a>
                                                                 <!--end:Menu link-->
@@ -1014,8 +932,7 @@ Like: www.facebook.com/keenthemes
                                                             <!--begin:Menu item-->
                                                             <div class="menu-item p-0 m-0">
                                                                 <!--begin:Menu link-->
-                                                                <a href="../../demo1/dist/authentication/layouts/corporate/دو عاملی.html"
-                                                                   class="menu-link">
+                                                                <a href="../../demo1/dist/authentication/layouts/corporate/دو عاملی.html" class="menu-link">
                                                                     <span class="menu-title">دو عاملی</span>
                                                                 </a>
                                                                 <!--end:Menu link-->
@@ -1024,8 +941,7 @@ Like: www.facebook.com/keenthemes
                                                             <!--begin:Menu item-->
                                                             <div class="menu-item p-0 m-0">
                                                                 <!--begin:Menu link-->
-                                                                <a href="../../demo1/dist/authentication/layouts/corporate/reset-password.html"
-                                                                   class="menu-link">
+                                                                <a href="../../demo1/dist/authentication/layouts/corporate/reset-password.html" class="menu-link">
                                                                     <span class="menu-title">ریست کلمه عبور</span>
                                                                 </a>
                                                                 <!--end:Menu link-->
@@ -1034,8 +950,7 @@ Like: www.facebook.com/keenthemes
                                                             <!--begin:Menu item-->
                                                             <div class="menu-item p-0 m-0">
                                                                 <!--begin:Menu link-->
-                                                                <a href="../../demo1/dist/authentication/layouts/corporate/new-password.html"
-                                                                   class="menu-link">
+                                                                <a href="../../demo1/dist/authentication/layouts/corporate/new-password.html" class="menu-link">
                                                                     <span class="menu-title">کلمه عبور جدید</span>
                                                                 </a>
                                                                 <!--end:Menu link-->
@@ -1051,8 +966,7 @@ Like: www.facebook.com/keenthemes
                                                             <!--begin:Menu item-->
                                                             <div class="menu-item p-0 m-0">
                                                                 <!--begin:Menu link-->
-                                                                <a href="../../demo1/dist/authentication/layouts/overlay/ورود.html"
-                                                                   class="menu-link">
+                                                                <a href="../../demo1/dist/authentication/layouts/overlay/ورود.html" class="menu-link">
                                                                     <span class="menu-title">ورود</span>
                                                                 </a>
                                                                 <!--end:Menu link-->
@@ -1061,8 +975,7 @@ Like: www.facebook.com/keenthemes
                                                             <!--begin:Menu item-->
                                                             <div class="menu-item p-0 m-0">
                                                                 <!--begin:Menu link-->
-                                                                <a href="../../demo1/dist/authentication/layouts/overlay/signup.html"
-                                                                   class="menu-link">
+                                                                <a href="../../demo1/dist/authentication/layouts/overlay/signup.html" class="menu-link">
                                                                     <span class="menu-title">ثبت نام</span>
                                                                 </a>
                                                                 <!--end:Menu link-->
@@ -1071,8 +984,7 @@ Like: www.facebook.com/keenthemes
                                                             <!--begin:Menu item-->
                                                             <div class="menu-item p-0 m-0">
                                                                 <!--begin:Menu link-->
-                                                                <a href="../../demo1/dist/authentication/layouts/overlay/دو عاملی.html"
-                                                                   class="menu-link">
+                                                                <a href="../../demo1/dist/authentication/layouts/overlay/دو عاملی.html" class="menu-link">
                                                                     <span class="menu-title">دو عاملی</span>
                                                                 </a>
                                                                 <!--end:Menu link-->
@@ -1081,8 +993,7 @@ Like: www.facebook.com/keenthemes
                                                             <!--begin:Menu item-->
                                                             <div class="menu-item p-0 m-0">
                                                                 <!--begin:Menu link-->
-                                                                <a href="../../demo1/dist/authentication/layouts/overlay/reset-password.html"
-                                                                   class="menu-link">
+                                                                <a href="../../demo1/dist/authentication/layouts/overlay/reset-password.html" class="menu-link">
                                                                     <span class="menu-title">ریست کلمه عبور</span>
                                                                 </a>
                                                                 <!--end:Menu link-->
@@ -1091,8 +1002,7 @@ Like: www.facebook.com/keenthemes
                                                             <!--begin:Menu item-->
                                                             <div class="menu-item p-0 m-0">
                                                                 <!--begin:Menu link-->
-                                                                <a href="../../demo1/dist/authentication/layouts/overlay/new-password.html"
-                                                                   class="menu-link">
+                                                                <a href="../../demo1/dist/authentication/layouts/overlay/new-password.html" class="menu-link">
                                                                     <span class="menu-title">کلمه عبور جدید</span>
                                                                 </a>
                                                                 <!--end:Menu link-->
@@ -1107,14 +1017,12 @@ Like: www.facebook.com/keenthemes
                                                         <!--begin:Menu section-->
                                                         <div class="mb-6">
                                                             <!--begin:Menu heading-->
-                                                            <h4 class="fs-6 fs-lg-4 fw-bold mb-3 ms-4">قالب بندی
-                                                                خلاقانه</h4>
+                                                            <h4 class="fs-6 fs-lg-4 fw-bold mb-3 ms-4">قالب بندی خلاقانه</h4>
                                                             <!--end:Menu heading-->
                                                             <!--begin:Menu item-->
                                                             <div class="menu-item p-0 m-0">
                                                                 <!--begin:Menu link-->
-                                                                <a href="../../demo1/dist/authentication/layouts/creative/ورود.html"
-                                                                   class="menu-link">
+                                                                <a href="../../demo1/dist/authentication/layouts/creative/ورود.html" class="menu-link">
                                                                     <span class="menu-title">ورود</span>
                                                                 </a>
                                                                 <!--end:Menu link-->
@@ -1123,8 +1031,7 @@ Like: www.facebook.com/keenthemes
                                                             <!--begin:Menu item-->
                                                             <div class="menu-item p-0 m-0">
                                                                 <!--begin:Menu link-->
-                                                                <a href="../../demo1/dist/authentication/layouts/creative/signup.html"
-                                                                   class="menu-link">
+                                                                <a href="../../demo1/dist/authentication/layouts/creative/signup.html" class="menu-link">
                                                                     <span class="menu-title">ثبت نام</span>
                                                                 </a>
                                                                 <!--end:Menu link-->
@@ -1133,8 +1040,7 @@ Like: www.facebook.com/keenthemes
                                                             <!--begin:Menu item-->
                                                             <div class="menu-item p-0 m-0">
                                                                 <!--begin:Menu link-->
-                                                                <a href="../../demo1/dist/authentication/layouts/creative/دو عاملی.html"
-                                                                   class="menu-link">
+                                                                <a href="../../demo1/dist/authentication/layouts/creative/دو عاملی.html" class="menu-link">
                                                                     <span class="menu-title">دو عاملی</span>
                                                                 </a>
                                                                 <!--end:Menu link-->
@@ -1143,8 +1049,7 @@ Like: www.facebook.com/keenthemes
                                                             <!--begin:Menu item-->
                                                             <div class="menu-item p-0 m-0">
                                                                 <!--begin:Menu link-->
-                                                                <a href="../../demo1/dist/authentication/layouts/creative/reset-password.html"
-                                                                   class="menu-link">
+                                                                <a href="../../demo1/dist/authentication/layouts/creative/reset-password.html" class="menu-link">
                                                                     <span class="menu-title">ریست کلمه عبور</span>
                                                                 </a>
                                                                 <!--end:Menu link-->
@@ -1153,8 +1058,7 @@ Like: www.facebook.com/keenthemes
                                                             <!--begin:Menu item-->
                                                             <div class="menu-item p-0 m-0">
                                                                 <!--begin:Menu link-->
-                                                                <a href="../../demo1/dist/authentication/layouts/creative/new-password.html"
-                                                                   class="menu-link">
+                                                                <a href="../../demo1/dist/authentication/layouts/creative/new-password.html" class="menu-link">
                                                                     <span class="menu-title">کلمه عبور جدید</span>
                                                                 </a>
                                                                 <!--end:Menu link-->
@@ -1165,14 +1069,12 @@ Like: www.facebook.com/keenthemes
                                                         <!--begin:Menu section-->
                                                         <div class="mb-6">
                                                             <!--begin:Menu heading-->
-                                                            <h4 class="fs-6 fs-lg-4 fw-bold mb-3 ms-4">قالب بندی
-                                                                فانتزی</h4>
+                                                            <h4 class="fs-6 fs-lg-4 fw-bold mb-3 ms-4">قالب بندی فانتزی</h4>
                                                             <!--end:Menu heading-->
                                                             <!--begin:Menu item-->
                                                             <div class="menu-item p-0 m-0">
                                                                 <!--begin:Menu link-->
-                                                                <a href="../../demo1/dist/authentication/layouts/fancy/ورود.html"
-                                                                   class="menu-link">
+                                                                <a href="../../demo1/dist/authentication/layouts/fancy/ورود.html" class="menu-link">
                                                                     <span class="menu-title">ورود</span>
                                                                 </a>
                                                                 <!--end:Menu link-->
@@ -1181,8 +1083,7 @@ Like: www.facebook.com/keenthemes
                                                             <!--begin:Menu item-->
                                                             <div class="menu-item p-0 m-0">
                                                                 <!--begin:Menu link-->
-                                                                <a href="../../demo1/dist/authentication/layouts/fancy/signup.html"
-                                                                   class="menu-link">
+                                                                <a href="../../demo1/dist/authentication/layouts/fancy/signup.html" class="menu-link">
                                                                     <span class="menu-title">ثبت نام</span>
                                                                 </a>
                                                                 <!--end:Menu link-->
@@ -1191,8 +1092,7 @@ Like: www.facebook.com/keenthemes
                                                             <!--begin:Menu item-->
                                                             <div class="menu-item p-0 m-0">
                                                                 <!--begin:Menu link-->
-                                                                <a href="../../demo1/dist/authentication/layouts/fancy/دو عاملی.html"
-                                                                   class="menu-link">
+                                                                <a href="../../demo1/dist/authentication/layouts/fancy/دو عاملی.html" class="menu-link">
                                                                     <span class="menu-title">دو عاملی</span>
                                                                 </a>
                                                                 <!--end:Menu link-->
@@ -1201,8 +1101,7 @@ Like: www.facebook.com/keenthemes
                                                             <!--begin:Menu item-->
                                                             <div class="menu-item p-0 m-0">
                                                                 <!--begin:Menu link-->
-                                                                <a href="../../demo1/dist/authentication/layouts/fancy/reset-password.html"
-                                                                   class="menu-link">
+                                                                <a href="../../demo1/dist/authentication/layouts/fancy/reset-password.html" class="menu-link">
                                                                     <span class="menu-title">ریست کلمه عبور</span>
                                                                 </a>
                                                                 <!--end:Menu link-->
@@ -1211,8 +1110,7 @@ Like: www.facebook.com/keenthemes
                                                             <!--begin:Menu item-->
                                                             <div class="menu-item p-0 m-0">
                                                                 <!--begin:Menu link-->
-                                                                <a href="../../demo1/dist/authentication/layouts/fancy/new-password.html"
-                                                                   class="menu-link">
+                                                                <a href="../../demo1/dist/authentication/layouts/fancy/new-password.html" class="menu-link">
                                                                     <span class="menu-title">کلمه عبور جدید</span>
                                                                 </a>
                                                                 <!--end:Menu link-->
@@ -1232,8 +1130,7 @@ Like: www.facebook.com/keenthemes
                                                             <!--begin:Menu item-->
                                                             <div class="menu-item p-0 m-0">
                                                                 <!--begin:Menu link-->
-                                                                <a href="../../demo1/dist/authentication/extended/multi-steps-signup.html"
-                                                                   class="menu-link">
+                                                                <a href="../../demo1/dist/authentication/extended/multi-steps-signup.html" class="menu-link">
                                                                     <span class="menu-title">ثبت نام چند مرحله ای</span>
                                                                 </a>
                                                                 <!--end:Menu link-->
@@ -1242,8 +1139,7 @@ Like: www.facebook.com/keenthemes
                                                             <!--begin:Menu item-->
                                                             <div class="menu-item p-0 m-0">
                                                                 <!--begin:Menu link-->
-                                                                <a href="../../demo1/dist/authentication/general/welcome.html"
-                                                                   class="menu-link">
+                                                                <a href="../../demo1/dist/authentication/general/welcome.html" class="menu-link">
                                                                     <span class="menu-title">پیام خوش امد گویی</span>
                                                                 </a>
                                                                 <!--end:Menu link-->
@@ -1252,8 +1148,7 @@ Like: www.facebook.com/keenthemes
                                                             <!--begin:Menu item-->
                                                             <div class="menu-item p-0 m-0">
                                                                 <!--begin:Menu link-->
-                                                                <a href="../../demo1/dist/authentication/general/verify-email.html"
-                                                                   class="menu-link">
+                                                                <a href="../../demo1/dist/authentication/general/verify-email.html" class="menu-link">
                                                                     <span class="menu-title">تایید ایمیل</span>
                                                                 </a>
                                                                 <!--end:Menu link-->
@@ -1262,8 +1157,7 @@ Like: www.facebook.com/keenthemes
                                                             <!--begin:Menu item-->
                                                             <div class="menu-item p-0 m-0">
                                                                 <!--begin:Menu link-->
-                                                                <a href="../../demo1/dist/authentication/general/coming-soon.html"
-                                                                   class="menu-link">
+                                                                <a href="../../demo1/dist/authentication/general/coming-soon.html" class="menu-link">
                                                                     <span class="menu-title">بزودی</span>
                                                                 </a>
                                                                 <!--end:Menu link-->
@@ -1272,8 +1166,7 @@ Like: www.facebook.com/keenthemes
                                                             <!--begin:Menu item-->
                                                             <div class="menu-item p-0 m-0">
                                                                 <!--begin:Menu link-->
-                                                                <a href="../../demo1/dist/authentication/general/password-confirmation.html"
-                                                                   class="menu-link">
+                                                                <a href="../../demo1/dist/authentication/general/password-confirmation.html" class="menu-link">
                                                                     <span class="menu-title">تایید کلمه عبور</span>
                                                                 </a>
                                                                 <!--end:Menu link-->
@@ -1282,8 +1175,7 @@ Like: www.facebook.com/keenthemes
                                                             <!--begin:Menu item-->
                                                             <div class="menu-item p-0 m-0">
                                                                 <!--begin:Menu link-->
-                                                                <a href="../../demo1/dist/authentication/general/account-deactivated.html"
-                                                                   class="menu-link">
+                                                                <a href="../../demo1/dist/authentication/general/account-deactivated.html" class="menu-link">
                                                                     <span class="menu-title">اکانت غیرفعال</span>
                                                                 </a>
                                                                 <!--end:Menu link-->
@@ -1292,8 +1184,7 @@ Like: www.facebook.com/keenthemes
                                                             <!--begin:Menu item-->
                                                             <div class="menu-item p-0 m-0">
                                                                 <!--begin:Menu link-->
-                                                                <a href="../../demo1/dist/authentication/general/error-404.html"
-                                                                   class="menu-link">
+                                                                <a href="../../demo1/dist/authentication/general/error-404.html" class="menu-link">
                                                                     <span class="menu-title">خطایی 404</span>
                                                                 </a>
                                                                 <!--end:Menu link-->
@@ -1302,8 +1193,7 @@ Like: www.facebook.com/keenthemes
                                                             <!--begin:Menu item-->
                                                             <div class="menu-item p-0 m-0">
                                                                 <!--begin:Menu link-->
-                                                                <a href="../../demo1/dist/authentication/general/error-500.html"
-                                                                   class="menu-link">
+                                                                <a href="../../demo1/dist/authentication/general/error-500.html" class="menu-link">
                                                                     <span class="menu-title">خطایی 500</span>
                                                                 </a>
                                                                 <!--end:Menu link-->
@@ -1318,14 +1208,12 @@ Like: www.facebook.com/keenthemes
                                                         <!--begin:Menu section-->
                                                         <div class="mb-0">
                                                             <!--begin:Menu heading-->
-                                                            <h4 class="fs-6 fs-lg-4 fw-bold mb-3 ms-4">قالب های
-                                                                ایمیل</h4>
+                                                            <h4 class="fs-6 fs-lg-4 fw-bold mb-3 ms-4">قالب های ایمیل</h4>
                                                             <!--end:Menu heading-->
                                                             <!--begin:Menu item-->
                                                             <div class="menu-item p-0 m-0">
                                                                 <!--begin:Menu link-->
-                                                                <a href="../../demo1/dist/authentication/email/welcome-message.html"
-                                                                   class="menu-link">
+                                                                <a href="../../demo1/dist/authentication/email/welcome-message.html" class="menu-link">
                                                                     <span class="menu-title">پیام خوش امد گویی</span>
                                                                 </a>
                                                                 <!--end:Menu link-->
@@ -1334,8 +1222,7 @@ Like: www.facebook.com/keenthemes
                                                             <!--begin:Menu item-->
                                                             <div class="menu-item p-0 m-0">
                                                                 <!--begin:Menu link-->
-                                                                <a href="../../demo1/dist/authentication/email/reset-password.html"
-                                                                   class="menu-link">
+                                                                <a href="../../demo1/dist/authentication/email/reset-password.html" class="menu-link">
                                                                     <span class="menu-title">ریست کلمه عبور</span>
                                                                 </a>
                                                                 <!--end:Menu link-->
@@ -1344,8 +1231,7 @@ Like: www.facebook.com/keenthemes
                                                             <!--begin:Menu item-->
                                                             <div class="menu-item p-0 m-0">
                                                                 <!--begin:Menu link-->
-                                                                <a href="../../demo1/dist/authentication/email/subscription-confirmed.html"
-                                                                   class="menu-link">
+                                                                <a href="../../demo1/dist/authentication/email/subscription-confirmed.html" class="menu-link">
                                                                     <span class="menu-title">اشتراک تایید شده</span>
                                                                 </a>
                                                                 <!--end:Menu link-->
@@ -1354,8 +1240,7 @@ Like: www.facebook.com/keenthemes
                                                             <!--begin:Menu item-->
                                                             <div class="menu-item p-0 m-0">
                                                                 <!--begin:Menu link-->
-                                                                <a href="../../demo1/dist/authentication/email/card-declined.html"
-                                                                   class="menu-link">
+                                                                <a href="../../demo1/dist/authentication/email/card-declined.html" class="menu-link">
                                                                     <span class="menu-title">کارت اعتباری رد شده</span>
                                                                 </a>
                                                                 <!--end:Menu link-->
@@ -1364,8 +1249,7 @@ Like: www.facebook.com/keenthemes
                                                             <!--begin:Menu item-->
                                                             <div class="menu-item p-0 m-0">
                                                                 <!--begin:Menu link-->
-                                                                <a href="../../demo1/dist/authentication/email/promo-1.html"
-                                                                   class="menu-link">
+                                                                <a href="../../demo1/dist/authentication/email/promo-1.html" class="menu-link">
                                                                     <span class="menu-title">حرفه ای  1</span>
                                                                 </a>
                                                                 <!--end:Menu link-->
@@ -1374,8 +1258,7 @@ Like: www.facebook.com/keenthemes
                                                             <!--begin:Menu item-->
                                                             <div class="menu-item p-0 m-0">
                                                                 <!--begin:Menu link-->
-                                                                <a href="../../demo1/dist/authentication/email/promo-2.html"
-                                                                   class="menu-link">
+                                                                <a href="../../demo1/dist/authentication/email/promo-2.html" class="menu-link">
                                                                     <span class="menu-title">حرفه ای  2</span>
                                                                 </a>
                                                                 <!--end:Menu link-->
@@ -1384,8 +1267,7 @@ Like: www.facebook.com/keenthemes
                                                             <!--begin:Menu item-->
                                                             <div class="menu-item p-0 m-0">
                                                                 <!--begin:Menu link-->
-                                                                <a href="../../demo1/dist/authentication/email/promo-3.html"
-                                                                   class="menu-link">
+                                                                <a href="../../demo1/dist/authentication/email/promo-3.html" class="menu-link">
                                                                     <span class="menu-title">حرفه ای  3</span>
                                                                 </a>
                                                                 <!--end:Menu link-->
@@ -1400,7 +1282,7 @@ Like: www.facebook.com/keenthemes
                                             </div>
                                             <!--end:Tab pane-->
                                             <!--begin:Tab pane-->
-                                            <div class="tab-pane w-lg-1000px" id="kt_app_header_menu_pages_utilities">
+                                            <div class="tab-pane w-lg-1000px" id="kt_app_header_menu_pages_utilities" role="tabpanel">
                                                 <!--begin:Row-->
                                                 <div class="row">
                                                     <!--begin:Col-->
@@ -1412,16 +1294,13 @@ Like: www.facebook.com/keenthemes
                                                                 <!--begin:Menu section-->
                                                                 <div class="mb-0">
                                                                     <!--begin:Menu heading-->
-                                                                    <h4 class="fs-6 fs-lg-4 fw-bold mb-3 ms-4">عمومی
-                                                                        مودال ها</h4>
+                                                                    <h4 class="fs-6 fs-lg-4 fw-bold mb-3 ms-4">عمومی مودال ها</h4>
                                                                     <!--end:Menu heading-->
                                                                     <!--begin:Menu item-->
                                                                     <div class="menu-item p-0 m-0">
                                                                         <!--begin:Menu link-->
-                                                                        <a href="../../demo1/dist/utilities/modals/general/invite-friends.html"
-                                                                           class="menu-link">
-                                                                            <span
-                                                                                class="menu-title">دعوت از دوستان</span>
+                                                                        <a href="../../demo1/dist/utilities/modals/general/invite-friends.html" class="menu-link">
+                                                                            <span class="menu-title">دعوت از دوستان</span>
                                                                         </a>
                                                                         <!--end:Menu link-->
                                                                     </div>
@@ -1429,10 +1308,8 @@ Like: www.facebook.com/keenthemes
                                                                     <!--begin:Menu item-->
                                                                     <div class="menu-item p-0 m-0">
                                                                         <!--begin:Menu link-->
-                                                                        <a href="../../demo1/dist/utilities/modals/general/view-users.html"
-                                                                           class="menu-link">
-                                                                            <span
-                                                                                class="menu-title">نمایش کاربران</span>
+                                                                        <a href="../../demo1/dist/utilities/modals/general/view-users.html" class="menu-link">
+                                                                            <span class="menu-title">نمایش کاربران</span>
                                                                         </a>
                                                                         <!--end:Menu link-->
                                                                     </div>
@@ -1440,10 +1317,8 @@ Like: www.facebook.com/keenthemes
                                                                     <!--begin:Menu item-->
                                                                     <div class="menu-item p-0 m-0">
                                                                         <!--begin:Menu link-->
-                                                                        <a href="../../demo1/dist/utilities/modals/general/select-users.html"
-                                                                           class="menu-link">
-                                                                            <span
-                                                                                class="menu-title">انتخاب کاربران</span>
+                                                                        <a href="../../demo1/dist/utilities/modals/general/select-users.html" class="menu-link">
+                                                                            <span class="menu-title">انتخاب کاربران</span>
                                                                         </a>
                                                                         <!--end:Menu link-->
                                                                     </div>
@@ -1451,8 +1326,7 @@ Like: www.facebook.com/keenthemes
                                                                     <!--begin:Menu item-->
                                                                     <div class="menu-item p-0 m-0">
                                                                         <!--begin:Menu link-->
-                                                                        <a href="../../demo1/dist/utilities/modals/general/upgrade-plan.html"
-                                                                           class="menu-link">
+                                                                        <a href="../../demo1/dist/utilities/modals/general/upgrade-plan.html" class="menu-link">
                                                                             <span class="menu-title">ارتقا طرح</span>
                                                                         </a>
                                                                         <!--end:Menu link-->
@@ -1461,8 +1335,7 @@ Like: www.facebook.com/keenthemes
                                                                     <!--begin:Menu item-->
                                                                     <div class="menu-item p-0 m-0">
                                                                         <!--begin:Menu link-->
-                                                                        <a href="../../demo1/dist/utilities/modals/general/share-earn.html"
-                                                                           class="menu-link">
+                                                                        <a href="../../demo1/dist/utilities/modals/general/share-earn.html" class="menu-link">
                                                                             <span class="menu-title">به اشتراک بگذارید و کسب کنید</span>
                                                                         </a>
                                                                         <!--end:Menu link-->
@@ -1471,8 +1344,7 @@ Like: www.facebook.com/keenthemes
                                                                     <!--begin:Menu item-->
                                                                     <div class="menu-item p-0 m-0">
                                                                         <!--begin:Menu link-->
-                                                                        <a href="../../demo1/dist/utilities/modals/forms/new-target.html"
-                                                                           class="menu-link">
+                                                                        <a href="../../demo1/dist/utilities/modals/forms/new-target.html" class="menu-link">
                                                                             <span class="menu-title">هدف جدید</span>
                                                                         </a>
                                                                         <!--end:Menu link-->
@@ -1481,8 +1353,7 @@ Like: www.facebook.com/keenthemes
                                                                     <!--begin:Menu item-->
                                                                     <div class="menu-item p-0 m-0">
                                                                         <!--begin:Menu link-->
-                                                                        <a href="../../demo1/dist/utilities/modals/forms/new-card.html"
-                                                                           class="menu-link">
+                                                                        <a href="../../demo1/dist/utilities/modals/forms/new-card.html" class="menu-link">
                                                                             <span class="menu-title">کارت جدید</span>
                                                                         </a>
                                                                         <!--end:Menu link-->
@@ -1491,10 +1362,8 @@ Like: www.facebook.com/keenthemes
                                                                     <!--begin:Menu item-->
                                                                     <div class="menu-item p-0 m-0">
                                                                         <!--begin:Menu link-->
-                                                                        <a href="../../demo1/dist/utilities/modals/forms/new-address.html"
-                                                                           class="menu-link">
-                                                                            <span
-                                                                                class="menu-title">آدرس های جدید</span>
+                                                                        <a href="../../demo1/dist/utilities/modals/forms/new-address.html" class="menu-link">
+                                                                            <span class="menu-title">آدرس های جدید</span>
                                                                         </a>
                                                                         <!--end:Menu link-->
                                                                     </div>
@@ -1502,10 +1371,8 @@ Like: www.facebook.com/keenthemes
                                                                     <!--begin:Menu item-->
                                                                     <div class="menu-item p-0 m-0">
                                                                         <!--begin:Menu link-->
-                                                                        <a href="../../demo1/dist/utilities/modals/forms/create-api-key.html"
-                                                                           class="menu-link">
-                                                                            <span
-                                                                                class="menu-title">ساختن ای پی آی</span>
+                                                                        <a href="../../demo1/dist/utilities/modals/forms/create-api-key.html" class="menu-link">
+                                                                            <span class="menu-title">ساختن ای پی آی</span>
                                                                         </a>
                                                                         <!--end:Menu link-->
                                                                     </div>
@@ -1513,8 +1380,7 @@ Like: www.facebook.com/keenthemes
                                                                     <!--begin:Menu item-->
                                                                     <div class="menu-item p-0 m-0">
                                                                         <!--begin:Menu link-->
-                                                                        <a href="../../demo1/dist/utilities/modals/forms/bidding.html"
-                                                                           class="menu-link">
+                                                                        <a href="../../demo1/dist/utilities/modals/forms/bidding.html" class="menu-link">
                                                                             <span class="menu-title">مناقصه</span>
                                                                         </a>
                                                                         <!--end:Menu link-->
@@ -1529,14 +1395,12 @@ Like: www.facebook.com/keenthemes
                                                                 <!--begin:Menu section-->
                                                                 <div class="mb-6">
                                                                     <!--begin:Menu heading-->
-                                                                    <h4 class="fs-6 fs-lg-4 fw-bold mb-3 ms-4">پیشرفته
-                                                                        مودال ها</h4>
+                                                                    <h4 class="fs-6 fs-lg-4 fw-bold mb-3 ms-4">پیشرفته مودال ها</h4>
                                                                     <!--end:Menu heading-->
                                                                     <!--begin:Menu item-->
                                                                     <div class="menu-item p-0 m-0">
                                                                         <!--begin:Menu link-->
-                                                                        <a href="../../demo1/dist/utilities/modals/wizards/create-app.html"
-                                                                           class="menu-link">
+                                                                        <a href="../../demo1/dist/utilities/modals/wizards/create-app.html" class="menu-link">
                                                                             <span class="menu-title">ساختن اپ</span>
                                                                         </a>
                                                                         <!--end:Menu link-->
@@ -1545,8 +1409,7 @@ Like: www.facebook.com/keenthemes
                                                                     <!--begin:Menu item-->
                                                                     <div class="menu-item p-0 m-0">
                                                                         <!--begin:Menu link-->
-                                                                        <a href="../../demo1/dist/utilities/modals/wizards/create-campaign.html"
-                                                                           class="menu-link">
+                                                                        <a href="../../demo1/dist/utilities/modals/wizards/create-campaign.html" class="menu-link">
                                                                             <span class="menu-title">ساختن کمپین</span>
                                                                         </a>
                                                                         <!--end:Menu link-->
@@ -1555,10 +1418,8 @@ Like: www.facebook.com/keenthemes
                                                                     <!--begin:Menu item-->
                                                                     <div class="menu-item p-0 m-0">
                                                                         <!--begin:Menu link-->
-                                                                        <a href="../../demo1/dist/utilities/modals/wizards/create-account.html"
-                                                                           class="menu-link">
-                                                                            <span
-                                                                                class="menu-title">ساختن بیزینس </span>
+                                                                        <a href="../../demo1/dist/utilities/modals/wizards/create-account.html" class="menu-link">
+                                                                            <span class="menu-title">ساختن بیزینس </span>
                                                                         </a>
                                                                         <!--end:Menu link-->
                                                                     </div>
@@ -1566,8 +1427,7 @@ Like: www.facebook.com/keenthemes
                                                                     <!--begin:Menu item-->
                                                                     <div class="menu-item p-0 m-0">
                                                                         <!--begin:Menu link-->
-                                                                        <a href="../../demo1/dist/utilities/modals/wizards/create-project.html"
-                                                                           class="menu-link">
+                                                                        <a href="../../demo1/dist/utilities/modals/wizards/create-project.html" class="menu-link">
                                                                             <span class="menu-title">ساختن پروژه</span>
                                                                         </a>
                                                                         <!--end:Menu link-->
@@ -1576,8 +1436,7 @@ Like: www.facebook.com/keenthemes
                                                                     <!--begin:Menu item-->
                                                                     <div class="menu-item p-0 m-0">
                                                                         <!--begin:Menu link-->
-                                                                        <a href="../../demo1/dist/utilities/modals/wizards/top-up-wallet.html"
-                                                                           class="menu-link">
+                                                                        <a href="../../demo1/dist/utilities/modals/wizards/top-up-wallet.html" class="menu-link">
                                                                             <span class="menu-title">کیف پول</span>
                                                                         </a>
                                                                         <!--end:Menu link-->
@@ -1586,10 +1445,8 @@ Like: www.facebook.com/keenthemes
                                                                     <!--begin:Menu item-->
                                                                     <div class="menu-item p-0 m-0">
                                                                         <!--begin:Menu link-->
-                                                                        <a href="../../demo1/dist/utilities/modals/wizards/offer-a-deal.html"
-                                                                           class="menu-link">
-                                                                            <span
-                                                                                class="menu-title">پیشنهاد معامله</span>
+                                                                        <a href="../../demo1/dist/utilities/modals/wizards/offer-a-deal.html" class="menu-link">
+                                                                            <span class="menu-title">پیشنهاد معامله</span>
                                                                         </a>
                                                                         <!--end:Menu link-->
                                                                     </div>
@@ -1597,8 +1454,7 @@ Like: www.facebook.com/keenthemes
                                                                     <!--begin:Menu item-->
                                                                     <div class="menu-item p-0 m-0">
                                                                         <!--begin:Menu link-->
-                                                                        <a href="../../demo1/dist/utilities/modals/wizards/دو عاملی-authentication.html"
-                                                                           class="menu-link">
+                                                                        <a href="../../demo1/dist/utilities/modals/wizards/دو عاملی-authentication.html" class="menu-link">
                                                                             <span class="menu-title">احراز هویت دومرحله ای</span>
                                                                         </a>
                                                                         <!--end:Menu link-->
@@ -1609,14 +1465,12 @@ Like: www.facebook.com/keenthemes
                                                                 <!--begin:Menu section-->
                                                                 <div class="mb-0">
                                                                     <!--begin:Menu heading-->
-                                                                    <h4 class="fs-6 fs-lg-4 fw-bold mb-3 ms-4">
-                                                                        جستجو</h4>
+                                                                    <h4 class="fs-6 fs-lg-4 fw-bold mb-3 ms-4">جستجو</h4>
                                                                     <!--end:Menu heading-->
                                                                     <!--begin:Menu item-->
                                                                     <div class="menu-item p-0 m-0">
                                                                         <!--begin:Menu link-->
-                                                                        <a href="../../demo1/dist/utilities/search/horizontal.html"
-                                                                           class="menu-link">
+                                                                        <a href="../../demo1/dist/utilities/search/horizontal.html" class="menu-link">
                                                                             <span class="menu-title">افقی</span>
                                                                         </a>
                                                                         <!--end:Menu link-->
@@ -1625,8 +1479,7 @@ Like: www.facebook.com/keenthemes
                                                                     <!--begin:Menu item-->
                                                                     <div class="menu-item p-0 m-0">
                                                                         <!--begin:Menu link-->
-                                                                        <a href="../../demo1/dist/utilities/search/vertical.html"
-                                                                           class="menu-link">
+                                                                        <a href="../../demo1/dist/utilities/search/vertical.html" class="menu-link">
                                                                             <span class="menu-title">عمودی</span>
                                                                         </a>
                                                                         <!--end:Menu link-->
@@ -1635,8 +1488,7 @@ Like: www.facebook.com/keenthemes
                                                                     <!--begin:Menu item-->
                                                                     <div class="menu-item p-0 m-0">
                                                                         <!--begin:Menu link-->
-                                                                        <a href="../../demo1/dist/utilities/modals/search/users.html"
-                                                                           class="menu-link">
+                                                                        <a href="../../demo1/dist/utilities/modals/search/users.html" class="menu-link">
                                                                             <span class="menu-title">کاربران</span>
                                                                         </a>
                                                                         <!--end:Menu link-->
@@ -1645,10 +1497,8 @@ Like: www.facebook.com/keenthemes
                                                                     <!--begin:Menu item-->
                                                                     <div class="menu-item p-0 m-0">
                                                                         <!--begin:Menu link-->
-                                                                        <a href="../../demo1/dist/utilities/modals/search/select-location.html"
-                                                                           class="menu-link">
-                                                                            <span
-                                                                                class="menu-title">مکان را انتخاب کنید</span>
+                                                                        <a href="../../demo1/dist/utilities/modals/search/select-location.html" class="menu-link">
+                                                                            <span class="menu-title">مکان را انتخاب کنید</span>
                                                                         </a>
                                                                         <!--end:Menu link-->
                                                                     </div>
@@ -1662,14 +1512,12 @@ Like: www.facebook.com/keenthemes
                                                                 <!--begin:Menu section-->
                                                                 <div class="mb-0">
                                                                     <!--begin:Menu heading-->
-                                                                    <h4 class="fs-6 fs-lg-4 fw-bold mb-3 ms-4">
-                                                                        ویزارد</h4>
+                                                                    <h4 class="fs-6 fs-lg-4 fw-bold mb-3 ms-4">ویزارد</h4>
                                                                     <!--end:Menu heading-->
                                                                     <!--begin:Menu item-->
                                                                     <div class="menu-item p-0 m-0">
                                                                         <!--begin:Menu link-->
-                                                                        <a href="../../demo1/dist/utilities/wizards/horizontal.html"
-                                                                           class="menu-link">
+                                                                        <a href="../../demo1/dist/utilities/wizards/horizontal.html" class="menu-link">
                                                                             <span class="menu-title">افقی</span>
                                                                         </a>
                                                                         <!--end:Menu link-->
@@ -1678,8 +1526,7 @@ Like: www.facebook.com/keenthemes
                                                                     <!--begin:Menu item-->
                                                                     <div class="menu-item p-0 m-0">
                                                                         <!--begin:Menu link-->
-                                                                        <a href="../../demo1/dist/utilities/wizards/vertical.html"
-                                                                           class="menu-link">
+                                                                        <a href="../../demo1/dist/utilities/wizards/vertical.html" class="menu-link">
                                                                             <span class="menu-title">عمودی</span>
                                                                         </a>
                                                                         <!--end:Menu link-->
@@ -1688,8 +1535,7 @@ Like: www.facebook.com/keenthemes
                                                                     <!--begin:Menu item-->
                                                                     <div class="menu-item p-0 m-0">
                                                                         <!--begin:Menu link-->
-                                                                        <a href="../../demo1/dist/utilities/wizards/دو عاملی-authentication.html"
-                                                                           class="menu-link">
+                                                                        <a href="../../demo1/dist/utilities/wizards/دو عاملی-authentication.html" class="menu-link">
                                                                             <span class="menu-title">احراز هویت دومرحله ای</span>
                                                                         </a>
                                                                         <!--end:Menu link-->
@@ -1698,8 +1544,7 @@ Like: www.facebook.com/keenthemes
                                                                     <!--begin:Menu item-->
                                                                     <div class="menu-item p-0 m-0">
                                                                         <!--begin:Menu link-->
-                                                                        <a href="../../demo1/dist/utilities/wizards/create-app.html"
-                                                                           class="menu-link">
+                                                                        <a href="../../demo1/dist/utilities/wizards/create-app.html" class="menu-link">
                                                                             <span class="menu-title">ساختن اپ</span>
                                                                         </a>
                                                                         <!--end:Menu link-->
@@ -1708,8 +1553,7 @@ Like: www.facebook.com/keenthemes
                                                                     <!--begin:Menu item-->
                                                                     <div class="menu-item p-0 m-0">
                                                                         <!--begin:Menu link-->
-                                                                        <a href="../../demo1/dist/utilities/wizards/create-campaign.html"
-                                                                           class="menu-link">
+                                                                        <a href="../../demo1/dist/utilities/wizards/create-campaign.html" class="menu-link">
                                                                             <span class="menu-title">ساختن کمپین</span>
                                                                         </a>
                                                                         <!--end:Menu link-->
@@ -1718,8 +1562,7 @@ Like: www.facebook.com/keenthemes
                                                                     <!--begin:Menu item-->
                                                                     <div class="menu-item p-0 m-0">
                                                                         <!--begin:Menu link-->
-                                                                        <a href="../../demo1/dist/utilities/wizards/create-account.html"
-                                                                           class="menu-link">
+                                                                        <a href="../../demo1/dist/utilities/wizards/create-account.html" class="menu-link">
                                                                             <span class="menu-title">ساختن اکانت</span>
                                                                         </a>
                                                                         <!--end:Menu link-->
@@ -1728,8 +1571,7 @@ Like: www.facebook.com/keenthemes
                                                                     <!--begin:Menu item-->
                                                                     <div class="menu-item p-0 m-0">
                                                                         <!--begin:Menu link-->
-                                                                        <a href="../../demo1/dist/utilities/wizards/create-project.html"
-                                                                           class="menu-link">
+                                                                        <a href="../../demo1/dist/utilities/wizards/create-project.html" class="menu-link">
                                                                             <span class="menu-title">ساختن پروژه</span>
                                                                         </a>
                                                                         <!--end:Menu link-->
@@ -1738,8 +1580,7 @@ Like: www.facebook.com/keenthemes
                                                                     <!--begin:Menu item-->
                                                                     <div class="menu-item p-0 m-0">
                                                                         <!--begin:Menu link-->
-                                                                        <a href="../../demo1/dist/utilities/modals/wizards/top-up-wallet.html"
-                                                                           class="menu-link">
+                                                                        <a href="../../demo1/dist/utilities/modals/wizards/top-up-wallet.html" class="menu-link">
                                                                             <span class="menu-title">کیف پول</span>
                                                                         </a>
                                                                         <!--end:Menu link-->
@@ -1748,10 +1589,8 @@ Like: www.facebook.com/keenthemes
                                                                     <!--begin:Menu item-->
                                                                     <div class="menu-item p-0 m-0">
                                                                         <!--begin:Menu link-->
-                                                                        <a href="../../demo1/dist/utilities/wizards/offer-a-deal.html"
-                                                                           class="menu-link">
-                                                                            <span
-                                                                                class="menu-title">پیشنهاد معامله</span>
+                                                                        <a href="../../demo1/dist/utilities/wizards/offer-a-deal.html" class="menu-link">
+                                                                            <span class="menu-title">پیشنهاد معامله</span>
                                                                         </a>
                                                                         <!--end:Menu link-->
                                                                     </div>
@@ -1766,8 +1605,7 @@ Like: www.facebook.com/keenthemes
                                                     <!--end:Col-->
                                                     <!--begin:Col-->
                                                     <div class="col-lg-5 pe-lg-5">
-                                                        <img src="/admin/src/assets/media/stock/600x600/img-84.jpg"
-                                                             class="rounded mw-100" alt=""/>
+                                                        <img src="/admin/src/assets/media/stock/600x600/img-84.jpg" class="rounded mw-100" alt="">
                                                     </div>
                                                     <!--end:Col-->
                                                 </div>
@@ -1775,7 +1613,7 @@ Like: www.facebook.com/keenthemes
                                             </div>
                                             <!--end:Tab pane-->
                                             <!--begin:Tab pane-->
-                                            <div class="tab-pane w-lg-500px" id="kt_app_header_menu_pages_widgets">
+                                            <div class="tab-pane w-lg-500px" id="kt_app_header_menu_pages_widgets" role="tabpanel">
                                                 <!--begin:Row-->
                                                 <div class="row">
                                                     <!--begin:Col-->
@@ -1783,8 +1621,7 @@ Like: www.facebook.com/keenthemes
                                                         <!--begin:Menu item-->
                                                         <div class="menu-item p-0 m-0">
                                                             <!--begin:Menu link-->
-                                                            <a href="../../demo1/dist/widgets/lists.html"
-                                                               class="menu-link">
+                                                            <a href="../../demo1/dist/widgets/lists.html" class="menu-link">
                                                                 <span class="menu-title">لیست ها</span>
                                                             </a>
                                                             <!--end:Menu link-->
@@ -1793,8 +1630,7 @@ Like: www.facebook.com/keenthemes
                                                         <!--begin:Menu item-->
                                                         <div class="menu-item p-0 m-0">
                                                             <!--begin:Menu link-->
-                                                            <a href="../../demo1/dist/widgets/statistics.html"
-                                                               class="menu-link">
+                                                            <a href="../../demo1/dist/widgets/statistics.html" class="menu-link">
                                                                 <span class="menu-title">امار</span>
                                                             </a>
                                                             <!--end:Menu link-->
@@ -1803,8 +1639,7 @@ Like: www.facebook.com/keenthemes
                                                         <!--begin:Menu item-->
                                                         <div class="menu-item p-0 m-0">
                                                             <!--begin:Menu link-->
-                                                            <a href="../../demo1/dist/widgets/charts.html"
-                                                               class="menu-link">
+                                                            <a href="../../demo1/dist/widgets/charts.html" class="menu-link">
                                                                 <span class="menu-title">نمودار ها</span>
                                                             </a>
                                                             <!--end:Menu link-->
@@ -1813,8 +1648,7 @@ Like: www.facebook.com/keenthemes
                                                         <!--begin:Menu item-->
                                                         <div class="menu-item p-0 m-0">
                                                             <!--begin:Menu link-->
-                                                            <a href="../../demo1/dist/widgets/mixed.html"
-                                                               class="menu-link">
+                                                            <a href="../../demo1/dist/widgets/mixed.html" class="menu-link">
                                                                 <span class="menu-title">مخلوط</span>
                                                             </a>
                                                             <!--end:Menu link-->
@@ -1823,8 +1657,7 @@ Like: www.facebook.com/keenthemes
                                                         <!--begin:Menu item-->
                                                         <div class="menu-item p-0 m-0">
                                                             <!--begin:Menu link-->
-                                                            <a href="../../demo1/dist/widgets/tables.html"
-                                                               class="menu-link">
+                                                            <a href="../../demo1/dist/widgets/tables.html" class="menu-link">
                                                                 <span class="menu-title">جداول</span>
                                                             </a>
                                                             <!--end:Menu link-->
@@ -1833,8 +1666,7 @@ Like: www.facebook.com/keenthemes
                                                         <!--begin:Menu item-->
                                                         <div class="menu-item p-0 m-0">
                                                             <!--begin:Menu link-->
-                                                            <a href="../../demo1/dist/widgets/feeds.html"
-                                                               class="menu-link">
+                                                            <a href="../../demo1/dist/widgets/feeds.html" class="menu-link">
                                                                 <span class="menu-title">تغذیه</span>
                                                             </a>
                                                             <!--end:Menu link-->
@@ -1844,8 +1676,7 @@ Like: www.facebook.com/keenthemes
                                                     <!--end:Col-->
                                                     <!--begin:Col-->
                                                     <div class="col-lg-8">
-                                                        <img src="/admin/src/assets/media/stock/900x600/44.jpg"
-                                                             class="rounded mw-100" alt=""/>
+                                                        <img src="/admin/src/assets/media/stock/900x600/44.jpg" class="rounded mw-100" alt="">
                                                     </div>
                                                     <!--end:Col-->
                                                 </div>
@@ -1861,9 +1692,7 @@ Like: www.facebook.com/keenthemes
                             </div>
                             <!--end:Menu item-->
                             <!--begin:Menu item-->
-                            <div data-kt-menu-trigger="{default: 'click', lg: 'hover'}"
-                                 data-kt-menu-placement="bottom-end"
-                                 class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
+                            <div data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="bottom-end" class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
                                 <!--begin:Menu link-->
                                 <span class="menu-link">
 											<span class="menu-title">اپلیکیشن</span>
@@ -1871,11 +1700,9 @@ Like: www.facebook.com/keenthemes
 										</span>
                                 <!--end:Menu link-->
                                 <!--begin:Menu sub-->
-                                <div
-                                    class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown px-lg-2 py-lg-4 w-lg-250px">
+                                <div class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown px-lg-2 py-lg-4 w-lg-250px" style="">
                                     <!--begin:Menu item-->
-                                    <div data-kt-menu-trigger="{default:'click', lg: 'hover'}"
-                                         data-kt-menu-placement="left-start" class="menu-item menu-lg-down-accordion">
+                                    <div data-kt-menu-trigger="{default:'click', lg: 'hover'}" data-kt-menu-placement="left-start" class="menu-item menu-lg-down-accordion">
                                         <!--begin:Menu link-->
                                         <span class="menu-link">
 													<span class="menu-icon">
@@ -1889,8 +1716,7 @@ Like: www.facebook.com/keenthemes
 												</span>
                                         <!--end:Menu link-->
                                         <!--begin:Menu sub-->
-                                        <div
-                                            class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown menu-active-bg px-lg-2 py-lg-4 w-lg-225px">
+                                        <div class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown menu-active-bg px-lg-2 py-lg-4 w-lg-225px">
                                             <!--begin:Menu item-->
                                             <div class="menu-item">
                                                 <!--begin:Menu link-->
@@ -1966,8 +1792,7 @@ Like: www.facebook.com/keenthemes
                                             <!--begin:Menu item-->
                                             <div class="menu-item">
                                                 <!--begin:Menu link-->
-                                                <a class="menu-link"
-                                                   href="../../demo1/dist/apps/projects/activity.html">
+                                                <a class="menu-link" href="../../demo1/dist/apps/projects/activity.html">
 															<span class="menu-bullet">
 																<span class="bullet bullet-dot"></span>
 															</span>
@@ -1979,8 +1804,7 @@ Like: www.facebook.com/keenthemes
                                             <!--begin:Menu item-->
                                             <div class="menu-item">
                                                 <!--begin:Menu link-->
-                                                <a class="menu-link"
-                                                   href="../../demo1/dist/apps/projects/settings.html">
+                                                <a class="menu-link" href="../../demo1/dist/apps/projects/settings.html">
 															<span class="menu-bullet">
 																<span class="bullet bullet-dot"></span>
 															</span>
@@ -1994,8 +1818,7 @@ Like: www.facebook.com/keenthemes
                                     </div>
                                     <!--end:Menu item-->
                                     <!--begin:Menu item-->
-                                    <div data-kt-menu-trigger="{default:'click', lg: 'hover'}"
-                                         data-kt-menu-placement="left-start" class="menu-item menu-lg-down-accordion">
+                                    <div data-kt-menu-trigger="{default:'click', lg: 'hover'}" data-kt-menu-placement="left-start" class="menu-item menu-lg-down-accordion">
                                         <!--begin:Menu link-->
                                         <span class="menu-link">
 													<span class="menu-icon">
@@ -2006,12 +1829,9 @@ Like: www.facebook.com/keenthemes
 												</span>
                                         <!--end:Menu link-->
                                         <!--begin:Menu sub-->
-                                        <div
-                                            class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown menu-active-bg px-lg-2 py-lg-4 w-lg-225px">
+                                        <div class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown menu-active-bg px-lg-2 py-lg-4 w-lg-225px">
                                             <!--begin:Menu item-->
-                                            <div data-kt-menu-trigger="{default:'click', lg: 'hover'}"
-                                                 data-kt-menu-placement="left-start"
-                                                 class="menu-item menu-lg-down-accordion">
+                                            <div data-kt-menu-trigger="{default:'click', lg: 'hover'}" data-kt-menu-placement="left-start" class="menu-item menu-lg-down-accordion">
                                                 <!--begin:Menu link-->
                                                 <span class="menu-link">
 															<span class="menu-bullet">
@@ -2022,13 +1842,11 @@ Like: www.facebook.com/keenthemes
 														</span>
                                                 <!--end:Menu link-->
                                                 <!--begin:Menu sub-->
-                                                <div
-                                                    class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown menu-active-bg px-lg-2 py-lg-4 w-lg-225px">
+                                                <div class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown menu-active-bg px-lg-2 py-lg-4 w-lg-225px">
                                                     <!--begin:Menu item-->
                                                     <div class="menu-item">
                                                         <!--begin:Menu link-->
-                                                        <a class="menu-link"
-                                                           href="../../demo1/dist/apps/ecommerce/catalog/products.html">
+                                                        <a class="menu-link" href="../../demo1/dist/apps/ecommerce/catalog/products.html">
 																	<span class="menu-bullet">
 																		<span class="bullet bullet-dot"></span>
 																	</span>
@@ -2040,8 +1858,7 @@ Like: www.facebook.com/keenthemes
                                                     <!--begin:Menu item-->
                                                     <div class="menu-item">
                                                         <!--begin:Menu link-->
-                                                        <a class="menu-link"
-                                                           href="../../demo1/dist/apps/ecommerce/catalog/categories.html">
+                                                        <a class="menu-link" href="../../demo1/dist/apps/ecommerce/catalog/categories.html">
 																	<span class="menu-bullet">
 																		<span class="bullet bullet-dot"></span>
 																	</span>
@@ -2053,8 +1870,7 @@ Like: www.facebook.com/keenthemes
                                                     <!--begin:Menu item-->
                                                     <div class="menu-item">
                                                         <!--begin:Menu link-->
-                                                        <a class="menu-link"
-                                                           href="../../demo1/dist/apps/ecommerce/catalog/add-product.html">
+                                                        <a class="menu-link" href="../../demo1/dist/apps/ecommerce/catalog/add-product.html">
 																	<span class="menu-bullet">
 																		<span class="bullet bullet-dot"></span>
 																	</span>
@@ -2066,8 +1882,7 @@ Like: www.facebook.com/keenthemes
                                                     <!--begin:Menu item-->
                                                     <div class="menu-item">
                                                         <!--begin:Menu link-->
-                                                        <a class="menu-link"
-                                                           href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html">
+                                                        <a class="menu-link" href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html">
 																	<span class="menu-bullet">
 																		<span class="bullet bullet-dot"></span>
 																	</span>
@@ -2079,8 +1894,7 @@ Like: www.facebook.com/keenthemes
                                                     <!--begin:Menu item-->
                                                     <div class="menu-item">
                                                         <!--begin:Menu link-->
-                                                        <a class="menu-link"
-                                                           href="../../demo1/dist/apps/ecommerce/catalog/add-category.html">
+                                                        <a class="menu-link" href="../../demo1/dist/apps/ecommerce/catalog/add-category.html">
 																	<span class="menu-bullet">
 																		<span class="bullet bullet-dot"></span>
 																	</span>
@@ -2092,8 +1906,7 @@ Like: www.facebook.com/keenthemes
                                                     <!--begin:Menu item-->
                                                     <div class="menu-item">
                                                         <!--begin:Menu link-->
-                                                        <a class="menu-link"
-                                                           href="../../demo1/dist/apps/ecommerce/catalog/edit-category.html">
+                                                        <a class="menu-link" href="../../demo1/dist/apps/ecommerce/catalog/edit-category.html">
 																	<span class="menu-bullet">
 																		<span class="bullet bullet-dot"></span>
 																	</span>
@@ -2107,8 +1920,7 @@ Like: www.facebook.com/keenthemes
                                             </div>
                                             <!--end:Menu item-->
                                             <!--begin:Menu item-->
-                                            <div data-kt-menu-trigger="click"
-                                                 class="menu-item menu-accordion menu-sub-indention">
+                                            <div data-kt-menu-trigger="click" class="menu-item menu-accordion menu-sub-indention">
                                                 <!--begin:Menu link-->
                                                 <span class="menu-link">
 															<span class="menu-bullet">
@@ -2123,8 +1935,7 @@ Like: www.facebook.com/keenthemes
                                                     <!--begin:Menu item-->
                                                     <div class="menu-item">
                                                         <!--begin:Menu link-->
-                                                        <a class="menu-link"
-                                                           href="../../demo1/dist/apps/ecommerce/sales/listing.html">
+                                                        <a class="menu-link" href="../../demo1/dist/apps/ecommerce/sales/listing.html">
 																	<span class="menu-bullet">
 																		<span class="bullet bullet-dot"></span>
 																	</span>
@@ -2136,8 +1947,7 @@ Like: www.facebook.com/keenthemes
                                                     <!--begin:Menu item-->
                                                     <div class="menu-item">
                                                         <!--begin:Menu link-->
-                                                        <a class="menu-link"
-                                                           href="../../demo1/dist/apps/ecommerce/sales/details.html">
+                                                        <a class="menu-link" href="../../demo1/dist/apps/ecommerce/sales/details.html">
 																	<span class="menu-bullet">
 																		<span class="bullet bullet-dot"></span>
 																	</span>
@@ -2149,8 +1959,7 @@ Like: www.facebook.com/keenthemes
                                                     <!--begin:Menu item-->
                                                     <div class="menu-item">
                                                         <!--begin:Menu link-->
-                                                        <a class="menu-link"
-                                                           href="../../demo1/dist/apps/ecommerce/sales/add-order.html">
+                                                        <a class="menu-link" href="../../demo1/dist/apps/ecommerce/sales/add-order.html">
 																	<span class="menu-bullet">
 																		<span class="bullet bullet-dot"></span>
 																	</span>
@@ -2162,8 +1971,7 @@ Like: www.facebook.com/keenthemes
                                                     <!--begin:Menu item-->
                                                     <div class="menu-item">
                                                         <!--begin:Menu link-->
-                                                        <a class="menu-link"
-                                                           href="../../demo1/dist/apps/ecommerce/sales/edit-order.html">
+                                                        <a class="menu-link" href="../../demo1/dist/apps/ecommerce/sales/edit-order.html">
 																	<span class="menu-bullet">
 																		<span class="bullet bullet-dot"></span>
 																	</span>
@@ -2177,8 +1985,7 @@ Like: www.facebook.com/keenthemes
                                             </div>
                                             <!--end:Menu item-->
                                             <!--begin:Menu item-->
-                                            <div data-kt-menu-trigger="click"
-                                                 class="menu-item menu-accordion menu-sub-indention">
+                                            <div data-kt-menu-trigger="click" class="menu-item menu-accordion menu-sub-indention">
                                                 <!--begin:Menu link-->
                                                 <span class="menu-link">
 															<span class="menu-bullet">
@@ -2193,8 +2000,7 @@ Like: www.facebook.com/keenthemes
                                                     <!--begin:Menu item-->
                                                     <div class="menu-item">
                                                         <!--begin:Menu link-->
-                                                        <a class="menu-link"
-                                                           href="../../demo1/dist/apps/ecommerce/customers/listing.html">
+                                                        <a class="menu-link" href="../../demo1/dist/apps/ecommerce/customers/listing.html">
 																	<span class="menu-bullet">
 																		<span class="bullet bullet-dot"></span>
 																	</span>
@@ -2206,8 +2012,7 @@ Like: www.facebook.com/keenthemes
                                                     <!--begin:Menu item-->
                                                     <div class="menu-item">
                                                         <!--begin:Menu link-->
-                                                        <a class="menu-link"
-                                                           href="../../demo1/dist/apps/ecommerce/customers/details.html">
+                                                        <a class="menu-link" href="../../demo1/dist/apps/ecommerce/customers/details.html">
 																	<span class="menu-bullet">
 																		<span class="bullet bullet-dot"></span>
 																	</span>
@@ -2221,8 +2026,7 @@ Like: www.facebook.com/keenthemes
                                             </div>
                                             <!--end:Menu item-->
                                             <!--begin:Menu item-->
-                                            <div data-kt-menu-trigger="click"
-                                                 class="menu-item menu-accordion menu-sub-indention">
+                                            <div data-kt-menu-trigger="click" class="menu-item menu-accordion menu-sub-indention">
                                                 <!--begin:Menu link-->
                                                 <span class="menu-link">
 															<span class="menu-bullet">
@@ -2237,8 +2041,7 @@ Like: www.facebook.com/keenthemes
                                                     <!--begin:Menu item-->
                                                     <div class="menu-item">
                                                         <!--begin:Menu link-->
-                                                        <a class="menu-link"
-                                                           href="../../demo1/dist/apps/ecommerce/reports/view.html">
+                                                        <a class="menu-link" href="../../demo1/dist/apps/ecommerce/reports/view.html">
 																	<span class="menu-bullet">
 																		<span class="bullet bullet-dot"></span>
 																	</span>
@@ -2250,8 +2053,7 @@ Like: www.facebook.com/keenthemes
                                                     <!--begin:Menu item-->
                                                     <div class="menu-item">
                                                         <!--begin:Menu link-->
-                                                        <a class="menu-link"
-                                                           href="../../demo1/dist/apps/ecommerce/reports/sales.html">
+                                                        <a class="menu-link" href="../../demo1/dist/apps/ecommerce/reports/sales.html">
 																	<span class="menu-bullet">
 																		<span class="bullet bullet-dot"></span>
 																	</span>
@@ -2263,8 +2065,7 @@ Like: www.facebook.com/keenthemes
                                                     <!--begin:Menu item-->
                                                     <div class="menu-item">
                                                         <!--begin:Menu link-->
-                                                        <a class="menu-link"
-                                                           href="../../demo1/dist/apps/ecommerce/reports/returns.html">
+                                                        <a class="menu-link" href="../../demo1/dist/apps/ecommerce/reports/returns.html">
 																	<span class="menu-bullet">
 																		<span class="bullet bullet-dot"></span>
 																	</span>
@@ -2276,8 +2077,7 @@ Like: www.facebook.com/keenthemes
                                                     <!--begin:Menu item-->
                                                     <div class="menu-item">
                                                         <!--begin:Menu link-->
-                                                        <a class="menu-link"
-                                                           href="../../demo1/dist/apps/ecommerce/reports/customer-orders.html">
+                                                        <a class="menu-link" href="../../demo1/dist/apps/ecommerce/reports/customer-orders.html">
 																	<span class="menu-bullet">
 																		<span class="bullet bullet-dot"></span>
 																	</span>
@@ -2289,8 +2089,7 @@ Like: www.facebook.com/keenthemes
                                                     <!--begin:Menu item-->
                                                     <div class="menu-item">
                                                         <!--begin:Menu link-->
-                                                        <a class="menu-link"
-                                                           href="../../demo1/dist/apps/ecommerce/reports/shipping.html">
+                                                        <a class="menu-link" href="../../demo1/dist/apps/ecommerce/reports/shipping.html">
 																	<span class="menu-bullet">
 																		<span class="bullet bullet-dot"></span>
 																	</span>
@@ -2306,8 +2105,7 @@ Like: www.facebook.com/keenthemes
                                             <!--begin:Menu item-->
                                             <div class="menu-item">
                                                 <!--begin:Menu link-->
-                                                <a class="menu-link"
-                                                   href="../../demo1/dist/apps/ecommerce/settings.html">
+                                                <a class="menu-link" href="../../demo1/dist/apps/ecommerce/settings.html">
 															<span class="menu-bullet">
 																<span class="bullet bullet-dot"></span>
 															</span>
@@ -2321,8 +2119,7 @@ Like: www.facebook.com/keenthemes
                                     </div>
                                     <!--end:Menu item-->
                                     <!--begin:Menu item-->
-                                    <div data-kt-menu-trigger="{default:'click', lg: 'hover'}"
-                                         data-kt-menu-placement="left-start" class="menu-item menu-lg-down-accordion">
+                                    <div data-kt-menu-trigger="{default:'click', lg: 'hover'}" data-kt-menu-placement="left-start" class="menu-item menu-lg-down-accordion">
                                         <!--begin:Menu link-->
                                         <span class="menu-link">
 													<span class="menu-icon">
@@ -2336,13 +2133,11 @@ Like: www.facebook.com/keenthemes
 												</span>
                                         <!--end:Menu link-->
                                         <!--begin:Menu sub-->
-                                        <div
-                                            class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown menu-active-bg px-lg-2 py-lg-4 w-lg-225px">
+                                        <div class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown menu-active-bg px-lg-2 py-lg-4 w-lg-225px">
                                             <!--begin:Menu item-->
                                             <div class="menu-item">
                                                 <!--begin:Menu link-->
-                                                <a class="menu-link"
-                                                   href="../../demo1/dist/apps/support-center/overview.html">
+                                                <a class="menu-link" href="../../demo1/dist/apps/support-center/overview.html">
 															<span class="menu-bullet">
 																<span class="bullet bullet-dot"></span>
 															</span>
@@ -2352,9 +2147,7 @@ Like: www.facebook.com/keenthemes
                                             </div>
                                             <!--end:Menu item-->
                                             <!--begin:Menu item-->
-                                            <div data-kt-menu-trigger="{default:'click', lg: 'hover'}"
-                                                 data-kt-menu-placement="left-start"
-                                                 class="menu-item menu-lg-down-accordion">
+                                            <div data-kt-menu-trigger="{default:'click', lg: 'hover'}" data-kt-menu-placement="left-start" class="menu-item menu-lg-down-accordion">
                                                 <!--begin:Menu link-->
                                                 <span class="menu-link">
 															<span class="menu-bullet">
@@ -2365,13 +2158,11 @@ Like: www.facebook.com/keenthemes
 														</span>
                                                 <!--end:Menu link-->
                                                 <!--begin:Menu sub-->
-                                                <div
-                                                    class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown menu-active-bg px-lg-2 py-lg-4 w-lg-225px">
+                                                <div class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown menu-active-bg px-lg-2 py-lg-4 w-lg-225px">
                                                     <!--begin:Menu item-->
                                                     <div class="menu-item">
                                                         <!--begin:Menu link-->
-                                                        <a class="menu-link"
-                                                           href="../../demo1/dist/apps/support-center/tickets/list.html">
+                                                        <a class="menu-link" href="../../demo1/dist/apps/support-center/tickets/list.html">
 																	<span class="menu-bullet">
 																		<span class="bullet bullet-dot"></span>
 																	</span>
@@ -2383,8 +2174,7 @@ Like: www.facebook.com/keenthemes
                                                     <!--begin:Menu item-->
                                                     <div class="menu-item">
                                                         <!--begin:Menu link-->
-                                                        <a class="menu-link"
-                                                           href="../../demo1/dist/apps/support-center/tickets/view.html">
+                                                        <a class="menu-link" href="../../demo1/dist/apps/support-center/tickets/view.html">
 																	<span class="menu-bullet">
 																		<span class="bullet bullet-dot"></span>
 																	</span>
@@ -2398,9 +2188,7 @@ Like: www.facebook.com/keenthemes
                                             </div>
                                             <!--end:Menu item-->
                                             <!--begin:Menu item-->
-                                            <div data-kt-menu-trigger="{default:'click', lg: 'hover'}"
-                                                 data-kt-menu-placement="left-start"
-                                                 class="menu-item menu-lg-down-accordion">
+                                            <div data-kt-menu-trigger="{default:'click', lg: 'hover'}" data-kt-menu-placement="left-start" class="menu-item menu-lg-down-accordion">
                                                 <!--begin:Menu link-->
                                                 <span class="menu-link">
 															<span class="menu-bullet">
@@ -2411,13 +2199,11 @@ Like: www.facebook.com/keenthemes
 														</span>
                                                 <!--end:Menu link-->
                                                 <!--begin:Menu sub-->
-                                                <div
-                                                    class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown menu-active-bg px-lg-2 py-lg-4 w-lg-225px">
+                                                <div class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown menu-active-bg px-lg-2 py-lg-4 w-lg-225px">
                                                     <!--begin:Menu item-->
                                                     <div class="menu-item">
                                                         <!--begin:Menu link-->
-                                                        <a class="menu-link"
-                                                           href="../../demo1/dist/apps/support-center/tutorials/list.html">
+                                                        <a class="menu-link" href="../../demo1/dist/apps/support-center/tutorials/list.html">
 																	<span class="menu-bullet">
 																		<span class="bullet bullet-dot"></span>
 																	</span>
@@ -2429,8 +2215,7 @@ Like: www.facebook.com/keenthemes
                                                     <!--begin:Menu item-->
                                                     <div class="menu-item">
                                                         <!--begin:Menu link-->
-                                                        <a class="menu-link"
-                                                           href="../../demo1/dist/apps/support-center/tutorials/post.html">
+                                                        <a class="menu-link" href="../../demo1/dist/apps/support-center/tutorials/post.html">
 																	<span class="menu-bullet">
 																		<span class="bullet bullet-dot"></span>
 																	</span>
@@ -2446,8 +2231,7 @@ Like: www.facebook.com/keenthemes
                                             <!--begin:Menu item-->
                                             <div class="menu-item">
                                                 <!--begin:Menu link-->
-                                                <a class="menu-link"
-                                                   href="../../demo1/dist/apps/support-center/faq.html">
+                                                <a class="menu-link" href="../../demo1/dist/apps/support-center/faq.html">
 															<span class="menu-bullet">
 																<span class="bullet bullet-dot"></span>
 															</span>
@@ -2459,8 +2243,7 @@ Like: www.facebook.com/keenthemes
                                             <!--begin:Menu item-->
                                             <div class="menu-item">
                                                 <!--begin:Menu link-->
-                                                <a class="menu-link"
-                                                   href="../../demo1/dist/apps/support-center/licenses.html">
+                                                <a class="menu-link" href="../../demo1/dist/apps/support-center/licenses.html">
 															<span class="menu-bullet">
 																<span class="bullet bullet-dot"></span>
 															</span>
@@ -2472,8 +2255,7 @@ Like: www.facebook.com/keenthemes
                                             <!--begin:Menu item-->
                                             <div class="menu-item">
                                                 <!--begin:Menu link-->
-                                                <a class="menu-link"
-                                                   href="../../demo1/dist/apps/support-center/contact.html">
+                                                <a class="menu-link" href="../../demo1/dist/apps/support-center/contact.html">
 															<span class="menu-bullet">
 																<span class="bullet bullet-dot"></span>
 															</span>
@@ -2487,8 +2269,7 @@ Like: www.facebook.com/keenthemes
                                     </div>
                                     <!--end:Menu item-->
                                     <!--begin:Menu item-->
-                                    <div data-kt-menu-trigger="{default:'click', lg: 'hover'}"
-                                         data-kt-menu-placement="left-start" class="menu-item menu-lg-down-accordion">
+                                    <div data-kt-menu-trigger="{default:'click', lg: 'hover'}" data-kt-menu-placement="left-start" class="menu-item menu-lg-down-accordion">
                                         <!--begin:Menu link-->
                                         <span class="menu-link">
 													<span class="menu-icon">
@@ -2502,12 +2283,9 @@ Like: www.facebook.com/keenthemes
 												</span>
                                         <!--end:Menu link-->
                                         <!--begin:Menu sub-->
-                                        <div
-                                            class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown menu-active-bg px-lg-2 py-lg-4 w-lg-225px">
+                                        <div class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown menu-active-bg px-lg-2 py-lg-4 w-lg-225px">
                                             <!--begin:Menu item-->
-                                            <div data-kt-menu-trigger="{default:'click', lg: 'hover'}"
-                                                 data-kt-menu-placement="left-start"
-                                                 class="menu-item menu-lg-down-accordion">
+                                            <div data-kt-menu-trigger="{default:'click', lg: 'hover'}" data-kt-menu-placement="left-start" class="menu-item menu-lg-down-accordion">
                                                 <!--begin:Menu link-->
                                                 <span class="menu-link">
 															<span class="menu-bullet">
@@ -2518,13 +2296,11 @@ Like: www.facebook.com/keenthemes
 														</span>
                                                 <!--end:Menu link-->
                                                 <!--begin:Menu sub-->
-                                                <div
-                                                    class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown menu-active-bg px-lg-2 py-lg-4 w-lg-225px">
+                                                <div class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown menu-active-bg px-lg-2 py-lg-4 w-lg-225px">
                                                     <!--begin:Menu item-->
                                                     <div class="menu-item">
                                                         <!--begin:Menu link-->
-                                                        <a class="menu-link"
-                                                           href="../../demo1/dist/apps/user-management/users/list.html">
+                                                        <a class="menu-link" href="../../demo1/dist/apps/user-management/users/list.html">
 																	<span class="menu-bullet">
 																		<span class="bullet bullet-dot"></span>
 																	</span>
@@ -2536,8 +2312,7 @@ Like: www.facebook.com/keenthemes
                                                     <!--begin:Menu item-->
                                                     <div class="menu-item">
                                                         <!--begin:Menu link-->
-                                                        <a class="menu-link"
-                                                           href="../../demo1/dist/apps/user-management/users/view.html">
+                                                        <a class="menu-link" href="../../demo1/dist/apps/user-management/users/view.html">
 																	<span class="menu-bullet">
 																		<span class="bullet bullet-dot"></span>
 																	</span>
@@ -2551,9 +2326,7 @@ Like: www.facebook.com/keenthemes
                                             </div>
                                             <!--end:Menu item-->
                                             <!--begin:Menu item-->
-                                            <div data-kt-menu-trigger="{default:'click', lg: 'hover'}"
-                                                 data-kt-menu-placement="left-start"
-                                                 class="menu-item menu-lg-down-accordion">
+                                            <div data-kt-menu-trigger="{default:'click', lg: 'hover'}" data-kt-menu-placement="left-start" class="menu-item menu-lg-down-accordion">
                                                 <!--begin:Menu link-->
                                                 <span class="menu-link">
 															<span class="menu-bullet">
@@ -2564,13 +2337,11 @@ Like: www.facebook.com/keenthemes
 														</span>
                                                 <!--end:Menu link-->
                                                 <!--begin:Menu sub-->
-                                                <div
-                                                    class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown menu-active-bg px-lg-2 py-lg-4 w-lg-225px">
+                                                <div class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown menu-active-bg px-lg-2 py-lg-4 w-lg-225px">
                                                     <!--begin:Menu item-->
                                                     <div class="menu-item">
                                                         <!--begin:Menu link-->
-                                                        <a class="menu-link"
-                                                           href="../../demo1/dist/apps/user-management/roles/list.html">
+                                                        <a class="menu-link" href="../../demo1/dist/apps/user-management/roles/list.html">
 																	<span class="menu-bullet">
 																		<span class="bullet bullet-dot"></span>
 																	</span>
@@ -2582,8 +2353,7 @@ Like: www.facebook.com/keenthemes
                                                     <!--begin:Menu item-->
                                                     <div class="menu-item">
                                                         <!--begin:Menu link-->
-                                                        <a class="menu-link"
-                                                           href="../../demo1/dist/apps/user-management/roles/view.html">
+                                                        <a class="menu-link" href="../../demo1/dist/apps/user-management/roles/view.html">
 																	<span class="menu-bullet">
 																		<span class="bullet bullet-dot"></span>
 																	</span>
@@ -2599,8 +2369,7 @@ Like: www.facebook.com/keenthemes
                                             <!--begin:Menu item-->
                                             <div class="menu-item">
                                                 <!--begin:Menu link-->
-                                                <a class="menu-link"
-                                                   href="../../demo1/dist/apps/user-management/permissions.html">
+                                                <a class="menu-link" href="../../demo1/dist/apps/user-management/permissions.html">
 															<span class="menu-bullet">
 																<span class="bullet bullet-dot"></span>
 															</span>
@@ -2614,8 +2383,7 @@ Like: www.facebook.com/keenthemes
                                     </div>
                                     <!--end:Menu item-->
                                     <!--begin:Menu item-->
-                                    <div data-kt-menu-trigger="{default:'click', lg: 'hover'}"
-                                         data-kt-menu-placement="left-start" class="menu-item menu-lg-down-accordion">
+                                    <div data-kt-menu-trigger="{default:'click', lg: 'hover'}" data-kt-menu-placement="left-start" class="menu-item menu-lg-down-accordion">
                                         <!--begin:Menu link-->
                                         <span class="menu-link">
 													<span class="menu-icon">
@@ -2629,13 +2397,11 @@ Like: www.facebook.com/keenthemes
 												</span>
                                         <!--end:Menu link-->
                                         <!--begin:Menu sub-->
-                                        <div
-                                            class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown menu-active-bg px-lg-2 py-lg-4 w-lg-225px">
+                                        <div class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown menu-active-bg px-lg-2 py-lg-4 w-lg-225px">
                                             <!--begin:Menu item-->
                                             <div class="menu-item">
                                                 <!--begin:Menu link-->
-                                                <a class="menu-link"
-                                                   href="../../demo1/dist/apps/contacts/getting-started.html">
+                                                <a class="menu-link" href="../../demo1/dist/apps/contacts/getting-started.html">
 															<span class="menu-bullet">
 																<span class="bullet bullet-dot"></span>
 															</span>
@@ -2647,8 +2413,7 @@ Like: www.facebook.com/keenthemes
                                             <!--begin:Menu item-->
                                             <div class="menu-item">
                                                 <!--begin:Menu link-->
-                                                <a class="menu-link"
-                                                   href="../../demo1/dist/apps/contacts/add-contact.html">
+                                                <a class="menu-link" href="../../demo1/dist/apps/contacts/add-contact.html">
 															<span class="menu-bullet">
 																<span class="bullet bullet-dot"></span>
 															</span>
@@ -2660,8 +2425,7 @@ Like: www.facebook.com/keenthemes
                                             <!--begin:Menu item-->
                                             <div class="menu-item">
                                                 <!--begin:Menu link-->
-                                                <a class="menu-link"
-                                                   href="../../demo1/dist/apps/contacts/edit-contact.html">
+                                                <a class="menu-link" href="../../demo1/dist/apps/contacts/edit-contact.html">
 															<span class="menu-bullet">
 																<span class="bullet bullet-dot"></span>
 															</span>
@@ -2673,8 +2437,7 @@ Like: www.facebook.com/keenthemes
                                             <!--begin:Menu item-->
                                             <div class="menu-item">
                                                 <!--begin:Menu link-->
-                                                <a class="menu-link"
-                                                   href="../../demo1/dist/apps/contacts/view-contact.html">
+                                                <a class="menu-link" href="../../demo1/dist/apps/contacts/view-contact.html">
 															<span class="menu-bullet">
 																<span class="bullet bullet-dot"></span>
 															</span>
@@ -2688,8 +2451,7 @@ Like: www.facebook.com/keenthemes
                                     </div>
                                     <!--end:Menu item-->
                                     <!--begin:Menu item-->
-                                    <div data-kt-menu-trigger="{default:'click', lg: 'hover'}"
-                                         data-kt-menu-placement="left-start" class="menu-item menu-lg-down-accordion">
+                                    <div data-kt-menu-trigger="{default:'click', lg: 'hover'}" data-kt-menu-placement="left-start" class="menu-item menu-lg-down-accordion">
                                         <!--begin:Menu link-->
                                         <span class="menu-link">
 													<span class="menu-icon">
@@ -2705,13 +2467,11 @@ Like: www.facebook.com/keenthemes
 												</span>
                                         <!--end:Menu link-->
                                         <!--begin:Menu sub-->
-                                        <div
-                                            class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown menu-active-bg px-lg-2 py-lg-4 w-lg-225px">
+                                        <div class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown menu-active-bg px-lg-2 py-lg-4 w-lg-225px">
                                             <!--begin:Menu item-->
                                             <div class="menu-item">
                                                 <!--begin:Menu link-->
-                                                <a class="menu-link"
-                                                   href="../../demo1/dist/apps/subscriptions/getting-started.html">
+                                                <a class="menu-link" href="../../demo1/dist/apps/subscriptions/getting-started.html">
 															<span class="menu-bullet">
 																<span class="bullet bullet-dot"></span>
 															</span>
@@ -2723,8 +2483,7 @@ Like: www.facebook.com/keenthemes
                                             <!--begin:Menu item-->
                                             <div class="menu-item">
                                                 <!--begin:Menu link-->
-                                                <a class="menu-link"
-                                                   href="../../demo1/dist/apps/subscriptions/list.html">
+                                                <a class="menu-link" href="../../demo1/dist/apps/subscriptions/list.html">
 															<span class="menu-bullet">
 																<span class="bullet bullet-dot"></span>
 															</span>
@@ -2736,8 +2495,7 @@ Like: www.facebook.com/keenthemes
                                             <!--begin:Menu item-->
                                             <div class="menu-item">
                                                 <!--begin:Menu link-->
-                                                <a class="menu-link"
-                                                   href="../../demo1/dist/apps/subscriptions/add.html">
+                                                <a class="menu-link" href="../../demo1/dist/apps/subscriptions/add.html">
 															<span class="menu-bullet">
 																<span class="bullet bullet-dot"></span>
 															</span>
@@ -2749,8 +2507,7 @@ Like: www.facebook.com/keenthemes
                                             <!--begin:Menu item-->
                                             <div class="menu-item">
                                                 <!--begin:Menu link-->
-                                                <a class="menu-link"
-                                                   href="../../demo1/dist/apps/subscriptions/view.html">
+                                                <a class="menu-link" href="../../demo1/dist/apps/subscriptions/view.html">
 															<span class="menu-bullet">
 																<span class="bullet bullet-dot"></span>
 															</span>
@@ -2764,8 +2521,7 @@ Like: www.facebook.com/keenthemes
                                     </div>
                                     <!--end:Menu item-->
                                     <!--begin:Menu item-->
-                                    <div data-kt-menu-trigger="{default:'click', lg: 'hover'}"
-                                         data-kt-menu-placement="left-start" class="menu-item menu-lg-down-accordion">
+                                    <div data-kt-menu-trigger="{default:'click', lg: 'hover'}" data-kt-menu-placement="left-start" class="menu-item menu-lg-down-accordion">
                                         <!--begin:Menu link-->
                                         <span class="menu-link">
 													<span class="menu-icon">
@@ -2779,13 +2535,11 @@ Like: www.facebook.com/keenthemes
 												</span>
                                         <!--end:Menu link-->
                                         <!--begin:Menu sub-->
-                                        <div
-                                            class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown menu-active-bg px-lg-2 py-lg-4 w-lg-225px">
+                                        <div class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown menu-active-bg px-lg-2 py-lg-4 w-lg-225px">
                                             <!--begin:Menu item-->
                                             <div class="menu-item">
                                                 <!--begin:Menu link-->
-                                                <a class="menu-link"
-                                                   href="../../demo1/dist/apps/customers/getting-started.html">
+                                                <a class="menu-link" href="../../demo1/dist/apps/customers/getting-started.html">
 															<span class="menu-bullet">
 																<span class="bullet bullet-dot"></span>
 															</span>
@@ -2823,8 +2577,7 @@ Like: www.facebook.com/keenthemes
                                     </div>
                                     <!--end:Menu item-->
                                     <!--begin:Menu item-->
-                                    <div data-kt-menu-trigger="{default:'click', lg: 'hover'}"
-                                         data-kt-menu-placement="left-start" class="menu-item menu-lg-down-accordion">
+                                    <div data-kt-menu-trigger="{default:'click', lg: 'hover'}" data-kt-menu-placement="left-start" class="menu-item menu-lg-down-accordion">
                                         <!--begin:Menu link-->
                                         <span class="menu-link">
 													<span class="menu-icon">
@@ -2838,12 +2591,9 @@ Like: www.facebook.com/keenthemes
 												</span>
                                         <!--end:Menu link-->
                                         <!--begin:Menu sub-->
-                                        <div
-                                            class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown menu-active-bg px-lg-2 py-lg-4 w-lg-225px">
+                                        <div class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown menu-active-bg px-lg-2 py-lg-4 w-lg-225px">
                                             <!--begin:Menu item-->
-                                            <div data-kt-menu-trigger="{default:'click', lg: 'hover'}"
-                                                 data-kt-menu-placement="left-start"
-                                                 class="menu-item menu-lg-down-accordion">
+                                            <div data-kt-menu-trigger="{default:'click', lg: 'hover'}" data-kt-menu-placement="left-start" class="menu-item menu-lg-down-accordion">
                                                 <!--begin:Menu link-->
                                                 <span class="menu-link">
 															<span class="menu-bullet">
@@ -2854,13 +2604,11 @@ Like: www.facebook.com/keenthemes
 														</span>
                                                 <!--end:Menu link-->
                                                 <!--begin:Menu sub-->
-                                                <div
-                                                    class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown menu-active-bg px-lg-2 py-lg-4 w-lg-225px">
+                                                <div class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown menu-active-bg px-lg-2 py-lg-4 w-lg-225px">
                                                     <!--begin:Menu item-->
                                                     <div class="menu-item">
                                                         <!--begin:Menu link-->
-                                                        <a class="menu-link"
-                                                           href="../../demo1/dist/apps/invoices/view/invoice-1.html">
+                                                        <a class="menu-link" href="../../demo1/dist/apps/invoices/view/invoice-1.html">
 																	<span class="menu-bullet">
 																		<span class="bullet bullet-dot"></span>
 																	</span>
@@ -2872,8 +2620,7 @@ Like: www.facebook.com/keenthemes
                                                     <!--begin:Menu item-->
                                                     <div class="menu-item">
                                                         <!--begin:Menu link-->
-                                                        <a class="menu-link"
-                                                           href="../../demo1/dist/apps/invoices/view/invoice-2.html">
+                                                        <a class="menu-link" href="../../demo1/dist/apps/invoices/view/invoice-2.html">
 																	<span class="menu-bullet">
 																		<span class="bullet bullet-dot"></span>
 																	</span>
@@ -2885,8 +2632,7 @@ Like: www.facebook.com/keenthemes
                                                     <!--begin:Menu item-->
                                                     <div class="menu-item">
                                                         <!--begin:Menu link-->
-                                                        <a class="menu-link"
-                                                           href="../../demo1/dist/apps/invoices/view/invoice-3.html">
+                                                        <a class="menu-link" href="../../demo1/dist/apps/invoices/view/invoice-3.html">
 																	<span class="menu-bullet">
 																		<span class="bullet bullet-dot"></span>
 																	</span>
@@ -2916,8 +2662,7 @@ Like: www.facebook.com/keenthemes
                                     </div>
                                     <!--end:Menu item-->
                                     <!--begin:Menu item-->
-                                    <div data-kt-menu-trigger="{default:'click', lg: 'hover'}"
-                                         data-kt-menu-placement="left-start" class="menu-item menu-lg-down-accordion">
+                                    <div data-kt-menu-trigger="{default:'click', lg: 'hover'}" data-kt-menu-placement="left-start" class="menu-item menu-lg-down-accordion">
                                         <!--begin:Menu link-->
                                         <span class="menu-link">
 													<span class="menu-icon">
@@ -2931,13 +2676,11 @@ Like: www.facebook.com/keenthemes
 												</span>
                                         <!--end:Menu link-->
                                         <!--begin:Menu sub-->
-                                        <div
-                                            class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown menu-active-bg px-lg-2 py-lg-4 w-lg-225px">
+                                        <div class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown menu-active-bg px-lg-2 py-lg-4 w-lg-225px">
                                             <!--begin:Menu item-->
                                             <div class="menu-item">
                                                 <!--begin:Menu link-->
-                                                <a class="menu-link"
-                                                   href="../../demo1/dist/apps/file-manager/folders.html">
+                                                <a class="menu-link" href="../../demo1/dist/apps/file-manager/folders.html">
 															<span class="menu-bullet">
 																<span class="bullet bullet-dot"></span>
 															</span>
@@ -2949,8 +2692,7 @@ Like: www.facebook.com/keenthemes
                                             <!--begin:Menu item-->
                                             <div class="menu-item">
                                                 <!--begin:Menu link-->
-                                                <a class="menu-link"
-                                                   href="../../demo1/dist/apps/file-manager/files.html">
+                                                <a class="menu-link" href="../../demo1/dist/apps/file-manager/files.html">
 															<span class="menu-bullet">
 																<span class="bullet bullet-dot"></span>
 															</span>
@@ -2962,8 +2704,7 @@ Like: www.facebook.com/keenthemes
                                             <!--begin:Menu item-->
                                             <div class="menu-item">
                                                 <!--begin:Menu link-->
-                                                <a class="menu-link"
-                                                   href="../../demo1/dist/apps/file-manager/blank.html">
+                                                <a class="menu-link" href="../../demo1/dist/apps/file-manager/blank.html">
 															<span class="menu-bullet">
 																<span class="bullet bullet-dot"></span>
 															</span>
@@ -2975,8 +2716,7 @@ Like: www.facebook.com/keenthemes
                                             <!--begin:Menu item-->
                                             <div class="menu-item">
                                                 <!--begin:Menu link-->
-                                                <a class="menu-link"
-                                                   href="../../demo1/dist/apps/file-manager/settings.html">
+                                                <a class="menu-link" href="../../demo1/dist/apps/file-manager/settings.html">
 															<span class="menu-bullet">
 																<span class="bullet bullet-dot"></span>
 															</span>
@@ -2990,8 +2730,7 @@ Like: www.facebook.com/keenthemes
                                     </div>
                                     <!--end:Menu item-->
                                     <!--begin:Menu item-->
-                                    <div data-kt-menu-trigger="{default:'click', lg: 'hover'}"
-                                         data-kt-menu-placement="left-start" class="menu-item menu-lg-down-accordion">
+                                    <div data-kt-menu-trigger="{default:'click', lg: 'hover'}" data-kt-menu-placement="left-start" class="menu-item menu-lg-down-accordion">
                                         <!--begin:Menu link-->
                                         <span class="menu-link">
 													<span class="menu-icon">
@@ -3005,8 +2744,7 @@ Like: www.facebook.com/keenthemes
 												</span>
                                         <!--end:Menu link-->
                                         <!--begin:Menu sub-->
-                                        <div
-                                            class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown menu-active-bg px-lg-2 py-lg-4 w-lg-225px">
+                                        <div class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown menu-active-bg px-lg-2 py-lg-4 w-lg-225px">
                                             <!--begin:Menu item-->
                                             <div class="menu-item">
                                                 <!--begin:Menu link-->
@@ -3041,7 +2779,7 @@ Like: www.facebook.com/keenthemes
 															<span class="menu-bullet">
 																<span class="bullet bullet-dot"></span>
 															</span>
-                                                    <span class="menu-title">نمایش & پاسخ</span>
+                                                    <span class="menu-title">نمایش &amp; پاسخ</span>
                                                 </a>
                                                 <!--end:Menu link-->
                                             </div>
@@ -3051,8 +2789,7 @@ Like: www.facebook.com/keenthemes
                                     </div>
                                     <!--end:Menu item-->
                                     <!--begin:Menu item-->
-                                    <div data-kt-menu-trigger="{default:'click', lg: 'hover'}"
-                                         data-kt-menu-placement="left-start" class="menu-item menu-lg-down-accordion">
+                                    <div data-kt-menu-trigger="{default:'click', lg: 'hover'}" data-kt-menu-placement="left-start" class="menu-item menu-lg-down-accordion">
                                         <!--begin:Menu link-->
                                         <span class="menu-link">
 													<span class="menu-icon">
@@ -3067,8 +2804,7 @@ Like: www.facebook.com/keenthemes
 												</span>
                                         <!--end:Menu link-->
                                         <!--begin:Menu sub-->
-                                        <div
-                                            class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown menu-active-bg px-lg-2 py-lg-4 w-lg-225px">
+                                        <div class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown menu-active-bg px-lg-2 py-lg-4 w-lg-225px">
                                             <!--begin:Menu item-->
                                             <div class="menu-item">
                                                 <!--begin:Menu link-->
@@ -3133,9 +2869,7 @@ Like: www.facebook.com/keenthemes
                             </div>
                             <!--end:Menu item-->
                             <!--begin:Menu item-->
-                            <div data-kt-menu-trigger="{default: 'click', lg: 'hover'}"
-                                 data-kt-menu-placement="bottom-end"
-                                 class="menu-item menu-lg-down-accordion me-0 me-lg-2">
+                            <div data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="bottom-end" class="menu-item menu-lg-down-accordion me-0 me-lg-2">
                                 <!--begin:Menu link-->
                                 <span class="menu-link">
 											<span class="menu-title">قالب بندی ها</span>
@@ -3143,11 +2877,9 @@ Like: www.facebook.com/keenthemes
 										</span>
                                 <!--end:Menu link-->
                                 <!--begin:Menu sub-->
-                                <div
-                                    class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown p-0 w-100 w-lg-850px">
+                                <div class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown p-0 w-100 w-lg-850px">
                                     <!--begin:داشبورد ها menu-->
-                                    <div class="menu-active-bg pt-1 pb-3 px-3 py-lg-6 px-lg-6"
-                                         data-kt-menu-dismiss="true">
+                                    <div class="menu-active-bg pt-1 pb-3 px-3 py-lg-6 px-lg-6" data-kt-menu-dismiss="true">
                                         <!--begin:Row-->
                                         <div class="row">
                                             <!--begin:Col-->
@@ -3157,17 +2889,14 @@ Like: www.facebook.com/keenthemes
                                                     <!--begin:Col-->
                                                     <div class="col-lg-6 mb-3">
                                                         <!--begin:Heading-->
-                                                        <h4 class="fs-6 fs-lg-4 text-gray-800 fw-bold mt-3 mb-3 ms-4">
-                                                            قالب بندی ها</h4>
+                                                        <h4 class="fs-6 fs-lg-4 text-gray-800 fw-bold mt-3 mb-3 ms-4">قالب بندی ها</h4>
                                                         <!--end:Heading-->
                                                         <!--begin:Menu item-->
                                                         <div class="menu-item p-0 m-0">
                                                             <!--begin:Menu link-->
-                                                            <a href="../../demo1/dist/layouts/light-sidebar.html"
-                                                               class="menu-link">
+                                                            <a href="../../demo1/dist/layouts/light-sidebar.html" class="menu-link">
 																		<span class="menu-bullet">
-																			<span
-                                                                                class="bullet bullet-dot bg-gray-300i h-6px w-6px"></span>
+																			<span class="bullet bullet-dot bg-gray-300i h-6px w-6px"></span>
 																		</span>
                                                                 <span class="menu-title">ساید بار روشن</span>
                                                             </a>
@@ -3177,11 +2906,9 @@ Like: www.facebook.com/keenthemes
                                                         <!--begin:Menu item-->
                                                         <div class="menu-item p-0 m-0">
                                                             <!--begin:Menu link-->
-                                                            <a href="../../demo1/dist/layouts/dark-sidebar.html"
-                                                               class="menu-link">
+                                                            <a href="../../demo1/dist/layouts/dark-sidebar.html" class="menu-link">
 																		<span class="menu-bullet">
-																			<span
-                                                                                class="bullet bullet-dot bg-gray-300i h-6px w-6px"></span>
+																			<span class="bullet bullet-dot bg-gray-300i h-6px w-6px"></span>
 																		</span>
                                                                 <span class="menu-title">سایدبار تیره</span>
                                                             </a>
@@ -3191,11 +2918,9 @@ Like: www.facebook.com/keenthemes
                                                         <!--begin:Menu item-->
                                                         <div class="menu-item p-0 m-0">
                                                             <!--begin:Menu link-->
-                                                            <a href="../../demo1/dist/layouts/light-header.html"
-                                                               class="menu-link">
+                                                            <a href="../../demo1/dist/layouts/light-header.html" class="menu-link">
 																		<span class="menu-bullet">
-																			<span
-                                                                                class="bullet bullet-dot bg-gray-300i h-6px w-6px"></span>
+																			<span class="bullet bullet-dot bg-gray-300i h-6px w-6px"></span>
 																		</span>
                                                                 <span class="menu-title">هدر روشن</span>
                                                             </a>
@@ -3205,11 +2930,9 @@ Like: www.facebook.com/keenthemes
                                                         <!--begin:Menu item-->
                                                         <div class="menu-item p-0 m-0">
                                                             <!--begin:Menu link-->
-                                                            <a href="../../demo1/dist/layouts/dark-header.html"
-                                                               class="menu-link">
+                                                            <a href="../../demo1/dist/layouts/dark-header.html" class="menu-link">
 																		<span class="menu-bullet">
-																			<span
-                                                                                class="bullet bullet-dot bg-gray-300i h-6px w-6px"></span>
+																			<span class="bullet bullet-dot bg-gray-300i h-6px w-6px"></span>
 																		</span>
                                                                 <span class="menu-title">هدر تیره</span>
                                                             </a>
@@ -3221,17 +2944,14 @@ Like: www.facebook.com/keenthemes
                                                     <!--begin:Col-->
                                                     <div class="col-lg-6 mb-3">
                                                         <!--begin:Heading-->
-                                                        <h4 class="fs-6 fs-lg-4 text-gray-800 fw-bold mt-3 mb-3 ms-4">
-                                                            نوار ابزار</h4>
+                                                        <h4 class="fs-6 fs-lg-4 text-gray-800 fw-bold mt-3 mb-3 ms-4">نوار ابزار</h4>
                                                         <!--end:Heading-->
                                                         <!--begin:Menu item-->
                                                         <div class="menu-item p-0 m-0">
                                                             <!--begin:Menu link-->
-                                                            <a href="../../demo1/dist/toolbars/classic.html"
-                                                               class="menu-link">
+                                                            <a href="../../demo1/dist/toolbars/classic.html" class="menu-link">
 																		<span class="menu-bullet">
-																			<span
-                                                                                class="bullet bullet-dot bg-gray-300i h-6px w-6px"></span>
+																			<span class="bullet bullet-dot bg-gray-300i h-6px w-6px"></span>
 																		</span>
                                                                 <span class="menu-title">کلاسیک</span>
                                                             </a>
@@ -3241,11 +2961,9 @@ Like: www.facebook.com/keenthemes
                                                         <!--begin:Menu item-->
                                                         <div class="menu-item p-0 m-0">
                                                             <!--begin:Menu link-->
-                                                            <a href="../../demo1/dist/toolbars/saas.html"
-                                                               class="menu-link">
+                                                            <a href="../../demo1/dist/toolbars/saas.html" class="menu-link">
 																		<span class="menu-bullet">
-																			<span
-                                                                                class="bullet bullet-dot bg-gray-300i h-6px w-6px"></span>
+																			<span class="bullet bullet-dot bg-gray-300i h-6px w-6px"></span>
 																		</span>
                                                                 <span class="menu-title">ساس</span>
                                                             </a>
@@ -3255,11 +2973,9 @@ Like: www.facebook.com/keenthemes
                                                         <!--begin:Menu item-->
                                                         <div class="menu-item p-0 m-0">
                                                             <!--begin:Menu link-->
-                                                            <a href="../../demo1/dist/toolbars/accounting.html"
-                                                               class="menu-link">
+                                                            <a href="../../demo1/dist/toolbars/accounting.html" class="menu-link">
 																		<span class="menu-bullet">
-																			<span
-                                                                                class="bullet bullet-dot bg-gray-300i h-6px w-6px"></span>
+																			<span class="bullet bullet-dot bg-gray-300i h-6px w-6px"></span>
 																		</span>
                                                                 <span class="menu-title">حسابداری</span>
                                                             </a>
@@ -3269,11 +2985,9 @@ Like: www.facebook.com/keenthemes
                                                         <!--begin:Menu item-->
                                                         <div class="menu-item p-0 m-0">
                                                             <!--begin:Menu link-->
-                                                            <a href="../../demo1/dist/toolbars/extended.html"
-                                                               class="menu-link">
+                                                            <a href="../../demo1/dist/toolbars/extended.html" class="menu-link">
 																		<span class="menu-bullet">
-																			<span
-                                                                                class="bullet bullet-dot bg-gray-300i h-6px w-6px"></span>
+																			<span class="bullet bullet-dot bg-gray-300i h-6px w-6px"></span>
 																		</span>
                                                                 <span class="menu-title">تمدید شده</span>
                                                             </a>
@@ -3283,11 +2997,9 @@ Like: www.facebook.com/keenthemes
                                                         <!--begin:Menu item-->
                                                         <div class="menu-item p-0 m-0">
                                                             <!--begin:Menu link-->
-                                                            <a href="../../demo1/dist/toolbars/reports.html"
-                                                               class="menu-link">
+                                                            <a href="../../demo1/dist/toolbars/reports.html" class="menu-link">
 																		<span class="menu-bullet">
-																			<span
-                                                                                class="bullet bullet-dot bg-gray-300i h-6px w-6px"></span>
+																			<span class="bullet bullet-dot bg-gray-300i h-6px w-6px"></span>
 																		</span>
                                                                 <span class="menu-title">گزارشات</span>
                                                             </a>
@@ -3300,24 +3012,19 @@ Like: www.facebook.com/keenthemes
                                                 <!--end:Row-->
                                                 <div class="separator separator-dashed mx-lg-5 mt-2 mb-6"></div>
                                                 <!--begin:قالب بندی سازنده-->
-                                                <div
-                                                    class="d-flex flex-stack flex-wrap flex-lg-nowrap gap-2 mb-5 mb-lg-0 mx-lg-5">
+                                                <div class="d-flex flex-stack flex-wrap flex-lg-nowrap gap-2 mb-5 mb-lg-0 mx-lg-5">
                                                     <div class="d-flex flex-column me-5">
                                                         <div class="fs-6 fw-bold text-gray-800">قالب بندی سازنده</div>
-                                                        <div class="fs-7 fw-semibold text-muted">سفارشی کردن، نمایش و
-                                                            صادرات
-                                                        </div>
+                                                        <div class="fs-7 fw-semibold text-muted">سفارشی کردن، نمایش و صادرات</div>
                                                     </div>
-                                                    <a href="Https://preview.keenthemes.com/metronic8/demo1/layout-builder.html"
-                                                       class="btn btn-sm btn-primary fw-bold">سازنده</a>
+                                                    <a href="Https://preview.keenthemes.com/metronic8/demo1/layout-builder.html" class="btn btn-sm btn-primary fw-bold">سازنده</a>
                                                 </div>
                                                 <!--end:قالب بندی سازنده-->
                                             </div>
                                             <!--end:Col-->
                                             <!--begin:Col-->
                                             <div class="col-lg-6 mb-3 py-lg-3 pe-lg-8 d-flex align-items-center">
-                                                <img src="/admin/src/assets/media/stock/900x600/45.jpg" class="rounded mw-100"
-                                                     alt=""/>
+                                                <img src="/admin/src/assets/media/stock/900x600/45.jpg" class="rounded mw-100" alt="">
                                             </div>
                                             <!--end:Col-->
                                         </div>
@@ -3329,9 +3036,7 @@ Like: www.facebook.com/keenthemes
                             </div>
                             <!--end:Menu item-->
                             <!--begin:Menu item-->
-                            <div data-kt-menu-trigger="{default: 'click', lg: 'hover'}"
-                                 data-kt-menu-placement="bottom-end"
-                                 class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
+                            <div data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="bottom-end" class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
                                 <!--begin:Menu link-->
                                 <span class="menu-link">
 											<span class="menu-title">کمک</span>
@@ -3339,17 +3044,11 @@ Like: www.facebook.com/keenthemes
 										</span>
                                 <!--end:Menu link-->
                                 <!--begin:Menu sub-->
-                                <div
-                                    class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown px-lg-2 py-lg-4 w-lg-200px">
+                                <div class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown px-lg-2 py-lg-4 w-lg-200px" style="">
                                     <!--begin:Menu item-->
                                     <div class="menu-item">
                                         <!--begin:Menu link-->
-                                        <a class="menu-link"
-                                           href="https://preview.keenthemes.com/html/metronic/docs/base/utilities"
-                                           target="_blank"
-                                           title="بیش از 200 کامپوننت داخلی، پلاگین و راه حل های آماده برای استفاده را بررسی کنید"
-                                           data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click"
-                                           data-bs-placement="right">
+                                        <a class="menu-link" href="https://preview.keenthemes.com/html/metronic/docs/base/utilities" target="_blank" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right" data-bs-original-title="بیش از 200 کامپوننت داخلی، پلاگین و راه حل های آماده برای استفاده را بررسی کنید" data-kt-initialized="1">
 													<span class="menu-icon">
 														<i class="ki-duotone ki-rocket fs-2">
 															<span class="path1"></span>
@@ -3364,9 +3063,7 @@ Like: www.facebook.com/keenthemes
                                     <!--begin:Menu item-->
                                     <div class="menu-item">
                                         <!--begin:Menu link-->
-                                        <a class="menu-link" href="https://preview.keenthemes.com/html/metronic/docs"
-                                           target="_blank" title="اسناد کامل را بررسی کنید" data-bs-toggle="tooltip"
-                                           data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                                        <a class="menu-link" href="https://preview.keenthemes.com/html/metronic/docs" target="_blank" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right" data-bs-original-title="اسناد کامل را بررسی کنید" data-kt-initialized="1">
 													<span class="menu-icon">
 														<i class="ki-duotone ki-abstract-26 fs-2">
 															<span class="path1"></span>
@@ -3381,9 +3078,7 @@ Like: www.facebook.com/keenthemes
                                     <!--begin:Menu item-->
                                     <div class="menu-item">
                                         <!--begin:Menu link-->
-                                        <a class="menu-link"
-                                           href="https://preview.keenthemes.com/html/metronic/docs/getting-started/changelog"
-                                           target="_blank">
+                                        <a class="menu-link" href="https://preview.keenthemes.com/html/metronic/docs/getting-started/changelog" target="_blank">
 													<span class="menu-icon">
 														<i class="ki-duotone ki-code fs-2">
 															<span class="path1"></span>
@@ -3410,16 +3105,10 @@ Like: www.facebook.com/keenthemes
                         <!--begin::جستجو-->
                         <div class="app-navbar-item align-items-stretch ms-1 ms-md-3">
                             <!--begin::جستجو-->
-                            <div id="kt_header_search" class="header-search d-flex align-items-stretch"
-                                 data-kt-search-keypress="true" data-kt-search-min-length="2"
-                                 data-kt-search-enter="enter" data-kt-search-layout="menu" data-kt-menu-trigger="auto"
-                                 data-kt-menu-overflow="false" data-kt-menu-permanent="true"
-                                 data-kt-menu-placement="bottom-end">
+                            <div id="kt_header_search" class="header-search d-flex align-items-stretch" data-kt-search-keypress="true" data-kt-search-min-length="2" data-kt-search-enter="enter" data-kt-search-layout="menu" data-kt-menu-trigger="auto" data-kt-menu-overflow="false" data-kt-menu-permanent="true" data-kt-menu-placement="bottom-end" data-kt-search="true">
                                 <!--begin::جستجو toggle-->
-                                <div class="d-flex align-items-center" data-kt-search-element="toggle"
-                                     id="kt_header_search_toggle">
-                                    <div
-                                        class="btn btn-icon btn-custom btn-icon-muted btn-active-light btn-active-color-primary w-30px h-30px w-md-40px h-md-40px">
+                                <div class="d-flex align-items-center" data-kt-search-element="toggle" id="kt_header_search_toggle">
+                                    <div class="btn btn-icon btn-custom btn-icon-muted btn-active-light btn-active-color-primary w-30px h-30px w-md-40px h-md-40px">
                                         <i class="ki-duotone ki-magnifier fs-2 fs-lg-1">
                                             <span class="path1"></span>
                                             <span class="path2"></span>
@@ -3428,13 +3117,11 @@ Like: www.facebook.com/keenthemes
                                 </div>
                                 <!--end::جستجو toggle-->
                                 <!--begin::Menu-->
-                                <div data-kt-search-element="content"
-                                     class="menu menu-sub menu-sub-dropdown p-7 w-325px w-md-375px">
+                                <div data-kt-search-element="content" class="menu menu-sub menu-sub-dropdown p-7 w-325px w-md-375px" data-kt-menu="true">
                                     <!--begin::Wrapper-->
                                     <div data-kt-search-element="wrapper">
                                         <!--begin::Form-->
-                                        <form data-kt-search-element="form" class="w-100 position-relative mb-3"
-                                              autocomplete="off">
+                                        <form data-kt-search-element="form" class="w-100 position-relative mb-3" autocomplete="off">
                                             <!--begin::Icon-->
                                             <i class="ki-duotone ki-magnifier fs-2 text-gray-500 position-absolute top-50 translate-middle-y ms-0">
                                                 <span class="path1"></span>
@@ -3442,23 +3129,15 @@ Like: www.facebook.com/keenthemes
                                             </i>
                                             <!--end::Icon-->
                                             <!--begin::Input-->
-                                            <input type="text"
-                                                   class="search-input form-control form-control-flush ps-10"
-                                                   name="search" value="" placeholder="جستجو..."
-                                                   data-kt-search-element="input"/>
+                                            <input type="text" class="search-input form-control form-control-flush ps-10" name="search" value="" placeholder="جستجو..." data-kt-search-element="input">
                                             <!--end::Input-->
                                             <!--begin::Spinner-->
-                                            <span
-                                                class="search-spinner position-absolute top-50 end-0 translate-middle-y lh-0 d-none me-1"
-                                                data-kt-search-element="spinner">
-														<span
-                                                            class="spinner-border h-15px w-15px align-middle text-gray-400"></span>
+                                            <span class="search-spinner position-absolute top-50 end-0 translate-middle-y lh-0 d-none me-1" data-kt-search-element="spinner">
+														<span class="spinner-border h-15px w-15px align-middle text-gray-400"></span>
 													</span>
                                             <!--end::Spinner-->
                                             <!--begin::ریست-->
-                                            <span
-                                                class="search-reset btn btn-flush btn-active-color-primary position-absolute top-50 end-0 translate-middle-y lh-0 d-none"
-                                                data-kt-search-element="clear">
+                                            <span class="search-reset btn btn-flush btn-active-color-primary position-absolute top-50 end-0 translate-middle-y lh-0 d-none" data-kt-search-element="clear">
 														<i class="ki-duotone ki-cross fs-2 fs-lg-1 me-0">
 															<span class="path1"></span>
 															<span class="path2"></span>
@@ -3466,12 +3145,9 @@ Like: www.facebook.com/keenthemes
 													</span>
                                             <!--end::ریست-->
                                             <!--begin::Toolbar-->
-                                            <div class="position-absolute top-50 end-0 translate-middle-y"
-                                                 data-kt-search-element="toolbar">
+                                            <div class="position-absolute top-50 end-0 translate-middle-y" data-kt-search-element="toolbar">
                                                 <!--begin::اولویت ها toggle-->
-                                                <div data-kt-search-element="preferences-show"
-                                                     class="btn btn-icon w-20px btn-sm btn-active-color-primary me-1"
-                                                     data-bs-toggle="tooltip" title="نمایش تنظیمات جستجو">
+                                                <div data-kt-search-element="preferences-show" class="btn btn-icon w-20px btn-sm btn-active-color-primary me-1" data-bs-toggle="tooltip" aria-label="نمایش تنظیمات جستجو" data-bs-original-title="نمایش تنظیمات جستجو" data-kt-initialized="1">
                                                     <i class="ki-duotone ki-setting-2 fs-2">
                                                         <span class="path1"></span>
                                                         <span class="path2"></span>
@@ -3479,9 +3155,7 @@ Like: www.facebook.com/keenthemes
                                                 </div>
                                                 <!--end::اولویت ها toggle-->
                                                 <!--begin::پیشرفته search toggle-->
-                                                <div data-kt-search-element="advanced-options-form-show"
-                                                     class="btn btn-icon w-20px btn-sm btn-active-color-primary"
-                                                     data-bs-toggle="tooltip" title="تنظیمات بیشتر">
+                                                <div data-kt-search-element="advanced-options-form-show" class="btn btn-icon w-20px btn-sm btn-active-color-primary" data-bs-toggle="tooltip" aria-label="تنظیمات بیشتر" data-bs-original-title="تنظیمات بیشتر" data-kt-initialized="1">
                                                     <i class="ki-duotone ki-down fs-2"></i>
                                                 </div>
                                                 <!--end::پیشرفته search toggle-->
@@ -3497,32 +3171,28 @@ Like: www.facebook.com/keenthemes
                                             <!--begin::آیتمs-->
                                             <div class="scroll-y mh-200px mh-lg-350px">
                                                 <!--begin::دسته بندی title-->
-                                                <h3 class="fs-5 text-muted m-0 pb-5"
-                                                    data-kt-search-element="category-title">کاربران</h3>
+                                                <h3 class="fs-5 text-muted m-0 pb-5" data-kt-search-element="category-title">کاربران</h3>
                                                 <!--end::دسته بندی title-->
                                                 <!--begin::آیتم-->
-                                                <a href="#"
-                                                   class="d-flex text-dark text-hover-primary align-items-center mb-5">
+                                                <a href="#" class="d-flex text-dark text-hover-primary align-items-center mb-5">
                                                     <!--begin::Symbol-->
                                                     <div class="symbol symbol-40px me-4">
-                                                        <img src="/admin/src/assets/media/avatars/300-6.jpg" alt=""/>
+                                                        <img src="/admin/src/assets/media/avatars/300-6.jpg" alt="">
                                                     </div>
                                                     <!--end::Symbol-->
                                                     <!--begin::Title-->
                                                     <div class="d-flex flex-column justify-content-start fw-semibold">
                                                         <span class="fs-6 fw-semibold">کارینا کالرک</span>
-                                                        <span
-                                                            class="fs-7 fw-semibold text-muted">مدیریت بازاریابی</span>
+                                                        <span class="fs-7 fw-semibold text-muted">مدیریت بازاریابی</span>
                                                     </div>
                                                     <!--end::Title-->
                                                 </a>
                                                 <!--end::آیتم-->
                                                 <!--begin::آیتم-->
-                                                <a href="#"
-                                                   class="d-flex text-dark text-hover-primary align-items-center mb-5">
+                                                <a href="#" class="d-flex text-dark text-hover-primary align-items-center mb-5">
                                                     <!--begin::Symbol-->
                                                     <div class="symbol symbol-40px me-4">
-                                                        <img src="/admin/src/assets/media/avatars/300-2.jpg" alt=""/>
+                                                        <img src="/admin/src/assets/media/avatars/300-2.jpg" alt="">
                                                     </div>
                                                     <!--end::Symbol-->
                                                     <!--begin::Title-->
@@ -3534,28 +3204,25 @@ Like: www.facebook.com/keenthemes
                                                 </a>
                                                 <!--end::آیتم-->
                                                 <!--begin::آیتم-->
-                                                <a href="#"
-                                                   class="d-flex text-dark text-hover-primary align-items-center mb-5">
+                                                <a href="#" class="d-flex text-dark text-hover-primary align-items-center mb-5">
                                                     <!--begin::Symbol-->
                                                     <div class="symbol symbol-40px me-4">
-                                                        <img src="/admin/src/assets/media/avatars/300-9.jpg" alt=""/>
+                                                        <img src="/admin/src/assets/media/avatars/300-9.jpg" alt="">
                                                     </div>
                                                     <!--end::Symbol-->
                                                     <!--begin::Title-->
                                                     <div class="d-flex flex-column justify-content-start fw-semibold">
                                                         <span class="fs-6 fw-semibold">حسینی</span>
-                                                        <span
-                                                            class="fs-7 fw-semibold text-muted">طراح یو ای و یوایکس</span>
+                                                        <span class="fs-7 fw-semibold text-muted">طراح یو ای و یوایکس</span>
                                                     </div>
                                                     <!--end::Title-->
                                                 </a>
                                                 <!--end::آیتم-->
                                                 <!--begin::آیتم-->
-                                                <a href="#"
-                                                   class="d-flex text-dark text-hover-primary align-items-center mb-5">
+                                                <a href="#" class="d-flex text-dark text-hover-primary align-items-center mb-5">
                                                     <!--begin::Symbol-->
                                                     <div class="symbol symbol-40px me-4">
-                                                        <img src="/admin/src/assets/media/avatars/300-14.jpg" alt=""/>
+                                                        <img src="/admin/src/assets/media/avatars/300-14.jpg" alt="">
                                                     </div>
                                                     <!--end::Symbol-->
                                                     <!--begin::Title-->
@@ -3567,11 +3234,10 @@ Like: www.facebook.com/keenthemes
                                                 </a>
                                                 <!--end::آیتم-->
                                                 <!--begin::آیتم-->
-                                                <a href="#"
-                                                   class="d-flex text-dark text-hover-primary align-items-center mb-5">
+                                                <a href="#" class="d-flex text-dark text-hover-primary align-items-center mb-5">
                                                     <!--begin::Symbol-->
                                                     <div class="symbol symbol-40px me-4">
-                                                        <img src="/admin/src/assets/media/avatars/300-11.jpg" alt=""/>
+                                                        <img src="/admin/src/assets/media/avatars/300-11.jpg" alt="">
                                                     </div>
                                                     <!--end::Symbol-->
                                                     <!--begin::Title-->
@@ -3583,18 +3249,14 @@ Like: www.facebook.com/keenthemes
                                                 </a>
                                                 <!--end::آیتم-->
                                                 <!--begin::دسته بندی title-->
-                                                <h3 class="fs-5 text-muted m-0 pt-5 pb-5"
-                                                    data-kt-search-element="category-title">مشتریان</h3>
+                                                <h3 class="fs-5 text-muted m-0 pt-5 pb-5" data-kt-search-element="category-title">مشتریان</h3>
                                                 <!--end::دسته بندی title-->
                                                 <!--begin::آیتم-->
-                                                <a href="#"
-                                                   class="d-flex text-dark text-hover-primary align-items-center mb-5">
+                                                <a href="#" class="d-flex text-dark text-hover-primary align-items-center mb-5">
                                                     <!--begin::Symbol-->
                                                     <div class="symbol symbol-40px me-4">
 																<span class="symbol-label bg-light">
-																	<img class="w-20px h-20px"
-                                                                         src="/admin/src/assets/media/svg/brand-logos/volicity-9.svg"
-                                                                         alt=""/>
+																	<img class="w-20px h-20px" src="assets/media/svg/brand-logos/volicity-9.svg" alt="">
 																</span>
                                                     </div>
                                                     <!--end::Symbol-->
@@ -3607,14 +3269,11 @@ Like: www.facebook.com/keenthemes
                                                 </a>
                                                 <!--end::آیتم-->
                                                 <!--begin::آیتم-->
-                                                <a href="#"
-                                                   class="d-flex text-dark text-hover-primary align-items-center mb-5">
+                                                <a href="#" class="d-flex text-dark text-hover-primary align-items-center mb-5">
                                                     <!--begin::Symbol-->
                                                     <div class="symbol symbol-40px me-4">
 																<span class="symbol-label bg-light">
-																	<img class="w-20px h-20px"
-                                                                         src="/admin/src/assets/media/svg/brand-logos/tvit.svg"
-                                                                         alt=""/>
+																	<img class="w-20px h-20px" src="assets/media/svg/brand-logos/tvit.svg" alt="">
 																</span>
                                                     </div>
                                                     <!--end::Symbol-->
@@ -3627,14 +3286,11 @@ Like: www.facebook.com/keenthemes
                                                 </a>
                                                 <!--end::آیتم-->
                                                 <!--begin::آیتم-->
-                                                <a href="#"
-                                                   class="d-flex text-dark text-hover-primary align-items-center mb-5">
+                                                <a href="#" class="d-flex text-dark text-hover-primary align-items-center mb-5">
                                                     <!--begin::Symbol-->
                                                     <div class="symbol symbol-40px me-4">
 																<span class="symbol-label bg-light">
-																	<img class="w-20px h-20px"
-                                                                         src="/admin/src/assets/media/svg/misc/infography.svg"
-                                                                         alt=""/>
+																	<img class="w-20px h-20px" src="assets/media/svg/misc/infography.svg" alt="">
 																</span>
                                                     </div>
                                                     <!--end::Symbol-->
@@ -3647,14 +3303,11 @@ Like: www.facebook.com/keenthemes
                                                 </a>
                                                 <!--end::آیتم-->
                                                 <!--begin::آیتم-->
-                                                <a href="#"
-                                                   class="d-flex text-dark text-hover-primary align-items-center mb-5">
+                                                <a href="#" class="d-flex text-dark text-hover-primary align-items-center mb-5">
                                                     <!--begin::Symbol-->
                                                     <div class="symbol symbol-40px me-4">
 																<span class="symbol-label bg-light">
-																	<img class="w-20px h-20px"
-                                                                         src="/admin/src/assets/media/svg/brand-logos/leaf.svg"
-                                                                         alt=""/>
+																	<img class="w-20px h-20px" src="assets/media/svg/brand-logos/leaf.svg" alt="">
 																</span>
                                                     </div>
                                                     <!--end::Symbol-->
@@ -3667,14 +3320,11 @@ Like: www.facebook.com/keenthemes
                                                 </a>
                                                 <!--end::آیتم-->
                                                 <!--begin::آیتم-->
-                                                <a href="#"
-                                                   class="d-flex text-dark text-hover-primary align-items-center mb-5">
+                                                <a href="#" class="d-flex text-dark text-hover-primary align-items-center mb-5">
                                                     <!--begin::Symbol-->
                                                     <div class="symbol symbol-40px me-4">
 																<span class="symbol-label bg-light">
-																	<img class="w-20px h-20px"
-                                                                         src="/admin/src/assets/media/svg/brand-logos/tower.svg"
-                                                                         alt=""/>
+																	<img class="w-20px h-20px" src="assets/media/svg/brand-logos/tower.svg" alt="">
 																</span>
                                                     </div>
                                                     <!--end::Symbol-->
@@ -3687,12 +3337,10 @@ Like: www.facebook.com/keenthemes
                                                 </a>
                                                 <!--end::آیتم-->
                                                 <!--begin::دسته بندی title-->
-                                                <h3 class="fs-5 text-muted m-0 pt-5 pb-5"
-                                                    data-kt-search-element="category-title">پروژه ها</h3>
+                                                <h3 class="fs-5 text-muted m-0 pt-5 pb-5" data-kt-search-element="category-title">پروژه ها</h3>
                                                 <!--end::دسته بندی title-->
                                                 <!--begin::آیتم-->
-                                                <a href="#"
-                                                   class="d-flex text-dark text-hover-primary align-items-center mb-5">
+                                                <a href="#" class="d-flex text-dark text-hover-primary align-items-center mb-5">
                                                     <!--begin::Symbol-->
                                                     <div class="symbol symbol-40px me-4">
 																<span class="symbol-label bg-light">
@@ -3715,8 +3363,7 @@ Like: www.facebook.com/keenthemes
                                                 </a>
                                                 <!--end::آیتم-->
                                                 <!--begin::آیتم-->
-                                                <a href="#"
-                                                   class="d-flex text-dark text-hover-primary align-items-center mb-5">
+                                                <a href="#" class="d-flex text-dark text-hover-primary align-items-center mb-5">
                                                     <!--begin::Symbol-->
                                                     <div class="symbol symbol-40px me-4">
 																<span class="symbol-label bg-light">
@@ -3738,8 +3385,7 @@ Like: www.facebook.com/keenthemes
                                                 </a>
                                                 <!--end::آیتم-->
                                                 <!--begin::آیتم-->
-                                                <a href="#"
-                                                   class="d-flex text-dark text-hover-primary align-items-center mb-5">
+                                                <a href="#" class="d-flex text-dark text-hover-primary align-items-center mb-5">
                                                     <!--begin::Symbol-->
                                                     <div class="symbol symbol-40px me-4">
 																<span class="symbol-label bg-light">
@@ -3753,16 +3399,14 @@ Like: www.facebook.com/keenthemes
                                                     <!--end::Symbol-->
                                                     <!--begin::Title-->
                                                     <div class="d-flex flex-column">
-                                                        <span
-                                                            class="fs-6 fw-semibold">دارایی، مالیه، سرمایه گذاری</span>
+                                                        <span class="fs-6 fw-semibold">دارایی، مالیه، سرمایه گذاری</span>
                                                         <span class="fs-7 fw-semibold text-muted">#21090</span>
                                                     </div>
                                                     <!--end::Title-->
                                                 </a>
                                                 <!--end::آیتم-->
                                                 <!--begin::آیتم-->
-                                                <a href="#"
-                                                   class="d-flex text-dark text-hover-primary align-items-center mb-5">
+                                                <a href="#" class="d-flex text-dark text-hover-primary align-items-center mb-5">
                                                     <!--begin::Symbol-->
                                                     <div class="symbol symbol-40px me-4">
 																<span class="symbol-label bg-light">
@@ -3811,9 +3455,7 @@ Like: www.facebook.com/keenthemes
                                                     <!--end::Symbol-->
                                                     <!--begin::Title-->
                                                     <div class="d-flex flex-column">
-                                                        <a href="#"
-                                                           class="fs-6 text-gray-800 text-hover-primary fw-semibold">ساتراس
-                                                            وب</a>
+                                                        <a href="#" class="fs-6 text-gray-800 text-hover-primary fw-semibold">ساتراس وب</a>
                                                         <span class="fs-7 text-muted fw-semibold">#45789</span>
                                                     </div>
                                                     <!--end::Title-->
@@ -3835,9 +3477,7 @@ Like: www.facebook.com/keenthemes
                                                     <!--end::Symbol-->
                                                     <!--begin::Title-->
                                                     <div class="d-flex flex-column">
-                                                        <a href="#"
-                                                           class="fs-6 text-gray-800 text-hover-primary fw-semibold">"ملاقات
-                                                            پروژه ها</a>
+                                                        <a href="#" class="fs-6 text-gray-800 text-hover-primary fw-semibold">"ملاقات پروژه ها</a>
                                                         <span class="fs-7 text-muted fw-semibold">#84050</span>
                                                     </div>
                                                     <!--end::Title-->
@@ -3857,9 +3497,7 @@ Like: www.facebook.com/keenthemes
                                                     <!--end::Symbol-->
                                                     <!--begin::Title-->
                                                     <div class="d-flex flex-column">
-                                                        <a href="#"
-                                                           class="fs-6 text-gray-800 text-hover-primary fw-semibold">مانیتورینگ
-                                                            اپلیکیشن لانچ</a>
+                                                        <a href="#" class="fs-6 text-gray-800 text-hover-primary fw-semibold">مانیتورینگ  اپلیکیشن لانچ</a>
                                                         <span class="fs-7 text-muted fw-semibold">#84250</span>
                                                     </div>
                                                     <!--end::Title-->
@@ -3879,9 +3517,7 @@ Like: www.facebook.com/keenthemes
                                                     <!--end::Symbol-->
                                                     <!--begin::Title-->
                                                     <div class="d-flex flex-column">
-                                                        <a href="#"
-                                                           class="fs-6 text-gray-800 text-hover-primary fw-semibold">سوالات
-                                                            متداول</a>
+                                                        <a href="#" class="fs-6 text-gray-800 text-hover-primary fw-semibold">سوالات متداول</a>
                                                         <span class="fs-7 text-muted fw-semibold">#67945</span>
                                                     </div>
                                                     <!--end::Title-->
@@ -3901,9 +3537,7 @@ Like: www.facebook.com/keenthemes
                                                     <!--end::Symbol-->
                                                     <!--begin::Title-->
                                                     <div class="d-flex flex-column">
-                                                        <a href="#"
-                                                           class="fs-6 text-gray-800 text-hover-primary fw-semibold">"اپلیکیشن
-                                                            کیت پرو</a>
+                                                        <a href="#" class="fs-6 text-gray-800 text-hover-primary fw-semibold">"اپلیکیشن کیت پرو</a>
                                                         <span class="fs-7 text-muted fw-semibold">#84250</span>
                                                     </div>
                                                     <!--end::Title-->
@@ -3923,9 +3557,7 @@ Like: www.facebook.com/keenthemes
                                                     <!--end::Symbol-->
                                                     <!--begin::Title-->
                                                     <div class="d-flex flex-column">
-                                                        <a href="#"
-                                                           class="fs-6 text-gray-800 text-hover-primary fw-semibold">اپلیکیشن
-                                                            فونیکس</a>
+                                                        <a href="#" class="fs-6 text-gray-800 text-hover-primary fw-semibold">اپلیکیشن فونیکس</a>
                                                         <span class="fs-7 text-muted fw-semibold">#45690</span>
                                                     </div>
                                                     <!--end::Title-->
@@ -3945,9 +3577,7 @@ Like: www.facebook.com/keenthemes
                                                     <!--end::Symbol-->
                                                     <!--begin::Title-->
                                                     <div class="d-flex flex-column">
-                                                        <a href="#"
-                                                           class="fs-6 text-gray-800 text-hover-primary fw-semibold">"صفحه
-                                                            فرود طراح" لانچ</a>
+                                                        <a href="#" class="fs-6 text-gray-800 text-hover-primary fw-semibold">"صفحه فرود طراح" لانچ</a>
                                                         <span class="fs-7 text-muted fw-semibold">#24005</span>
                                                     </div>
                                                     <!--end::Title-->
@@ -3971,8 +3601,7 @@ Like: www.facebook.com/keenthemes
                                             <!--begin::Message-->
                                             <div class="pb-15 fw-semibold">
                                                 <h3 class="text-gray-600 fs-5 mb-2">نتیجه اییافت نشد</h3>
-                                                <div class="text-muted fs-7">لطفاً با یک پرسش دیگر دوباره امتحان کنید
-                                                </div>
+                                                <div class="text-muted fs-7">لطفاً با یک پرسش دیگر دوباره امتحان کنید</div>
                                             </div>
                                             <!--end::Message-->
                                         </div>
@@ -3986,8 +3615,7 @@ Like: www.facebook.com/keenthemes
                                         <!--end::Heading-->
                                         <!--begin::Input group-->
                                         <div class="mb-5">
-                                            <input type="text" class="form-control form-control-sm form-control-solid"
-                                                   placeholder="حاوی کلمه است" name="query"/>
+                                            <input type="text" class="form-control form-control-sm form-control-solid" placeholder="حاوی کلمه است" name="query">
                                         </div>
                                         <!--end::Input group-->
                                         <!--begin::Input group-->
@@ -3996,31 +3624,26 @@ Like: www.facebook.com/keenthemes
                                             <div class="nav-group nav-group-fluid">
                                                 <!--begin::Option-->
                                                 <label>
-                                                    <input type="radio" class="btn-check" name="type" value="has"
-                                                           checked="checked"/>
-                                                    <span
-                                                        class="btn btn-sm btn-color-muted btn-active btn-active-primary">همه</span>
+                                                    <input type="radio" class="btn-check" name="type" value="has" checked="checked">
+                                                    <span class="btn btn-sm btn-color-muted btn-active btn-active-primary">همه</span>
                                                 </label>
                                                 <!--end::Option-->
                                                 <!--begin::Option-->
                                                 <label>
-                                                    <input type="radio" class="btn-check" name="type" value="users"/>
-                                                    <span
-                                                        class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">کاربران</span>
+                                                    <input type="radio" class="btn-check" name="type" value="users">
+                                                    <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">کاربران</span>
                                                 </label>
                                                 <!--end::Option-->
                                                 <!--begin::Option-->
                                                 <label>
-                                                    <input type="radio" class="btn-check" name="type" value="orders"/>
-                                                    <span
-                                                        class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">سفارشات</span>
+                                                    <input type="radio" class="btn-check" name="type" value="orders">
+                                                    <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">سفارشات</span>
                                                 </label>
                                                 <!--end::Option-->
                                                 <!--begin::Option-->
                                                 <label>
-                                                    <input type="radio" class="btn-check" name="type" value="projects"/>
-                                                    <span
-                                                        class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">پروژه ها</span>
+                                                    <input type="radio" class="btn-check" name="type" value="projects">
+                                                    <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">پروژه ها</span>
                                                 </label>
                                                 <!--end::Option-->
                                             </div>
@@ -4029,16 +3652,12 @@ Like: www.facebook.com/keenthemes
                                         <!--end::Input group-->
                                         <!--begin::Input group-->
                                         <div class="mb-5">
-                                            <input type="text" name="assignedto"
-                                                   class="form-control form-control-sm form-control-solid"
-                                                   placeholder="اختصاص دادن" value=""/>
+                                            <input type="text" name="assignedto" class="form-control form-control-sm form-control-solid" placeholder="اختصاص دادن" value="">
                                         </div>
                                         <!--end::Input group-->
                                         <!--begin::Input group-->
                                         <div class="mb-5">
-                                            <input type="text" name="collaborators"
-                                                   class="form-control form-control-sm form-control-solid"
-                                                   placeholder="همکاران" value=""/>
+                                            <input type="text" name="collaborators" class="form-control form-control-sm form-control-solid" placeholder="همکاران" value="">
                                         </div>
                                         <!--end::Input group-->
                                         <!--begin::Input group-->
@@ -4047,18 +3666,14 @@ Like: www.facebook.com/keenthemes
                                             <div class="nav-group nav-group-fluid">
                                                 <!--begin::Option-->
                                                 <label>
-                                                    <input type="radio" class="btn-check" name="attachment" value="has"
-                                                           checked="checked"/>
-                                                    <span
-                                                        class="btn btn-sm btn-color-muted btn-active btn-active-primary">ضمیمه دار</span>
+                                                    <input type="radio" class="btn-check" name="attachment" value="has" checked="checked">
+                                                    <span class="btn btn-sm btn-color-muted btn-active btn-active-primary">ضمیمه دار</span>
                                                 </label>
                                                 <!--end::Option-->
                                                 <!--begin::Option-->
                                                 <label>
-                                                    <input type="radio" class="btn-check" name="attachment"
-                                                           value="any"/>
-                                                    <span
-                                                        class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">هیچ</span>
+                                                    <input type="radio" class="btn-check" name="attachment" value="any">
+                                                    <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">هیچ</span>
                                                 </label>
                                                 <!--end::Option-->
                                             </div>
@@ -4067,48 +3682,37 @@ Like: www.facebook.com/keenthemes
                                         <!--end::Input group-->
                                         <!--begin::Input group-->
                                         <div class="mb-5">
-                                            <select name="timezone" aria-label="انتخاب زمان محلی" data-control="select2"
-                                                    data-placeholder="date_period"
-                                                    class="form-select form-select-sm form-select-solid">
-                                                <option value="next">بعدی</option>
+                                            <select name="timezone" aria-label="انتخاب زمان محلی" data-control="select2" data-placeholder="date_period" class="form-select form-select-sm form-select-solid select2-hidden-accessible" data-select2-id="select2-data-1-o1vt" tabindex="-1" aria-hidden="true" data-kt-initialized="1">
+                                                <option value="next" data-select2-id="select2-data-3-8uto">بعدی</option>
                                                 <option value="last">قبلی</option>
                                                 <option value="between">بین</option>
                                                 <option value="on">روشن</option>
-                                            </select>
+                                            </select><span class="select2 select2-container select2-container--bootstrap5" dir="rtl" data-select2-id="select2-data-2-wby5" style="width: 100%;"><span class="selection"><span class="select2-selection select2-selection--single form-select form-select-sm form-select-solid" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-disabled="false" aria-labelledby="select2-timezone-cf-container" aria-controls="select2-timezone-cf-container"><span class="select2-selection__rendered" id="select2-timezone-cf-container" role="textbox" aria-readonly="true" title="بعدی">بعدی</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
                                         </div>
                                         <!--end::Input group-->
                                         <!--begin::Input group-->
                                         <div class="row mb-8">
                                             <!--begin::Col-->
                                             <div class="col-6">
-                                                <input type="number" name="date_number"
-                                                       class="form-control form-control-sm form-control-solid"
-                                                       placeholder="طول" value=""/>
+                                                <input type="number" name="date_number" class="form-control form-control-sm form-control-solid" placeholder="طول" value="">
                                             </div>
                                             <!--end::Col-->
                                             <!--begin::Col-->
                                             <div class="col-6">
-                                                <select name="date_typer" aria-label="انتخاب زمان محلی"
-                                                        data-control="select2" data-placeholder="Period"
-                                                        class="form-select form-select-sm form-select-solid">
-                                                    <option value="days">روزها</option>
+                                                <select name="date_typer" aria-label="انتخاب زمان محلی" data-control="select2" data-placeholder="Period" class="form-select form-select-sm form-select-solid select2-hidden-accessible" data-select2-id="select2-data-4-e38b" tabindex="-1" aria-hidden="true" data-kt-initialized="1">
+                                                    <option value="days" data-select2-id="select2-data-6-c32n">روزها</option>
                                                     <option value="weeks">هفته ها</option>
                                                     <option value="months">ماه ها</option>
                                                     <option value="years">سال ها</option>
-                                                </select>
+                                                </select><span class="select2 select2-container select2-container--bootstrap5" dir="rtl" data-select2-id="select2-data-5-2b1h" style="width: 100%;"><span class="selection"><span class="select2-selection select2-selection--single form-select form-select-sm form-select-solid" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-disabled="false" aria-labelledby="select2-date_typer-52-container" aria-controls="select2-date_typer-52-container"><span class="select2-selection__rendered" id="select2-date_typer-52-container" role="textbox" aria-readonly="true" title="روزها">روزها</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
                                             </div>
                                             <!--end::Col-->
                                         </div>
                                         <!--end::Input group-->
                                         <!--begin::Actions-->
                                         <div class="d-flex justify-content-end">
-                                            <button type="reset"
-                                                    class="btn btn-sm btn-light fw-bold btn-active-light-primary me-2"
-                                                    data-kt-search-element="advanced-options-form-cancel">انصراف
-                                            </button>
-                                            <a href="../../demo1/dist/pages/search/horizontal.html"
-                                               class="btn btn-sm fw-bold btn-primary"
-                                               data-kt-search-element="advanced-options-form-search">جستجو</a>
+                                            <button type="reset" class="btn btn-sm btn-light fw-bold btn-active-light-primary me-2" data-kt-search-element="advanced-options-form-cancel">انصراف</button>
+                                            <a href="../../demo1/dist/pages/search/horizontal.html" class="btn btn-sm fw-bold btn-primary" data-kt-search-element="advanced-options-form-search">جستجو</a>
                                         </div>
                                         <!--end::Actions-->
                                     </form>
@@ -4120,60 +3724,48 @@ Like: www.facebook.com/keenthemes
                                         <!--end::Heading-->
                                         <!--begin::Input group-->
                                         <div class="pb-4 border-bottom">
-                                            <label
-                                                class="form-check form-switch form-switch-sm form-check-custom form-check-solid flex-stack">
+                                            <label class="form-check form-switch form-switch-sm form-check-custom form-check-solid flex-stack">
                                                 <span class="form-check-label text-gray-700 fs-6 fw-semibold ms-0 me-2">پروژه ها</span>
-                                                <input class="form-check-input" type="checkbox" value="1"
-                                                       checked="checked"/>
+                                                <input class="form-check-input" type="checkbox" value="1" checked="checked">
                                             </label>
                                         </div>
                                         <!--end::Input group-->
                                         <!--begin::Input group-->
                                         <div class="py-4 border-bottom">
-                                            <label
-                                                class="form-check form-switch form-switch-sm form-check-custom form-check-solid flex-stack">
+                                            <label class="form-check form-switch form-switch-sm form-check-custom form-check-solid flex-stack">
                                                 <span class="form-check-label text-gray-700 fs-6 fw-semibold ms-0 me-2">اهداف</span>
-                                                <input class="form-check-input" type="checkbox" value="1"
-                                                       checked="checked"/>
+                                                <input class="form-check-input" type="checkbox" value="1" checked="checked">
                                             </label>
                                         </div>
                                         <!--end::Input group-->
                                         <!--begin::Input group-->
                                         <div class="py-4 border-bottom">
-                                            <label
-                                                class="form-check form-switch form-switch-sm form-check-custom form-check-solid flex-stack">
+                                            <label class="form-check form-switch form-switch-sm form-check-custom form-check-solid flex-stack">
                                                 <span class="form-check-label text-gray-700 fs-6 fw-semibold ms-0 me-2">برنامه بازاریابی</span>
-                                                <input class="form-check-input" type="checkbox" value="1"/>
+                                                <input class="form-check-input" type="checkbox" value="1">
                                             </label>
                                         </div>
                                         <!--end::Input group-->
                                         <!--begin::Input group-->
                                         <div class="py-4 border-bottom">
-                                            <label
-                                                class="form-check form-switch form-switch-sm form-check-custom form-check-solid flex-stack">
+                                            <label class="form-check form-switch form-switch-sm form-check-custom form-check-solid flex-stack">
                                                 <span class="form-check-label text-gray-700 fs-6 fw-semibold ms-0 me-2">مراجعات</span>
-                                                <input class="form-check-input" type="checkbox" value="1"
-                                                       checked="checked"/>
+                                                <input class="form-check-input" type="checkbox" value="1" checked="checked">
                                             </label>
                                         </div>
                                         <!--end::Input group-->
                                         <!--begin::Input group-->
                                         <div class="py-4 border-bottom">
-                                            <label
-                                                class="form-check form-switch form-switch-sm form-check-custom form-check-solid flex-stack">
+                                            <label class="form-check form-switch form-switch-sm form-check-custom form-check-solid flex-stack">
                                                 <span class="form-check-label text-gray-700 fs-6 fw-semibold ms-0 me-2">کاربران</span>
-                                                <input class="form-check-input" type="checkbox" value="1"/>
+                                                <input class="form-check-input" type="checkbox" value="1">
                                             </label>
                                         </div>
                                         <!--end::Input group-->
                                         <!--begin::Actions-->
                                         <div class="d-flex justify-content-end pt-7">
-                                            <button type="reset"
-                                                    class="btn btn-sm btn-light fw-bold btn-active-light-primary me-2"
-                                                    data-kt-search-element="preferences-dismiss">انصراف
-                                            </button>
-                                            <button type="submit" class="btn btn-sm fw-bold btn-primary">ذخیره تغییرات
-                                            </button>
+                                            <button type="reset" class="btn btn-sm btn-light fw-bold btn-active-light-primary me-2" data-kt-search-element="preferences-dismiss">انصراف</button>
+                                            <button type="submit" class="btn btn-sm fw-bold btn-primary">ذخیره تغییرات</button>
                                         </div>
                                         <!--end::Actions-->
                                     </form>
@@ -4187,9 +3779,7 @@ Like: www.facebook.com/keenthemes
                         <!--begin::فعالیتها-->
                         <div class="app-navbar-item ms-1 ms-md-3">
                             <!--begin::کشو toggle-->
-                            <div
-                                class="btn btn-icon btn-custom btn-icon-muted btn-active-light btn-active-color-primary w-30px h-30px w-md-40px h-md-40px"
-                                id="kt_activities_toggle">
+                            <div class="btn btn-icon btn-custom btn-icon-muted btn-active-light btn-active-color-primary w-30px h-30px w-md-40px h-md-40px" id="kt_activities_toggle">
                                 <i class="ki-duotone ki-chart-simple fs-2 fs-lg-1">
                                     <span class="path1"></span>
                                     <span class="path2"></span>
@@ -4203,38 +3793,30 @@ Like: www.facebook.com/keenthemes
                         <!--begin::اعلان ها-->
                         <div class="app-navbar-item ms-1 ms-md-3">
                             <!--begin::Menu- wrapper-->
-                            <div
-                                class="btn btn-icon btn-custom btn-icon-muted btn-active-light btn-active-color-primary w-30px h-30px w-md-40px h-md-40px"
-                                data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-attach="parent"
-                                data-kt-menu-placement="bottom-end" id="kt_menu_item_wow">
+                            <div class="btn btn-icon btn-custom btn-icon-muted btn-active-light btn-active-color-primary w-30px h-30px w-md-40px h-md-40px" data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end" id="kt_menu_item_wow">
                                 <i class="ki-duotone ki-abstract-4 fs-2 fs-lg-1">
                                     <span class="path1"></span>
                                     <span class="path2"></span>
                                 </i>
                             </div>
                             <!--begin::Menu-->
-                            <div class="menu menu-sub menu-sub-dropdown menu-column w-350px w-lg-375px"
-                                 data-kt-menu="true" id="kt_menu_notifications">
+                            <div class="menu menu-sub menu-sub-dropdown menu-column w-350px w-lg-375px" data-kt-menu="true" id="kt_menu_notifications" style="">
                                 <!--begin::Heading-->
-                                <div class="d-flex flex-column bgi-no-repeat rounded-top"
-                                     style="background-image:url('assets/media/misc/menu-header-bg.jpg')">
+                                <div class="d-flex flex-column bgi-no-repeat rounded-top" style="background-image:url('assets/media/misc/menu-header-bg.jpg')">
                                     <!--begin::Title-->
                                     <h3 class="text-white fw-semibold px-9 mt-10 mb-6">اعلان ها
                                         <span class="fs-8 opacity-75 ps-3">24 گزارش</span></h3>
                                     <!--end::Title-->
                                     <!--begin::Tabs-->
-                                    <ul class="nav nav-line-tabs nav-line-tabs-2x nav-stretch fw-semibold px-9">
-                                        <li class="nav-item">
-                                            <a class="nav-link text-white opacity-75 opacity-state-100 pb-4"
-                                               data-bs-toggle="tab" href="#kt_topbar_notifications_1">هشدارها</a>
+                                    <ul class="nav nav-line-tabs nav-line-tabs-2x nav-stretch fw-semibold px-9" role="tablist">
+                                        <li class="nav-item" role="presentation">
+                                            <a class="nav-link text-white opacity-75 opacity-state-100 pb-4" data-bs-toggle="tab" href="#kt_topbar_notifications_1" aria-selected="false" tabindex="-1" role="tab">هشدارها</a>
                                         </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link text-white opacity-75 opacity-state-100 pb-4 active"
-                                               data-bs-toggle="tab" href="#kt_topbar_notifications_2">بروزرسانی ها</a>
+                                        <li class="nav-item" role="presentation">
+                                            <a class="nav-link text-white opacity-75 opacity-state-100 pb-4 active" data-bs-toggle="tab" href="#kt_topbar_notifications_2" aria-selected="true" role="tab">بروزرسانی ها</a>
                                         </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link text-white opacity-75 opacity-state-100 pb-4"
-                                               data-bs-toggle="tab" href="#kt_topbar_notifications_3">گزارش</a>
+                                        <li class="nav-item" role="presentation">
+                                            <a class="nav-link text-white opacity-75 opacity-state-100 pb-4" data-bs-toggle="tab" href="#kt_topbar_notifications_3" aria-selected="false" tabindex="-1" role="tab">گزارش</a>
                                         </li>
                                     </ul>
                                     <!--end::Tabs-->
@@ -4262,9 +3844,7 @@ Like: www.facebook.com/keenthemes
                                                     <!--end::Symbol-->
                                                     <!--begin::Title-->
                                                     <div class="mb-0 me-2">
-                                                        <a href="#"
-                                                           class="fs-6 text-gray-800 text-hover-primary fw-bold">پروژه
-                                                            آلیس</a>
+                                                        <a href="#" class="fs-6 text-gray-800 text-hover-primary fw-bold">پروژه آلیس</a>
                                                         <div class="text-gray-400 fs-7">توسعه فاز 1</div>
                                                     </div>
                                                     <!--end::Title-->
@@ -4292,8 +3872,7 @@ Like: www.facebook.com/keenthemes
                                                     <!--end::Symbol-->
                                                     <!--begin::Title-->
                                                     <div class="mb-0 me-2">
-                                                        <a href="#"
-                                                           class="fs-6 text-gray-800 text-hover-primary fw-bold">محرمانه</a>
+                                                        <a href="#" class="fs-6 text-gray-800 text-hover-primary fw-bold">محرمانه</a>
                                                         <div class="text-gray-400 fs-7">اسناد محرمانه کارکنان</div>
                                                     </div>
                                                     <!--end::Title-->
@@ -4320,11 +3899,8 @@ Like: www.facebook.com/keenthemes
                                                     <!--end::Symbol-->
                                                     <!--begin::Title-->
                                                     <div class="mb-0 me-2">
-                                                        <a href="#"
-                                                           class="fs-6 text-gray-800 text-hover-primary fw-bold">کمپانی
-                                                            HR</a>
-                                                        <div class="text-gray-400 fs-7">مشخصات کارکنان را شریک کنید
-                                                        </div>
+                                                        <a href="#" class="fs-6 text-gray-800 text-hover-primary fw-bold">کمپانی HR</a>
+                                                        <div class="text-gray-400 fs-7">مشخصات کارکنان را شریک کنید</div>
                                                     </div>
                                                     <!--end::Title-->
                                                 </div>
@@ -4350,9 +3926,7 @@ Like: www.facebook.com/keenthemes
                                                     <!--end::Symbol-->
                                                     <!--begin::Title-->
                                                     <div class="mb-0 me-2">
-                                                        <a href="#"
-                                                           class="fs-6 text-gray-800 text-hover-primary fw-bold">پروژه
-                                                            ریداکس</a>
+                                                        <a href="#" class="fs-6 text-gray-800 text-hover-primary fw-bold">پروژه ریداکس</a>
                                                         <div class="text-gray-400 fs-7">تم ادمین جدید</div>
                                                     </div>
                                                     <!--end::Title-->
@@ -4381,12 +3955,8 @@ Like: www.facebook.com/keenthemes
                                                     <!--end::Symbol-->
                                                     <!--begin::Title-->
                                                     <div class="mb-0 me-2">
-                                                        <a href="#"
-                                                           class="fs-6 text-gray-800 text-hover-primary fw-bold">پروژه
-                                                            بریفینگ</a>
-                                                        <div class="text-gray-400 fs-7">به روز رسانی وضعیت راه اندازی
-                                                            محصول
-                                                        </div>
+                                                        <a href="#" class="fs-6 text-gray-800 text-hover-primary fw-bold">پروژه بریفینگ</a>
+                                                        <div class="text-gray-400 fs-7">به روز رسانی وضعیت راه اندازی محصول</div>
                                                     </div>
                                                     <!--end::Title-->
                                                 </div>
@@ -4409,9 +3979,7 @@ Like: www.facebook.com/keenthemes
                                                     <!--end::Symbol-->
                                                     <!--begin::Title-->
                                                     <div class="mb-0 me-2">
-                                                        <a href="#"
-                                                           class="fs-6 text-gray-800 text-hover-primary fw-bold">دارایی
-                                                            های بنر</a>
+                                                        <a href="#" class="fs-6 text-gray-800 text-hover-primary fw-bold">دارایی های بنر</a>
                                                         <div class="text-gray-400 fs-7">مجموعه ای از تصویر بنرها</div>
                                                     </div>
                                                     <!--end::Title-->
@@ -4457,9 +4025,7 @@ Like: www.facebook.com/keenthemes
                                                     <!--end::Symbol-->
                                                     <!--begin::Title-->
                                                     <div class="mb-0 me-2">
-                                                        <a href="#"
-                                                           class="fs-6 text-gray-800 text-hover-primary fw-bold">نماد
-                                                            دارایی ها</a>
+                                                        <a href="#" class="fs-6 text-gray-800 text-hover-primary fw-bold">نماد دارایی ها</a>
                                                         <div class="text-gray-400 fs-7">مجموعه ای از ایکون ها</div>
                                                     </div>
                                                     <!--end::Title-->
@@ -4474,8 +4040,7 @@ Like: www.facebook.com/keenthemes
                                         <!--end::آیتمs-->
                                         <!--begin::نمایش more-->
                                         <div class="py-3 text-center border-top">
-                                            <a href="../../demo1/dist/pages/user-profile/activity.html"
-                                               class="btn btn-color-gray-600 btn-active-color-primary">نمایش همه
+                                            <a href="../../demo1/dist/pages/user-profile/activity.html" class="btn btn-color-gray-600 btn-active-color-primary">نمایش همه
                                                 <i class="ki-duotone ki-arrow-right fs-5">
                                                     <span class="path1"></span>
                                                     <span class="path2"></span>
@@ -4485,35 +4050,27 @@ Like: www.facebook.com/keenthemes
                                     </div>
                                     <!--end::Tab panel-->
                                     <!--begin::Tab panel-->
-                                    <div class="tab-pane fade show active" id="kt_topbar_notifications_2"
-                                         role="tabpanel">
+                                    <div class="tab-pane fade show active" id="kt_topbar_notifications_2" role="tabpanel">
                                         <!--begin::Wrapper-->
                                         <div class="d-flex flex-column px-9">
                                             <!--begin::بخش-->
                                             <div class="pt-10 pb-0">
                                                 <!--begin::Title-->
-                                                <h3 class="text-dark text-center fw-bold">دسترسی حرفه ای را دریافت
-                                                    کنید</h3>
+                                                <h3 class="text-dark text-center fw-bold">دسترسی حرفه ای را دریافت کنید</h3>
                                                 <!--end::Title-->
                                                 <!--begin::Text-->
-                                                <div class="text-center text-gray-600 fw-semibold pt-1">رئوس مطالب شما
-                                                    را صادق نگه می دارد. آنها جلوی شگفت انگیز بودن شما درمورد رانندگی را
-                                                    می گیرند
-                                                </div>
+                                                <div class="text-center text-gray-600 fw-semibold pt-1">رئوس مطالب شما را صادق نگه می دارد. آنها جلوی شگفت انگیز بودن شما درمورد رانندگی را می گیرند</div>
                                                 <!--end::Text-->
                                                 <!--begin::Actions-->
                                                 <div class="text-center mt-5 mb-9">
-                                                    <a href="#" class="btn btn-sm btn-primary px-6"
-                                                       data-bs-toggle="modal" data-bs-target="#kt_modal_upgrade_plan">ارتقا
-                                                        دهید</a>
+                                                    <a href="#" class="btn btn-sm btn-primary px-6" data-bs-toggle="modal" data-bs-target="#kt_modal_upgrade_plan">ارتقا دهید</a>
                                                 </div>
                                                 <!--end::Actions-->
                                             </div>
                                             <!--end::بخش-->
                                             <!--begin::Illustration-->
                                             <div class="text-center px-4">
-                                                <img class="mw-100 mh-200px" alt="image"
-                                                     src="/admin/src/assets/media/illustrations/sketchy-1/1.png"/>
+                                                <img class="mw-100 mh-200px" alt="image" src="assets/media/illustrations/sketchy-1/1.png">
                                             </div>
                                             <!--end::Illustration-->
                                         </div>
@@ -4532,8 +4089,7 @@ Like: www.facebook.com/keenthemes
                                                     <span class="w-70px badge badge-light-success me-4">200</span>
                                                     <!--end::Code-->
                                                     <!--begin::Title-->
-                                                    <a href="#" class="text-gray-800 text-hover-primary fw-semibold">سفارش
-                                                        جدید</a>
+                                                    <a href="#" class="text-gray-800 text-hover-primary fw-semibold">سفارش جدید</a>
                                                     <!--end::Title-->
                                                 </div>
                                                 <!--end::بخش-->
@@ -4550,8 +4106,7 @@ Like: www.facebook.com/keenthemes
                                                     <span class="w-70px badge badge-light-danger me-4">500</span>
                                                     <!--end::Code-->
                                                     <!--begin::Title-->
-                                                    <a href="#" class="text-gray-800 text-hover-primary fw-semibold">مشتری
-                                                        جدید</a>
+                                                    <a href="#" class="text-gray-800 text-hover-primary fw-semibold">مشتری جدید</a>
                                                     <!--end::Title-->
                                                 </div>
                                                 <!--end::بخش-->
@@ -4568,8 +4123,7 @@ Like: www.facebook.com/keenthemes
                                                     <span class="w-70px badge badge-light-success me-4">200</span>
                                                     <!--end::Code-->
                                                     <!--begin::Title-->
-                                                    <a href="#" class="text-gray-800 text-hover-primary fw-semibold">پردازش
-                                                        درگاه</a>
+                                                    <a href="#" class="text-gray-800 text-hover-primary fw-semibold">پردازش درگاه</a>
                                                     <!--end::Title-->
                                                 </div>
                                                 <!--end::بخش-->
@@ -4586,8 +4140,7 @@ Like: www.facebook.com/keenthemes
                                                     <span class="w-70px badge badge-light-warning me-4">300</span>
                                                     <!--end::Code-->
                                                     <!--begin::Title-->
-                                                    <a href="#" class="text-gray-800 text-hover-primary fw-semibold">جستجوی
-                                                        کوئری</a>
+                                                    <a href="#" class="text-gray-800 text-hover-primary fw-semibold">جستجوی کوئری</a>
                                                     <!--end::Title-->
                                                 </div>
                                                 <!--end::بخش-->
@@ -4604,8 +4157,7 @@ Like: www.facebook.com/keenthemes
                                                     <span class="w-70px badge badge-light-success me-4">200</span>
                                                     <!--end::Code-->
                                                     <!--begin::Title-->
-                                                    <a href="#" class="text-gray-800 text-hover-primary fw-semibold">ارتباط
-                                                        کلید دسترسی</a>
+                                                    <a href="#" class="text-gray-800 text-hover-primary fw-semibold">ارتباط کلید دسترسی</a>
                                                     <!--end::Title-->
                                                 </div>
                                                 <!--end::بخش-->
@@ -4622,8 +4174,7 @@ Like: www.facebook.com/keenthemes
                                                     <span class="w-70px badge badge-light-success me-4">200</span>
                                                     <!--end::Code-->
                                                     <!--begin::Title-->
-                                                    <a href="#" class="text-gray-800 text-hover-primary fw-semibold">بازیابی
-                                                        دیتابیس</a>
+                                                    <a href="#" class="text-gray-800 text-hover-primary fw-semibold">بازیابی دیتابیس</a>
                                                     <!--end::Title-->
                                                 </div>
                                                 <!--end::بخش-->
@@ -4640,8 +4191,7 @@ Like: www.facebook.com/keenthemes
                                                     <span class="w-70px badge badge-light-warning me-4">300</span>
                                                     <!--end::Code-->
                                                     <!--begin::Title-->
-                                                    <a href="#" class="text-gray-800 text-hover-primary fw-semibold">بروزرسانی
-                                                        سیستم</a>
+                                                    <a href="#" class="text-gray-800 text-hover-primary fw-semibold">بروزرسانی سیستم</a>
                                                     <!--end::Title-->
                                                 </div>
                                                 <!--end::بخش-->
@@ -4658,8 +4208,7 @@ Like: www.facebook.com/keenthemes
                                                     <span class="w-70px badge badge-light-warning me-4">300</span>
                                                     <!--end::Code-->
                                                     <!--begin::Title-->
-                                                    <a href="#" class="text-gray-800 text-hover-primary fw-semibold">اپدیت
-                                                        سیستم عامل سرور</a>
+                                                    <a href="#" class="text-gray-800 text-hover-primary fw-semibold">اپدیت سیستم عامل سرور</a>
                                                     <!--end::Title-->
                                                 </div>
                                                 <!--end::بخش-->
@@ -4676,8 +4225,7 @@ Like: www.facebook.com/keenthemes
                                                     <span class="w-70px badge badge-light-warning me-4">300</span>
                                                     <!--end::Code-->
                                                     <!--begin::Title-->
-                                                    <a href="#" class="text-gray-800 text-hover-primary fw-semibold">برگشت
-                                                        کلید دسترسی</a>
+                                                    <a href="#" class="text-gray-800 text-hover-primary fw-semibold">برگشت کلید دسترسی</a>
                                                     <!--end::Title-->
                                                 </div>
                                                 <!--end::بخش-->
@@ -4694,8 +4242,7 @@ Like: www.facebook.com/keenthemes
                                                     <span class="w-70px badge badge-light-danger me-4">500</span>
                                                     <!--end::Code-->
                                                     <!--begin::Title-->
-                                                    <a href="#" class="text-gray-800 text-hover-primary fw-semibold">روند
-                                                        بازپرداخت</a>
+                                                    <a href="#" class="text-gray-800 text-hover-primary fw-semibold">روند بازپرداخت</a>
                                                     <!--end::Title-->
                                                 </div>
                                                 <!--end::بخش-->
@@ -4712,8 +4259,7 @@ Like: www.facebook.com/keenthemes
                                                     <span class="w-70px badge badge-light-danger me-4">500</span>
                                                     <!--end::Code-->
                                                     <!--begin::Title-->
-                                                    <a href="#" class="text-gray-800 text-hover-primary fw-semibold">روند
-                                                        برداشت</a>
+                                                    <a href="#" class="text-gray-800 text-hover-primary fw-semibold">روند برداشت</a>
                                                     <!--end::Title-->
                                                 </div>
                                                 <!--end::بخش-->
@@ -4730,8 +4276,7 @@ Like: www.facebook.com/keenthemes
                                                     <span class="w-70px badge badge-light-danger me-4">500</span>
                                                     <!--end::Code-->
                                                     <!--begin::Title-->
-                                                    <a href="#" class="text-gray-800 text-hover-primary fw-semibold">وظایف
-                                                        نامه</a>
+                                                    <a href="#" class="text-gray-800 text-hover-primary fw-semibold">وظایف نامه</a>
                                                     <!--end::Title-->
                                                 </div>
                                                 <!--end::بخش-->
@@ -4744,8 +4289,7 @@ Like: www.facebook.com/keenthemes
                                         <!--end::آیتمs-->
                                         <!--begin::نمایش more-->
                                         <div class="py-3 text-center border-top">
-                                            <a href="../../demo1/dist/pages/user-profile/activity.html"
-                                               class="btn btn-color-gray-600 btn-active-color-primary">نمایش همه
+                                            <a href="../../demo1/dist/pages/user-profile/activity.html" class="btn btn-color-gray-600 btn-active-color-primary">نمایش همه
                                                 <i class="ki-duotone ki-arrow-right fs-5">
                                                     <span class="path1"></span>
                                                     <span class="path2"></span>
@@ -4764,16 +4308,13 @@ Like: www.facebook.com/keenthemes
                         <!--begin::چت-->
                         <div class="app-navbar-item ms-1 ms-md-3">
                             <!--begin::Menu wrapper-->
-                            <div
-                                class="btn btn-icon btn-custom btn-icon-muted btn-active-light btn-active-color-primary w-30px h-30px w-md-40px h-md-40px position-relative"
-                                id="kt_drawer_chat_toggle">
+                            <div class="btn btn-icon btn-custom btn-icon-muted btn-active-light btn-active-color-primary w-30px h-30px w-md-40px h-md-40px position-relative" id="kt_drawer_chat_toggle">
                                 <i class="ki-duotone ki-message-text-2 fs-2 fs-lg-1">
                                     <span class="path1"></span>
                                     <span class="path2"></span>
                                     <span class="path3"></span>
                                 </i>
-                                <span
-                                    class="bullet bullet-dot bg-success h-6px w-6px position-absolute translate-middle top-0 start-50 animation-blink"></span>
+                                <span class="bullet bullet-dot bg-success h-6px w-6px position-absolute translate-middle top-0 start-50 animation-blink"></span>
                             </div>
                             <!--end::Menu wrapper-->
                         </div>
@@ -4781,10 +4322,7 @@ Like: www.facebook.com/keenthemes
                         <!--begin::من apps links-->
                         <div class="app-navbar-item ms-1 ms-md-3">
                             <!--begin::Menu wrapper-->
-                            <div
-                                class="btn btn-icon btn-custom btn-icon-muted btn-active-light btn-active-color-primary w-30px h-30px w-md-40px h-md-40px"
-                                data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-attach="parent"
-                                data-kt-menu-placement="bottom-end">
+                            <div class="btn btn-icon btn-custom btn-icon-muted btn-active-light btn-active-color-primary w-30px h-30px w-md-40px h-md-40px" data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
                                 <i class="ki-duotone ki-element-11 fs-2 fs-lg-1">
                                     <span class="path1"></span>
                                     <span class="path2"></span>
@@ -4793,8 +4331,7 @@ Like: www.facebook.com/keenthemes
                                 </i>
                             </div>
                             <!--begin::من apps-->
-                            <div class="menu menu-sub menu-sub-dropdown menu-column w-100 w-sm-350px"
-                                 data-kt-menu="true">
+                            <div class="menu menu-sub menu-sub-dropdown menu-column w-100 w-sm-350px" data-kt-menu="true" style="">
                                 <!--begin::کارت-->
                                 <div class="card">
                                     <!--begin::کارت header-->
@@ -4805,10 +4342,7 @@ Like: www.facebook.com/keenthemes
                                         <!--begin::کارت toolbar-->
                                         <div class="card-toolbar">
                                             <!--begin::Menu-->
-                                            <button type="button"
-                                                    class="btn btn-sm btn-icon btn-active-light-primary me-n3"
-                                                    data-kt-menu-trigger="{default: 'click', lg: 'hover'}"
-                                                    data-kt-menu-placement="bottom-end">
+                                            <button type="button" class="btn btn-sm btn-icon btn-active-light-primary me-n3" data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="bottom-end">
                                                 <i class="ki-duotone ki-setting-3 fs-2">
                                                     <span class="path1"></span>
                                                     <span class="path2"></span>
@@ -4818,14 +4352,10 @@ Like: www.facebook.com/keenthemes
                                                 </i>
                                             </button>
                                             <!--begin::Menu 3-->
-                                            <div
-                                                class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-semibold w-200px py-3"
-                                                data-kt-menu="true">
+                                            <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-semibold w-200px py-3" data-kt-menu="true">
                                                 <!--begin::Heading-->
                                                 <div class="menu-item px-3">
-                                                    <div class="menu-content text-muted pb-2 px-3 fs-7 text-uppercase">
-                                                        درگاه ها
-                                                    </div>
+                                                    <div class="menu-content text-muted pb-2 px-3 fs-7 text-uppercase">درگاه ها</div>
                                                 </div>
                                                 <!--end::Heading-->
                                                 <!--begin::Menu item-->
@@ -4836,8 +4366,7 @@ Like: www.facebook.com/keenthemes
                                                 <!--begin::Menu item-->
                                                 <div class="menu-item px-3">
                                                     <a href="#" class="menu-link flex-stack px-3">ساختن پرداخت
-                                                        <span class="ms-2" data-bs-toggle="tooltip"
-                                                              title="یک نام هدف برای استفاده و مرجع امکانات مشخص کنید">
+                                                        <span class="ms-2" data-bs-toggle="tooltip" aria-label="یک نام هدف برای استفاده و مرجع امکانات مشخص کنید" data-bs-original-title="یک نام هدف برای استفاده و مرجع امکانات مشخص کنید" data-kt-initialized="1">
 																<i class="ki-duotone ki-information fs-6">
 																	<span class="path1"></span>
 																	<span class="path2"></span>
@@ -4852,8 +4381,7 @@ Like: www.facebook.com/keenthemes
                                                 </div>
                                                 <!--end::Menu item-->
                                                 <!--begin::Menu item-->
-                                                <div class="menu-item px-3" data-kt-menu-trigger="hover"
-                                                     data-kt-menu-placement="right-end">
+                                                <div class="menu-item px-3" data-kt-menu-trigger="hover" data-kt-menu-placement="right-end">
                                                     <a href="#" class="menu-link px-3">
                                                         <span class="menu-title">اشتراک</span>
                                                         <span class="menu-arrow"></span>
@@ -4882,16 +4410,12 @@ Like: www.facebook.com/keenthemes
                                                         <div class="menu-item px-3">
                                                             <div class="menu-content px-3">
                                                                 <!--begin::Switch-->
-                                                                <label
-                                                                    class="form-check form-switch form-check-custom form-check-solid">
+                                                                <label class="form-check form-switch form-check-custom form-check-solid">
                                                                     <!--begin::Input-->
-                                                                    <input class="form-check-input w-30px h-20px"
-                                                                           type="checkbox" value="1" checked="checked"
-                                                                           name="notifications"/>
+                                                                    <input class="form-check-input w-30px h-20px" type="checkbox" value="1" checked="checked" name="notifications">
                                                                     <!--end::Input-->
                                                                     <!--end::Tags-->
-                                                                    <span
-                                                                        class="form-check-label text-muted fs-6">وضعیت</span>
+                                                                    <span class="form-check-label text-muted fs-6">وضعیت</span>
                                                                     <!--end::Tags-->
                                                                 </label>
                                                                 <!--end::Switch-->
@@ -4922,160 +4446,128 @@ Like: www.facebook.com/keenthemes
                                             <div class="row g-2">
                                                 <!--begin::Col-->
                                                 <div class="col-4">
-                                                    <a href="#"
-                                                       class="d-flex flex-column flex-center text-center text-gray-800 text-hover-primary bg-hover-light rounded py-4 px-3 mb-3">
-                                                        <img src="/admin/src/assets/media/svg/brand-logos/amazon.svg"
-                                                             class="w-25px h-25px mb-2" alt=""/>
+                                                    <a href="#" class="d-flex flex-column flex-center text-center text-gray-800 text-hover-primary bg-hover-light rounded py-4 px-3 mb-3">
+                                                        <img src="/admin/src/assets/media/svg/brand-logos/amazon.svg" class="w-25px h-25px mb-2" alt="">
                                                         <span class="fw-semibold">AWS</span>
                                                     </a>
                                                 </div>
                                                 <!--end::Col-->
                                                 <!--begin::Col-->
                                                 <div class="col-4">
-                                                    <a href="#"
-                                                       class="d-flex flex-column flex-center text-center text-gray-800 text-hover-primary bg-hover-light rounded py-4 px-3 mb-3">
-                                                        <img src="/admin/src/assets/media/svg/brand-logos/angular-icon-1.svg"
-                                                             class="w-25px h-25px mb-2" alt=""/>
+                                                    <a href="#" class="d-flex flex-column flex-center text-center text-gray-800 text-hover-primary bg-hover-light rounded py-4 px-3 mb-3">
+                                                        <img src="/admin/src/assets/media/svg/brand-logos/angular-icon-1.svg" class="w-25px h-25px mb-2" alt="">
                                                         <span class="fw-semibold">AngularJS</span>
                                                     </a>
                                                 </div>
                                                 <!--end::Col-->
                                                 <!--begin::Col-->
                                                 <div class="col-4">
-                                                    <a href="#"
-                                                       class="d-flex flex-column flex-center text-center text-gray-800 text-hover-primary bg-hover-light rounded py-4 px-3 mb-3">
-                                                        <img src="/admin/src/assets/media/svg/brand-logos/atica.svg"
-                                                             class="w-25px h-25px mb-2" alt=""/>
+                                                    <a href="#" class="d-flex flex-column flex-center text-center text-gray-800 text-hover-primary bg-hover-light rounded py-4 px-3 mb-3">
+                                                        <img src="/admin/src/assets/media/svg/brand-logos/atica.svg" class="w-25px h-25px mb-2" alt="">
                                                         <span class="fw-semibold">Atica</span>
                                                     </a>
                                                 </div>
                                                 <!--end::Col-->
                                                 <!--begin::Col-->
                                                 <div class="col-4">
-                                                    <a href="#"
-                                                       class="d-flex flex-column flex-center text-center text-gray-800 text-hover-primary bg-hover-light rounded py-4 px-3 mb-3">
-                                                        <img src="/admin/src/assets/media/svg/brand-logos/beats-electronics.svg"
-                                                             class="w-25px h-25px mb-2" alt=""/>
+                                                    <a href="#" class="d-flex flex-column flex-center text-center text-gray-800 text-hover-primary bg-hover-light rounded py-4 px-3 mb-3">
+                                                        <img src="/admin/src/assets/media/svg/brand-logos/beats-electronics.svg" class="w-25px h-25px mb-2" alt="">
                                                         <span class="fw-semibold">Music</span>
                                                     </a>
                                                 </div>
                                                 <!--end::Col-->
                                                 <!--begin::Col-->
                                                 <div class="col-4">
-                                                    <a href="#"
-                                                       class="d-flex flex-column flex-center text-center text-gray-800 text-hover-primary bg-hover-light rounded py-4 px-3 mb-3">
-                                                        <img src="/admin/src/assets/media/svg/brand-logos/codeigniter.svg"
-                                                             class="w-25px h-25px mb-2" alt=""/>
+                                                    <a href="#" class="d-flex flex-column flex-center text-center text-gray-800 text-hover-primary bg-hover-light rounded py-4 px-3 mb-3">
+                                                        <img src="/admin/src/assets/media/svg/brand-logos/codeigniter.svg" class="w-25px h-25px mb-2" alt="">
                                                         <span class="fw-semibold">Codeigniter</span>
                                                     </a>
                                                 </div>
                                                 <!--end::Col-->
                                                 <!--begin::Col-->
                                                 <div class="col-4">
-                                                    <a href="#"
-                                                       class="d-flex flex-column flex-center text-center text-gray-800 text-hover-primary bg-hover-light rounded py-4 px-3 mb-3">
-                                                        <img src="/admin/src/assets/media/svg/brand-logos/bootstrap-4.svg"
-                                                             class="w-25px h-25px mb-2" alt=""/>
+                                                    <a href="#" class="d-flex flex-column flex-center text-center text-gray-800 text-hover-primary bg-hover-light rounded py-4 px-3 mb-3">
+                                                        <img src="/admin/src/assets/media/svg/brand-logos/bootstrap-4.svg" class="w-25px h-25px mb-2" alt="">
                                                         <span class="fw-semibold">Bootstrap</span>
                                                     </a>
                                                 </div>
                                                 <!--end::Col-->
                                                 <!--begin::Col-->
                                                 <div class="col-4">
-                                                    <a href="#"
-                                                       class="d-flex flex-column flex-center text-center text-gray-800 text-hover-primary bg-hover-light rounded py-4 px-3 mb-3">
-                                                        <img src="/admin/src/assets/media/svg/brand-logos/google-tag-manager.svg"
-                                                             class="w-25px h-25px mb-2" alt=""/>
+                                                    <a href="#" class="d-flex flex-column flex-center text-center text-gray-800 text-hover-primary bg-hover-light rounded py-4 px-3 mb-3">
+                                                        <img src="/admin/src/assets/media/svg/brand-logos/google-tag-manager.svg" class="w-25px h-25px mb-2" alt="">
                                                         <span class="fw-semibold">GTM</span>
                                                     </a>
                                                 </div>
                                                 <!--end::Col-->
                                                 <!--begin::Col-->
                                                 <div class="col-4">
-                                                    <a href="#"
-                                                       class="d-flex flex-column flex-center text-center text-gray-800 text-hover-primary bg-hover-light rounded py-4 px-3 mb-3">
-                                                        <img src="/admin/src/assets/media/svg/brand-logos/disqus.svg"
-                                                             class="w-25px h-25px mb-2" alt=""/>
+                                                    <a href="#" class="d-flex flex-column flex-center text-center text-gray-800 text-hover-primary bg-hover-light rounded py-4 px-3 mb-3">
+                                                        <img src="/admin/src/assets/media/svg/brand-logos/disqus.svg" class="w-25px h-25px mb-2" alt="">
                                                         <span class="fw-semibold">Disqus</span>
                                                     </a>
                                                 </div>
                                                 <!--end::Col-->
                                                 <!--begin::Col-->
                                                 <div class="col-4">
-                                                    <a href="#"
-                                                       class="d-flex flex-column flex-center text-center text-gray-800 text-hover-primary bg-hover-light rounded py-4 px-3 mb-3">
-                                                        <img src="/admin/src/assets/media/svg/brand-logos/dribbble-icon-1.svg"
-                                                             class="w-25px h-25px mb-2" alt=""/>
+                                                    <a href="#" class="d-flex flex-column flex-center text-center text-gray-800 text-hover-primary bg-hover-light rounded py-4 px-3 mb-3">
+                                                        <img src="/admin/src/assets/media/svg/brand-logos/dribbble-icon-1.svg" class="w-25px h-25px mb-2" alt="">
                                                         <span class="fw-semibold">Dribble</span>
                                                     </a>
                                                 </div>
                                                 <!--end::Col-->
                                                 <!--begin::Col-->
                                                 <div class="col-4">
-                                                    <a href="#"
-                                                       class="d-flex flex-column flex-center text-center text-gray-800 text-hover-primary bg-hover-light rounded py-4 px-3 mb-3">
-                                                        <img src="/admin/src/assets/media/svg/brand-logos/google-play-store.svg"
-                                                             class="w-25px h-25px mb-2" alt=""/>
+                                                    <a href="#" class="d-flex flex-column flex-center text-center text-gray-800 text-hover-primary bg-hover-light rounded py-4 px-3 mb-3">
+                                                        <img src="/admin/src/assets/media/svg/brand-logos/google-play-store.svg" class="w-25px h-25px mb-2" alt="">
                                                         <span class="fw-semibold">Play فروشگاه</span>
                                                     </a>
                                                 </div>
                                                 <!--end::Col-->
                                                 <!--begin::Col-->
                                                 <div class="col-4">
-                                                    <a href="#"
-                                                       class="d-flex flex-column flex-center text-center text-gray-800 text-hover-primary bg-hover-light rounded py-4 px-3 mb-3">
-                                                        <img src="/admin/src/assets/media/svg/brand-logos/google-podcasts.svg"
-                                                             class="w-25px h-25px mb-2" alt=""/>
+                                                    <a href="#" class="d-flex flex-column flex-center text-center text-gray-800 text-hover-primary bg-hover-light rounded py-4 px-3 mb-3">
+                                                        <img src="/admin/src/assets/media/svg/brand-logos/google-podcasts.svg" class="w-25px h-25px mb-2" alt="">
                                                         <span class="fw-semibold">پادکستs</span>
                                                     </a>
                                                 </div>
                                                 <!--end::Col-->
                                                 <!--begin::Col-->
                                                 <div class="col-4">
-                                                    <a href="#"
-                                                       class="d-flex flex-column flex-center text-center text-gray-800 text-hover-primary bg-hover-light rounded py-4 px-3 mb-3">
-                                                        <img src="/admin/src/assets/media/svg/brand-logos/figma-1.svg"
-                                                             class="w-25px h-25px mb-2" alt=""/>
+                                                    <a href="#" class="d-flex flex-column flex-center text-center text-gray-800 text-hover-primary bg-hover-light rounded py-4 px-3 mb-3">
+                                                        <img src="/admin/src/assets/media/svg/brand-logos/figma-1.svg" class="w-25px h-25px mb-2" alt="">
                                                         <span class="fw-semibold">Figma</span>
                                                     </a>
                                                 </div>
                                                 <!--end::Col-->
                                                 <!--begin::Col-->
                                                 <div class="col-4">
-                                                    <a href="#"
-                                                       class="d-flex flex-column flex-center text-center text-gray-800 text-hover-primary bg-hover-light rounded py-4 px-3 mb-3">
-                                                        <img src="/admin/src/assets/media/svg/brand-logos/github.svg"
-                                                             class="w-25px h-25px mb-2" alt=""/>
+                                                    <a href="#" class="d-flex flex-column flex-center text-center text-gray-800 text-hover-primary bg-hover-light rounded py-4 px-3 mb-3">
+                                                        <img src="/admin/src/assets/media/svg/brand-logos/github.svg" class="w-25px h-25px mb-2" alt="">
                                                         <span class="fw-semibold">گیت هاب</span>
                                                     </a>
                                                 </div>
                                                 <!--end::Col-->
                                                 <!--begin::Col-->
                                                 <div class="col-4">
-                                                    <a href="#"
-                                                       class="d-flex flex-column flex-center text-center text-gray-800 text-hover-primary bg-hover-light rounded py-4 px-3 mb-3">
-                                                        <img src="/admin/src/assets/media/svg/brand-logos/gitlab.svg"
-                                                             class="w-25px h-25px mb-2" alt=""/>
+                                                    <a href="#" class="d-flex flex-column flex-center text-center text-gray-800 text-hover-primary bg-hover-light rounded py-4 px-3 mb-3">
+                                                        <img src="/admin/src/assets/media/svg/brand-logos/gitlab.svg" class="w-25px h-25px mb-2" alt="">
                                                         <span class="fw-semibold">Gitlab</span>
                                                     </a>
                                                 </div>
                                                 <!--end::Col-->
                                                 <!--begin::Col-->
                                                 <div class="col-4">
-                                                    <a href="#"
-                                                       class="d-flex flex-column flex-center text-center text-gray-800 text-hover-primary bg-hover-light rounded py-4 px-3 mb-3">
-                                                        <img src="/admin/src/assets/media/svg/brand-logos/instagram-2-1.svg"
-                                                             class="w-25px h-25px mb-2" alt=""/>
+                                                    <a href="#" class="d-flex flex-column flex-center text-center text-gray-800 text-hover-primary bg-hover-light rounded py-4 px-3 mb-3">
+                                                        <img src="/admin/src/assets/media/svg/brand-logos/instagram-2-1.svg" class="w-25px h-25px mb-2" alt="">
                                                         <span class="fw-semibold">اینستاگرام</span>
                                                     </a>
                                                 </div>
                                                 <!--end::Col-->
                                                 <!--begin::Col-->
                                                 <div class="col-4">
-                                                    <a href="#"
-                                                       class="d-flex flex-column flex-center text-center text-gray-800 text-hover-primary bg-hover-light rounded py-4 px-3 mb-3">
-                                                        <img src="/admin/src/assets/media/svg/brand-logos/pinterest-p.svg"
-                                                             class="w-25px h-25px mb-2" alt=""/>
+                                                    <a href="#" class="d-flex flex-column flex-center text-center text-gray-800 text-hover-primary bg-hover-light rounded py-4 px-3 mb-3">
+                                                        <img src="/admin/src/assets/media/svg/brand-logos/pinterest-p.svg" class="w-25px h-25px mb-2" alt="">
                                                         <span class="fw-semibold">Pinterest</span>
                                                     </a>
                                                 </div>
@@ -5096,10 +4588,7 @@ Like: www.facebook.com/keenthemes
                         <!--begin::Theme mode-->
                         <div class="app-navbar-item ms-1 ms-md-3">
                             <!--begin::Menu toggle-->
-                            <a href="#"
-                               class="btn btn-icon btn-custom btn-icon-muted btn-active-light btn-active-color-primary w-30px h-30px w-md-40px h-md-40px"
-                               data-kt-menu-trigger="{default:'click', lg: 'hover'}" data-kt-menu-attach="parent"
-                               data-kt-menu-placement="bottom-end">
+                            <a href="#" class="btn btn-icon btn-custom btn-icon-muted btn-active-light btn-active-color-primary w-30px h-30px w-md-40px h-md-40px" data-kt-menu-trigger="{default:'click', lg: 'hover'}" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
                                 <i class="ki-duotone ki-night-day theme-light-show fs-2 fs-lg-1">
                                     <span class="path1"></span>
                                     <span class="path2"></span>
@@ -5119,13 +4608,10 @@ Like: www.facebook.com/keenthemes
                             </a>
                             <!--begin::Menu toggle-->
                             <!--begin::Menu-->
-                            <div
-                                class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-title-gray-700 menu-icon-gray-500 menu-active-bg menu-state-color fw-semibold py-4 fs-base w-150px"
-                                data-kt-menu="true" data-kt-element="theme-mode-menu">
+                            <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-title-gray-700 menu-icon-gray-500 menu-active-bg menu-state-color fw-semibold py-4 fs-base w-150px" data-kt-menu="true" data-kt-element="theme-mode-menu" style="">
                                 <!--begin::Menu item-->
                                 <div class="menu-item px-3 my-0">
-                                    <a href="#" class="menu-link px-3 py-2" data-kt-element="mode"
-                                       data-kt-value="light">
+                                    <a href="#" class="menu-link px-3 py-2 active" data-kt-element="mode" data-kt-value="light">
 												<span class="menu-icon" data-kt-element="icon">
 													<i class="ki-duotone ki-night-day fs-2">
 														<span class="path1"></span>
@@ -5159,8 +4645,7 @@ Like: www.facebook.com/keenthemes
                                 <!--end::Menu item-->
                                 <!--begin::Menu item-->
                                 <div class="menu-item px-3 my-0">
-                                    <a href="#" class="menu-link px-3 py-2" data-kt-element="mode"
-                                       data-kt-value="system">
+                                    <a href="#" class="menu-link px-3 py-2" data-kt-element="mode" data-kt-value="system">
 												<span class="menu-icon" data-kt-element="icon">
 													<i class="ki-duotone ki-screen fs-2">
 														<span class="path1"></span>
@@ -5180,28 +4665,23 @@ Like: www.facebook.com/keenthemes
                         <!--begin::کاربر menu-->
                         <div class="app-navbar-item ms-1 ms-md-3" id="kt_header_user_menu_toggle">
                             <!--begin::Menu wrapper-->
-                            <div class="cursor-pointer symbol symbol-30px symbol-md-40px"
-                                 data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-attach="parent"
-                                 data-kt-menu-placement="bottom-end">
-                                <img src="/admin/src/assets/media/avatars/300-1.jpg" alt="user"/>
+                            <div class="cursor-pointer symbol symbol-30px symbol-md-40px" data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
+                                <img src="/admin/src/assets/media/avatars/300-1.jpg" alt="user">
                             </div>
                             <!--begin::کاربر account menu-->
-                            <div
-                                class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-color fw-semibold py-4 fs-6 w-275px"
-                                data-kt-menu="true">
+                            <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-color fw-semibold py-4 fs-6 w-275px" data-kt-menu="true" style="">
                                 <!--begin::Menu item-->
                                 <div class="menu-item px-3">
                                     <div class="menu-content d-flex align-items-center px-3">
                                         <!--begin::Avatar-->
                                         <div class="symbol symbol-50px me-5">
-                                            <img alt="Logo" src="/admin/src/assets/media/avatars/300-1.jpg"/>
+                                            <img alt="Logo" src="assets/media/avatars/300-1.jpg">
                                         </div>
                                         <!--end::Avatar-->
                                         <!--begin::کاربرname-->
                                         <div class="d-flex flex-column">
                                             <div class="fw-bold d-flex align-items-center fs-5">جلالی
-                                                <span class="badge badge-light-success fw-bold fs-8 px-2 py-1 ms-2">حرفه ای</span>
-                                            </div>
+                                                <span class="badge badge-light-success fw-bold fs-8 px-2 py-1 ms-2">حرفه ای</span></div>
                                             <a href="#" class="fw-semibold text-muted text-hover-primary fs-7">max@kt.com</a>
                                         </div>
                                         <!--end::کاربرname-->
@@ -5213,8 +4693,7 @@ Like: www.facebook.com/keenthemes
                                 <!--end::Menu separator-->
                                 <!--begin::Menu item-->
                                 <div class="menu-item px-5">
-                                    <a href="../../demo1/dist/account/overview.html" class="menu-link px-5">پروفایل
-                                        من</a>
+                                    <a href="../../demo1/dist/account/overview.html" class="menu-link px-5">پروفایل من</a>
                                 </div>
                                 <!--end::Menu item-->
                                 <!--begin::Menu item-->
@@ -5222,21 +4701,19 @@ Like: www.facebook.com/keenthemes
                                     <a href="../../demo1/dist/apps/projects/list.html" class="menu-link px-5">
                                         <span class="menu-text">پروژه ها من</span>
                                         <span class="menu-badge">
-													<span
-                                                        class="badge badge-light-danger badge-circle fw-bold fs-7">3</span>
+													<span class="badge badge-light-danger badge-circle fw-bold fs-7">3</span>
 												</span>
                                     </a>
                                 </div>
                                 <!--end::Menu item-->
                                 <!--begin::Menu item-->
-                                <div class="menu-item px-5" data-kt-menu-trigger="{default: 'click', lg: 'hover'}"
-                                     data-kt-menu-placement="left-start" data-kt-menu-offset="-15px, 0">
+                                <div class="menu-item px-5" data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="left-start" data-kt-menu-offset="-15px, 0">
                                     <a href="#" class="menu-link px-5">
                                         <span class="menu-title">اشتراک من</span>
                                         <span class="menu-arrow"></span>
                                     </a>
                                     <!--begin::Menu sub-->
-                                    <div class="menu-sub menu-sub-dropdown w-175px py-4">
+                                    <div class="menu-sub menu-sub-dropdown w-175px py-4" style="">
                                         <!--begin::Menu item-->
                                         <div class="menu-item px-3">
                                             <a href="../../demo1/dist/account/referrals.html" class="menu-link px-5">مراجعات</a>
@@ -5249,16 +4726,13 @@ Like: www.facebook.com/keenthemes
                                         <!--end::Menu item-->
                                         <!--begin::Menu item-->
                                         <div class="menu-item px-3">
-                                            <a href="../../demo1/dist/account/statements.html" class="menu-link px-5">درگاه
-                                                ها</a>
+                                            <a href="../../demo1/dist/account/statements.html" class="menu-link px-5">درگاه ها</a>
                                         </div>
                                         <!--end::Menu item-->
                                         <!--begin::Menu item-->
                                         <div class="menu-item px-3">
-                                            <a href="../../demo1/dist/account/statements.html"
-                                               class="menu-link d-flex flex-stack px-5">بیانه ها
-                                                <span class="ms-2" data-bs-toggle="tooltip"
-                                                      title="اظهارات خود را نمایش دهید">
+                                            <a href="../../demo1/dist/account/statements.html" class="menu-link d-flex flex-stack px-5">بیانه ها
+                                                <span class="ms-2" data-bs-toggle="tooltip" aria-label="اظهارات خود را نمایش دهید" data-bs-original-title="اظهارات خود را نمایش دهید" data-kt-initialized="1">
 														<i class="ki-duotone ki-information fs-7">
 															<span class="path1"></span>
 															<span class="path2"></span>
@@ -5273,10 +4747,8 @@ Like: www.facebook.com/keenthemes
                                         <!--begin::Menu item-->
                                         <div class="menu-item px-3">
                                             <div class="menu-content px-3">
-                                                <label
-                                                    class="form-check form-switch form-check-custom form-check-solid">
-                                                    <input class="form-check-input w-30px h-20px" type="checkbox"
-                                                           value="1" checked="checked" name="notifications"/>
+                                                <label class="form-check form-switch form-check-custom form-check-solid">
+                                                    <input class="form-check-input w-30px h-20px" type="checkbox" value="1" checked="checked" name="notifications">
                                                     <span class="form-check-label text-muted fs-7">اعلان ها</span>
                                                 </label>
                                             </div>
@@ -5288,72 +4760,58 @@ Like: www.facebook.com/keenthemes
                                 <!--end::Menu item-->
                                 <!--begin::Menu item-->
                                 <div class="menu-item px-5">
-                                    <a href="../../demo1/dist/account/statements.html" class="menu-link px-5">من بیانه
-                                        ها</a>
+                                    <a href="../../demo1/dist/account/statements.html" class="menu-link px-5">من بیانه ها</a>
                                 </div>
                                 <!--end::Menu item-->
                                 <!--begin::Menu separator-->
                                 <div class="separator my-2"></div>
                                 <!--end::Menu separator-->
                                 <!--begin::Menu item-->
-                                <div class="menu-item px-5" data-kt-menu-trigger="{default: 'click', lg: 'hover'}"
-                                     data-kt-menu-placement="left-start" data-kt-menu-offset="-15px, 0">
+                                <div class="menu-item px-5" data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="left-start" data-kt-menu-offset="-15px, 0">
                                     <a href="#" class="menu-link px-5">
 												<span class="menu-title position-relative">زبان
-												<span
-                                                    class="fs-8 rounded bg-light px-3 py-2 position-absolute translate-middle-y top-50 end-0">انگلیسی
-												<img class="w-15px h-15px rounded-1 ms-2"
-                                                     src="/admin/src/assets/media/flags/united-states.svg" alt=""/></span></span>
+												<span class="fs-8 rounded bg-light px-3 py-2 position-absolute translate-middle-y top-50 end-0">انگلیسی
+												<img class="w-15px h-15px rounded-1 ms-2" src="assets/media/flags/united-states.svg" alt=""></span></span>
                                     </a>
                                     <!--begin::Menu sub-->
-                                    <div class="menu-sub menu-sub-dropdown w-175px py-4">
+                                    <div class="menu-sub menu-sub-dropdown w-175px py-4" style="">
                                         <!--begin::Menu item-->
                                         <div class="menu-item px-3">
-                                            <a href="../../demo1/dist/account/settings.html"
-                                               class="menu-link d-flex px-5 active">
+                                            <a href="../../demo1/dist/account/settings.html" class="menu-link d-flex px-5 active">
 													<span class="symbol symbol-20px me-4">
-														<img class="rounded-1"
-                                                             src="/admin/src/assets/media/flags/united-states.svg" alt=""/>
+														<img class="rounded-1" src="assets/media/flags/united-states.svg" alt="">
 													</span>انگلیسی</a>
                                         </div>
                                         <!--end::Menu item-->
                                         <!--begin::Menu item-->
                                         <div class="menu-item px-3">
-                                            <a href="../../demo1/dist/account/settings.html"
-                                               class="menu-link d-flex px-5">
+                                            <a href="../../demo1/dist/account/settings.html" class="menu-link d-flex px-5">
 													<span class="symbol symbol-20px me-4">
-														<img class="rounded-1" src="/admin/src/assets/media/flags/spain.svg"
-                                                             alt=""/>
+														<img class="rounded-1" src="assets/media/flags/spain.svg" alt="">
 													</span>اسپانیایی</a>
                                         </div>
                                         <!--end::Menu item-->
                                         <!--begin::Menu item-->
                                         <div class="menu-item px-3">
-                                            <a href="../../demo1/dist/account/settings.html"
-                                               class="menu-link d-flex px-5">
+                                            <a href="../../demo1/dist/account/settings.html" class="menu-link d-flex px-5">
 													<span class="symbol symbol-20px me-4">
-														<img class="rounded-1" src="/admin/src/assets/media/flags/germany.svg"
-                                                             alt=""/>
+														<img class="rounded-1" src="assets/media/flags/germany.svg" alt="">
 													</span>آلمانی</a>
                                         </div>
                                         <!--end::Menu item-->
                                         <!--begin::Menu item-->
                                         <div class="menu-item px-3">
-                                            <a href="../../demo1/dist/account/settings.html"
-                                               class="menu-link d-flex px-5">
+                                            <a href="../../demo1/dist/account/settings.html" class="menu-link d-flex px-5">
 													<span class="symbol symbol-20px me-4">
-														<img class="rounded-1" src="/admin/src/assets/media/flags/japan.svg"
-                                                             alt=""/>
+														<img class="rounded-1" src="assets/media/flags/japan.svg" alt="">
 													</span>ژاپنی</a>
                                         </div>
                                         <!--end::Menu item-->
                                         <!--begin::Menu item-->
                                         <div class="menu-item px-3">
-                                            <a href="../../demo1/dist/account/settings.html"
-                                               class="menu-link d-flex px-5">
+                                            <a href="../../demo1/dist/account/settings.html" class="menu-link d-flex px-5">
 													<span class="symbol symbol-20px me-4">
-														<img class="rounded-1" src="/admin/src/assets/media/flags/france.svg"
-                                                             alt=""/>
+														<img class="rounded-1" src="assets/media/flags/france.svg" alt="">
 													</span>فرانسه</a>
                                         </div>
                                         <!--end::Menu item-->
@@ -5363,14 +4821,12 @@ Like: www.facebook.com/keenthemes
                                 <!--end::Menu item-->
                                 <!--begin::Menu item-->
                                 <div class="menu-item px-5 my-1">
-                                    <a href="../../demo1/dist/account/settings.html" class="menu-link px-5">اکانت
-                                        تنظیمات</a>
+                                    <a href="../../demo1/dist/account/settings.html" class="menu-link px-5">اکانت تنظیمات</a>
                                 </div>
                                 <!--end::Menu item-->
                                 <!--begin::Menu item-->
                                 <div class="menu-item px-5">
-                                    <a href="../../demo1/dist/authentication/layouts/corporate/ورود.html"
-                                       class="menu-link px-5">خروج</a>
+                                    <a href="../../demo1/dist/authentication/layouts/corporate/ورود.html" class="menu-link px-5">خروج</a>
                                 </div>
                                 <!--end::Menu item-->
                             </div>
@@ -5380,8 +4836,7 @@ Like: www.facebook.com/keenthemes
                         <!--end::کاربر menu-->
                         <!--begin::Header menu toggle-->
                         <div class="app-navbar-item d-lg-none ms-2 me-n2" title="مشاهده header menu">
-                            <div class="btn btn-flex btn-icon btn-active-color-primary w-30px h-30px"
-                                 id="kt_app_header_menu_toggle">
+                            <div class="btn btn-flex btn-icon btn-active-color-primary w-30px h-30px" id="kt_app_header_menu_toggle">
                                 <i class="ki-duotone ki-element-4 fs-1">
                                     <span class="path1"></span>
                                     <span class="path2"></span>
@@ -5396,6 +4851,7 @@ Like: www.facebook.com/keenthemes
             </div>
             <!--end::Header container-->
         </div>
+
         <!--end::Header-->
         <!--begin::Wrapper-->
         <div class="app-wrapper flex-column flex-row-fluid" id="kt_app_wrapper">
@@ -13925,6 +13381,34 @@ Like: www.facebook.com/keenthemes
 <script src="/admin/src/assets/js/custom/utilities/modals/users-search.js"></script>
 <!--end::سفارشی Javascript-->
 <!--end::Javascript-->
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"
+        integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
+        crossorigin="anonymous"></script>
+<script src="/helpers/js/angular.min.js"></script>
+<script src="/helpers/js/helpers.js"></script>
+<script src="/helpers/js/kamadatepicker.min.js"></script>
+
+<script src="/select2/select2.min.js"></script>
+<script src="/ckeditor/ckeditor.js"></script>
+{{--<script src="/chart/highcharts.js"></script>--}}
+{{--<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>--}}
+
+<script>
+    var app = angular.module("myApp", []);
+    app.config(function ($interpolateProvider, $httpProvider) {
+        $interpolateProvider.startSymbol('[[');
+        $interpolateProvider.endSymbol(']]');
+
+        // $httpProvider.defaults.xsrfCookieName = 'csrftoken';
+        // $httpProvider.defaults.xsrfHeaderName = 'X-CSRF-TOKEN';
+        $httpProvider.defaults.headers.common['X-CSRF-TOKEN'] = $('meta[name="csrf-token"]').attr('content');
+    });
+</script>
+
+@yield('Scripts')
+
 </body>
 <!--end::Body-->
 </html>
