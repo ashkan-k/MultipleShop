@@ -12,6 +12,6 @@
 */
 
 use Illuminate\Support\Facades\Route;
-use Modules\Setting\Http\Controllers\SettingController;
+use Modules\Setting\Http\Controllers\Dashboard\SettingController;
 
 Route::resource('settings', SettingController::class);

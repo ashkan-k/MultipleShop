@@ -6,6 +6,7 @@ use App\Http\Traits\Responses;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Setting\Entities\Setting;
 
 class SettingController extends Controller
 {
@@ -13,7 +14,8 @@ class SettingController extends Controller
 
     public function index()
     {
-        return view('setting::dashboard.list');
+        $objects = Setting::Search(request('search'))->paginate(env('PAGINATION_NUMBER', 10));
+        return view('setting::dashboard.list', compact('objects'));
     }
 
     public function create()
