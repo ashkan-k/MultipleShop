@@ -267,6 +267,16 @@
                                         </div>
                                         @enderror
 
+                                        @if(isset($object) && $object->avatar)
+                                            <div class="input-field col s12 mt-3">
+                                                <p>تصویر قبلی:</p>
+                                                <a href="{{ $object->avatar }}" target="_blank"><img
+                                                        src="{{ $object->avatar }}"
+                                                        width="70"
+                                                        alt="{{ $object->full_name() }}"></a>
+                                            </div>
+                                        @endif
+
                                     </div>
 
                                     <div class="row py-5">
