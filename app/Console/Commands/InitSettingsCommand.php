@@ -24,13 +24,13 @@ class InitSettingsCommand extends Command
         'footer_working_time' => "هفت روز هفته (حتی روزهای تعطیل) ، ساعت ۹-۲۴ پاسخگوی شما هستیم.",
 
         # Social
-        'email' => "bamiz-ir@gmail.com",
-        'telegram' => "bamiz",
-        'whatsapp' => "https=>//wa.me/qr/bamiz_watsapp",
-        'twitter' => "bamiz",
-        'youtube' => "bamiz",
-        'instagram' => "bamiz",
-        'aparat' => "bamiz",
+        'email' => "multi_shop-ir@gmail.com",
+        'telegram' => "multi_shop",
+        'whatsapp' => "https=>//wa.me/qr/multi_shop_watsapp",
+        'twitter' => "multi_shop",
+        'youtube' => "multi_shop",
+        'instagram' => "multi_shop",
+        'aparat' => "multi_shop",
     ];
 
     /**
