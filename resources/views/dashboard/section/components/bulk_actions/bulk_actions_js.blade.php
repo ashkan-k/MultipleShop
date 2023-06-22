@@ -78,7 +78,7 @@ showToast('خطایی رخ داد.', 'error');
 $scope.SubmitBulkAction = function() {
 var data = {
     'action': $scope.bulk_action,
-    'model': '{{ $model }}',
+    'model': '{{ str_replace('\\', '\\\\', $model) }}',
     'items': $scope.selected_items,
 };
 

@@ -142,7 +142,9 @@
                                 <th class="w-10px pe-2">
                                     <div class="form-check form-check-sm form-check-custom form-check-solid me-3">
                                         <input class="form-check-input" type="checkbox" data-kt-check="true"
-                                               id="checkAll" ng-model="select_all" ng-checked="items.length == selected_items.length" ng-change="AddItemsToBulkAction(<?php echo json_encode($objects->pluck('id')->toArray() ); ?>, select_all)"
+                                               id="checkAll" ng-model="select_all"
+                                               ng-checked="items.length == selected_items.length"
+                                               ng-change="AddItemsToBulkAction(<?php echo json_encode($objects->pluck('id')->toArray()); ?>, select_all)"
                                                data-kt-check-target="#kt_table_items .form-check-input"/>
                                     </div>
                                 </th>
@@ -207,6 +209,7 @@
                         <!--end::Table-->
 
                         <div class="row">
+                            @include('dashboard.section.components.bulk_actions.bulk_actions', ['actions' => [['delete', 'حذف کردن']], 'items' => $objects])
                             @include('dashboard.section.components.filters.limit_select_box')
 
 
@@ -231,7 +234,7 @@
 
     <script>
         app.controller('myCtrl', function ($scope, $http) {
-            @include('dashboard.section.components.bulk_actions.bulk_actions_js', ['items' => $objects, 'model' => 'Category'])
+            @include('dashboard.section.components.bulk_actions.bulk_actions_js', ['items' => $objects, 'model' => \Modules\Setting\Entities\Setting::class])
         });
     </script>
 @endsection
