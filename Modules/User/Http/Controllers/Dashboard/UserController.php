@@ -2,78 +2,57 @@
 
 namespace Modules\User\Http\Controllers\Dashboard;
 
+use App\Http\Traits\Responses;
+use App\Http\Traits\Uploader;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\User\Entities\User;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     * @return Renderable
-     */
+    use Responses, Uploader;
+
     public function index()
     {
-        return view('user::index');
+        $objects = User::Search(request('search'))
+            ->latest()
+            ->paginate(\request('pagination', env('PAGINATION_NUMBER', 10)));
+        return view('user::dashboard.list', compact('objects'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     * @return Renderable
-     */
     public function create()
     {
-        return view('user::create');
+        return view('setting::dashboard.form');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     * @param Request $request
-     * @return Renderable
-     */
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
-        //
+        $avatar = $this->UploadFile($request, 'avatar' , 'avatars', $request->phone);
+
+        $user = User::create(array_merge($request->validated(), ['avatar' => $avatar]));
+        $user->set_password($request->password);
+        $user->set_admin($request->is_admin || 0);
+        return $this->SuccessRedirect('آیتم مورد نظر با موفقیت ثبت شد.', 'users.index');
     }
 
-    /**
-     * Show the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function show($id)
+    public function edit(User $user)
     {
-        return view('user::show');
+        return view('setting::dashboard.form')->with('object', $user);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function edit($id)
+    public function update(UserRequest $request, User $user)
     {
-        return view('user::edit');
+        $avatar = $this->UploadFile($request, 'avatar' , 'avatars', $user->phone, $user->avatar);
+        $request['password'] = $request->password ? Hash::make($request->password) : $user->password;
+
+        $user->update(array_merge($request->validated(), ['avatar' => $avatar]));
+        return $this->SuccessRedirect('آیتم مورد نظر با موفقیت ویرایش شد.', 'users.index');
     }
 
-    /**
-     * Update the specified resource in storage.
-     * @param Request $request
-     * @param int $id
-     * @return Renderable
-     */
-    public function update(Request $request, $id)
+    public function destroy(User $user)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     * @param int $id
-     * @return Renderable
-     */
-    public function destroy($id)
-    {
-        //
+        $user->delete();
+        return $this->SuccessRedirect('آیتم مورد نظر با موفقیت حذف شد.', 'settings.index');
     }
 }

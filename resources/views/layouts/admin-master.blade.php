@@ -60,6 +60,10 @@ Like: www.facebook.com/keenthemes
         .select2-selection--single{
             height: 100% !important;
         }
+
+        .active_modal_buttons:hover{
+            cursor: pointer !important;
+        }
     </style>
 
     @yield('Styles')

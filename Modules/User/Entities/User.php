@@ -76,7 +76,7 @@ class User extends Authenticatable
         return $this->is_admin || $this->is_staff;
     }
 
-    public function fullname()
+    public function full_name()
     {
         if ($this->frist_name && $this->last_name) {
             return $this->frist_name . ' ' . $this->last_name;
@@ -100,25 +100,21 @@ class User extends Authenticatable
 
     public function get_level()
     {
-        if ($this->level == 'user') {
-            return 'کاربر';
-        } elseif ($this->level == 'staff') {
-            return 'کارمند';
-        } elseif ($this->level == 'admin') {
+        if ($this->is_admin) {
             return 'مدیر';
+        } elseif ($this->is_staff) {
+            return 'کارمند';
         }
-        return 'مدیر رستوران';
+        return 'کاربر عادی';
     }
 
     public function get_level_class()
     {
-        if ($this->level == 'user') {
-            return 'info';
-        } elseif ($this->level == 'staff') {
+        if ($this->is_admin) {
+            return 'danger';
+        } elseif ($this->is_staff) {
             return 'warning';
-        } elseif ($this->level == 'admin') {
-            return 'success';
         }
-        return 'danger';
+        return 'success';
     }
 }
