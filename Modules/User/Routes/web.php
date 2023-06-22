@@ -12,6 +12,6 @@
 */
 
 use Illuminate\Support\Facades\Route;
-use Modules\User\Http\Controllers\UserController;
+use Modules\User\Http\Controllers\Dashboard\UserController;
 
 Route::resource('users', UserController::class);
