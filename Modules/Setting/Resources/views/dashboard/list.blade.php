@@ -45,115 +45,6 @@
                     <!--end::Breadcrumb-->
                 </div>
                 <!--end::Page title-->
-                <!--begin::Actions-->
-                <div class="d-flex align-items-center gap-2 gap-lg-3">
-                    <!--begin::فیلتر menu-->
-                    <div class="m-0">
-                        <!--begin::Menu toggle-->
-                        <a href="#"
-                           class="btn btn-sm btn-flex bg-body btn-color-gray-700 btn-active-color-primary fw-bold"
-                           data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
-                            <i class="ki-duotone ki-filter fs-6 text-muted me-1">
-                                <span class="path1"></span>
-                                <span class="path2"></span>
-                            </i>فیلتر</a>
-                        <!--end::Menu toggle-->
-                        <!--begin::Menu 1-->
-                        <div class="menu menu-sub menu-sub-dropdown w-250px w-md-300px" data-kt-menu="true"
-                             id="kt_menu_641ac41e77927">
-                            <!--begin::Header-->
-                            <div class="px-7 py-5">
-                                <div class="fs-5 text-dark fw-bold">فیلتر تنظیمات</div>
-                            </div>
-                            <!--end::Header-->
-                            <!--begin::Menu separator-->
-                            <div class="separator border-gray-200"></div>
-                            <!--end::Menu separator-->
-                            <!--begin::Form-->
-                            <div class="px-7 py-5">
-                                <!--begin::Input group-->
-                                <div class="mb-10">
-                                    <!--begin::Tags-->
-                                    <label class="form-label fw-semibold">وضعیت:</label>
-                                    <!--end::Tags-->
-                                    <!--begin::Input-->
-                                    <div>
-                                        <select class="form-select form-select-solid" data-kt-select2="true"
-                                                data-placeholder="انتخاب گزینه"
-                                                data-dropdown-parent="#kt_menu_641ac41e77927" data-allow-clear="true">
-                                            <option></option>
-                                            <option value="1">تایید شده</option>
-                                            <option value="2">در انتظار</option>
-                                            <option value="2">در حال پردازش</option>
-                                            <option value="2">رد شد</option>
-                                        </select>
-                                    </div>
-                                    <!--end::Input-->
-                                </div>
-                                <!--end::Input group-->
-                                <!--begin::Input group-->
-                                <div class="mb-10">
-                                    <!--begin::Tags-->
-                                    <label class="form-label fw-semibold">نوع عضویت:</label>
-                                    <!--end::Tags-->
-                                    <!--begin::تنظیمات-->
-                                    <div class="d-flex">
-                                        <!--begin::تنظیمات-->
-                                        <label class="form-check form-check-sm form-check-custom form-check-solid me-5">
-                                            <input class="form-check-input" type="checkbox" value="1"/>
-                                            <span class="form-check-label">نویسنده</span>
-                                        </label>
-                                        <!--end::تنظیمات-->
-                                        <!--begin::تنظیمات-->
-                                        <label class="form-check form-check-sm form-check-custom form-check-solid">
-                                            <input class="form-check-input" type="checkbox" value="2"
-                                                   checked="checked"/>
-                                            <span class="form-check-label">مشتری</span>
-                                        </label>
-                                        <!--end::تنظیمات-->
-                                    </div>
-                                    <!--end::تنظیمات-->
-                                </div>
-                                <!--end::Input group-->
-                                <!--begin::Input group-->
-                                <div class="mb-10">
-                                    <!--begin::Tags-->
-                                    <label class="form-label fw-semibold">اعلان ها:</label>
-                                    <!--end::Tags-->
-                                    <!--begin::Switch-->
-                                    <div
-                                        class="form-check form-switch form-switch-sm form-check-custom form-check-solid">
-                                        <input class="form-check-input" type="checkbox" value="" name="notifications"
-                                               checked="checked"/>
-                                        <label class="form-check-label">فعال</label>
-                                    </div>
-                                    <!--end::Switch-->
-                                </div>
-                                <!--end::Input group-->
-                                <!--begin::Actions-->
-                                <div class="d-flex justify-content-end">
-                                    <button type="reset" class="btn btn-sm btn-light btn-active-light-primary me-2"
-                                            data-kt-menu-dismiss="true">ریست
-                                    </button>
-                                    <button type="submit" class="btn btn-sm btn-primary" data-kt-menu-dismiss="true">
-                                        تایید
-                                    </button>
-                                </div>
-                                <!--end::Actions-->
-                            </div>
-                            <!--end::Form-->
-                        </div>
-                        <!--end::Menu 1-->
-                    </div>
-                    <!--end::فیلتر menu-->
-                    <!--begin::Secondary button-->
-                    <!--end::Secondary button-->
-                    <!--begin::اصلی button-->
-                    <a href="#" class="btn btn-sm fw-bold btn-primary" data-bs-toggle="modal"
-                       data-bs-target="#kt_modal_create_app">ساختن</a>
-                    <!--end::اصلی button-->
-                </div>
-                <!--end::Actions-->
             </div>
             <!--end::Toolbar container-->
         </div>
@@ -175,7 +66,7 @@
                                     <span class="path2"></span>
                                 </i>
                                 <input type="text" data-kt-user-table-filter="search"
-                                       class="form-control form-control-solid w-250px ps-13" placeholder="جستجو کاربر"/>
+                                       class="form-control form-control-solid w-250px ps-13" placeholder="جستجو ..."/>
                             </div>
                             <!--end::جستجو-->
                         </div>
@@ -363,7 +254,7 @@
                                 <!--end::Modal dialog-->
                             </div>
                             <!--end::Modal - کارت جدید-->
-                        
+
                         </div>
                         <!--end::کارت toolbar-->
                     </div>
