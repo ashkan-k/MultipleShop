@@ -15,7 +15,9 @@ class SettingController extends Controller
 
     public function index()
     {
-        $objects = Setting::Search(request('search'))->paginate(\request('pagination', env('PAGINATION_NUMBER', 10)));
+        $objects = Setting::Search(request('search'))
+            ->latest()
+            ->paginate(\request('pagination', env('PAGINATION_NUMBER', 10)));
         return view('setting::dashboard.list', compact('objects'));
     }
 
@@ -32,7 +34,7 @@ class SettingController extends Controller
 
     public function edit(Setting $setting)
     {
-        return view('dashboard.settings.form', compact('setting'));
+        return view('setting::dashboard.form')->with('object', $setting);
     }
 
     public function update(SettingRequest $request, Setting $setting)

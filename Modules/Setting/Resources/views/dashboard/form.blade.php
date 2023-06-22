@@ -71,7 +71,7 @@
                                         <!--end::Tags-->
                                         <input type="text" id="id_key" class="form-control form-control-solid"
                                                value="@if(old('key')){{ old('key') }}@elseif(isset($object->key)){{ $object->key }}@endif"
-                                               placeholder="کلید را وارد کنید" name="key"/>
+                                               placeholder="کلید را وارد کنید" name="key" required/>
 
                                         @error('key')
                                         <div class="fv-plugins-message-container invalid-feedback">
@@ -90,7 +90,7 @@
                                         </label>
                                         <!--end::Tags-->
                                         <textarea type="text" id="id_value" class="form-control form-control-solid"
-                                                  rows="8"
+                                                  rows="8" required
                                                   placeholder="مقدار را وارد کنید"
                                                   name="value">@if(old('value')){{ old('value') }}@elseif(isset($object->value)){{ $object->value }}@endif</textarea>
 
