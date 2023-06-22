@@ -47,19 +47,9 @@
                     <!--begin::کارت header-->
                     <div class="card-header border-0 pt-6">
                         <!--begin::کارت title-->
-                        <div class="card-title">
-                            <!--begin::جستجو-->
-                            <div class="d-flex align-items-center position-relative my-1">
-                                <i class="ki-duotone ki-magnifier fs-3 position-absolute ms-5">
-                                    <span class="path1"></span>
-                                    <span class="path2"></span>
-                                </i>
-                                <input type="text" data-kt-user-table-filter="search" value="{{ request('search') }}"
-                                       name="search"
-                                       class="form-control form-control-solid w-250px ps-13" placeholder="جستجو ..."/>
-                            </div>
-                            <!--end::جستجو-->
-                        </div>
+
+                        @include('dashboard.section.components.search_box')
+
                         <!--begin::کارت title-->
                         <!--begin::کارت toolbar-->
                         <div class="card-toolbar">
@@ -142,13 +132,13 @@
                     <!--begin::کارت body-->
                     <div class="card-body py-4">
                         <!--begin::Table-->
-                        <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_table_تنظیمات">
+                        <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_table_items">
                             <thead>
                             <tr class="text-start text-muted fw-bold fs-7 text-uppercase gs-0">
                                 <th class="w-10px pe-2">
                                     <div class="form-check form-check-sm form-check-custom form-check-solid me-3">
                                         <input class="form-check-input" type="checkbox" data-kt-check="true"
-                                               data-kt-check-target="#kt_table_تنظیمات .form-check-input" value="1"/>
+                                               data-kt-check-target="#kt_table_items .form-check-input" value="1"/>
                                     </div>
                                 </th>
                                 <th class="min-w-125px">کلید</th>
@@ -209,17 +199,7 @@
                         <!--end::Table-->
 
                         <div class="row">
-                            <div
-                                class="col-sm-12 col-md-5 d-flex align-items-center justify-content-center justify-content-md-start">
-                                <div class="dataTables_length" id="kt_customers_table_length"><label><select
-                                            name="kt_customers_table_length" aria-controls="kt_customers_table"
-                                            class="form-select form-select-sm form-select-solid">
-                                            <option value="10">10</option>
-                                            <option value="25">25</option>
-                                            <option value="50">50</option>
-                                            <option value="100">100</option>
-                                        </select></label></div>
-                            </div>
+                           @include('dashboard.section.components.filters.limit_select_box')
 
 
                             {{ $objects->onEachSide(3)->links('dashboard.section.components.pagination') }}
@@ -238,8 +218,8 @@
 @endsection
 
 @section('Scripts')
-    @include('dashboard.section.components.sweet_alert')
     @include('dashboard.section.components.delete')
+    @include('dashboard.section.components.search_box_js')
 
     <script>
         app.controller('myCtrl', function ($scope, $http) {

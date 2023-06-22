@@ -15,7 +15,7 @@ class SettingController extends Controller
 
     public function index()
     {
-        $objects = Setting::Search(request('search'))->paginate(env('PAGINATION_NUMBER', 10));
+        $objects = Setting::Search(request('search'))->paginate(\request('pagination', env('PAGINATION_NUMBER', 10)));
         return view('setting::dashboard.list', compact('objects'));
     }
 
@@ -26,7 +26,7 @@ class SettingController extends Controller
 
     public function store(SettingRequest $request)
     {
-        Setting::create($request->all());
+        Setting::create($request->validated());
         return $this->SuccessRedirect('آیتم مورد نظر با موفقیت ثبت شد.', 'settings.index');
     }
 
@@ -37,7 +37,7 @@ class SettingController extends Controller
 
     public function update(SettingRequest $request, Setting $setting)
     {
-        $setting->update($request->all());
+        $setting->update($request->validated());
         return $this->SuccessRedirect('آیتم مورد نظر با موفقیت ویرایش شد.', 'settings.index');
     }
 

@@ -44,6 +44,8 @@ Like: www.facebook.com/keenthemes
 
     <link href="/select2/select2.min.css" rel="stylesheet"/>
 
+{{--    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js" integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>--}}
+
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.css"
           id="theme-styles">
@@ -13406,6 +13408,8 @@ Like: www.facebook.com/keenthemes
         $httpProvider.defaults.headers.common['X-CSRF-TOKEN'] = $('meta[name="csrf-token"]').attr('content');
     });
 </script>
+
+@include('dashboard.section.components.sweet_alert')
 
 @yield('Scripts')
 
