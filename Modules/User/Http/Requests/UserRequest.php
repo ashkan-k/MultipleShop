@@ -33,6 +33,7 @@ class UserRequest extends FormRequest
                 'regex:/(^\+?(09|98|0)?(9([0-9]{9}))$)/',
                 Rule::unique('users', 'phone')->ignore($this->user)
             ],
+            'address' => 'required|string',
         ];
     }
 

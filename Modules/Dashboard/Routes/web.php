@@ -15,3 +15,6 @@ use Illuminate\Support\Facades\Route;
 use Modules\Dashboard\Http\Controllers\Dashboard\DashboardController;
 
 Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+## Profile
+Route::get('profile', [DashboardController::class, 'profile'])->name('profile');
+Route::post('profile', [DashboardController::class, 'profile'])->name('profile_store');
