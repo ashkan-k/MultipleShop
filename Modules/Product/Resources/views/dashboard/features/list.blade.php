@@ -55,7 +55,7 @@
 
                         <div class="card-toolbar">
                             <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
-                                <button onclick="window.location.href='{{ route('features.create') }}'" type="button"
+                                <button type="button"
                                         class="btn btn-primary" data-bs-toggle="modal"
                                         data-bs-target="#kt_modal_add_user">
                                     <i class="ki-duotone ki-plus fs-2"></i>افزودن ویژگی ها
@@ -205,19 +205,7 @@
                                 <span class="required">مقدار</span>
                             </label>
 
-                            <input ng-model="obj.value" id="id_value" type="text" class="form-control form-control-solid" name="title">
-                        </div>
-
-                        <div class="d-flex flex-column mb-8 fv-row">
-                            <!--begin::Tags-->
-                            <label for="id_status" class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                <span class="required">وضعیت</span>
-                            </label>
-                            <!--end::Tags-->
-                            <select ng-model="status" id="id_status" class="form-control form-control-solid">
-                                <option value="1">فعال</option>
-                                <option value="0">غیرفعال</option>
-                            </select>
+                            <input ng-model="obj.value" id="id_value" type="text" class="form-control form-control-solid" name="value">
                         </div>
 
                         <div class="text-center">
@@ -254,13 +242,32 @@
                 $('#addEditFeatureModal').modal('show');
             }
 
-            $scope.SubmitAddEditFeature = function () {
+            $scope.SubmitAddEditFeature = function (type='create') {
+                if (!$scope.obj['title']){
+                    showToast('فیلد عنوان اجباری است!', 'error');
+                    return;
+                }
+                if (!$scope.obj['value']){
+                    showToast('فیلد مقدار اجباری است!', 'error');
+                    return;
+                }
+                if (!$scope.obj['product_id']){
+                    showToast('فیلد محصول اجباری است!', 'error');
+                    return;
+                }
+
                 $scope.is_submited = true;
 
-                var data = $scope.obj;
+                $scope.obj['product_id'] = {{ $product->id }};
 
-                $http.post(`/api/admin/users/status/change/${$scope.id}`, data).then(res => {
-                    showToast('وضعیت آیتم مورد نظر با موفقیت تغییر کرد.', 'success');
+                if ($scope.obj['id']){
+                    var url = `/api/admin/products/features/${$scope.obj['id']}/`
+                }else {
+                    var url = `/api/admin/products/features/`
+                }
+
+                $http.post(url, $scope.obj).then(res => {
+                    showToast(res['data']['data'], 'success');
                     $scope.is_submited = false;
                     setTimeout(() => {
                         location.reload()

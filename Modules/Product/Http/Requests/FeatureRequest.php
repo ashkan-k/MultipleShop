@@ -14,7 +14,9 @@ class FeatureRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'title' => 'required|string',
+            'value' => 'required|string',
+            'product_id' => 'required|exists:products,id',
         ];
     }
 

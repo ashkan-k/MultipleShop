@@ -22,7 +22,8 @@ class FeatureController extends Controller
             ->latest()
             ->paginate(\request('pagination', env('PAGINATION_NUMBER', 10)));
 
-        return view('product::dashboard.features.list', compact('objects', 'product'));
+        $products = Product::all();
+        return view('product::dashboard.features.list', compact('objects', 'product', 'products'));
     }
 
     public function create()
@@ -32,19 +33,15 @@ class FeatureController extends Controller
 
     public function store(FeatureRequest $request)
     {
+        dd($request->validated());
         Feature::create($request->validated());
-        return $this->SuccessRedirect('آیتم مورد نظر با موفقیت ثبت شد.', 'features.index');
-    }
-
-    public function edit(Feature $feature)
-    {
-        return view('product::dashboard.features.form')->with('object', $feature);
+        return $this->SuccessResponse('آیتم مورد نظر با موفقیت ثبت شد.');
     }
 
     public function update(FeatureRequest $request, Feature $feature)
     {
         $feature->update($request->validated());
-        return $this->SuccessRedirect('آیتم مورد نظر با موفقیت ویرایش شد.', 'features.index');
+        return $this->SuccessResponse('آیتم مورد نظر با موفقیت ویرایش شد.');
     }
 
     public function destroy(Feature $feature)

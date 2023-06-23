@@ -21,6 +21,6 @@ Route::prefix('products')->group(function () {
     Route::resource('categories', CategoryController::class);
     Route::resource('colors', ColorController::class);
     Route::resource('sizes', SizeController::class);
-    Route::resource('features', FeatureController::class);
+    Route::resource('features', FeatureController::class)->only(['index', 'destroy']);
 });
 
