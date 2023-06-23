@@ -11,6 +11,7 @@
 |
 */
 
-Route::prefix('slider')->group(function() {
-    Route::get('/', 'SliderController@index');
-});
+use Illuminate\Support\Facades\Route;
+use Modules\Slider\Http\Controllers\Dashboard\SliderController;
+
+Route::resource('sliders', SliderController::class);

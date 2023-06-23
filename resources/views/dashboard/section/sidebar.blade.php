@@ -90,6 +90,43 @@
             </div>
 
             <div data-kt-menu-trigger="click"
+                 class="menu-item @if(str_starts_with(\Illuminate\Support\Facades\Route::current()->getName(), 'sliders.')) show @endif menu-accordion">
+                <span class="menu-link">
+											<span class="menu-icon">
+												<i class="ki-duotone ki-abstract-26 fs-2">
+													<span class="path1"></span>
+													<span class="path2"></span>
+													<span class="path3"></span>
+													<span class="path4"></span>
+												</i>
+											</span>
+											<span class="menu-title">اسلایدر ها</span>
+											<span class="menu-arrow"></span>
+										</span>
+                <div class="menu-sub menu-sub-accordion">
+
+                    <div class="menu-item">
+                        <a class="menu-link @if(\Illuminate\Support\Facades\Route::current()->getName() == 'sliders.index') active @endif"
+                           href="{{ route('sliders.index') }}">
+													<span class="menu-bullet">
+														<span class="bullet bullet-dot"></span>
+													</span>
+                            <span class="menu-title">لیست اسلایدر ها</span>
+                        </a>
+
+                        <a class="menu-link @if(\Illuminate\Support\Facades\Route::current()->getName() == 'sliders.create') active @endif"
+                           href="{{ route('sliders.create') }}">
+													<span class="menu-bullet">
+														<span class="bullet bullet-dot"></span>
+													</span>
+                            <span class="menu-title">افزودن اسلایدر</span>
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+
+            <div data-kt-menu-trigger="click"
                  class="menu-item @if(str_starts_with(\Illuminate\Support\Facades\Route::current()->getName(), 'categories.')) show @endif menu-accordion">
                 <span class="menu-link">
 											<span class="menu-icon">

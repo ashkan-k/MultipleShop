@@ -23,6 +23,11 @@ class Slider extends Model
         'url',
     ];
 
+    public function get_image()
+    {
+        return $this->image ?? 'https://www.hardiagedcare.com.au/wp-content/uploads/2019/02/default-avatar-profile-icon-vector-18942381.jpg';
+    }
+
     protected static function newFactory()
     {
         return \Modules\Slider\Database\factories\SliderFactory::new();

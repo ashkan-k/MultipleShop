@@ -13,9 +13,18 @@ class SliderRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            //
+        $rules = [
+            'title' => 'required|string',
+            'url' => 'required|url',
+            'priority' => 'required|numeric',
+            'image' => 'mimes:jpeg,png,bmp,jpg',
         ];
+
+        if (request()->method() == 'POST'){
+            $rules['image'] .= '|required';
+        }
+
+        return $rules;
     }
 
     /**
