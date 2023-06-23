@@ -2,7 +2,7 @@
     <div class="card-title">
         <!--begin::جستجو-->
         <div class="d-flex align-items-center position-relative my-1">
-            <i class="ki-duotone ki-magnifier fs-3 position-absolute ms-5">
+            <i class="ki-duotone ki-magnifier fs-3 position-absolute ms-5" onclick="$('#search_form').submit()">
                 <span class="path1"></span>
                 <span class="path2"></span>
             </i>
