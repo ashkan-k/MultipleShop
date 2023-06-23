@@ -22,7 +22,7 @@ class FeatureController extends Controller
             ->latest()
             ->paginate(\request('pagination', env('PAGINATION_NUMBER', 10)));
 
-        return view('product::dashboard.features.list', compact('objects'));
+        return view('product::dashboard.features.list', compact('objects', 'product'));
     }
 
     public function create()

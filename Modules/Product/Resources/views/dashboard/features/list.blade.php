@@ -13,7 +13,7 @@
                 <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
                     <!--begin::Title-->
                     <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">
-                        لیست ویژگی ها</h1>
+                        لیست ویژگی ها محصول {{ $product->title }}</h1>
                     <!--end::Title-->
                     <!--begin::Breadcrumb-->
                     <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1">
@@ -117,7 +117,7 @@
                                             class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4"
                                             data-kt-menu="true">
                                             <div class="menu-item px-3">
-                                                <a href="{{ route('features.edit', $item->id) }}" class="menu-link px-3"
+                                                <a ng-click="AddEditFeatureModal({{ $item }})" class="menu-link px-3"
                                                    data-kt-features-table-filter="delete_row">ویرایش</a>
                                             </div>
                                             <div class="menu-item px-3">
@@ -163,6 +163,81 @@
         </div>
         <!--end::Content-->
     </div>
+
+    <div class="modal fade" id="addEditFeatureModal" tabindex="-1" aria-hidden="true">
+        <!--begin::Modal dialog-->
+        <div class="modal-dialog modal-dialog-centered mw-650px">
+            <!--begin::Modal content-->
+            <div class="modal-content rounded">
+                <!--begin::Modal header-->
+                <div class="modal-header pb-0 border-0 justify-content-end">
+                    <!--begin::Close-->
+                    <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                        <i class="ki-duotone ki-cross fs-1">
+                            <span class="path1"></span>
+                            <span class="path2"></span>
+                        </i>
+                    </div>
+                    <!--end::Close-->
+                </div>
+                <!--begin::Modal header-->
+                <!--begin::Modal body-->
+                <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
+                    <!--begin:Form-->
+                    <form id="addEditFeatureModal_form" class="form" action="#">
+                        <!--begin::Heading-->
+                        <div class="mb-13 text-center">
+                            <h1 class="mb-3">ویژگی ها</h1>
+                        </div>
+
+                        <div class="d-flex flex-column mb-8 fv-row">
+                            <!--begin::Tags-->
+                            <label for="id_title" class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                <span class="required">عنوان</span>
+                            </label>
+
+                            <input ng-model="obj.title" id="id_title" type="text" class="form-control form-control-solid" name="title">
+                        </div>
+
+                        <div class="d-flex flex-column mb-8 fv-row">
+                            <!--begin::Tags-->
+                            <label for="id_value" class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                <span class="required">مقدار</span>
+                            </label>
+
+                            <input ng-model="obj.value" id="id_value" type="text" class="form-control form-control-solid" name="title">
+                        </div>
+
+                        <div class="d-flex flex-column mb-8 fv-row">
+                            <!--begin::Tags-->
+                            <label for="id_status" class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                <span class="required">وضعیت</span>
+                            </label>
+                            <!--end::Tags-->
+                            <select ng-model="status" id="id_status" class="form-control form-control-solid">
+                                <option value="1">فعال</option>
+                                <option value="0">غیرفعال</option>
+                            </select>
+                        </div>
+
+                        <div class="text-center">
+                            <button ng-disabled="is_submited" onclick="$('#addEditFeatureModal').modal('hide');" type="reset" id="addEditFeatureModal_cancel" class="btn btn-light me-3">انصراف
+                            </button>
+                            <button type="button" ng-click="SubmitAddEditFeature()" ng-disabled="is_submited"
+                                    class="btn btn-primary">
+                                <span class="indicator-label">ثبت</span>
+                            </button>
+                        </div>
+                        <!--end::Actions-->
+                    </form>
+                    <!--end:Form-->
+                </div>
+                <!--end::Modal body-->
+            </div>
+            <!--end::Modal content-->
+        </div>
+        <!--end::Modal dialog-->
+    </div>
 @endsection
 
 @section('Scripts')
@@ -172,6 +247,29 @@
     <script>
         app.controller('myCtrl', function ($scope, $http) {
             @include('dashboard.section.components.bulk_actions.bulk_actions_js', ['items' => $objects, 'model' => \Modules\Product\Entities\Feature::class])
+
+            $scope.AddEditFeatureModal = function (obj) {
+                $scope.obj = obj;
+                console.log($scope.obj);
+                $('#addEditFeatureModal').modal('show');
+            }
+
+            $scope.SubmitAddEditFeature = function () {
+                $scope.is_submited = true;
+
+                var data = $scope.obj;
+
+                $http.post(`/api/admin/users/status/change/${$scope.id}`, data).then(res => {
+                    showToast('وضعیت آیتم مورد نظر با موفقیت تغییر کرد.', 'success');
+                    $scope.is_submited = false;
+                    setTimeout(() => {
+                        location.reload()
+                    }, 500)
+                }).catch(err => {
+                    $scope.is_submited = false;
+                    showToast('خطایی رخ داد.', 'error');
+                });
+            }
         });
     </script>
 @endsection
