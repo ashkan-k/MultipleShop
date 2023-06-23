@@ -7,6 +7,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Product\Entities\Feature;
+use Modules\Product\Entities\Product;
 use Modules\Product\Http\Requests\FeatureRequest;
 
 class FeatureController extends Controller
@@ -15,7 +16,9 @@ class FeatureController extends Controller
 
     public function index()
     {
+        $product = Product::findOrFail(\request('product_id'));
         $objects = Feature::Search(request('search'))
+            ->where('product_id', $product->id)
             ->latest()
             ->paginate(\request('pagination', env('PAGINATION_NUMBER', 10)));
 
