@@ -80,7 +80,8 @@
                                                         data-kt-menu-dismiss="true" data-kt-user-table-filter="reset">
                                                     بستن
                                                 </button>
-                                                <button type="submit" onclick="$('#frm_filter').submit()" class="btn btn-primary fw-semibold px-6">
+                                                <button type="submit" onclick="$('#frm_filter').submit()"
+                                                        class="btn btn-primary fw-semibold px-6">
                                                     فیلتر
                                                 </button>
                                             </div>
@@ -116,15 +117,15 @@
                                                data-kt-check-target="#kt_table_items .form-check-input"/>
                                     </div>
                                 </th>
-                                <th >نام کابری</th>
-                                <th >نام</th>
-                                <th >نام خانوادگی</th>
-                                <th >ایمیل</th>
-                                <th >وضعیت</th>
-                                <th >تلفن</th>
-                                <th >نقش</th>
-                                <th >عکس</th>
-                                <th >تاریخ ثبت نام</th>
+                                <th>نام کابری</th>
+                                <th>نام</th>
+                                <th>نام خانوادگی</th>
+                                <th>ایمیل</th>
+                                <th>وضعیت</th>
+                                <th>تلفن</th>
+                                <th>نقش</th>
+                                <th>عکس</th>
+                                <th>تاریخ ثبت نام</th>
                                 <th class="text-end min-w-100px">عملیات</th>
                             </tr>
                             </thead>
@@ -150,7 +151,7 @@
                                     <td>{{ $item->email ?: '---'  }}</td>
 
                                     <td>
-                                        <div ng-click="ChangeStatusModal({{ $item->id }}, '{{ $item->status }}')"
+                                        <div ng-click="ChangeStatusModal({{ $item->id }}, '{{ $item->email_verified_at ? 1 : 0 }}')"
                                              class="badge badge-light-{{ $item->email_verified_at ? 'success' : 'danger' }} active_modal_buttons">
                                             @if($item->email_verified_at != null)
                                                 فعال
@@ -164,14 +165,16 @@
                                     <td>{{ $item->phone == null ? 'ندارد' : $item->phone }}</td>
 
                                     <td>
-                                        <div class="badge badge-light-{{ $item->get_level_class() }}">{{ $item->get_level() }}</div>
+                                        <div
+                                            class="badge badge-light-{{ $item->get_level_class() }}">{{ $item->get_level() }}</div>
                                     </td>
 
                                     <td>
                                         <div class="symbol symbol-circle symbol-50px overflow-hidden me-3">
                                             <a href="{{ $item->get_avatar() }}" target="_blank">
                                                 <div class="symbol-label">
-                                                    <img src="{{ $item->get_avatar() }}" alt="{{ $item->full_name() }}" class="w-100">
+                                                    <img src="{{ $item->get_avatar() }}" alt="{{ $item->full_name() }}"
+                                                         class="w-100">
                                                 </div>
                                             </a>
                                         </div>
@@ -235,6 +238,64 @@
         </div>
         <!--end::Content-->
     </div>
+
+
+    <div class="modal fade" id="changeStatusModal" tabindex="-1" aria-hidden="true">
+        <!--begin::Modal dialog-->
+        <div class="modal-dialog modal-dialog-centered mw-650px">
+            <!--begin::Modal content-->
+            <div class="modal-content rounded">
+                <!--begin::Modal header-->
+                <div class="modal-header pb-0 border-0 justify-content-end">
+                    <!--begin::Close-->
+                    <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                        <i class="ki-duotone ki-cross fs-1">
+                            <span class="path1"></span>
+                            <span class="path2"></span>
+                        </i>
+                    </div>
+                    <!--end::Close-->
+                </div>
+                <!--begin::Modal header-->
+                <!--begin::Modal body-->
+                <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
+                    <!--begin:Form-->
+                    <form id="changeStatusModal_form" class="form" action="#">
+                        <!--begin::Heading-->
+                        <div class="mb-13 text-center">
+                            <h1 class="mb-3">تغییر وضعیت</h1>
+                        </div>
+
+                        <div class="d-flex flex-column mb-8 fv-row">
+                            <!--begin::Tags-->
+                            <label for="id_status" class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                <span class="required">وضعیت</span>
+                            </label>
+                            <!--end::Tags-->
+                            <select ng-model="status" id="id_status" class="form-control form-control-solid">
+                                <option value="1">فعال</option>
+                                <option value="0">غیرفعال</option>
+                            </select>
+                        </div>
+
+                        <div class="text-center">
+                            <button ng-disabled="is_submited" onclick="$('#changeStatusModal').modal('hide');" type="reset" id="changeStatusModal_cancel" class="btn btn-light me-3">انصراف
+                            </button>
+                            <button type="button" ng-click="ChangeStatus()" ng-disabled="is_submited"
+                                    class="btn btn-primary">
+                                <span class="indicator-label">ثبت</span>
+                            </button>
+                        </div>
+                        <!--end::Actions-->
+                    </form>
+                    <!--end:Form-->
+                </div>
+                <!--end::Modal body-->
+            </div>
+            <!--end::Modal content-->
+        </div>
+        <!--end::Modal dialog-->
+    </div>
 @endsection
 
 @section('Scripts')
@@ -244,6 +305,31 @@
     <script>
         app.controller('myCtrl', function ($scope, $http) {
             @include('dashboard.section.components.bulk_actions.bulk_actions_js', ['items' => $objects, 'model' => \Modules\User\Entities\User::class])
+
+            $scope.ChangeStatusModal = function (id, status) {
+                $scope.id = id;
+                $scope.status = status;
+                $('#changeStatusModal').modal('show');
+            }
+
+            $scope.ChangeStatus = function () {
+                $scope.is_submited = true;
+
+                var data = {
+                    "status": $scope.status
+                };
+
+                $http.post(`/api/admin/users/status/change/${$scope.id}`, data).then(res => {
+                    showToast('وضعیت آیتم مورد نظر با موفقیت تغییر کرد.', 'success');
+                    $scope.is_submited = false;
+                    setTimeout(() => {
+                        location.reload()
+                    }, 500)
+                }).catch(err => {
+                    $scope.is_submited = false;
+                    showToast('خطایی رخ داد.', 'error');
+                });
+            }
         });
     </script>
 @endsection

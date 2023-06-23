@@ -63,4 +63,11 @@ class UserController extends Controller
         $user->delete();
         return $this->SuccessRedirect('آیتم مورد نظر با موفقیت حذف شد.', 'users.index');
     }
+
+    public function change_status(User $user)
+    {
+        $status = \request('status') == '1' ? now() : null;
+        $user->update(['email_verified_at' => $status]);
+        return $this->SuccessResponse('وضعیت آیتم مورد نظر با موفقیت تغییر یافت.');
+    }
 }
