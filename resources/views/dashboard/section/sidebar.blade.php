@@ -11,7 +11,7 @@
 
             <div class="menu-item">
                 <!--begin:Menu link-->
-                <a class="menu-link"
+                <a class="menu-link @if(str_starts_with(\Illuminate\Support\Facades\Route::current()->getName(), 'dashboard')) active @endif"
                    href="{{ route('dashboard') }}">
             											<span class="menu-icon">
             												<i class="ki-duotone ki-element-11 fs-2">
@@ -22,6 +22,23 @@
             												</i>
             											</span>
                     <span class="menu-title">داشبورد</span>
+                </a>
+                <!--end:Menu link-->
+            </div>
+
+            <div class="menu-item">
+                <!--begin:Menu link-->
+                <a class="menu-link @if(str_starts_with(\Illuminate\Support\Facades\Route::current()->getName(), 'profile')) active @endif"
+                   href="{{ route('profile') }}">
+            											<span class="menu-icon">
+            												<i class="ki-duotone ki-element-plus fs-2">
+            													<span class="path1"></span>
+            													<span class="path2"></span>
+            													<span class="path3"></span>
+            													<span class="path4"></span>
+            												</i>
+            											</span>
+                    <span class="menu-title">پروفایل</span>
                 </a>
                 <!--end:Menu link-->
             </div>
