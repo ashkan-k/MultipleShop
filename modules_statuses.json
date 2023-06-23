@@ -1,5 +1,6 @@
 {
     "User": true,
     "Setting": true,
-    "Dashboard": true
+    "Dashboard": true,
+    "Product": true
 }
