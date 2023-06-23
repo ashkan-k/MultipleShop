@@ -1,5 +1,5 @@
 @extends('layouts.admin-master')
-@section('title','دسته بندی ها')
+@section('title','رنگ ها')
 @section('Styles')
 
 @endsection
@@ -13,7 +13,7 @@
                 <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
                     <!--begin::Title-->
                     <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">
-                        لیست دسته بندی ها</h1>
+                        لیست رنگ ها</h1>
                     <!--end::Title-->
                     <!--begin::Breadcrumb-->
                     <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1">
@@ -29,7 +29,7 @@
                         <!--end::آیتم-->
                         <!--begin::آیتم-->
                         <li class="breadcrumb-item text-muted">
-                            <a href="{{ route('categories.index') }}" class="text-muted text-hover-primary">دسته بندی ها</a>
+                            <a href="{{ route('colors.index') }}" class="text-muted text-hover-primary">رنگ</a>
                         </li>
                         <!--end::آیتم-->
                     </ul>
@@ -55,45 +55,10 @@
 
                         <div class="card-toolbar">
                             <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
-
-{{--                                <!--begin:: فیلتر ها header-->--}}
-{{--                                <button type="button" class="btn btn-light-primary me-3" data-kt-menu-trigger="click"--}}
-{{--                                        data-kt-menu-placement="bottom-end">--}}
-{{--                                    <i class="ki-duotone ki-filter fs-2">--}}
-{{--                                        <span class="path1"></span>--}}
-{{--                                        <span class="path2"></span>--}}
-{{--                                    </i>فیلتر--}}
-{{--                                </button>--}}
-
-{{--                                <div class="menu menu-sub menu-sub-dropdown w-300px w-md-325px" data-kt-menu="true">--}}
-{{--                                    <div class="px-7 py-5">--}}
-{{--                                        <div class="fs-5 text-dark fw-bold">فیلتر دسته بندی ها</div>--}}
-{{--                                    </div>--}}
-{{--                                    <div class="separator border-gray-200"></div>--}}
-{{--                                    <div class="px-7 py-5" data-kt-user-table-filter="form">--}}
-{{--                                        <form id="frm_filter">--}}
-{{--                                            @include('dashboard.section.components.filters.select_box', ['items' => $status_filters, 'name' => 'is_active', 'label' => 'وضعیت'])--}}
-
-{{--                                            <div class="d-flex justify-content-end">--}}
-{{--                                                <button type="reset"--}}
-{{--                                                        class="btn btn-light btn-active-light-primary fw-semibold me-2 px-6"--}}
-{{--                                                        data-kt-menu-dismiss="true" data-kt-user-table-filter="reset">--}}
-{{--                                                    بستن--}}
-{{--                                                </button>--}}
-{{--                                                <button type="submit" onclick="$('#frm_filter').submit()"--}}
-{{--                                                        class="btn btn-primary fw-semibold px-6">--}}
-{{--                                                    فیلتر--}}
-{{--                                                </button>--}}
-{{--                                            </div>--}}
-{{--                                        </form>--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
-{{--                                <!--end:: پایان فیلتر ها -->--}}
-
-                                <button onclick="window.location.href='{{ route('categories.create') }}'" type="button"
+                                <button onclick="window.location.href='{{ route('colors.create') }}'" type="button"
                                         class="btn btn-primary" data-bs-toggle="modal"
                                         data-bs-target="#kt_modal_add_user">
-                                    <i class="ki-duotone ki-plus fs-2"></i>افزودن دسته بندی
+                                    <i class="ki-duotone ki-plus fs-2"></i>افزودن رنگ ها
                                 </button>
                                 <!--end::Add user-->
                             </div>
@@ -118,9 +83,6 @@
                                     </div>
                                 </th>
                                 <th>عنوان</th>
-                                <th>اسلاگ</th>
-                                <th>والد</th>
-                                <th>عکس</th>
                                 <th>عملیات</th>
                             </tr>
                             </thead>
@@ -139,21 +101,6 @@
 
                                     <td>{{ $item->title ?: '---'  }}</td>
 
-                                    <td>{{ $item->slug ?: '---'  }}</td>
-
-                                    <td>{{$item->parent ? $item->parent->title : 'ندارد'}}</td>
-
-                                    <td>
-                                        <div class="symbol symbol-circle symbol-50px overflow-hidden me-3">
-                                            <a href="{{ $item->get_image() }}" target="_blank">
-                                                <div class="symbol-label">
-                                                    <img src="{{ $item->get_image() }}" alt="{{ $item->title }}"
-                                                         class="w-100">
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </td>
-
                                     <td class="">
                                         <a href="#"
                                            class="btn btn-light btn-active-light-primary btn-flex btn-center btn-sm"
@@ -164,19 +111,19 @@
                                             class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4"
                                             data-kt-menu="true">
                                             <div class="menu-item px-3">
-                                                <a href="{{ route('categories.edit', $item->id) }}" class="menu-link px-3"
-                                                   data-kt-categories-table-filter="delete_row">ویرایش</a>
+                                                <a href="{{ route('colors.edit', $item->id) }}" class="menu-link px-3"
+                                                   data-kt-colors-table-filter="delete_row">ویرایش</a>
                                             </div>
                                             <div class="menu-item px-3">
 
-                                                <form action="{{ route('categories.destroy' , $item->id) }}"
+                                                <form action="{{ route('colors.destroy' , $item->id) }}"
                                                       id="delete_form_{{ $loop->index }}" method="post">
                                                     @csrf
                                                     @method('DELETE')
 
                                                     <a onclick="return Delete('{{ $loop->index }}')"
                                                        class="menu-link px-3"
-                                                       data-kt-categories-table-filter="delete_row">حذف</a>
+                                                       data-kt-colors-table-filter="delete_row">حذف</a>
 
                                                 </form>
 
@@ -218,7 +165,7 @@
 
     <script>
         app.controller('myCtrl', function ($scope, $http) {
-            @include('dashboard.section.components.bulk_actions.bulk_actions_js', ['items' => $objects, 'model' => \Modules\Product\Entities\Category::class])
+            @include('dashboard.section.components.bulk_actions.bulk_actions_js', ['items' => $objects, 'model' => \Modules\Product\Entities\Color::class])
         });
     </script>
 @endsection
