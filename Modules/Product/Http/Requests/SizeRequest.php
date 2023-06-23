@@ -14,7 +14,7 @@ class SizeRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'title' => 'string|required'
         ];
     }
 

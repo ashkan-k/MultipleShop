@@ -14,9 +14,11 @@
 use Illuminate\Support\Facades\Route;
 use Modules\Product\Http\Controllers\Dashboard\CategoryController;
 use Modules\Product\Http\Controllers\Dashboard\ColorController;
+use Modules\Product\Http\Controllers\Dashboard\SizeController;
 
 Route::prefix('products')->group(function () {
     Route::resource('categories', CategoryController::class);
     Route::resource('colors', ColorController::class);
+    Route::resource('sizes', SizeController::class);
 });
 

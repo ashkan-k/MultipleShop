@@ -45,7 +45,7 @@
 
             @if(auth()->user()->is_admin)
                 <div data-kt-menu-trigger="click"
-                     class="menu-item here @if(str_starts_with(\Illuminate\Support\Facades\Route::current()->getName(), 'users.')) show @endif menu-accordion">
+                     class="menu-item @if(str_starts_with(\Illuminate\Support\Facades\Route::current()->getName(), 'users.')) show @endif menu-accordion">
                 <span class="menu-link">
 											<span class="menu-icon">
 												<i class="ki-duotone ki-user fs-2">
@@ -90,7 +90,7 @@
             </div>
 
             <div data-kt-menu-trigger="click"
-                 class="menu-item here @if(str_starts_with(\Illuminate\Support\Facades\Route::current()->getName(), 'categories.')) show @endif menu-accordion">
+                 class="menu-item @if(str_starts_with(\Illuminate\Support\Facades\Route::current()->getName(), 'categories.')) show @endif menu-accordion">
                 <span class="menu-link">
 											<span class="menu-icon">
 												<i class="ki-duotone ki-abstract-28 fs-2">
@@ -127,6 +127,43 @@
             </div>
 
 
+            <div data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="left-start" class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention">
+                <!--begin:Menu link-->
+                <span class="menu-link @if(str_starts_with(\Illuminate\Support\Facades\Route::current()->getName(), 'colors.') || str_starts_with(\Illuminate\Support\Facades\Route::current()->getName(), 'sizes.')) active @endif">
+											<span class="menu-icon">
+												<i class="ki-duotone ki-file fs-2">
+													<span class="path1"></span>
+													<span class="path2"></span>
+												</i>
+											</span>
+											<span class="menu-title">ویژگی ها</span>
+											<span class="menu-arrow"></span>
+										</span>
+                <!--end:Menu link-->
+                <!--begin:Menu sub-->
+                <div class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown px-2 py-4 w-200px mh-75 overflow-auto">
+                    <div class="menu-item">
+                        <a class="menu-link @if(str_starts_with(\Illuminate\Support\Facades\Route::current()->getName(), 'colors.')) active @endif" href="{{ route('colors.index') }}">
+													<span class="menu-bullet">
+														<span class="bullet bullet-dot"></span>
+													</span>
+                            <span class="menu-title">رنگ ها</span>
+                        </a>
+                    </div>
+
+                    <div class="menu-item">
+                        <a class="menu-link @if(str_starts_with(\Illuminate\Support\Facades\Route::current()->getName(), 'sizes.')) active @endif" href="{{ route('sizes.index') }}">
+													<span class="menu-bullet">
+														<span class="bullet bullet-dot"></span>
+													</span>
+                            <span class="menu-title">سایز ها</span>
+                        </a>
+                    </div>
+                </div>
+                <!--end:Menu sub-->
+            </div>
+
+
             <div class="menu-item pt-5">
                 <div class="menu-content">
                     <span class="menu-heading fw-bold text-uppercase fs-7">کانفیگ</span>
@@ -134,7 +171,7 @@
             </div>
 
             <div data-kt-menu-trigger="click"
-                 class="menu-item here @if(str_starts_with(\Illuminate\Support\Facades\Route::current()->getName(), 'settings.')) show @endif menu-accordion">
+                 class="menu-item @if(str_starts_with(\Illuminate\Support\Facades\Route::current()->getName(), 'settings.')) show @endif menu-accordion">
                 <span class="menu-link">
 											<span class="menu-icon">
 												<i class="ki-duotone ki-switch fs-2">
