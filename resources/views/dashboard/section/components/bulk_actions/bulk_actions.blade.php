@@ -9,7 +9,7 @@
             </label>
         </div>
         <div class="col-md-3">
-            <p class="mt-2">عملیات دست جمعی موارد انتخاب شده</p>
+            <p class="mt-2 text-gray-600">عملیات دست جمعی موارد انتخاب شده</p>
         </div>
         <div class="col-md-2" style="float: left !important;">
             <select ng-model="bulk_action" name="bulk-action" id="bulkAction" class="form-control">

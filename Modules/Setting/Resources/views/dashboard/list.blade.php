@@ -54,73 +54,16 @@
 
                     @include('dashboard.section.components.search_box')
 
-                    <!--begin::کارت title-->
-                        <!--begin::کارت toolbar-->
                         <div class="card-toolbar">
-                            <!--begin::Toolbar-->
                             <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
-                                <!--begin::فیلتر-->
-                                <button type="button" class="btn btn-light-primary me-3" data-kt-menu-trigger="click"
-                                        data-kt-menu-placement="bottom-end">
-                                    <i class="ki-duotone ki-filter fs-2">
-                                        <span class="path1"></span>
-                                        <span class="path2"></span>
-                                    </i>فیلتر
-                                </button>
-                                <!--begin::Menu 1-->
-                                <div class="menu menu-sub menu-sub-dropdown w-300px w-md-325px" data-kt-menu="true">
-                                    <!--begin::Header-->
-                                    <div class="px-7 py-5">
-                                        <div class="fs-5 text-dark fw-bold">فیلتر تنظیمات ها</div>
-                                    </div>
-                                    <!--end::Header-->
-                                    <!--begin::Separator-->
-                                    <div class="separator border-gray-200"></div>
-                                    <!--end::Separator-->
-                                    <!--begin::Content-->
-                                    <div class="px-7 py-5" data-kt-user-table-filter="form">
-                                        <!--begin::Input group-->
-                                        <div class="mb-10">
-                                            <label class="form-label fs-6 fw-semibold">سطح دسترسی:</label>
-                                            <select class="form-select form-select-solid fw-bold" data-kt-select2="true"
-                                                    data-placeholder="انتخاب گزینه" data-allow-clear="true"
-                                                    data-kt-user-table-filter="role" data-hide-search="true">
-                                                <option></option>
-                                                <option value="مدیریت">مدیریت</option>
-                                                <option value="تحلیلگر">تحلیلگر</option>
-                                                <option value="توسعه دهنده">توسعه دهنده</option>
-                                                <option value="پشتیبانی">پشتیبانی</option>
-                                                <option value="آزمایش">آزمایش</option>
-                                            </select>
-                                        </div>
-                                        <!--end::Input group-->
-                                        <!--end::Input group-->
-                                        <!--begin::Actions-->
-                                        <div class="d-flex justify-content-end">
-                                            <button type="reset"
-                                                    class="btn btn-light btn-active-light-primary fw-semibold me-2 px-6"
-                                                    data-kt-menu-dismiss="true" data-kt-user-table-filter="reset">بستن
-                                            </button>
-                                            <button type="submit" class="btn btn-primary fw-semibold px-6"
-                                                    data-kt-menu-dismiss="true" data-kt-user-table-filter="filter">فیلتر
-                                            </button>
-                                        </div>
-                                        <!--end::Actions-->
-                                    </div>
-                                    <!--end::Content-->
-                                </div>
-                                <!--end::Menu 1-->
-                                <!--end::فیلتر-->
-                                <!--begin::خروجی-->
-                            {{--                                <button type="button" class="btn btn-light-primary me-3" data-bs-toggle="modal"--}}
-                            {{--                                        data-bs-target="#kt_modal_export_تنظیمات">--}}
-                            {{--                                    <i class="ki-duotone ki-exit-up fs-2">--}}
-                            {{--                                        <span class="path1"></span>--}}
-                            {{--                                        <span class="path2"></span>--}}
-                            {{--                                    </i>خروجی--}}
-                            {{--                                </button>--}}
-                            <!--end::خروجی-->
-                                <!--begin::Add user-->
+                                {{--                                <button type="button" class="btn btn-light-primary me-3" data-bs-toggle="modal"--}}
+                                {{--                                        data-bs-target="#kt_modal_export_تنظیمات">--}}
+                                {{--                                    <i class="ki-duotone ki-exit-up fs-2">--}}
+                                {{--                                        <span class="path1"></span>--}}
+                                {{--                                        <span class="path2"></span>--}}
+                                {{--                                    </i>خروجی--}}
+                                {{--                                </button>--}}
+
                                 <button onclick="window.location.href='{{ route('settings.create') }}'" type="button"
                                         class="btn btn-primary" data-bs-toggle="modal"
                                         data-bs-target="#kt_modal_add_user">
@@ -148,8 +91,8 @@
                                                data-kt-check-target="#kt_table_items .form-check-input"/>
                                     </div>
                                 </th>
-                                <th class="min-w-125px">کلید</th>
-                                <th class="min-w-125px">مقدار</th>
+                                <th>کلید</th>
+                                <th>مقدار</th>
                                 <th class="text-end min-w-100px">عملیات</th>
                             </tr>
                             </thead>

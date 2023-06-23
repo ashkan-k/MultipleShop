@@ -1,4 +1,5 @@
 <?php
+
 namespace Modules\User\Entities;
 
 
@@ -61,6 +62,17 @@ class User extends Authenticatable
         'phone',
     ];
 
+    public function scopeFilter($query, $request)
+    {
+        $is_active = $request->is_active;
+        if ($is_active == '1') {
+            $query->WhereNotNull('email_verified_at');
+        } elseif ($is_active == '0') {
+            $query->WhereNull('email_verified_at');
+        }
+        return $query;
+    }
+
     protected static function newFactory()
     {
         return \Modules\User\Database\factories\UserFactory::new();
@@ -81,7 +93,7 @@ class User extends Authenticatable
         if ($this->frist_name && $this->last_name) {
             return $this->frist_name . ' ' . $this->last_name;
         }
-        if ($this->username){
+        if ($this->username) {
             return $this->username;
         }
 
