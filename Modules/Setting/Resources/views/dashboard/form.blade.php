@@ -143,5 +143,8 @@
 @endsection
 
 @section('Scripts')
+    <script>
+        CKEDITOR.replace('id_value');
+    </script>
 @endsection
 
