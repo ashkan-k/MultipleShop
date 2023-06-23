@@ -55,7 +55,7 @@
 
                         <div class="card-toolbar">
                             <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
-                                <button type="button"
+                                <button type="button" ng-click="AddEditFeatureModal()"
                                         class="btn btn-primary" data-bs-toggle="modal"
                                         data-bs-target="#kt_modal_add_user">
                                     <i class="ki-duotone ki-plus fs-2"></i>افزودن ویژگی ها
@@ -237,8 +237,10 @@
             @include('dashboard.section.components.bulk_actions.bulk_actions_js', ['items' => $objects, 'model' => \Modules\Product\Entities\Feature::class])
 
             $scope.AddEditFeatureModal = function (obj) {
-                $scope.obj = obj;
-                console.log($scope.obj);
+                $scope.obj = {};
+                if (obj){
+                    $scope.obj = obj;
+                }
                 $('#addEditFeatureModal').modal('show');
             }
 
@@ -249,10 +251,6 @@
                 }
                 if (!$scope.obj['value']){
                     showToast('فیلد مقدار اجباری است!', 'error');
-                    return;
-                }
-                if (!$scope.obj['product_id']){
-                    showToast('فیلد محصول اجباری است!', 'error');
                     return;
                 }
 

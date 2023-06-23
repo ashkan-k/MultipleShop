@@ -33,7 +33,6 @@ class FeatureController extends Controller
 
     public function store(FeatureRequest $request)
     {
-        dd($request->validated());
         Feature::create($request->validated());
         return $this->SuccessResponse('آیتم مورد نظر با موفقیت ثبت شد.');
     }
