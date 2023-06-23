@@ -1,5 +1,5 @@
 @extends('layouts.admin-master')
-@section('title','کاربر ها')
+@section('title','دسته بندی ها')
 @section('Styles')
 
 @endsection
@@ -13,7 +13,7 @@
                 <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
                     <!--begin::Title-->
                     <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">
-                        افزودن کاربر</h1>
+                        افزودن دسته بندی</h1>
                     <!--end::Title-->
                     <!--begin::Breadcrumb-->
                     <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1">
@@ -29,7 +29,8 @@
                         <!--end::آیتم-->
                         <!--begin::آیتم-->
                         <li class="breadcrumb-item text-muted">
-                            <a href="{{ route('users.index') }}" class="text-muted text-hover-primary">کاربر ها</a>
+                            <a href="{{ route('categories.index') }}" class="text-muted text-hover-primary">دسته بندی
+                                ها</a>
                         </li>
                         <!--end::آیتم-->
                     </ul>
@@ -56,7 +57,7 @@
                                 <!--begin::Form-->
                                 <form role="form" enctype="multipart/form-data"
                                       method="post"
-                                      action="@if(isset($object)){{ route('users.update' , $object->id) }}@else{{ route('users.store') }}@endif">
+                                      action="@if(isset($object)){{ route('categories.update' , $object->id) }}@else{{ route('categories.store') }}@endif">
 
                                     @csrf
                                     @if(isset($object))
@@ -64,16 +65,16 @@
                                     @endif
 
                                     <div class="d-flex flex-column mb-8 fv-row">
-                                        <label for="id_first_name"
+                                        <label for="id_title"
                                                class="d-flex align-items-center fs-6 fw-semibold mb-2">
                                             <span class="required">نام</span>
                                         </label>
 
-                                        <input type="text" id="id_first_name" class="form-control form-control-solid"
-                                               value="@if(old('first_name')){{ old('first_name') }}@elseif(isset($object->first_name)){{ $object->first_name }}@endif"
-                                               placeholder="نام را وارد کنید" name="first_name" required/>
+                                        <input type="text" id="id_title" class="form-control form-control-solid"
+                                               value="@if(old('title')){{ old('title') }}@elseif(isset($object->title)){{ $object->title }}@endif"
+                                               placeholder="نام را وارد کنید" name="title" required/>
 
-                                        @error('first_name')
+                                        @error('title')
                                         <div class="fv-plugins-message-container invalid-feedback">
                                             <div data-field="meta_title" data-validator="notEmpty">
                                                 {{ $message }}
@@ -84,16 +85,26 @@
                                     </div>
 
                                     <div class="d-flex flex-column mb-8 fv-row">
-                                        <label for="id_last_name"
+                                        <label for="id_parent_id"
                                                class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                            <span class="required">نام خانوادگی</span>
+                                            <span class="required">والد</span>
                                         </label>
 
-                                        <input type="text" id="id_last_name" class="form-control form-control-solid"
-                                               value="@if(old('last_name')){{ old('last_name') }}@elseif(isset($object->last_name)){{ $object->last_name }}@endif"
-                                               placeholder="نام خانوادگی را وارد کنید" name="last_name" required/>
+                                        <select id="id_parent_id" name="parent_id"
+                                                data-kt-select2="true"
+                                                class="form-control form-control-solid">
+                                            <option value="">بدون والد</option>
+                                            @foreach($parents as $parent)
 
-                                        @error('last_name')
+                                                <option
+                                                    @if(isset($item->parent_id) && $item->parent_id == $parent->id) selected
+                                                    @endif value="{{ $parent->id }}">{{ $parent->title }}
+                                                </option>
+
+                                            @endforeach
+                                        </select>
+
+                                        @error('parent_id')
                                         <div class="fv-plugins-message-container invalid-feedback">
                                             <div data-field="meta_title" data-validator="notEmpty">
                                                 {{ $message }}
@@ -104,15 +115,14 @@
                                     </div>
 
                                     <div class="d-flex flex-column mb-8 fv-row">
-                                        <label for="id_email" class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                            <span class="required">ایمیل</span>
+                                        <label for="id_image" class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                            <span class="required">عکس</span>
                                         </label>
 
-                                        <input type="text" id="id_email" class="form-control form-control-solid"
-                                               value="@if(old('email')){{ old('email') }}@elseif(isset($object->email)){{ $object->email }}@endif"
-                                               placeholder="ایمیل را وارد کنید" name="email" required/>
+                                        <input type="file" id="id_image" class="form-control form-control-solid"
+                                               value="{{ old('image') }}" name="image"/>
 
-                                        @error('email')
+                                        @error('image')
                                         <div class="fv-plugins-message-container invalid-feedback">
                                             <div data-field="meta_title" data-validator="notEmpty">
                                                 {{ $message }}
@@ -120,179 +130,11 @@
                                         </div>
                                         @enderror
 
-                                    </div>
-
-                                    <div class="d-flex flex-column mb-8 fv-row">
-                                        <label for="id_username"
-                                               class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                            <span class="required">نام کاربری</span>
-                                        </label>
-
-                                        <input type="text" id="id_username" class="form-control form-control-solid"
-                                               value="@if(old('username')){{ old('username') }}@elseif(isset($object->username)){{ $object->username }}@endif"
-                                               placeholder="نام کاربری را وارد کنید" name="username" required/>
-
-                                        @error('username')
-                                        <div class="fv-plugins-message-container invalid-feedback">
-                                            <div data-field="meta_title" data-validator="notEmpty">
-                                                {{ $message }}
-                                            </div>
-                                        </div>
-                                        @enderror
-
-                                    </div>
-
-                                    <div class="d-flex flex-column mb-8 fv-row">
-                                        <label for="id_phone" class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                            <span class="required">شماره موبایل</span>
-                                        </label>
-
-                                        <input type="text" id="id_phone" class="form-control form-control-solid"
-                                               value="@if(old('phone')){{ old('phone') }}@elseif(isset($object->phone)){{ $object->phone }}@endif"
-                                               placeholder="شماره موبایل را وارد کنید" name="phone" required/>
-
-                                        @error('phone')
-                                        <div class="fv-plugins-message-container invalid-feedback">
-                                            <div data-field="meta_title" data-validator="notEmpty">
-                                                {{ $message }}
-                                            </div>
-                                        </div>
-                                        @enderror
-
-                                    </div>
-
-                                    <div class="d-flex flex-column mb-8 fv-row">
-                                        <label for="id_password"
-                                               class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                            <span class="required">رمز عبور</span>
-                                        </label>
-
-                                        <input type="text" id="id_password" class="form-control form-control-solid"
-                                               @if(!isset($object)) required @endif
-                                               value="{{ old('password') }}"
-                                               placeholder="رمز عبور را وارد کنید" name="password"/>
-
-                                        @error('password')
-                                        <div class="fv-plugins-message-container invalid-feedback">
-                                            <div data-field="meta_title" data-validator="notEmpty">
-                                                {{ $message }}
-                                            </div>
-                                        </div>
-                                        @enderror
-
-                                    </div>
-
-                                    <div class="d-flex flex-column mb-8 fv-row">
-                                        <label for="id_password_confirmation"
-                                               class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                            <span class="required">تکرار رمز عبور</span>
-                                        </label>
-
-                                        <input type="text" id="id_password_confirmation"
-                                               class="form-control form-control-solid"
-                                               @if(!isset($object)) required @endif
-                                               value="{{ old('password_confirmation') }}"
-                                               placeholder="تکرار رمز عبور را وارد کنید" name="password_confirmation"/>
-
-                                        @error('password_confirmation')
-                                        <div class="fv-plugins-message-container invalid-feedback">
-                                            <div data-field="meta_title" data-validator="notEmpty">
-                                                {{ $message }}
-                                            </div>
-                                        </div>
-                                        @enderror
-
-                                    </div>
-
-                                    <div class="d-flex flex-column mb-8 fv-row">
-                                        <!--begin::Tags-->
-                                        <label for="id_address" class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                            <span class="required">آدرس</span>
-                                        </label>
-                                        <!--end::Tags-->
-                                        <textarea type="text" id="id_address" class="form-control form-control-solid"
-                                                  rows="8" required
-                                                  placeholder="آدرس را وارد کنید"
-                                                  name="address">@if(old('address')){{ old('address') }}@elseif(isset($object->address)){{ $object->address }}@endif</textarea>
-
-                                        @error('address')
-                                        <div class="fv-plugins-message-container invalid-feedback">
-                                            <div data-field="meta_title" data-validator="notEmpty">
-                                                {{ $message }}
-                                            </div>
-                                        </div>
-                                        @enderror
-
-                                    </div>
-
-                                    <div class="d-flex flex-column mb-8 fv-row">
-                                        <label for="id_is_staff"
-                                               class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                            <span class="required">آیا کارمند است؟</span>
-                                        </label>
-
-                                        <div class="form-check form-check-solid form-switch form-check-custom fv-row">
-                                            <input @if(isset($object) && $object->is_staff) checked
-                                                   @elseif(old('is_staff')) checked @endif  name="is_staff"
-                                                   class="form-check-input w-45px h-30px" type="checkbox"
-                                                   id="id_is_staff" value="1">
-                                            <label class="form-check-label" for="id_is_staff"></label>
-                                        </div>
-
-                                        @error('is_staff')
-                                        <div class="fv-plugins-message-container invalid-feedback">
-                                            <div data-field="meta_title" data-validator="notEmpty">
-                                                {{ $message }}
-                                            </div>
-                                        </div>
-                                        @enderror
-                                    </div>
-
-                                    <div class="d-flex flex-column mb-8 fv-row">
-                                        <label for="id_is_admin"
-                                               class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                            <span class="required">آیا مدیر است؟</span>
-                                        </label>
-
-                                        <div class="form-check form-check-solid form-switch form-check-custom fv-row">
-                                            <input @if(isset($object) && $object->is_admin) checked
-                                                   @elseif(old('is_admin')) checked @endif  name="is_admin"
-                                                   class="form-check-input w-45px h-30px" type="checkbox"
-                                                   id="id_is_admin" value="1">
-                                            <label class="form-check-label" for="id_is_admin"></label>
-                                        </div>
-
-                                        @error('is_admin')
-                                        <div class="fv-plugins-message-container invalid-feedback">
-                                            <div data-field="meta_title" data-validator="notEmpty">
-                                                {{ $message }}
-                                            </div>
-                                        </div>
-                                        @enderror
-                                    </div>
-
-
-                                    <div class="d-flex flex-column mb-8 fv-row">
-                                        <label for="id_avatar" class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                            <span class="required">آواتار</span>
-                                        </label>
-
-                                        <input type="file" id="id_avatar" class="form-control form-control-solid"
-                                               value="{{ old('avatar') }}" name="avatar"/>
-
-                                        @error('avatar')
-                                        <div class="fv-plugins-message-container invalid-feedback">
-                                            <div data-field="meta_title" data-validator="notEmpty">
-                                                {{ $message }}
-                                            </div>
-                                        </div>
-                                        @enderror
-
-                                        @if(isset($object) && $object->avatar)
+                                        @if(isset($object) && $object->image)
                                             <div class="input-field col s12 mt-3">
                                                 <p>تصویر قبلی:</p>
-                                                <a href="{{ $object->avatar }}" target="_blank"><img
-                                                        src="{{ $object->avatar }}"
+                                                <a href="{{ $object->image }}" target="_blank"><img
+                                                        src="{{ $object->image }}"
                                                         width="70"
                                                         alt="{{ $object->full_name() }}"></a>
                                             </div>
@@ -303,7 +145,7 @@
                                     <div class="row py-5">
                                         <div class="col-md-9 offset-md-3">
                                             <div class="d-flex" style="float: left !important;">
-                                                <button onclick="window.location.href='{{ route('users.index') }}'"
+                                                <button onclick="window.location.href='{{ route('categories.index') }}'"
                                                         type="reset" data-kt-ecommerce-settings-type="cancel"
                                                         class="btn btn-light me-3">انصراف
                                                 </button>

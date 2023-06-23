@@ -121,7 +121,7 @@
                                 <th>اسلاگ</th>
                                 <th>والد</th>
                                 <th>عکس</th>
-                                <th class="text-end min-w-100px">عملیات</th>
+                                <th>عملیات</th>
                             </tr>
                             </thead>
                             <tbody class="text-gray-600 fw-semibold">
@@ -154,7 +154,7 @@
                                         </div>
                                     </td>
 
-                                    <td class="text-end">
+                                    <td class="">
                                         <a href="#"
                                            class="btn btn-light btn-active-light-primary btn-flex btn-center btn-sm"
                                            data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">عملیات
@@ -276,32 +276,7 @@
 
     <script>
         app.controller('myCtrl', function ($scope, $http) {
-            @include('dashboard.section.components.bulk_actions.bulk_actions_js', ['items' => $objects, 'model' => \Modules\User\Entities\User::class])
-
-            $scope.ChangeStatusModal = function (id, status) {
-                $scope.id = id;
-                $scope.status = status;
-                $('#changeStatusModal').modal('show');
-            }
-
-            $scope.ChangeStatus = function () {
-                $scope.is_submited = true;
-
-                var data = {
-                    "status": $scope.status
-                };
-
-                $http.post(`/api/admin/categories/status/change/${$scope.id}`, data).then(res => {
-                    showToast('وضعیت آیتم مورد نظر با موفقیت تغییر کرد.', 'success');
-                    $scope.is_submited = false;
-                    setTimeout(() => {
-                        location.reload()
-                    }, 500)
-                }).catch(err => {
-                    $scope.is_submited = false;
-                    showToast('خطایی رخ داد.', 'error');
-                });
-            }
+            @include('dashboard.section.components.bulk_actions.bulk_actions_js', ['items' => $objects, 'model' => \Modules\Product\Entities\Category::class])
         });
     </script>
 @endsection

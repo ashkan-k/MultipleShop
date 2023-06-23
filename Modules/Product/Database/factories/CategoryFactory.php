@@ -23,9 +23,9 @@ class CategoryFactory extends Factory
     {
         return [
             'title' => fake()->title(),
-            'slug' => fake()->slug(),
+//            'slug' => fake()->slug(),
             'image' => fake()->imageUrl(),
-            'parent_id' => Category::factory(),
+//            'parent_id' => Category::factory(),
         ];
     }
 }

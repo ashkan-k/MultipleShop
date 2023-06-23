@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('username')->unique()->nullable();
             $table->string('password');
             $table->string('phone')->nullable();
+            $table->string('postal_code')->nullable();
             $table->boolean('is_staff')->default(false);
             $table->boolean('is_admin')->default(false);
             $table->timestamp('email_verified_at')->nullable();

@@ -14,4 +14,7 @@
 use Illuminate\Support\Facades\Route;
 use Modules\Product\Http\Controllers\Dashboard\CategoryController;
 
-Route::resource('categories', CategoryController::class);
+Route::prefix('products')->group(function () {
+    Route::resource('categories', CategoryController::class);
+});
+
