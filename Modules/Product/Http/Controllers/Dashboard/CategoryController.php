@@ -17,12 +17,16 @@ class CategoryController extends Controller
     public function index()
     {
         $objects = Category::Search(request('search'))
-//            ->Filter(\request())
+            ->Filter(\request())
             ->latest()
             ->paginate(\request('pagination', env('PAGINATION_NUMBER', 10)));
-        $status_filters = [['1', 'فعال'], ['0', 'غیرفعال']];
 
-        return view('product::dashboard.categories.list', compact('objects', 'status_filters'));
+        $filter_categories = [];
+        foreach (Category::all()->pluck('title', 'id') as $key => $item){
+            $filter_categories[] = [$key, $item];
+        }
+
+        return view('product::dashboard.categories.list', compact('objects', 'filter_categories'));
     }
 
     public function create()

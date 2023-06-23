@@ -42,6 +42,15 @@ class Category extends Model
         return $this->image ?? 'https://www.hardiagedcare.com.au/wp-content/uploads/2019/02/default-avatar-profile-icon-vector-18942381.jpg';
     }
 
+    public function scopeFilter($query, $request)
+    {
+        $parent_id = $request->parent_id;
+        if ($parent_id) {
+            $query->where('parent_id', $parent_id);
+        }
+        return $query;
+    }
+
     protected static function newFactory()
     {
         return \Modules\Product\Database\factories\CategoryFactory::new();

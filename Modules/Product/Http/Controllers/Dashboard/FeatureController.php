@@ -24,12 +24,7 @@ class FeatureController extends Controller
 
         $products = Product::all();
 
-        $filter_products = [];
-        foreach ($products->pluck('title', 'id') as $key => $item){
-            $filter_products[] = [$key, $item];
-        }
-
-        return view('product::dashboard.features.list', compact('objects', 'product', 'products', 'filter_products'));
+        return view('product::dashboard.features.list', compact('objects', 'product', 'products'));
     }
 
     public function create()
