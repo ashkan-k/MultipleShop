@@ -23,7 +23,13 @@ class FeatureController extends Controller
             ->paginate(\request('pagination', env('PAGINATION_NUMBER', 10)));
 
         $products = Product::all();
-        return view('product::dashboard.features.list', compact('objects', 'product', 'products'));
+
+        $filter_products = [];
+        foreach ($products->pluck('title', 'id') as $key => $item){
+            $filter_products[] = [$key, $item];
+        }
+
+        return view('product::dashboard.features.list', compact('objects', 'product', 'products', 'filter_products'));
     }
 
     public function create()

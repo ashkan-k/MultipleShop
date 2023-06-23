@@ -5,7 +5,7 @@
             data-kt-select2="true"
             name="{{ $name }}" id="{{ $name }}"
 {{--            data-allow-clear="true"--}}
-            data-kt-user-table-filter="role" data-hide-search="true">
+            data-kt-user-table-filter="role">
         <option value="">همه موارد</option>
         @foreach($items as $item)
             <option @if(isset($filter) && $item[0] == request($name)) selected
