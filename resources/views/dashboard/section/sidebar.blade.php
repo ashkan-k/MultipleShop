@@ -43,8 +43,9 @@
                 <!--end:Menu link-->
             </div>
 
-            <div data-kt-menu-trigger="click"
-                 class="menu-item here @if(str_starts_with(\Illuminate\Support\Facades\Route::current()->getName(), 'users.')) show @endif menu-accordion">
+            @if(auth()->user()->is_admin)
+                <div data-kt-menu-trigger="click"
+                     class="menu-item here @if(str_starts_with(\Illuminate\Support\Facades\Route::current()->getName(), 'users.')) show @endif menu-accordion">
                 <span class="menu-link">
 											<span class="menu-icon">
 												<i class="ki-duotone ki-user fs-2">
@@ -57,29 +58,80 @@
 											<span class="menu-title">کاربران</span>
 											<span class="menu-arrow"></span>
 										</span>
+                    <div class="menu-sub menu-sub-accordion">
+
+                        <div class="menu-item">
+                            <a class="menu-link @if(\Illuminate\Support\Facades\Route::current()->getName() == 'users.index') active @endif"
+                               href="{{ route('users.index') }}">
+													<span class="menu-bullet">
+														<span class="bullet bullet-dot"></span>
+													</span>
+                                <span class="menu-title">لیست کاربران</span>
+                            </a>
+
+                            <a class="menu-link @if(\Illuminate\Support\Facades\Route::current()->getName() == 'users.create') active @endif"
+                               href="{{ route('users.create') }}">
+													<span class="menu-bullet">
+														<span class="bullet bullet-dot"></span>
+													</span>
+                                <span class="menu-title">افزودن کاربر</span>
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+            @endif
+
+
+            <div class="menu-item pt-5">
+                <div class="menu-content">
+                    <span class="menu-heading fw-bold text-uppercase fs-7">فروشگاه</span>
+                </div>
+            </div>
+
+            <div data-kt-menu-trigger="click"
+                 class="menu-item here @if(str_starts_with(\Illuminate\Support\Facades\Route::current()->getName(), 'categories.')) show @endif menu-accordion">
+                <span class="menu-link">
+											<span class="menu-icon">
+												<i class="ki-duotone ki-abstract-28 fs-2">
+													<span class="path1"></span>
+													<span class="path2"></span>
+													<span class="path3"></span>
+													<span class="path4"></span>
+												</i>
+											</span>
+											<span class="menu-title">دسته بندی ها</span>
+											<span class="menu-arrow"></span>
+										</span>
                 <div class="menu-sub menu-sub-accordion">
 
                     <div class="menu-item">
-                        <a class="menu-link @if(\Illuminate\Support\Facades\Route::current()->getName() == 'users.index') active @endif"
-                           href="{{ route('users.index') }}">
+                        <a class="menu-link @if(\Illuminate\Support\Facades\Route::current()->getName() == 'categories.index') active @endif"
+                           href="{{ route('categories.index') }}">
 													<span class="menu-bullet">
 														<span class="bullet bullet-dot"></span>
 													</span>
-                            <span class="menu-title">لیست کاربران</span>
+                            <span class="menu-title">لیست دسته بندی ها</span>
                         </a>
 
-                        <a class="menu-link @if(\Illuminate\Support\Facades\Route::current()->getName() == 'users.create') active @endif"
-                           href="{{ route('users.create') }}">
+                        <a class="menu-link @if(\Illuminate\Support\Facades\Route::current()->getName() == 'categories.create') active @endif"
+                           href="{{ route('categories.create') }}">
 													<span class="menu-bullet">
 														<span class="bullet bullet-dot"></span>
 													</span>
-                            <span class="menu-title">افزودن کاربر</span>
+                            <span class="menu-title">افزودن دسته بندی</span>
                         </a>
                     </div>
 
                 </div>
             </div>
 
+
+            <div class="menu-item pt-5">
+                <div class="menu-content">
+                    <span class="menu-heading fw-bold text-uppercase fs-7">کانفیگ</span>
+                </div>
+            </div>
 
             <div data-kt-menu-trigger="click"
                  class="menu-item here @if(str_starts_with(\Illuminate\Support\Facades\Route::current()->getName(), 'settings.')) show @endif menu-accordion">
