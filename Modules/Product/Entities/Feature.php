@@ -23,4 +23,11 @@ class Feature extends Model
     {
         return \Modules\Product\Database\factories\FeatureFactory::new();
     }
+
+    //
+
+    public function products()
+    {
+        return $this->belongsToMany(Product::class, 'product_features');
+    }
 }

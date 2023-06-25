@@ -28,6 +28,6 @@ class Product extends Model
 
     public function features()
     {
-        return $this->hasMany(Feature::class);
+        return $this->belongsToMany(Feature::class, 'product_features');
     }
 }

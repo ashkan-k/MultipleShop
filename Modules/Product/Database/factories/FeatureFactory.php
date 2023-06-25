@@ -23,8 +23,6 @@ class FeatureFactory extends Factory
     {
         return [
             'title' => fake()->title(),
-            'value' => fake()->shuffleString(),
-            'product_id' => Product::factory(),
         ];
     }
 }

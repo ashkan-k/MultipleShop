@@ -23,7 +23,7 @@ class ProductFeatureFactory extends Factory
     public function definition()
     {
         return [
-            'value' => fake()->title(),
+            'value' => fake()->shuffleString(),
             'product_id' => Product::factory(),
             'feature_id' => Feature::factory(),
         ];

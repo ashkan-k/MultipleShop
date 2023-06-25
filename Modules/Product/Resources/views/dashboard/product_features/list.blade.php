@@ -84,8 +84,9 @@
                                     </div>
                                 </th>
                                 <th>عنوان</th>
-{{--                                <th>مقدار</th>--}}
-{{--                                <th>محصول</th>--}}
+                                <th>مقدار</th>
+                                <th>محصول</th>
+                                <th>ویزگی</th>
                                 <th>عملیات</th>
                             </tr>
                             </thead>
@@ -102,11 +103,11 @@
                                         </div>
                                     </td>
 
-                                    <td>{{ $item->title ?: '---'  }}</td>
+                                    <td>{{ $item->value ?: '---'  }}</td>
 
-{{--                                    <td>{{ $item->value ?: '---'  }}</td>--}}
+                                    <td>{{$item->product ? $item->product->title : 'ندارد'}}</td>
 
-{{--                                    <td>{{$item->product ? $item->product->title : 'ندارد'}}</td>--}}
+                                    <td>{{$item->feature ? $item->feature->title : 'ندارد'}}</td>
 
                                     <td class="">
                                         <a href="#"
@@ -188,29 +189,38 @@
                     <form id="addEditFeatureModal_form" class="form" action="#">
                         <!--begin::Heading-->
                         <div class="mb-13 text-center">
-                            <h1 class="mb-3">ویژگی ها</h1>
+                            <h1 class="mb-3">الحاق ویژگی</h1>
                         </div>
 
                         <div class="d-flex flex-column mb-8 fv-row">
                             <!--begin::Tags-->
-                            <label for="id_title" class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                <span class="required">عنوان</span>
+                            <label for="id_feature_id" class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                <span class="required">ویژگی</span>
                             </label>
 
-                            <input ng-model="obj.title" id="id_title" type="text" class="form-control form-control-solid" name="title">
+                            <select ng-model="obj.feature_id" id="id_feature_id"
+                                    data-kt-select2="true"
+                                    class="form-control form-control-solid">
+                                <option value="" disabled>ویژگی را انتخاب کنید</option>
+                                @foreach($features as $feature)
+                                    <option value="{{ $feature->id }}">{{ $feature->title }}</option>
+                                @endforeach
+                            </select>
                         </div>
 
-{{--                        <div class="d-flex flex-column mb-8 fv-row">--}}
-{{--                            <!--begin::Tags-->--}}
-{{--                            <label for="id_value" class="d-flex align-items-center fs-6 fw-semibold mb-2">--}}
-{{--                                <span class="required">مقدار</span>--}}
-{{--                            </label>--}}
+                        <div class="d-flex flex-column mb-8 fv-row">
+                            <!--begin::Tags-->
+                            <label for="id_value" class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                <span class="required">مقدار</span>
+                            </label>
 
-{{--                            <input ng-model="obj.value" id="id_value" type="text" class="form-control form-control-solid" name="value">--}}
-{{--                        </div>--}}
+                            <input ng-model="obj.value" id="id_value" type="text"
+                                   class="form-control form-control-solid" name="value">
+                        </div>
 
                         <div class="text-center">
-                            <button ng-disabled="is_submited" onclick="$('#addEditFeatureModal').modal('hide');" type="reset" id="addEditFeatureModal_cancel" class="btn btn-light me-3">انصراف
+                            <button ng-disabled="is_submited" onclick="$('#addEditFeatureModal').modal('hide');"
+                                    type="reset" id="addEditFeatureModal_cancel" class="btn btn-light me-3">انصراف
                             </button>
                             <button type="button" ng-click="SubmitAddEditFeature()" ng-disabled="is_submited"
                                     class="btn btn-primary">
@@ -237,31 +247,31 @@
         app.controller('myCtrl', function ($scope, $http) {
             @include('dashboard.section.components.bulk_actions.bulk_actions_js', ['items' => $objects, 'model' => \Modules\Product\Entities\Feature::class])
 
-            $scope.AddEditFeatureModal = function (obj) {
+                $scope.AddEditFeatureModal = function (obj) {
                 $scope.obj = {};
-                if (obj){
+                if (obj) {
                     $scope.obj = obj;
                 }
                 $('#addEditFeatureModal').modal('show');
             }
 
-            $scope.SubmitAddEditFeature = function (type='create') {
-                if (!$scope.obj['title']){
-                    showToast('فیلد عنوان اجباری است!', 'error');
+            $scope.SubmitAddEditFeature = function (type = 'create') {
+                if (!$scope.obj['feature_id']) {
+                    showToast('فیلد ویژگی اجباری است!', 'error');
                     return;
                 }
-                // if (!$scope.obj['value']){
-                //     showToast('فیلد مقدار اجباری است!', 'error');
-                //     return;
-                // }
+                if (!$scope.obj['value']) {
+                    showToast('فیلد مقدار اجباری است!', 'error');
+                    return;
+                }
 
                 $scope.is_submited = true;
 
                 $scope.obj['product_id'] = {{ $product->id }};
 
-                if ($scope.obj['id']){
+                if ($scope.obj['id']) {
                     var url = `/api/admin/products/features/${$scope.obj['id']}/`
-                }else {
+                } else {
                     var url = `/api/admin/products/features/`
                 }
 

@@ -3,6 +3,7 @@
 namespace Modules\Product\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class FeatureRequest extends FormRequest
 {
@@ -14,9 +15,11 @@ class FeatureRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|string',
-//            'value' => 'required|string',
-//            'product_id' => 'required|exists:products,id',
+            'title' => [
+                'string',
+                'required',
+                Rule::unique('features', 'title')->ignore($this->feature)
+            ],
         ];
     }
 
