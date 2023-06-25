@@ -10,6 +10,7 @@ use Modules\Product\Entities\Feature;
 use Modules\Product\Entities\Product;
 use Modules\Product\Entities\ProductFeature;
 use Modules\Product\Http\Requests\FeatureRequest;
+use Modules\Product\Http\Requests\ProductFeatureRequest;
 
 class ProductFeatureController extends Controller
 {
@@ -17,7 +18,7 @@ class ProductFeatureController extends Controller
 
     public function index(Product $product)
     {
-        $objects = $product->features()->latest()
+        $objects = ProductFeature::whereBelongsTo($product)
             ->paginate(\request('pagination', env('PAGINATION_NUMBER', 10)));
 
         $features = Feature::all();
@@ -25,15 +26,15 @@ class ProductFeatureController extends Controller
         return view('product::dashboard.product_features.list', compact('objects', 'product', 'features'));
     }
 
-    public function store(FeatureRequest $request)
+    public function store(ProductFeatureRequest $request)
     {
-        Feature::create($request->validated());
+        ProductFeature::create($request->validated());
         return $this->SuccessResponse('آیتم مورد نظر با موفقیت ثبت شد.');
     }
 
-    public function update(FeatureRequest $request, Feature $feature)
+    public function update(ProductFeatureRequest $request, ProductFeature $productFeature)
     {
-        $feature->update($request->validated());
+        $productFeature->update($request->validated());
         return $this->SuccessResponse('آیتم مورد نظر با موفقیت ویرایش شد.');
     }
 

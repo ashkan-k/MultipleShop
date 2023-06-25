@@ -13,7 +13,7 @@ Route::post('admin/bulk/actions', [BulkActionController::class, 'admin_bulk'])->
 Route::post('admin/users/status/change/{user}', [UserController::class, 'change_status'])->middleware('check_admin');
 
 // Products
-Route::prefix('admin/products')->group(function () {
-    Route::post('features', [ProductFeatureController::class, 'store']);
-    Route::post('features/{feature}', [ProductFeatureController::class, 'update']);
+Route::prefix('admin')->group(function () {
+    Route::post('products-features', [ProductFeatureController::class, 'store']);
+    Route::post('products-features/{feature}', [ProductFeatureController::class, 'update']);
 });

@@ -16,13 +16,11 @@ class ProductFeatureRequest extends FormRequest
     {
         return [
             'feature_id' => [
-                'string',
                 'required',
                 'exists:features,id',
                 Rule::unique('product_features', 'feature_id')->ignore($this->product_feature)
             ],
             'product_id' => [
-                'string',
                 'required',
                 'exists:products,id',
                 Rule::unique('product_features', 'product_id')->ignore($this->product_feature)

@@ -59,7 +59,8 @@
                                 <button type="button" ng-click="AddEditFeatureModal()"
                                         class="btn btn-primary" data-bs-toggle="modal"
                                         data-bs-target="#kt_modal_add_user">
-                                    <i class="ki-duotone ki-plus fs-2"></i>افزودن ویژگی ها
+                                    <i class="ki-duotone ki-plus fs-2"></i>افزودن ویژگی جدید به
+                                    محصول {{ $product->title }}
                                 </button>
                                 <!--end::Add user-->
                             </div>
@@ -189,7 +190,7 @@
                     <form id="addEditFeatureModal_form" class="form" action="#">
                         <!--begin::Heading-->
                         <div class="mb-13 text-center">
-                            <h1 class="mb-3">الحاق ویژگی</h1>
+                            <h1 class="mb-3">الحاق ویژگی به محصول ({{ $product->title }})</h1>
                         </div>
 
                         <div class="d-flex flex-column mb-8 fv-row">
@@ -198,14 +199,32 @@
                                 <span class="required">ویژگی</span>
                             </label>
 
-                            <select ng-model="obj.feature_id" id="id_feature_id"
-                                    data-kt-select2="true"
-                                    class="form-control form-control-solid">
-                                <option value="" disabled>ویژگی را انتخاب کنید</option>
-                                @foreach($features as $feature)
-                                    <option value="{{ $feature->id }}">{{ $feature->title }}</option>
-                                @endforeach
+
+                            <select id="id_feature_id" name="contents" class="form-control">
+                                <option value="">ویژگی را انتخاب کنید</option>
+                                <option ng-repeat="item in dd"
+                                        ng-selected="obj.feature_id === item.id"
+                                        value="[[item.id]]">[[item.title]]
+                                </option>
                             </select>
+
+{{--                            <select id="id_feature_id"--}}
+{{--                                    --}}{{--                                    data-kt-select2="true"--}}
+{{--                                    --}}{{--                                    data-kt-select2--}}
+{{--                                    class="form-control form-control-solid">--}}
+{{--                                <option--}}
+{{--                                    ng-repeat="item in dd"--}}
+{{--                                        --}}{{--                                        ng-show="item.title"--}}
+{{--                                        ng-selected="obj.feature_id === item.id"--}}
+{{--                                        value="[[item.id]]">[[item.title]]--}}
+{{--                                </option>--}}
+{{--                                                                <option >ویژگی را انتخاب کنید</option>--}}
+{{--                                                                <option value="fdf" selected>ویژگیccccccccccccc</option>--}}
+{{--                                --}}{{--                                @foreach($features as $feature)--}}
+{{--                                --}}{{--                                    <option ng-selected="obj.feature_id === {{ $feature->id }}"--}}
+{{--                                --}}{{--                                            value="{{ $feature->id }}">{{ $feature->title }}</option>--}}
+{{--                                --}}{{--                                @endforeach--}}
+{{--                            </select>--}}
                         </div>
 
                         <div class="d-flex flex-column mb-8 fv-row">
@@ -244,14 +263,30 @@
     @include('dashboard.section.components.search_box_js')
 
     <script>
+        $('#id_feature_id').select2();
+
         app.controller('myCtrl', function ($scope, $http) {
+            $scope.dd = [
+                {'id': 456, 'title': 'fdsfds'},
+                {'id': 10, 'title': 'dddddddddddddddddddddd'},
+            ];
+
             @include('dashboard.section.components.bulk_actions.bulk_actions_js', ['items' => $objects, 'model' => \Modules\Product\Entities\Feature::class])
 
-                $scope.AddEditFeatureModal = function (obj) {
+                $scope.ShowChoices = function () {
+                return [
+                    {'id': 1, 'title': 'fdsfds'},
+                    {'id': 2, 'title': 'dddddddddddddddddddddd'},
+                ]
+            }
+
+            $scope.AddEditFeatureModal = function (obj) {
                 $scope.obj = {};
                 if (obj) {
                     $scope.obj = obj;
                 }
+
+                console.log($scope.obj);
                 $('#addEditFeatureModal').modal('show');
             }
 
@@ -270,9 +305,9 @@
                 $scope.obj['product_id'] = {{ $product->id }};
 
                 if ($scope.obj['id']) {
-                    var url = `/api/admin/products/features/${$scope.obj['id']}/`
+                    var url = `/api/admin/products-features/${$scope.obj['id']}/`
                 } else {
-                    var url = `/api/admin/products/features/`
+                    var url = `/api/admin/products-features/`
                 }
 
                 $http.post(url, $scope.obj).then(res => {
