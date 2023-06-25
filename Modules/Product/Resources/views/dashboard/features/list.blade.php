@@ -165,7 +165,7 @@
 
     <script>
         app.controller('myCtrl', function ($scope, $http) {
-            @include('dashboard.section.components.bulk_actions.bulk_actions_js', ['items' => $objects, 'model' => \Modules\Product\Entities\Color::class])
+            @include('dashboard.section.components.bulk_actions.bulk_actions_js', ['items' => $objects, 'model' => \Modules\Product\Entities\Feature::class])
         });
     </script>
 @endsection
