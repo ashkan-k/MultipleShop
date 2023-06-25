@@ -83,6 +83,7 @@
                                     </div>
                                 </th>
                                 <th>عنوان</th>
+                                <th>مالک</th>
                                 <th>عملیات</th>
                             </tr>
                             </thead>
@@ -101,7 +102,11 @@
 
                                     <td>{{ $item->title ?: '---'  }}</td>
 
+                                    <td>{{ $item->user ? $item->user->full_name() : '---'  }}</td>
+
                                     <td class="">
+                                        <a href="{{ route('product-features.index') }}?product={{ $item->id }}" class="btn btn-bg-light btn-color-muted btn-active-color-primary btn-sm px-4 me-2">ویژگی ها</a>
+
                                         <a href="#"
                                            class="btn btn-light btn-active-light-primary btn-flex btn-center btn-sm"
                                            data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">عملیات
