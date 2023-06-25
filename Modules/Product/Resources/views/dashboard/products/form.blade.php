@@ -244,6 +244,80 @@
 
                                     </div>
 
+                                    <div class="d-flex flex-column mb-8 fv-row">
+                                        <label for="id_is_special"
+                                               class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                            <span class="required">آیا ویژه است؟</span>
+                                        </label>
+
+                                        <div class="form-check form-check-solid form-switch form-check-custom fv-row">
+                                            <input @if(isset($object) && $object->is_special) checked
+                                                   @elseif(old('is_special')) checked @endif  name="is_special"
+                                                   class="form-check-input w-45px h-30px" type="checkbox"
+                                                   id="id_is_special" value="1">
+                                            <label class="form-check-label" for="id_is_special"></label>
+                                        </div>
+
+                                        @error('is_special')
+                                        <div class="fv-plugins-message-container invalid-feedback">
+                                            <div data-field="meta_title" data-validator="notEmpty">
+                                                {{ $message }}
+                                            </div>
+                                        </div>
+                                        @enderror
+                                    </div>
+
+                                    <div class="d-flex flex-column mb-8 fv-row">
+                                        <label for="id_is_active"
+                                               class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                            <span class="required">وضعیت فعال</span>
+                                        </label>
+
+                                        <div class="form-check form-check-solid form-switch form-check-custom fv-row">
+                                            <input @if(isset($object) && $object->is_active) checked
+                                                   @elseif(old('is_active')) checked @endif  name="is_active"
+                                                   class="form-check-input w-45px h-30px" type="checkbox"
+                                                   id="id_is_active" value="1">
+                                            <label class="form-check-label" for="id_is_active"></label>
+                                        </div>
+
+                                        @error('is_active')
+                                        <div class="fv-plugins-message-container invalid-feedback">
+                                            <div data-field="meta_title" data-validator="notEmpty">
+                                                {{ $message }}
+                                            </div>
+                                        </div>
+                                        @enderror
+                                    </div>
+
+                                    <div class="d-flex flex-column mb-8 fv-row">
+                                        <label for="id_image" class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                            <span class="required">عکس</span>
+                                        </label>
+
+                                        <input type="file" id="id_image" class="form-control form-control-solid"
+                                               value="{{ old('image') }}" name="image"/>
+
+                                        @error('image')
+                                        <div class="fv-plugins-message-container invalid-feedback">
+                                            <div data-field="meta_title" data-validator="notEmpty">
+                                                {{ $message }}
+                                            </div>
+                                        </div>
+                                        @enderror
+
+                                        @if(isset($object) && $object->image)
+                                            <div class="input-field col s12 mt-3">
+                                                <p>تصویر قبلی:</p>
+                                                <a href="{{ $object->image }}" target="_blank"><img
+                                                        src="{{ $object->image }}"
+                                                        width="70"
+                                                        alt="{{ $object->title }}"></a>
+                                            </div>
+                                        @endif
+
+                                    </div>
+
                                     <div class="row py-5">
                                         <div class="col-md-9 offset-md-3">
                                             <div class="d-flex" style="float: left !important;">
