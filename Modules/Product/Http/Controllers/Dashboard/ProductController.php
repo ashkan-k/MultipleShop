@@ -3,6 +3,7 @@
 namespace Modules\Product\Http\Controllers\Dashboard;
 
 use App\Http\Traits\Responses;
+use App\Http\Traits\Uploader;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -13,7 +14,7 @@ use Modules\User\Entities\User;
 
 class ProductController extends Controller
 {
-    use Responses;
+    use Responses, Uploader;
 
     public function index()
     {
@@ -33,7 +34,9 @@ class ProductController extends Controller
 
     public function store(ProductRequest $request)
     {
-        Product::create($request->validated());
+        $image = $this->UploadFile($request, 'image', 'product_images', $request->title);
+
+        Product::create(array_merge($request->all(), ['image' => $image]));
         return $this->SuccessRedirect('آیتم مورد نظر با موفقیت ثبت شد.', 'products.index');
     }
 
@@ -44,7 +47,9 @@ class ProductController extends Controller
 
     public function update(ProductRequest $request, Product $product)
     {
-        $product->update($request->validated());
+        $image = $this->UploadFile($request, 'image', 'product_images', $product->title, $product->image);
+
+        $product->update(array_merge($request->all(), ['image' => $image]));
         return $this->SuccessRedirect('آیتم مورد نظر با موفقیت ویرایش شد.', 'products.index');
     }
 
