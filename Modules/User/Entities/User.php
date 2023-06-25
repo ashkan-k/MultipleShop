@@ -78,6 +78,13 @@ class User extends Authenticatable
         return $query;
     }
 
+    public function save(array $options = [])
+    {
+        if ($this->is_admin)
+            $this->is_staff = true;
+        return parent::save($options);
+    }
+
     protected static function newFactory()
     {
         return \Modules\User\Database\factories\UserFactory::new();
