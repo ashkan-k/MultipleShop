@@ -34,6 +34,7 @@ class UserRequest extends FormRequest
                 Rule::unique('users', 'phone')->ignore($this->user)
             ],
             'address' => 'required|string',
+            'postal_code' => 'required',
         ];
     }
 

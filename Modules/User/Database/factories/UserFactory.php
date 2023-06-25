@@ -33,6 +33,8 @@ class UserFactory extends Factory
             'remember_token' => Str::random(10),
             'is_admin' => fake()->boolean(),
             'is_staff' => fake()->boolean(),
+            'address' => fake()->address(),
+            'postal_code' => fake()->postcode(),
         ];
     }
 }

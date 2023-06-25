@@ -30,6 +30,7 @@ class User extends Authenticatable
         'username',
         'phone',
         'address',
+        'postal_code',
         'avatar',
         'is_admin',
         'is_staff',
@@ -63,6 +64,7 @@ class User extends Authenticatable
         'email',
         'phone',
         'address',
+        'postal_code',
     ];
 
     public function scopeFilter($query, $request)

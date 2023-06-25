@@ -123,6 +123,7 @@
                                 <th>ایمیل</th>
                                 <th>وضعیت</th>
                                 <th>تلفن</th>
+                                <th>کد پستی</th>
                                 <th>نقش</th>
                                 <th>عکس</th>
                                 <th>تاریخ ثبت نام</th>
@@ -163,6 +164,8 @@
                                     </td>
 
                                     <td>{{ $item->phone == null ? 'ندارد' : $item->phone }}</td>
+
+                                    <td>{{ $item->postal_code ?: '---' }}</td>
 
                                     <td>
                                         <div

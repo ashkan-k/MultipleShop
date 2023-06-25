@@ -226,6 +226,26 @@
                                     </div>
 
                                     <div class="d-flex flex-column mb-8 fv-row">
+                                        <label for="id_postal_code"
+                                               class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                            <span class="required">کد پستی</span>
+                                        </label>
+
+                                        <input type="text" id="id_postal_code" class="form-control form-control-solid"
+                                               value="@if(old('postal_code')){{ old('postal_code') }}@elseif(isset($object->postal_code)){{ $object->postal_code }}@endif"
+                                               placeholder="کد پستی را وارد کنید" name="postal_code" required/>
+
+                                        @error('postal_code')
+                                        <div class="fv-plugins-message-container invalid-feedback">
+                                            <div data-field="meta_title" data-validator="notEmpty">
+                                                {{ $message }}
+                                            </div>
+                                        </div>
+                                        @enderror
+
+                                    </div>
+
+                                    <div class="d-flex flex-column mb-8 fv-row">
                                         <label for="id_is_staff"
                                                class="d-flex align-items-center fs-6 fw-semibold mb-2">
                                             <span class="required">آیا کارمند است؟</span>
