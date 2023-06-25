@@ -57,6 +57,43 @@ class Product extends Model
         return $this->image ?? 'https://www.hardiagedcare.com.au/wp-content/uploads/2019/02/default-avatar-profile-icon-vector-18942381.jpg';
     }
 
+    public function get_avatar()
+    {
+        return $this->avatar ?? 'https://www.hardiagedcare.com.au/wp-content/uploads/2019/02/default-avatar-profile-icon-vector-18942381.jpg';
+    }
+
+    public function get_status()
+    {
+        if ($this->is_active) {
+            return 'فعال';
+        }
+        return 'غیرفعال';
+    }
+
+    public function get_status_class()
+    {
+        if ($this->is_active) {
+            return 'success';
+        }
+        return 'danger';
+    }
+
+    public function get_special()
+    {
+        if ($this->is_special) {
+            return 'بله';
+        }
+        return 'خیر';
+    }
+
+    public function get_special_class()
+    {
+        if ($this->is_special) {
+            return 'success';
+        }
+        return 'danger';
+    }
+
     public function scopeFilter($query, $request)
     {
         $category_id = $request->category_id;

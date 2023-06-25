@@ -83,7 +83,12 @@
                                     </div>
                                 </th>
                                 <th>عنوان</th>
+                                <th>قیمت</th>
+                                <th>عکس</th>
                                 <th>مالک</th>
+                                <th>دسته بندی</th>
+                                <th>شگفت انگیز</th>
+                                <th>وضعیت</th>
                                 <th>عملیات</th>
                             </tr>
                             </thead>
@@ -102,7 +107,32 @@
 
                                     <td>{{ $item->title ?: '---'  }}</td>
 
+                                    <td>{{ $item->price ? number_format($item->price) : '---'  }}</td>
+
+                                    <td>
+                                        <div class="symbol symbol-circle symbol-50px overflow-hidden me-3">
+                                            <a href="{{ $item->get_image() }}" target="_blank">
+                                                <div class="symbol-label">
+                                                    <img src="{{ $item->get_image() }}" alt="{{ $item->title }}"
+                                                         class="w-100">
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </td>
+
                                     <td>{{ $item->user ? $item->user->full_name() : '---'  }}</td>
+
+                                    <td>{{ $item->category ? $item->category->title : '---'  }}</td>
+
+                                    <td>
+                                        <div title="برای تبدیل محصول به شگفت انگیز وارد ویرایش محصول شوید و علاوه بر تیک شگفت انگیزی، قیمت و تاریخ دوره تخفیف را هم وارد کنید."
+                                             class="badge badge-light-{{ $item->get_special_class() }}">{{ $item->get_special() }}</div>
+                                    </td>
+
+                                    <td>
+                                        <div
+                                            class="badge badge-light-{{ $item->get_status_class() }} active_modal_buttons">{{ $item->get_status() }}</div>
+                                    </td>
 
                                     <td class="">
                                         <a href="{{ route('product-features.index') }}?product={{ $item->id }}" class="btn btn-bg-light btn-color-muted btn-active-color-primary btn-sm px-4 me-2">ویژگی ها</a>
