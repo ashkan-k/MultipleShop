@@ -6,8 +6,10 @@ use App\Http\Traits\Responses;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Product\Entities\Category;
 use Modules\Product\Entities\Product;
 use Modules\Product\Http\Requests\ProductRequest;
+use Modules\User\Entities\User;
 
 class ProductController extends Controller
 {
@@ -24,7 +26,9 @@ class ProductController extends Controller
 
     public function create()
     {
-        return view('product::dashboard.products.form');
+        $users = User::all();
+        $categories = Category::all();
+        return view('product::dashboard.products.form', compact('users', 'categories'));
     }
 
     public function store(ProductRequest $request)

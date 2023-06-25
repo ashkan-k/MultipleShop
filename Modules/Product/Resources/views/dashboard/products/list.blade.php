@@ -58,7 +58,7 @@
                                 <button onclick="window.location.href='{{ route('products.create') }}'" type="button"
                                         class="btn btn-primary" data-bs-toggle="modal"
                                         data-bs-target="#kt_modal_add_user">
-                                    <i class="ki-duotone ki-plus fs-2"></i>افزودن محصولات
+                                    <i class="ki-duotone ki-plus fs-2"></i>افزودن محصول
                                 </button>
                                 <!--end::Add user-->
                             </div>

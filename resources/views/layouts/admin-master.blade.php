@@ -64,6 +64,16 @@ Like: www.facebook.com/keenthemes
         .active_modal_buttons:hover{
             cursor: pointer !important;
         }
+
+        input[type="number"]:-moz-placeholder {
+            text-align: right;
+        }
+        input[type="number"]:-ms-input-placeholder {
+            text-align: right;
+        }
+        input[type="number"]::-webkit-input-placeholder {
+            text-align: right;
+        }
     </style>
 
     @yield('Styles')

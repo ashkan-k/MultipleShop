@@ -111,7 +111,7 @@
                                         </label>
 
                                         <textarea type="text" id="id_description" class="form-control form-control-solid"
-                                                  placeholder="توضیحات را وارد کنید" name="description"
+                                                  placeholder="توضیحات را وارد کنید" name="description" rows="12"
                                                   required>@if(old('description')){{ old('description') }}@elseif(isset($object->description)){{ $object->description }}@endif</textarea>
 
                                         @error('description')
@@ -351,5 +351,35 @@
 @endsection
 
 @section('Scripts')
+    <script>
+        CKEDITOR.replace('id_description');
+
+        $('#id_user_id').select2();
+        $('#id_category_id').select2();
+    </script>
+
+    <script>
+        kamaDatepicker('discount_start_date', {
+            placeholder: 'تاریخ شروع تخفیف',
+            buttonsColor: 'blue',
+            markHolidays: true
+        });
+        $("#discount_start_date").attr('autocomplete', 'off');
+
+        $('#discount_start_date').on('change', function () {
+            $('#discount_start_date').val($('#discount_start_date').val().replaceAll('/', '-'))
+        });
+
+        kamaDatepicker('discount_end_date', {
+            placeholder: 'تاریخ شروع تخفیف',
+            buttonsColor: 'blue',
+            markHolidays: true
+        });
+        $("#discount_end_date").attr('autocomplete', 'off');
+
+        $('#discount_end_date').on('change', function () {
+            $('#discount_end_date').val($('#discount_end_date').val().replaceAll('/', '-'))
+        });
+    </script>
 @endsection
 
