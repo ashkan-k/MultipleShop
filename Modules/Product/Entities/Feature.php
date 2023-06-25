@@ -17,19 +17,10 @@ class Feature extends Model
 
     protected $search_fields  = [
         'title',
-//        'value',
-//        'product.title',
     ];
 
     protected static function newFactory()
     {
         return \Modules\Product\Database\factories\FeatureFactory::new();
     }
-
-    //
-
-//    public function product()
-//    {
-//        return $this->belongsTo(Product::class);
-//    }
 }
