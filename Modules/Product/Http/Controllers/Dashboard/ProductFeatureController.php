@@ -22,7 +22,6 @@ class ProductFeatureController extends Controller
             ->paginate(\request('pagination', env('PAGINATION_NUMBER', 10)));
 
         $features = Feature::all();
-
         return view('product::dashboard.product_features.list', compact('objects', 'product', 'features'));
     }
 

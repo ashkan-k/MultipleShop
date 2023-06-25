@@ -4,6 +4,7 @@ namespace Modules\Product\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use Modules\Product\Entities\ProductFeature;
 
 class ProductFeatureRequest extends FormRequest
 {
@@ -14,16 +15,21 @@ class ProductFeatureRequest extends FormRequest
      */
     public function rules()
     {
+        $product_feature = null;
+        if ($this->request->has('id')){
+            $product_feature = ProductFeature::find($this->request->get('id'));
+        }
+//        dd($product_feature);
         return [
             'feature_id' => [
                 'required',
                 'exists:features,id',
-                Rule::unique('product_features', 'feature_id')->ignore($this->product_feature)
+                Rule::unique('product_features', 'feature_id')->ignore($product_feature)
             ],
             'product_id' => [
                 'required',
                 'exists:products,id',
-                Rule::unique('product_features', 'product_id')->ignore($this->product_feature)
+                Rule::unique('product_features', 'product_id')->ignore($product_feature)
             ],
             'value' => 'required|string',
         ];

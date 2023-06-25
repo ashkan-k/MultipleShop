@@ -28,4 +28,4 @@ Route::resource('categories', CategoryController::class);
 Route::resource('colors', ColorController::class);
 Route::resource('sizes', SizeController::class);
 Route::resource('features', FeatureController::class);
-Route::resource('product-features/{product}', ProductFeatureController::class)->only(['index', 'destroy']);
+Route::resource('product-features/{product?}', ProductFeatureController::class)->parameter('product', 'productFeature')->only(['index', 'destroy']);

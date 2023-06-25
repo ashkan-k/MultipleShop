@@ -84,10 +84,9 @@
                                                data-kt-check-target="#kt_table_items .form-check-input"/>
                                     </div>
                                 </th>
-                                <th>عنوان</th>
-                                <th>مقدار</th>
                                 <th>محصول</th>
                                 <th>ویزگی</th>
+                                <th>مقدار</th>
                                 <th>عملیات</th>
                             </tr>
                             </thead>
@@ -104,11 +103,11 @@
                                         </div>
                                     </td>
 
-                                    <td>{{ $item->value ?: '---'  }}</td>
-
                                     <td>{{$item->product ? $item->product->title : 'ندارد'}}</td>
 
                                     <td>{{$item->feature ? $item->feature->title : 'ندارد'}}</td>
+
+                                    <td>{{ $item->value ?: '---'  }}</td>
 
                                     <td class="">
                                         <a href="#"
@@ -200,31 +199,35 @@
                             </label>
 
 
-                            <select id="id_feature_id" name="contents" class="form-control">
+                            <select ng-model="obj.feature_id" id="id_feature_id" name="contents" class="form-control">
                                 <option value="">ویژگی را انتخاب کنید</option>
-                                <option ng-repeat="item in dd"
-                                        ng-selected="obj.feature_id === item.id"
-                                        value="[[item.id]]">[[item.title]]
-                                </option>
-                            </select>
-
-{{--                            <select id="id_feature_id"--}}
-{{--                                    --}}{{--                                    data-kt-select2="true"--}}
-{{--                                    --}}{{--                                    data-kt-select2--}}
-{{--                                    class="form-control form-control-solid">--}}
-{{--                                <option--}}
-{{--                                    ng-repeat="item in dd"--}}
-{{--                                        --}}{{--                                        ng-show="item.title"--}}
+                                @foreach($features as $feature)
+                                    <option ng-selected="obj.feature_id === {{ $feature->id }}"
+                                            value="{{ $feature->id }}">{{ $feature->title }}</option>
+                                @endforeach
+{{--                                <option ng-repeat="item in dd"--}}
 {{--                                        ng-selected="obj.feature_id === item.id"--}}
 {{--                                        value="[[item.id]]">[[item.title]]--}}
 {{--                                </option>--}}
-{{--                                                                <option >ویژگی را انتخاب کنید</option>--}}
-{{--                                                                <option value="fdf" selected>ویژگیccccccccccccc</option>--}}
-{{--                                --}}{{--                                @foreach($features as $feature)--}}
-{{--                                --}}{{--                                    <option ng-selected="obj.feature_id === {{ $feature->id }}"--}}
-{{--                                --}}{{--                                            value="{{ $feature->id }}">{{ $feature->title }}</option>--}}
-{{--                                --}}{{--                                @endforeach--}}
-{{--                            </select>--}}
+                            </select>
+
+                            {{--                            <select id="id_feature_id"--}}
+                            {{--                                    --}}{{--                                    data-kt-select2="true"--}}
+                            {{--                                    --}}{{--                                    data-kt-select2--}}
+                            {{--                                    class="form-control form-control-solid">--}}
+                            {{--                                <option--}}
+                            {{--                                    ng-repeat="item in dd"--}}
+                            {{--                                        --}}{{--                                        ng-show="item.title"--}}
+                            {{--                                        ng-selected="obj.feature_id === item.id"--}}
+                            {{--                                        value="[[item.id]]">[[item.title]]--}}
+                            {{--                                </option>--}}
+                            {{--                                                                <option >ویژگی را انتخاب کنید</option>--}}
+                            {{--                                                                <option value="fdf" selected>ویژگیccccccccccccc</option>--}}
+                            {{--                                --}}{{--                                @foreach($features as $feature)--}}
+                            {{--                                --}}{{--                                    <option ng-selected="obj.feature_id === {{ $feature->id }}"--}}
+                            {{--                                --}}{{--                                            value="{{ $feature->id }}">{{ $feature->title }}</option>--}}
+                            {{--                                --}}{{--                                @endforeach--}}
+                            {{--                            </select>--}}
                         </div>
 
                         <div class="d-flex flex-column mb-8 fv-row">
@@ -266,19 +269,7 @@
         $('#id_feature_id').select2();
 
         app.controller('myCtrl', function ($scope, $http) {
-            $scope.dd = [
-                {'id': 456, 'title': 'fdsfds'},
-                {'id': 10, 'title': 'dddddddddddddddddddddd'},
-            ];
-
             @include('dashboard.section.components.bulk_actions.bulk_actions_js', ['items' => $objects, 'model' => \Modules\Product\Entities\Feature::class])
-
-                $scope.ShowChoices = function () {
-                return [
-                    {'id': 1, 'title': 'fdsfds'},
-                    {'id': 2, 'title': 'dddddddddddddddddddddd'},
-                ]
-            }
 
             $scope.AddEditFeatureModal = function (obj) {
                 $scope.obj = {};
@@ -310,6 +301,8 @@
                     var url = `/api/admin/products-features/`
                 }
 
+                console.log($scope.obj)
+
                 $http.post(url, $scope.obj).then(res => {
                     showToast(res['data']['data'], 'success');
                     $scope.is_submited = false;
@@ -317,6 +310,7 @@
                         location.reload()
                     }, 500)
                 }).catch(err => {
+                    console.log(err)
                     $scope.is_submited = false;
                     showToast('خطایی رخ داد.', 'error');
                 });
