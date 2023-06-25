@@ -33,6 +33,7 @@ class DashboardController extends Controller
             $user->update(array_merge($data, ['avatar' => $avatar]));
             if ($password){
                 $user->set_password($password);
+                auth()->login($user);
             }
             return $this->SuccessRedirect('اطلاعات پروفایل شما با موفقیت ویرایش شد.', $request->get('next', 'profile'));
 

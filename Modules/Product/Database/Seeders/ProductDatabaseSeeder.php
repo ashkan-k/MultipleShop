@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Modules\Product\Entities\Category;
 use Modules\Product\Entities\Color;
 use Modules\Product\Entities\Feature;
+use Modules\Product\Entities\Product;
 use Modules\Product\Entities\Size;
 
 class ProductDatabaseSeeder extends Seeder
@@ -23,6 +24,7 @@ class ProductDatabaseSeeder extends Seeder
         Color::factory(5)->create();
         Size::factory(5)->create();
         Feature::factory(5)->create();
+        Product::factory(5)->create();
 
         // $this->call("OthersTableSeeder");
     }

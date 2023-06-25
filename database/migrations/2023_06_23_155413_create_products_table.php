@@ -16,8 +16,21 @@ return new class extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->foreignId('user_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
+            $table->string('slug')->unique();
+            $table->boolean('is_active')->default(true);
+//            $table->enum('status', EnumHelpers::$PlaceTypesEnum)->default('restaurant');
+            $table->text('description');
+            $table->integer('view_count')->default(0);
+            $table->text('image');
+            $table->string('price');
 
+            $table->string('discount_price')->nullable();
+            $table->string('discount_start_date')->nullable();
+            $table->string('discount_end_date')->nullable();
+            $table->boolean('is_special')->default(false);
+
+            $table->foreignId('user_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('category_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->timestamps();
         });
     }
