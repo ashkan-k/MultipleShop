@@ -5,6 +5,7 @@ namespace Modules\Product\Entities;
 use App\Http\Traits\Searchable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Str;
 use Modules\User\Entities\User;
 
 class Product extends Model
@@ -14,11 +15,62 @@ class Product extends Model
 
     protected $fillable = [
         'title',
+        'slug',
+        'is_active',
+        'description',
+        'view_count',
+        'image',
+        'price',
+        'discount_price',
+        'discount_start_date',
+        'discount_end_date',
+        'is_special',
+        'user_id',
+        'category_id',
     ];
 
     protected $search_fields  = [
         'title',
+        'description',
+        'price',
+        'user.first_name',
+        'user.last_name',
+        'user.username',
+        'user.phone',
+        'category.title',
     ];
+
+    public function save(array $options = [])
+    {
+        $this->slug = Str::slug($this->title);
+        try {
+            $saved =  parent::save($options);
+        }catch (\Exception $exception){
+            $this->slug = Str::random(20);
+            $saved =  parent::save($options);
+        }
+        return $saved;
+    }
+
+    public function get_image()
+    {
+        return $this->image ?? 'https://www.hardiagedcare.com.au/wp-content/uploads/2019/02/default-avatar-profile-icon-vector-18942381.jpg';
+    }
+
+    public function scopeFilter($query, $request)
+    {
+        $category_id = $request->category_id;
+        if ($category_id) {
+            $query->where('category_id', $category_id);
+        }
+
+        $is_active = $request->is_active;
+        if ($is_active) {
+            $query->where('is_active', $is_active);
+        }
+
+        return $query;
+    }
 
     protected static function newFactory()
     {
@@ -30,6 +82,11 @@ class Product extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
     }
 
     public function features()
