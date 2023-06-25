@@ -15,5 +15,5 @@ Route::post('admin/users/status/change/{user}', [UserController::class, 'change_
 // Products
 Route::prefix('admin')->group(function () {
     Route::post('products-features', [ProductFeatureController::class, 'store']);
-    Route::post('products-features/{productFeature}', [ProductFeatureController::class, 'update']);
+    Route::post('products-features/{product_feature}', [ProductFeatureController::class, 'update']);
 });

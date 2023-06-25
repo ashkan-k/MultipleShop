@@ -19,7 +19,6 @@ class ProductFeatureRequest extends FormRequest
         if ($this->request->has('id')){
             $product_feature = ProductFeature::find($this->request->get('id'));
         }
-//        dd($product_feature);
         return [
             'feature_id' => [
                 'required',
@@ -29,7 +28,7 @@ class ProductFeatureRequest extends FormRequest
             'product_id' => [
                 'required',
                 'exists:products,id',
-                Rule::unique('product_features', 'product_id')->ignore($product_feature)
+//                Rule::in(auth()->user()->products()->pluck('id')->toArray())
             ],
             'value' => 'required|string',
         ];

@@ -10,6 +10,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Sanctum\HasApiTokens;
+use Modules\Product\Entities\Product;
 
 class User extends Authenticatable
 {
@@ -131,5 +132,12 @@ class User extends Authenticatable
             return 'warning';
         }
         return 'success';
+    }
+
+    //
+
+    public function products()
+    {
+        return $this->hasMany(Product::class);
     }
 }

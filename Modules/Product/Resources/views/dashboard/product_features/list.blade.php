@@ -29,7 +29,7 @@
                         <!--end::آیتم-->
                         <!--begin::آیتم-->
                         <li class="breadcrumb-item text-muted">
-                            <a href="{{ route('features.index') }}" class="text-muted text-hover-primary">ویژگی</a>
+                            <a href="{{ route('products.index') }}" class="text-muted text-hover-primary">محصولات</a>
                         </li>
                         <!--end::آیتم-->
                     </ul>
@@ -124,7 +124,7 @@
                                             </div>
                                             <div class="menu-item px-3">
 
-                                                <form action="{{ route('features.destroy' , $item->id) }}"
+                                                <form action="{{ route('product-features.destroy' , $item->id) }}?next_url={{ request()->fullUrl() }}"
                                                       id="delete_form_{{ $loop->index }}" method="post">
                                                     @csrf
                                                     @method('DELETE')
@@ -269,15 +269,13 @@
         $('#id_feature_id').select2();
 
         app.controller('myCtrl', function ($scope, $http) {
-            @include('dashboard.section.components.bulk_actions.bulk_actions_js', ['items' => $objects, 'model' => \Modules\Product\Entities\Feature::class])
+            @include('dashboard.section.components.bulk_actions.bulk_actions_js', ['items' => $objects, 'model' => \Modules\Product\Entities\ProductFeature::class])
 
             $scope.AddEditFeatureModal = function (obj) {
                 $scope.obj = {};
                 if (obj) {
                     $scope.obj = obj;
                 }
-
-                console.log($scope.obj);
                 $('#addEditFeatureModal').modal('show');
             }
 
@@ -301,8 +299,6 @@
                     var url = `/api/admin/products-features/`
                 }
 
-                console.log($scope.obj)
-
                 $http.post(url, $scope.obj).then(res => {
                     showToast(res['data']['data'], 'success');
                     $scope.is_submited = false;
@@ -310,8 +306,15 @@
                         location.reload()
                     }, 500)
                 }).catch(err => {
-                    console.log(err)
                     $scope.is_submited = false;
+                    if (err['data']['errors']['feature_id']){
+                        showToast(err['data']['errors']['feature_id'][0], 'error');
+                        return;
+                    }
+                    if (err['data']['errors']['product_id']){
+                        showToast(err['data']['errors']['product_id'][0], 'error');
+                        return;
+                    }
                     showToast('خطایی رخ داد.', 'error');
                 });
             }

@@ -3,6 +3,7 @@
 namespace Modules\Product\Database\factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Modules\User\Entities\User;
 
 class ProductFactory extends Factory
 {
@@ -22,6 +23,7 @@ class ProductFactory extends Factory
     {
         return [
             'title' => fake()->title(),
+            'user_id' => User::factory(),
         ];
     }
 }

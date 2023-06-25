@@ -5,6 +5,7 @@ namespace Modules\Product\Entities;
 use App\Http\Traits\Searchable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Modules\User\Entities\User;
 
 class Product extends Model
 {
@@ -25,6 +26,11 @@ class Product extends Model
     }
 
     //
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 
     public function features()
     {

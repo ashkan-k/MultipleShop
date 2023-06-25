@@ -16,8 +16,10 @@ class ProductFeatureController extends Controller
 {
     use Responses;
 
-    public function index(Product $product)
+    // Web Routes
+    public function index()
     {
+        $product = Product::findOrFail(\request('product'));
         $objects = ProductFeature::whereBelongsTo($product)
             ->paginate(\request('pagination', env('PAGINATION_NUMBER', 10)));
 
@@ -25,21 +27,26 @@ class ProductFeatureController extends Controller
         return view('product::dashboard.product_features.list', compact('objects', 'product', 'features'));
     }
 
+    public function destroy(ProductFeature $product_feature)
+    {
+        $product_feature->delete();
+
+        $next_url = \request('next_url');
+        return $this->SuccessRedirectUrl('آیتم مورد نظر با موفقیت حذف شد.', $next_url);
+    }
+    //
+
+    // Web Apis Routes
     public function store(ProductFeatureRequest $request)
     {
         ProductFeature::create($request->validated());
         return $this->SuccessResponse('آیتم مورد نظر با موفقیت ثبت شد.');
     }
 
-    public function update(ProductFeatureRequest $request, ProductFeature $productFeature)
+    public function update(ProductFeatureRequest $request, ProductFeature $product_feature)
     {
-        $productFeature->update($request->validated());
+        $product_feature->update($request->validated());
         return $this->SuccessResponse('آیتم مورد نظر با موفقیت ویرایش شد.');
     }
-
-    public function destroy(ProductFeature $productFeature)
-    {
-        $productFeature->delete();
-        return $this->SuccessRedirect('آیتم مورد نظر با موفقیت حذف شد.', 'product-features.index');
-    }
+    //
 }
