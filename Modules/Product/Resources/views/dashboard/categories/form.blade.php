@@ -85,6 +85,26 @@
                                     </div>
 
                                     <div class="d-flex flex-column mb-8 fv-row">
+                                        <label for="id_slug"
+                                               class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                            <span>نامک</span>
+                                        </label>
+
+                                        <input type="text" id="id_slug" class="form-control form-control-solid"
+                                               value="@if(old('slug')){{ old('slug') }}@elseif(isset($object->slug)){{ $object->slug }}@endif"
+                                               placeholder="نامک را وارد کنید" name="slug"/>
+
+                                        @error('slug')
+                                        <div class="fv-plugins-message-container invalid-feedback">
+                                            <div data-field="meta_title" data-validator="notEmpty">
+                                                {{ $message }}
+                                            </div>
+                                        </div>
+                                        @enderror
+
+                                    </div>
+
+                                    <div class="d-flex flex-column mb-8 fv-row">
                                         <label for="id_parent_id"
                                                class="d-flex align-items-center fs-6 fw-semibold mb-2">
                                             <span class="required">والد</span>

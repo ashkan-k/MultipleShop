@@ -27,7 +27,10 @@ class Category extends Model
 
     public function save(array $options = [])
     {
-        $this->slug = Str::slug($this->title);
+        if (!$this->slug){
+            $this->slug = Str::slug($this->title);
+        }
+        $this->slug = Str::slug($this->slug);
         try {
             $saved =  parent::save($options);
         }catch (\Exception $exception){

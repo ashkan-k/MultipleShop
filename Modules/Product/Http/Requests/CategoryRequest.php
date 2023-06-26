@@ -3,6 +3,7 @@
 namespace Modules\Product\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class CategoryRequest extends FormRequest
 {
@@ -15,6 +16,10 @@ class CategoryRequest extends FormRequest
     {
         return [
             'title' => 'required|string',
+            'slug' => [
+                'nullable',
+                Rule::unique('categories', 'slug')->ignore($this->category)
+            ],
             'image' => 'mimes:jpeg,png,bmp,jpg',
             'parent_id' => 'nullable|exists:categories,id',
         ];
