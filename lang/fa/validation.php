@@ -266,5 +266,8 @@ return [
         'start_time' => 'تاریخ شروع',
         'end_time' => 'تاریخ پایان',
         'parent_id' => 'والد',
+        'discount_price' => 'قیمت تخفیفی',
+        'discount_start_date' => 'تاریخ شروع تخفیف',
+        'discount_end_date' => 'تاریخ پایان تخفیف',
     ],
 ];

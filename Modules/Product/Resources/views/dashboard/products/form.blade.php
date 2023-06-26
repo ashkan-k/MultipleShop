@@ -356,26 +356,26 @@
     </script>
 
     <script>
-        kamaDatepicker('discount_start_date', {
+        kamaDatepicker('id_discount_start_date', {
             placeholder: 'تاریخ شروع تخفیف',
             buttonsColor: 'blue',
             markHolidays: true
         });
-        $("#discount_start_date").attr('autocomplete', 'off');
+        $("#id_discount_start_date").attr('autocomplete', 'off');
 
-        $('#discount_start_date').on('change', function () {
-            $('#discount_start_date').val($('#discount_start_date').val().replaceAll('/', '-'))
+        $('#id_discount_start_date').on('change', function () {
+            $('#id_discount_start_date').val($('#id_discount_start_date').val().replaceAll('/', '-'))
         });
 
-        kamaDatepicker('discount_end_date', {
+        kamaDatepicker('id_discount_end_date', {
             placeholder: 'تاریخ شروع تخفیف',
             buttonsColor: 'blue',
             markHolidays: true
         });
-        $("#discount_end_date").attr('autocomplete', 'off');
+        $("#id_discount_end_date").attr('autocomplete', 'off');
 
-        $('#discount_end_date').on('change', function () {
-            $('#discount_end_date').val($('#discount_end_date').val().replaceAll('/', '-'))
+        $('#id_discount_end_date').on('change', function () {
+            $('#id_discount_end_date').val($('#id_discount_end_date').val().replaceAll('/', '-'))
         });
     </script>
 @endsection

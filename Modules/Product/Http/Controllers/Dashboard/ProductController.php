@@ -51,7 +51,12 @@ class ProductController extends Controller
     {
         $image = $this->UploadFile($request, 'image', 'product_images', $product->title, $product->image);
 
-        $product->update(array_merge($request->validated(), ['image' => $image]));
+        $data = $request->validated();
+
+        $data['is_active'] = $request->has('is_active') ?? false;
+        $data['is_special'] = $request->has('is_special') ?? false;
+
+        $product->update(array_merge($data, ['image' => $image]));
         return $this->SuccessRedirect('آیتم مورد نظر با موفقیت ویرایش شد.', 'products.index');
     }
 

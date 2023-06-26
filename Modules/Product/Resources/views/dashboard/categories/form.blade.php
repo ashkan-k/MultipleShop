@@ -136,7 +136,7 @@
                                                 <a href="{{ $object->image }}" target="_blank"><img
                                                         src="{{ $object->image }}"
                                                         width="70"
-                                                        alt="{{ $object->full_name() }}"></a>
+                                                        alt="{{ $object->title }}"></a>
                                             </div>
                                         @endif
 
