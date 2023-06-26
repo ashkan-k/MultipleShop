@@ -87,7 +87,7 @@
                                     <div class="d-flex flex-column mb-8 fv-row">
                                         <label for="id_price"
                                                class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                            <span class="required">قیمت</span>
+                                            <span class="required">قیمت (تومان)</span>
                                         </label>
 
                                         <input type="number" id="id_price" class="form-control form-control-solid"
@@ -187,7 +187,7 @@
                                     <div class="d-flex flex-column mb-8 fv-row">
                                         <label for="id_discount_price"
                                                class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                            <span>قیمت تخفیفی</span>
+                                            <span>قیمت تخفیفی (تومان)</span>
                                         </label>
 
                                         <input type="number" id="id_discount_price" class="form-control form-control-solid"
@@ -356,27 +356,49 @@
     </script>
 
     <script>
-        kamaDatepicker('id_discount_start_date', {
-            placeholder: 'تاریخ شروع تخفیف',
-            buttonsColor: 'blue',
-            markHolidays: true
+        $(document).ready(function() {
+            $('#id_discount_start_date').val(toEnglishDigits($('#id_discount_start_date').val()))
+            $('#id_discount_end_date').val(toEnglishDigits($('#id_discount_end_date').val()))
+
+        });
+        $('#id_discount_start_date').persianDatepicker({
+            format: 'YYYY-MM-DD',
+            initialValueType: 'persian',
+            timePicker: {
+                enabled: false
+            },
+            autoClose: true,
+            calendar: {
+                persian: {
+                    locale: 'fa'
+                }
+            },
+            onSelect: function () {
+                $('#id_discount_start_date').val(toEnglishDigits($('#id_discount_start_date').val()))
+            },
         });
         $("#id_discount_start_date").attr('autocomplete', 'off');
 
-        $('#id_discount_start_date').on('change', function () {
-            $('#id_discount_start_date').val($('#id_discount_start_date').val().replaceAll('/', '-'))
-        });
 
-        kamaDatepicker('id_discount_end_date', {
-            placeholder: 'تاریخ شروع تخفیف',
-            buttonsColor: 'blue',
-            markHolidays: true
+        //////////////
+
+        $('#id_discount_end_date').persianDatepicker({
+            format: 'YYYY-MM-DD',
+            initialValueType: 'persian',
+            timePicker: {
+                enabled: false
+            },
+            autoClose: true,
+            calendar: {
+                persian: {
+                    locale: 'fa'
+                }
+            },
+            onSelect: function () {
+                $('#id_discount_end_date').val(toEnglishDigits($('#id_discount_end_date').val()))
+            },
         });
         $("#id_discount_end_date").attr('autocomplete', 'off');
-
-        $('#id_discount_end_date').on('change', function () {
-            $('#id_discount_end_date').val($('#id_discount_end_date').val().replaceAll('/', '-'))
-        });
     </script>
 @endsection
 
