@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
+use Modules\Product\Http\Controllers\Dashboard\Api\ApiGalleryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +15,6 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/product', function (Request $request) {
-    return $request->user();
+Route::prefix('galleries')->middleware('check_admin')->group(function () {
+    Route::get('{product}', [ApiGalleryController::class, 'list'])->name('galleries.api.index');
 });

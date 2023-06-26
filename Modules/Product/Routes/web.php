@@ -20,14 +20,11 @@ use Modules\Product\Http\Controllers\Dashboard\ProductController;
 use Modules\Product\Http\Controllers\Dashboard\ProductFeatureController;
 use Modules\Product\Http\Controllers\Dashboard\SizeController;
 
-//Route::prefix('products')->group(function () {
-//
-//});
-
 Route::resource('products', ProductController::class);
 Route::resource('categories', CategoryController::class);
 Route::resource('colors', ColorController::class);
 Route::resource('sizes', SizeController::class);
-Route::resource('galleries', GalleryController::class);
 Route::resource('features', FeatureController::class)->only(['index', 'destroy']);
 Route::resource('product-features', ProductFeatureController::class, ['prefix' => 'product-features'])->only(['index', 'destroy']);
+
+Route::get('galleries/{product}', [GalleryController::class, 'index'])->name('galleries.index');

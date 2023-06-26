@@ -15,7 +15,6 @@ Route::prefix('admin')->middleware('check_admin')->group(function () {
     // Users
     Route::post('users/status/change/{user}', [UserController::class, 'change_status']);
 
-
     // Features
     Route::post('features', [FeatureController::class, 'store']);
     Route::post('features/{feature}', [FeatureController::class, 'update']);

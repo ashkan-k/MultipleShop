@@ -13,13 +13,9 @@ class GalleryController extends Controller
 {
     use Responses, Uploader;
 
-    public function index()
+    public function index(Product $product)
     {
-        $objects = Gallery::Search(request('search'))
-            ->latest()
-            ->paginate(\request('pagination', env('PAGINATION_NUMBER', 10)));
-
-        return view('product::dashboard.galleries.list', compact('objects'));
+        return view('product::dashboard.gallery.list', compact('product'));
     }
 
     public function store(GalleryRequest $request)
