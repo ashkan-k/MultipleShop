@@ -207,16 +207,6 @@
                         </div>
 
                         <div class="d-flex flex-column mb-8 fv-row">
-                            <label for="id_is_filter" class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                <span class="required">آیا به عنوان فیلتر استفاده شود؟</span>
-                            </label>
-
-                            <input name="is_filter" ng-model="instance.is_filter"
-                                   class="form-check-input w-45px h-30px" type="checkbox"
-                                   id="id_is_filter">
-                        </div>
-
-                        <div class="d-flex flex-column mb-8 fv-row">
                             <label for="id_filter_type" class="d-flex align-items-center fs-6 fw-semibold mb-2">
                                 <span class="required">نوع فیلتر</span>
                             </label>
@@ -226,8 +216,19 @@
                                 <option value="" disabled>نوع فیلتر را انتخاب کنید</option>
                                 <option value="checkbox">چک باکس</option>
                                 <option value="radio">رادیو باتن</option>
-                              {{--  <option value="text">متنی</option>--}}
+                                <option value="text">متنی</option>
                             </select>
+                            <p ng-if="instance.filter_type == 'text'" class="text-danger">تکست باکس امکان فیلتر کردن ندارد. فقط جنبه ی نمایشی خواهد داشت.</p>
+                        </div>
+
+                        <div ng-if="instance.filter_type != 'text'" class="d-flex flex-column mb-8 fv-row">
+                            <label for="id_is_filter" class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                <span class="required">آیا به عنوان فیلتر استفاده شود؟</span>
+                            </label>
+
+                            <input name="is_filter" ng-model="instance.is_filter"
+                                   class="form-check-input w-45px h-30px" type="checkbox"
+                                   id="id_is_filter">
                         </div>
 
                         <div

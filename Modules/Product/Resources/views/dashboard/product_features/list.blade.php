@@ -223,9 +223,9 @@
                                 <option value="" disabled>مقدار را انتخاب کنید</option>
                             </select>
 
-                            <input type="text" ng-model="obj.value" id="id_value" name="value"
-                                    ng-if="!feature['filter_type'] || feature['filter_type'] == 'text'"
-                                    class="form-control">
+                            <textarea ng-model="obj.value" id="id_value" name="value"
+                                      ng-if="!feature['filter_type'] || feature['filter_type'] == 'text'"
+                                      class="form-control" rows="4"></textarea>
                          </div>
 
                         <div class="d-flex flex-column mb-8 fv-row">
@@ -286,8 +286,8 @@
             $scope.$watch('obj.feature_id', function (newValue, oldValue) {
                 if (newValue) {
                     $scope.feature = $scope.features.filter(element => element['id'] == newValue)[0];
-                    console.log($scope.feature)
                     $scope.GetFeatureFilterItems(newValue);
+                    $scope.obj['value'] = '';
                 }
             });
 
