@@ -121,8 +121,9 @@
                                             </div>
                                             <div class="menu-item px-3">
 
-                                                <form action="{{ route('features.destroy' , $item->id) }}?next_url={{ request()->fullUrl() }}"
-                                                      id="delete_form_{{ $loop->index }}" method="post">
+                                                <form
+                                                    action="{{ route('features.destroy' , $item->id) }}?next_url={{ request()->fullUrl() }}"
+                                                    id="delete_form_{{ $loop->index }}" method="post">
                                                     @csrf
                                                     @method('DELETE')
 
@@ -199,6 +200,39 @@
                                    class="form-control form-control-solid" name="title">
                         </div>
 
+                        <div class="d-flex flex-column mb-8 fv-row">
+                            <label for="id_is_filter" class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                <span class="required">آیا به عنوان فیلتر استفاده شود؟</span>
+                            </label>
+
+                            <input name="is_filter" ng-model="obj.is_filter"
+                                   class="form-check-input w-45px h-30px" type="checkbox"
+                                   id="id_is_filter" value="1">
+                        </div>
+
+                        <div ng-if="obj.is_filter" class="d-flex flex-column mb-8 fv-row">
+                            <label for="id_filter_type" class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                <span class="required">نوع فیلتر</span>
+                            </label>
+
+                            <select ng-model="filter_type" id="id_filter_type" class="form-control form-control-solid">
+                                <option value="" disabled>نوع فیلتر را انتخاب کنید</option>
+                                <option value="checkbox">چک باکس</option>
+                                <option value="radio">رادیو باتن</option>
+                                <option value="text">متنی</option>
+                            </select>
+                        </div>
+
+                        <div ng-if="obj.is_filter" class="d-flex flex-column mb-8 fv-row">
+                            <label for="id_filter_items" class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                <span class="required">گزینه های فیتلر</span>
+                            </label>
+
+                            <input ng-model="obj.filter_items" id="id_filter_items" type="text"
+                                   class="form-control form-control-solid" name="filter_items">
+                            <p style="color: red">* گزین ها را با ویرگول از یکدیگر جداکنید. مثال (آبی،سبز،زرد)</p>
+                        </div>
+
                         <div class="text-center">
                             <button ng-disabled="is_submited" onclick="$('#addEditFeatureModal').modal('hide');"
                                     type="reset" id="addEditFeatureModal_cancel" class="btn btn-light me-3">انصراف
@@ -262,7 +296,7 @@
                     }, 500)
                 }).catch(err => {
                     $scope.is_submited = false;
-                    if (err['data']['errors']['category_id']){
+                    if (err['data']['errors']['category_id']) {
                         showToast(err['data']['errors']['category_id'][0], 'error');
                         return;
                     }

@@ -17,7 +17,7 @@ return new class extends Migration {
             $table->id();
             $table->string('title');
             $table->boolean('is_filter')->default(false);
-            $table->enum('filter_types', EnumHelpers::$FeatureFilterTypeEnum)->nullable();
+            $table->enum('filter_type', EnumHelpers::$FeatureFilterTypeEnum)->nullable();
             $table->text('filter_items')->nullable();
             $table->foreignId('category_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->timestamps();
