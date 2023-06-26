@@ -55,7 +55,7 @@ Like: www.facebook.com/keenthemes
           crossorigin="anonymous"/>
 
 
-    <link rel="stylesheet" href="/persian_datetimepicker/persian-datepicker.min.css"/>
+    <link rel="stylesheet" href="/persian_datetimepicker/css/persianDatepicker-dark.css"/>
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -9897,8 +9897,8 @@ Like: www.facebook.com/keenthemes
 {{--<script src="/chart/highcharts.js"></script>--}}
 {{--<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>--}}
 
-<script src="/persian_datetimepicker/persian-date.min.js"></script>
-<script src="/persian_datetimepicker/persian-datepicker.min.js"></script>
+{{--<script src="/persian_datetimepicker/persian-date.min.js"></script>--}}
+<script src="/persian_datetimepicker/js/persianDatepicker.min.js"></script>
 
 <script>
     var app = angular.module("myApp", []);

@@ -362,8 +362,9 @@
 
         });
         $('#id_discount_start_date').persianDatepicker({
+            theme: 'dark',
             format: 'YYYY-MM-DD',
-            initialValueType: 'persian',
+            // initialValueType: 'persian',
             timePicker: {
                 enabled: false
             },
@@ -374,7 +375,7 @@
                 }
             },
             onSelect: function () {
-                $('#id_discount_start_date').val(toEnglishDigits($('#id_discount_start_date').val()))
+                $('#id_discount_start_date').val($('#id_discount_start_date').val().replaceAll('/', '-'))
             },
         });
         $("#id_discount_start_date").attr('autocomplete', 'off');
@@ -383,6 +384,7 @@
         //////////////
 
         $('#id_discount_end_date').persianDatepicker({
+            theme: 'dark',
             format: 'YYYY-MM-DD',
             initialValueType: 'persian',
             timePicker: {
@@ -395,7 +397,7 @@
                 }
             },
             onSelect: function () {
-                $('#id_discount_end_date').val(toEnglishDigits($('#id_discount_end_date').val()))
+                $('#id_discount_end_date').val($('#id_discount_end_date').val().replaceAll('/', '-'))
             },
         });
         $("#id_discount_end_date").attr('autocomplete', 'off');

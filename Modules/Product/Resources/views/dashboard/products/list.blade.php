@@ -87,6 +87,9 @@
                                 <th>عکس</th>
                                 <th>مالک</th>
                                 <th>دسته بندی</th>
+                                <th>قیمت تخفیفی</th>
+                                <th>تاریخ شروع تخفیف</th>
+                                <th>تاریخ پایان تخفیف</th>
                                 <th>شگفت انگیز</th>
                                 <th>وضعیت</th>
                                 <th>عملیات</th>
@@ -123,6 +126,12 @@
                                     <td>{{ $item->user ? $item->user->full_name() : '---'  }}</td>
 
                                     <td>{{ $item->category ? $item->category->title : '---'  }}</td>
+
+                                    <td>{{ $item->discount_price ?: '---'  }}</td>
+
+                                    <td>{{ $item->discount_start_date ?: '---'  }}</td>
+
+                                    <td>{{ $item->discount_end_date ?: '---'  }}</td>
 
                                     <td>
                                         <div title="برای تبدیل محصول به شگفت انگیز وارد ویرایش محصول شوید و علاوه بر تیک شگفت انگیزی، قیمت و تاریخ دوره تخفیف را هم وارد کنید."
