@@ -110,7 +110,7 @@
 
                                     <td>{{ $item->filter_type ?: '---'  }}</td>
 
-                                    <td>{{ $item->filter_items ?: '---'  }}</td>
+                                    <td>{{ $item->filter_items ? str_replace('،', ' ,', $item->filter_items) : '---'  }}</td>
 
                                     <td class="">
                                         <a href="#"
