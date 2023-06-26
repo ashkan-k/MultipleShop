@@ -85,7 +85,9 @@
                                     </div>
                                 </th>
                                 <th>دسته بندی</th>
-                                <th>فیلتر</th>
+                                <th>عنوان فیلتر</th>
+                                <th>نوع فیلتر</th>
+                                <th>گزینه های فیلتر</th>
                                 <th>عملیات</th>
                             </tr>
                             </thead>
@@ -105,6 +107,10 @@
                                     <td>{{$item->category ? $item->category->title : 'ندارد'}}</td>
 
                                     <td>{{ $item->title ?: '---'  }}</td>
+
+                                    <td>{{ $item->filter_type ?: '---'  }}</td>
+
+                                    <td>{{ $item->filter_items ?: '---'  }}</td>
 
                                     <td class="">
                                         <a href="#"
@@ -187,7 +193,7 @@
                     <form id="addEditFeatureModal_form" class="form" action="#">
                         <!--begin::Heading-->
                         <div class="mb-13 text-center">
-                            <h1 class="mb-3">افزودن/ویرایش فیلتر دسته بندی ({{ $category->title }})</h1>
+                            <h1 class="mb-3">الحاق فیلتر به دسته بندی ({{ $category->title }})</h1>
                         </div>
 
                         <div class="d-flex flex-column mb-8 fv-row">
@@ -207,7 +213,7 @@
 
                             <input name="is_filter" ng-model="obj.is_filter"
                                    class="form-check-input w-45px h-30px" type="checkbox"
-                                   id="id_is_filter" value="1">
+                                   id="id_is_filter">
                         </div>
 
                         <div ng-if="obj.is_filter" class="d-flex flex-column mb-8 fv-row">
@@ -215,7 +221,7 @@
                                 <span class="required">نوع فیلتر</span>
                             </label>
 
-                            <select ng-model="filter_type" id="id_filter_type" class="form-control form-control-solid">
+                            <select ng-model="obj.filter_type" id="id_filter_type" class="form-control form-control-solid">
                                 <option value="" disabled>نوع فیلتر را انتخاب کنید</option>
                                 <option value="checkbox">چک باکس</option>
                                 <option value="radio">رادیو باتن</option>
@@ -264,10 +270,15 @@
         app.controller('myCtrl', function ($scope, $http) {
             @include('dashboard.section.components.bulk_actions.bulk_actions_js', ['items' => $objects, 'model' => \Modules\Product\Entities\Feature::class])
 
+                $scope.obj = {};
+
                 $scope.AddEditFeatureModal = function (obj) {
                 $scope.obj = {};
                 if (obj) {
                     $scope.obj = obj;
+                    if (obj.is_filter){
+                        $('#id_is_filter').prop('checked', true);
+                    }
                 }
                 $('#addEditFeatureModal').modal('show');
             }
@@ -276,6 +287,17 @@
                 if (!$scope.obj['title']) {
                     showToast('فیلد عنوان اجباری است!', 'error');
                     return;
+                }
+
+                if ($scope.obj['is_filter']) {
+                    if (!$scope.obj['filter_type']) {
+                        showToast('فیلد نوع فیلتر اجباری است!', 'error');
+                        return;
+                    }
+                    if (!$scope.obj['filter_items']) {
+                        showToast('فیلد گزینه های فیلتر اجباری است!', 'error');
+                        return;
+                    }
                 }
 
                 $scope.is_submited = true;

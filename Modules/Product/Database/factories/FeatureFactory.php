@@ -27,7 +27,7 @@ class FeatureFactory extends Factory
             'title' => fake()->title(),
             'is_filter' => fake()->boolean(),
             'filter_items' => 'lcd،led،lamp',
-            'filter_types' => fake()->randomElement(EnumHelpers::$FeatureFilterTypeEnum),
+            'filter_type' => fake()->randomElement(EnumHelpers::$FeatureFilterTypeEnum),
             'category_id' => Category::factory(),
         ];
     }

@@ -23,8 +23,11 @@ class FeatureRequest extends FormRequest
             'category_id' => [
                 'required',
                 'exists:categories,id',
-//                Rule::in(auth()->user()->products()->pluck('id')->toArray())
             ],
+            'is_filter' => 'boolean',
+            'filter_type' => 'nullable|in:checkbox,radio,text',
+            'filter_items' => 'string',
+//            'filter_items' => 'required_without:is_filter,true',
         ];
     }
 
