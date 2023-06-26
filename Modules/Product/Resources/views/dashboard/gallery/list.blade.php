@@ -56,7 +56,7 @@
                         <div class="card-toolbar">
                             <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
 
-                                <button type="button" ng-click="AddEditFeatureModal()"
+                                <button type="button" ng-click="AddEditGalleryModal()"
                                         class="btn btn-primary" data-bs-toggle="modal"
                                         data-bs-target="#kt_modal_add_user">
                                     <i class="ki-duotone ki-plus fs-2"></i>افزودن تصاویر جدید به
@@ -106,7 +106,7 @@
                                         class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4"
                                         data-kt-menu="true">
                                         <div class="menu-item px-3">
-                                            <a ng-click="AddEditFeatureModal([[ item.id ]])" class="menu-link px-3"
+                                            <a ng-click="AddEditGalleryModal([[ item.id ]])" class="menu-link px-3"
                                                data-kt-features-table-filter="delete_row">ویرایش</a>
                                         </div>
                                         <div class="menu-item px-3">
@@ -144,7 +144,7 @@
         <!--end::Content-->
     </div>
 
-    <div class="modal fade" id="addEditFeatureModal" tabindex="-1" aria-hidden="true">
+    <div class="modal fade" id="addEditGalleyModal" tabindex="-1" aria-hidden="true">
         <!--begin::Modal dialog-->
         <div class="modal-dialog modal-dialog-centered mw-650px">
             <!--begin::Modal content-->
@@ -164,7 +164,7 @@
                 <!--begin::Modal body-->
                 <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
                     <!--begin:Form-->
-                    <form id="addEditFeatureModal_form" class="form" action="#">
+                    <form id="addEditGalleyModal_form" class="form" action="#">
                         <!--begin::Heading-->
                         <div class="mb-13 text-center">
                             <h1 class="mb-3">الحاق تصاویر به محصول ({{ $product->title }})</h1>
@@ -188,10 +188,10 @@
                         </div>
 
                         <div class="text-center">
-                            <button ng-disabled="is_submited" onclick="$('#addEditFeatureModal').modal('hide');"
-                                    type="reset" id="addEditFeatureModal_cancel" class="btn btn-light me-3">انصراف
+                            <button ng-disabled="is_submited" onclick="$('#addEditGalleyModal').modal('hide');"
+                                    type="reset" id="addEditGalleyModal_cancel" class="btn btn-light me-3">انصراف
                             </button>
-                            <button type="button" ng-click="SubmitAddEditFeature()" ng-disabled="is_submited"
+                            <button type="button" ng-click="SubmitAddEditGallery()" ng-disabled="is_submited"
                                     class="btn btn-primary">
                                 <span class="indicator-label">آپلود</span>
                             </button>
@@ -216,16 +216,16 @@
         app.controller('myCtrl', function ($scope, $http) {
             $scope.items = [];
 
-            $scope.init = function (){
+            $scope.init = function () {
                 $scope.GetGallery();
             }
 
-            $scope.AddEditFeatureModal = function (obj) {
+            $scope.AddEditGalleryModal = function (obj) {
                 $scope.obj = {};
                 if (obj) {
                     $scope.obj = obj;
                 }
-                $('#addEditFeatureModal').modal('show');
+                $('#addEditGalleyModal').modal('show');
             }
 
             $scope.GetGallery = function () {
@@ -240,44 +240,33 @@
                 });
             }
 
-            $scope.SubmitAddEditFeature = function (type = 'create') {
-                if (!$scope.obj['feature_id']) {
-                    showToast('فیلد تصاویر اجباری است!', 'error');
+            $scope.SubmitAddEditGallery = function (type = 'create') {
+                if (!$("#id_image")[0].files[0]) {
+                    showToast('فیلد تصویر اجباری است!', 'error');
                     return;
                 }
-                if (!$scope.obj['value']) {
-                    showToast('فیلد مقدار اجباری است!', 'error');
-                    return;
-                }
-                if (!$scope.obj['place']) {
-                    showToast('فیلد جایگاه تصاویر اجباری است!', 'error');
-                    return;
-                }
+
+                fd = new FormData();
+                fd.append('image', $("#id_image")[0].files[0]);
 
                 $scope.is_submited = true;
 
-                $scope.obj['product_id'] = {{ $product->id }};
+                var url = `{{ route('galleries.api.store', $product->id) }}`
 
-                if ($scope.obj['id']) {
-                    var url = `/api/admin/products-features/${$scope.obj['id']}/`
-                } else {
-                    var url = `/api/admin/products-features/`
-                }
-
-                $http.post(url, $scope.obj).then(res => {
+                $http.post(url, fd, {
+                    headers: {
+                        'Content-Type': undefined
+                    },
+                }).then(res => {
                     showToast(res['data']['data'], 'success');
                     $scope.is_submited = false;
-                    setTimeout(() => {
-                        location.reload()
-                    }, 500)
+                    $scope.obj = {};
+                    $scope.GetGallery();
+
                 }).catch(err => {
                     $scope.is_submited = false;
-                    if (err['data']['errors']['feature_id']) {
-                        showToast(err['data']['errors']['feature_id'][0], 'error');
-                        return;
-                    }
-                    if (err['data']['errors']['product_id']) {
-                        showToast(err['data']['errors']['product_id'][0], 'error');
+                    if (err['data']['errors']['image']) {
+                        showToast(err['data']['errors']['image'][0], 'error');
                         return;
                     }
                     showToast('خطایی رخ داد.', 'error');

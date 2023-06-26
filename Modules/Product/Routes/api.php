@@ -17,4 +17,5 @@ use Modules\Product\Http\Controllers\Dashboard\Api\ApiGalleryController;
 
 Route::prefix('galleries')->middleware('check_admin')->group(function () {
     Route::get('{product}', [ApiGalleryController::class, 'list'])->name('galleries.api.index');
+    Route::post('{product}', [ApiGalleryController::class, 'store'])->name('galleries.api.store');
 });
