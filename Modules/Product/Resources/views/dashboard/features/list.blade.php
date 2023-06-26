@@ -332,21 +332,22 @@
                     if (obj.is_filter) {
                         $('#id_is_filter').prop('checked', true);
                     }
-                    if ($scope.instance['filter_items'] && $scope.instance['filter_items'].split(',')){
+
+                    $scope.instance['filter_items'] = $scope.instance['filter_items'].split('،');
+                    if ($scope.instance['filter_items']){
                         var tem_filter_items = [];
-                        for (const item in $scope.instance['filter_items'].split(',')){
+                        for (const item in $scope.instance['filter_items']){
                             if (item == '_indexOf'){
                                 break;
                             }
                             tem_filter_items.push({
-                                text: "",
+                                text: $scope.instance['filter_items'][item],
                             })
                         }
 
                         $scope.instance['filter_items'] = tem_filter_items;
                     }
                 }
-                console.log($scope.instance);
                 $('#addEditFeatureModal').modal('show');
             }
 
@@ -367,7 +368,6 @@
                            if (item == '_indexOf'){
                                break;
                            }
-                           console.log(item)
                            if (!$scope.instance.filter_items[item]['text']) {
                                showToast(`متن گزینه ${parseInt(item) + 1} خالی است!`, 'error');
                                return;
@@ -406,8 +406,6 @@
                         }
                     }
                 }
-
-                console.log(tem_filter_items);
 
                 $scope.is_submited = true;
                 var data = $scope.instance;
