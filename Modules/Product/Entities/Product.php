@@ -16,6 +16,8 @@ class Product extends Model
     protected $fillable = [
         'title',
         'slug',
+        'en_title',
+        'en_slug',
         'is_active',
         'description',
         'view_count',
@@ -31,6 +33,8 @@ class Product extends Model
 
     protected $search_fields  = [
         'title',
+        'en_title',
+        'en_slug',
         'description',
         'price',
         'user.first_name',
@@ -43,9 +47,15 @@ class Product extends Model
     public function save(array $options = [])
     {
         if (!$this->slug){
-            $this->slug = Str::slug($this->title);
+            $this->slug = $this->title;
         }
         $this->slug = Str::slug($this->slug);
+
+        if (!$this->en_slug){
+            $this->en_slug = $this->en_title;
+        }
+        $this->en_slug = Str::slug($this->en_slug);
+
         try {
             $saved =  parent::save($options);
         }catch (\Exception $exception){

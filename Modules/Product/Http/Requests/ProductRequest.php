@@ -15,7 +15,8 @@ class ProductRequest extends FormRequest
     public function rules()
     {
         $rules =  [
-           'title' => 'required|string',
+            'title' => 'string|required_without:en_title',
+            'en_title' => 'string|required_without:title',
             'slug' => [
                 'nullable',
                 Rule::unique('categories', 'slug')->ignore($this->category)

@@ -15,6 +15,8 @@ class Category extends Model
     protected $fillable = [
         'title',
         'slug',
+        'en_title',
+        'en_slug',
         'image',
         'parent_id',
     ];
@@ -22,6 +24,8 @@ class Category extends Model
     protected $search_fields  = [
         'title',
         'slug',
+        'en_title',
+        'en_slug',
         'parent.title',
     ];
 
@@ -31,6 +35,12 @@ class Category extends Model
             $this->slug = Str::slug($this->title);
         }
         $this->slug = Str::slug($this->slug);
+
+        if (!$this->en_slug){
+            $this->en_slug = $this->en_title;
+        }
+        $this->en_slug = Str::slug($this->en_slug);
+
         try {
             $saved =  parent::save($options);
         }catch (\Exception $exception){
