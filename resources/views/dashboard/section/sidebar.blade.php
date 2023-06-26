@@ -165,7 +165,7 @@
 
             <div data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="left-start" class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention">
                 <!--begin:Menu link-->
-                <span class="menu-link @if(str_starts_with(\Illuminate\Support\Facades\Route::current()->getName(), 'colors.') || str_starts_with(\Illuminate\Support\Facades\Route::current()->getName(), 'sizes.') || str_starts_with(\Illuminate\Support\Facades\Route::current()->getName(), 'features.')) active @endif">
+                <span class="menu-link @if(str_starts_with(\Illuminate\Support\Facades\Route::current()->getName(), 'colors.') || str_starts_with(\Illuminate\Support\Facades\Route::current()->getName(), 'sizes.')) active @endif">
 											<span class="menu-icon">
 												<i class="ki-duotone ki-file fs-2">
 													<span class="path1"></span>
@@ -193,15 +193,6 @@
 														<span class="bullet bullet-dot"></span>
 													</span>
                             <span class="menu-title">سایز ها</span>
-                        </a>
-                    </div>
-
-                    <div class="menu-item">
-                        <a class="menu-link @if(str_starts_with(\Illuminate\Support\Facades\Route::current()->getName(), 'features.')) active @endif" href="{{ route('features.index') }}">
-													<span class="menu-bullet">
-														<span class="bullet bullet-dot"></span>
-													</span>
-                            <span class="menu-title">سایر ویژگی ها</span>
                         </a>
                     </div>
                 </div>
