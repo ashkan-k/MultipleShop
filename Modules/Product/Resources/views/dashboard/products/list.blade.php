@@ -144,6 +144,7 @@
                                     </td>
 
                                     <td class="">
+                                        <a href="{{ route('galleries.index', $item->id) }}" class="btn btn-bg-light btn-color-muted btn-active-color-primary btn-sm px-4 me-2">کالری تصاویر</a>
                                         <a href="{{ route('product-features.index') }}?product={{ $item->id }}" class="btn btn-bg-light btn-color-muted btn-active-color-primary btn-sm px-4 me-2">ویژگی ها</a>
 
                                         <a href="#"

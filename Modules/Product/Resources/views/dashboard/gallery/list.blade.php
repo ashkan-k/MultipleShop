@@ -1,5 +1,5 @@
 @extends('layouts.admin-master')
-@section('title','تصاویر ها')
+@section('title','گالری تصاویر')
 @section('Styles')
 
 @endsection
@@ -13,7 +13,7 @@
                 <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
                     <!--begin::Title-->
                     <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">
-                        لیست تصاویر ها محصول {{ $product->title }}</h1>
+                        لیست گالری تصاویر محصول {{ $product->title }}</h1>
                     <!--end::Title-->
                     <!--begin::Breadcrumb-->
                     <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1">
@@ -59,7 +59,7 @@
                                 <button type="button" ng-click="AddEditGalleryModal()"
                                         class="btn btn-primary" data-bs-toggle="modal"
                                         data-bs-target="#kt_modal_add_user">
-                                    <i class="ki-duotone ki-plus fs-2"></i>افزودن تصاویر جدید به
+                                    <i class="ki-duotone ki-plus fs-2"></i>افزودن تصویر جدید به
                                     محصول {{ $product->title }}
                                 </button>
                                 <!--end::Add user-->
@@ -139,7 +139,7 @@
                     <form id="addEditGalleyModal_form" class="form" action="#">
                         <!--begin::Heading-->
                         <div class="mb-13 text-center">
-                            <h1 class="mb-3">الحاق تصاویر به محصول ({{ $product->title }})</h1>
+                            <h1 class="mb-3">الحاق تصویر به محصول ({{ $product->title }})</h1>
                         </div>
 
                         <div class="d-flex flex-column mb-8 fv-row">
