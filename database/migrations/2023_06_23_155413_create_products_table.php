@@ -15,8 +15,11 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->string('slug')->unique();
+            $table->string('title')->nullable();
+            $table->string('slug')->nullable();
+            $table->string('en_title')->nullable();
+            $table->string('en_slug')->nullable();
+
             $table->boolean('is_active')->default(true);
 //            $table->enum('status', EnumHelpers::$PlaceTypesEnum)->default('restaurant');
             $table->text('description');

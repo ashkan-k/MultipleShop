@@ -3,5 +3,6 @@
     "Setting": true,
     "Dashboard": true,
     "Product": true,
-    "Slider": true
+    "Slider": true,
+    "Coupon": true
 }
