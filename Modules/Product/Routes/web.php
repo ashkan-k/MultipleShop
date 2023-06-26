@@ -27,5 +27,5 @@ Route::resource('products', ProductController::class);
 Route::resource('categories', CategoryController::class);
 Route::resource('colors', ColorController::class);
 Route::resource('sizes', SizeController::class);
-Route::resource('features', FeatureController::class);
+Route::resource('features', FeatureController::class)->only(['index', 'destroy']);
 Route::resource('product-features', ProductFeatureController::class, ['prefix' => 'product-features'])->only(['index', 'destroy']);

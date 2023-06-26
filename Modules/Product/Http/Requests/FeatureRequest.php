@@ -20,6 +20,11 @@ class FeatureRequest extends FormRequest
                 'required',
                 Rule::unique('features', 'title')->ignore($this->feature)
             ],
+            'category_id' => [
+                'required',
+                'exists:categories,id',
+//                Rule::in(auth()->user()->products()->pluck('id')->toArray())
+            ],
         ];
     }
 

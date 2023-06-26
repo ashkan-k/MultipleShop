@@ -3,6 +3,7 @@
 namespace Modules\Product\Database\factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Modules\Product\Entities\Category;
 use Modules\Product\Entities\Product;
 
 class FeatureFactory extends Factory
@@ -23,6 +24,7 @@ class FeatureFactory extends Factory
     {
         return [
             'title' => fake()->title(),
+            'category_id' => Category::factory(),
         ];
     }
 }

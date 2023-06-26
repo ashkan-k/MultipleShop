@@ -14,6 +14,11 @@ Route::post('admin/users/status/change/{user}', [UserController::class, 'change_
 
 // Products
 Route::prefix('admin')->group(function () {
+    // Features
+    Route::post('features', [FeatureController::class, 'store']);
+    Route::post('features/{feature}', [FeatureController::class, 'update']);
+
+    // Product Features
     Route::post('products-features', [ProductFeatureController::class, 'store']);
     Route::post('products-features/{product_feature}', [ProductFeatureController::class, 'update']);
 });

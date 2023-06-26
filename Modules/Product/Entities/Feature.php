@@ -13,10 +13,12 @@ class Feature extends Model
 
     protected $fillable = [
         'title',
+        'category_id',
     ];
 
     protected $search_fields  = [
         'title',
+        'category_id.title',
     ];
 
     protected static function newFactory()
@@ -25,6 +27,11 @@ class Feature extends Model
     }
 
     //
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
 
     public function products()
     {
