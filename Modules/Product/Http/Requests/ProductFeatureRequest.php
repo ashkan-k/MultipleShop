@@ -31,6 +31,7 @@ class ProductFeatureRequest extends FormRequest
 //                Rule::in(auth()->user()->products()->pluck('id')->toArray())
             ],
             'value' => 'required|string',
+            'place' => 'nullable|in:up,down,both',
         ];
     }
 

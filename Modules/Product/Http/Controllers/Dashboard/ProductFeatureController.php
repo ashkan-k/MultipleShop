@@ -23,7 +23,7 @@ class ProductFeatureController extends Controller
         $objects = ProductFeature::whereBelongsTo($product)
             ->paginate(\request('pagination', env('PAGINATION_NUMBER', 10)));
 
-        $features = $product->category->features()->get(['id', 'title'])->toArray();
+        $features = $product->category->features()->get(['id', 'title', 'filter_type'])->toArray();
         return view('product::dashboard.product_features.list', compact('objects', 'product', 'features'));
     }
 

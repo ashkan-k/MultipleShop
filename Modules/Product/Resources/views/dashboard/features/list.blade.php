@@ -318,6 +318,14 @@
                 },];
             }
 
+            $scope.$watch('instance.filter_type', function (newValue, oldValue) {
+                if (newValue == 'checkbox' || newValue == 'radio') {
+                    $scope.instance.filter_items = [{
+                        text: "",
+                    },];
+                }
+            });
+
             $scope.RemoveChoice = function (id, j) {
                 $scope.instance.filter_items.splice(id, 1);
             }
@@ -327,26 +335,30 @@
                     text: "",
                 },];
 
+                console.log($scope.instance)
+
                 if (obj) {
                     $scope.instance = obj;
                     if (obj.is_filter) {
                         $('#id_is_filter').prop('checked', true);
                     }
 
-                    $scope.instance['filter_items'] = $scope.instance['filter_items'].split('،');
-                    if ($scope.instance['filter_items']){
-                        var tem_filter_items = [];
-                        for (const item in $scope.instance['filter_items']){
-                            if (item == '_indexOf'){
-                                break;
-                            }
-                            tem_filter_items.push({
-                                text: $scope.instance['filter_items'][item],
-                            })
-                        }
+                   if ($scope.instance['filter_items']){
+                       $scope.instance['filter_items'] = $scope.instance['filter_items'].split('،');
+                       if ($scope.instance['filter_items']){
+                           var tem_filter_items = [];
+                           for (const item in $scope.instance['filter_items']){
+                               if (item == '_indexOf'){
+                                   break;
+                               }
+                               tem_filter_items.push({
+                                   text: $scope.instance['filter_items'][item],
+                               })
+                           }
 
-                        $scope.instance['filter_items'] = tem_filter_items;
-                    }
+                           $scope.instance['filter_items'] = tem_filter_items;
+                       }
+                   }
                 }
                 $('#addEditFeatureModal').modal('show');
             }

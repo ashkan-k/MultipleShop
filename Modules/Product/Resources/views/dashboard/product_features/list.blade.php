@@ -87,6 +87,7 @@
                                 <th>محصول</th>
                                 <th>ویزگی</th>
                                 <th>مقدار</th>
+                                <th>جایگاه</th>
                                 <th>عملیات</th>
                             </tr>
                             </thead>
@@ -108,6 +109,8 @@
                                     <td>{{$item->feature ? $item->feature->title : 'ندارد'}}</td>
 
                                     <td>{{ $item->value ?: '---'  }}</td>
+
+                                    <td>{{ $item->get_place() ?: '---'  }}</td>
 
                                     <td class="">
                                         <a href="#"
@@ -214,11 +217,31 @@
                             </label>
 
                             <select ng-model="obj.value" id="id_value" name="contents"
+                                    ng-if="feature['filter_type'] == 'checkbox' || feature['filter_type'] == 'radio'"
                                     ng-options="item as item for item in filter_items"
                                     class="form-control">
                                 <option value="" disabled>مقدار را انتخاب کنید</option>
                             </select>
+
+                            <input type="text" ng-model="obj.value" id="id_value" name="value"
+                                    ng-if="!feature['filter_type'] || feature['filter_type'] == 'text'"
+                                    class="form-control">
                          </div>
+
+                        <div class="d-flex flex-column mb-8 fv-row">
+                            <!--begin::Tags-->
+                            <label for="id_place" class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                <span class="required">جایگاه</span>
+                            </label>
+
+                            <select ng-model="obj.place" id="id_place" name="contents"
+                                   class="form-control">
+                                <option value="" disabled>جایگاه را انتخاب کنید</option>
+                                <option value="up">بالا</option>
+                                <option value="down">پایین</option>
+                                <option value="both">هر دو</option>
+                            </select>
+                        </div>
 
                         <div class="text-center">
                             <button ng-disabled="is_submited" onclick="$('#addEditFeatureModal').modal('hide');"
@@ -262,6 +285,8 @@
 
             $scope.$watch('obj.feature_id', function (newValue, oldValue) {
                 if (newValue) {
+                    $scope.feature = $scope.features.filter(element => element['id'] == newValue)[0];
+                    console.log($scope.feature)
                     $scope.GetFeatureFilterItems(newValue);
                 }
             });
@@ -285,6 +310,10 @@
                 }
                 if (!$scope.obj['value']) {
                     showToast('فیلد مقدار اجباری است!', 'error');
+                    return;
+                }
+                if (!$scope.obj['place']) {
+                    showToast('فیلد جایگاه ویژگی اجباری است!', 'error');
                     return;
                 }
 

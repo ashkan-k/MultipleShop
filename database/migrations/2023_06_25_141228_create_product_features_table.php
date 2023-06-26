@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\EnumHelpers;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -15,6 +16,7 @@ return new class extends Migration {
         Schema::create('product_features', function (Blueprint $table) {
             $table->id();
             $table->string('value');
+            $table->enum('place', EnumHelpers::$ProductFeatureTypeTypeEnum)->nullable();
             $table->foreignId('product_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignId('feature_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->timestamps();

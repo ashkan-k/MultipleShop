@@ -2,6 +2,7 @@
 
 namespace Modules\Product\Database\factories;
 
+use App\Enums\EnumHelpers;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Modules\Product\Entities\Feature;
 use Modules\Product\Entities\Product;
@@ -24,6 +25,7 @@ class ProductFeatureFactory extends Factory
     {
         return [
             'value' => fake()->shuffleString(),
+            'place' => fake()->randomElement(EnumHelpers::$ProductFeatureTypeTypeEnum),
             'product_id' => Product::factory(),
             'feature_id' => Feature::factory(),
         ];

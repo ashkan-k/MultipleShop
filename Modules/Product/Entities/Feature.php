@@ -40,6 +40,8 @@ class Feature extends Model
            return 'چک باکس';
        }elseif ($this->filter_type == 'radio'){
            return 'رادیو باتن';
+       }elseif ($this->filter_type == 'text'){
+           return 'متنی';
        }
         return 'ندارد';
     }

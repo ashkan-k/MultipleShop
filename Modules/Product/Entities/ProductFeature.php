@@ -16,6 +16,7 @@ class ProductFeature extends Model
         'value',
         'product_id',
         'feature_id',
+        'place',
     ];
 
     protected $search_fields  = [
@@ -23,6 +24,16 @@ class ProductFeature extends Model
         'product.title',
         'feature.title',
     ];
+
+    public function get_place()
+    {
+        if ($this->place == 'up'){
+            return 'بالا';
+        }elseif ($this->place == 'down'){
+            return 'پایین';
+        }
+        return 'هر دو';
+    }
 
     protected static function newFactory()
     {
