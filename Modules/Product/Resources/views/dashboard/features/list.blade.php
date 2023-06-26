@@ -108,7 +108,7 @@
 
                                     <td>{{ $item->title ?: '---'  }}</td>
 
-                                    <td>{{ $item->filter_type ?: '---'  }}</td>
+                                    <td>{{ $item->get_filter_type()  }}</td>
 
                                     <td>{{ $item->filter_items ? str_replace('،', ' ,', $item->filter_items) : '---'  }}</td>
 

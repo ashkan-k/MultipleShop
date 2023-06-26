@@ -17,6 +17,7 @@ Route::prefix('admin')->group(function () {
     // Features
     Route::post('features', [FeatureController::class, 'store']);
     Route::post('features/{feature}', [FeatureController::class, 'update']);
+    Route::get('features/items/{feature}', [FeatureController::class, 'feature_filter_items']);
 
     // Product Features
     Route::post('products-features', [ProductFeatureController::class, 'store']);

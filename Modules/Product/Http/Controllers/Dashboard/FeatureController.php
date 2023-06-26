@@ -46,5 +46,11 @@ class FeatureController extends Controller
         $feature->update($request->validated());
         return $this->SuccessResponse('آیتم مورد نظر با موفقیت ویرایش شد.');
     }
+
+    public function feature_filter_items(Feature $feature)
+    {
+        $items = explode('،', $feature->filter_items);
+        return $this->SuccessResponse($items);
+    }
     //
 }

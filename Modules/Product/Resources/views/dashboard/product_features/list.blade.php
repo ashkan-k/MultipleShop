@@ -211,23 +211,6 @@
 {{--                                </option>--}}
                             </select>
 
-                            {{--                            <select id="id_feature_id"--}}
-                            {{--                                    --}}{{--                                    data-kt-select2="true"--}}
-                            {{--                                    --}}{{--                                    data-kt-select2--}}
-                            {{--                                    class="form-control form-control-solid">--}}
-                            {{--                                <option--}}
-                            {{--                                    ng-repeat="item in dd"--}}
-                            {{--                                        --}}{{--                                        ng-show="item.title"--}}
-                            {{--                                        ng-selected="obj.feature_id === item.id"--}}
-                            {{--                                        value="[[item.id]]">[[item.title]]--}}
-                            {{--                                </option>--}}
-                            {{--                                                                <option >ویژگی را انتخاب کنید</option>--}}
-                            {{--                                                                <option value="fdf" selected>ویژگیccccccccccccc</option>--}}
-                            {{--                                --}}{{--                                @foreach($features as $feature)--}}
-                            {{--                                --}}{{--                                    <option ng-selected="obj.feature_id === {{ $feature->id }}"--}}
-                            {{--                                --}}{{--                                            value="{{ $feature->id }}">{{ $feature->title }}</option>--}}
-                            {{--                                --}}{{--                                @endforeach--}}
-                            {{--                            </select>--}}
                         </div>
 
                         <div class="d-flex flex-column mb-8 fv-row">
@@ -236,8 +219,17 @@
                                 <span class="required">مقدار</span>
                             </label>
 
-                            <input ng-model="obj.value" id="id_value" type="text"
-                                   class="form-control form-control-solid" name="value">
+                            <select ng-model="obj.value" id="id_feature_id" name="contents" class="form-control">
+                                <option value="" disabled>مقدار را انتخاب کنید</option>
+                                <option ng-repeat="item in filter_items">[[item]]</option>
+                                {{--                                <option ng-repeat="item in dd"--}}
+                                {{--                                        ng-selected="obj.feature_id === item.id"--}}
+                                {{--                                        value="[[item.id]]">[[item.title]]--}}
+                                {{--                                </option>--}}
+                            </select>
+
+{{--                            <input ng-model="obj.value" id="id_value" type="text"--}}
+{{--                                   class="form-control form-control-solid" name="value">--}}
                         </div>
 
                         <div class="text-center">
@@ -271,12 +263,32 @@
         app.controller('myCtrl', function ($scope, $http) {
             @include('dashboard.section.components.bulk_actions.bulk_actions_js', ['items' => $objects, 'model' => \Modules\Product\Entities\ProductFeature::class])
 
+                $scope.filter_items = [];
+
             $scope.AddEditFeatureModal = function (obj) {
                 $scope.obj = {};
                 if (obj) {
                     $scope.obj = obj;
                 }
                 $('#addEditFeatureModal').modal('show');
+            }
+
+            $scope.$watch('obj.feature_id', function(newValue, oldValue) {
+               if (newValue){
+                   $scope.GetFeatureFilterItems(newValue);
+               }
+            });
+
+            $scope.GetFeatureFilterItems = function (feature_id) {
+                var url = `/api/admin/features/items/${feature_id}/`
+
+                $http.get(url).then(res => {
+                    $scope.is_submited = false;
+                    $scope.filter_items = res['data']['data'];
+                }).catch(err => {
+                    $scope.is_submited = false;
+                    showToast('خطایی رخ داد.', 'error');
+                });
             }
 
             $scope.SubmitAddEditFeature = function (type = 'create') {
