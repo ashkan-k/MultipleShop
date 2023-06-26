@@ -107,7 +107,7 @@
 
                                     <td>{{ $item->title ?: '---'  }}</td>
 
-                                    <td>{{ $item->price ? number_format($item->price) : '---'  }}</td>
+                                    <td>{{ $item->price ? number_format($item->price) : '---'  }} تومان</td>
 
                                     <td>
                                         <div class="symbol symbol-circle symbol-50px overflow-hidden me-3">

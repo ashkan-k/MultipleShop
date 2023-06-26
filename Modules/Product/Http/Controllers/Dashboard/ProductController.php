@@ -36,20 +36,22 @@ class ProductController extends Controller
     {
         $image = $this->UploadFile($request, 'image', 'product_images', $request->title);
 
-        Product::create(array_merge($request->all(), ['image' => $image]));
+        Product::create(array_merge($request->validated(), ['image' => $image]));
         return $this->SuccessRedirect('آیتم مورد نظر با موفقیت ثبت شد.', 'products.index');
     }
 
     public function edit(Product $product)
     {
-        return view('product::dashboard.products.form')->with('object', $product);
+        $users = User::all();
+        $categories = Category::all();
+        return view('product::dashboard.products.form', compact('users', 'categories'))->with('object', $product);
     }
 
     public function update(ProductRequest $request, Product $product)
     {
         $image = $this->UploadFile($request, 'image', 'product_images', $product->title, $product->image);
 
-        $product->update(array_merge($request->all(), ['image' => $image]));
+        $product->update(array_merge($request->validated(), ['image' => $image]));
         return $this->SuccessRedirect('آیتم مورد نظر با موفقیت ویرایش شد.', 'products.index');
     }
 

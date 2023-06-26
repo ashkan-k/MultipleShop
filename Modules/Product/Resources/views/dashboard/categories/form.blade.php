@@ -97,7 +97,7 @@
                                             @foreach($parents as $parent)
 
                                                 <option
-                                                    @if(isset($item->parent_id) && $item->parent_id == $parent->id) selected
+                                                    @if(isset($object->parent_id) && $object->parent_id == $parent->id) selected
                                                     @endif value="{{ $parent->id }}">{{ $parent->title }}
                                                 </option>
 

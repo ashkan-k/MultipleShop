@@ -13,19 +13,25 @@ class ProductRequest extends FormRequest
      */
     public function rules()
     {
-        return [
+        $rules =  [
            'title' => 'required|string',
            'description' => 'required',
            'price' => 'required|numeric',
-           'discount_price' => 'required|numeric',
-            'discount_start_date' => 'required|jdate:Y-m-d|after:' . \verta()->formatDate(),
-            'discount_end_date' => 'required|jdate:Y-m-d|after:discount_start_date',
-            'image' => 'required|image|mimes:jpeg,png,bmp,jpg',
+           'discount_price' => 'nullable|numeric',
+            'discount_start_date' => 'nullable|jdate:Y-m-d|after:' . \verta()->formatDate(),
+            'discount_end_date' => 'nullable|jdate:Y-m-d|after:discount_start_date',
+            'image' => 'image|mimes:jpeg,png,bmp,jpg',
             'user_id' => 'required|exists:users,id',
             'category_id' => 'required|exists:categories,id',
             'is_active' => 'boolean',
             'is_special' => 'boolean',
         ];
+
+        if (request()->method() == 'POST'){
+            $rules['image'] .= '|required';
+        }
+
+        return $rules;
     }
 
     /**

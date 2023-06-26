@@ -137,7 +137,7 @@
                                             @foreach($categories as $category)
 
                                                 <option
-                                                    @if(isset($item->category_id) && $item->category_id == $category->id) selected
+                                                    @if(isset($object->category_id) && $object->category_id == $category->id) selected
                                                     @endif value="{{ $category->id }}">{{ $category->title }}
                                                 </option>
 
@@ -167,8 +167,8 @@
                                             @foreach($users as $user)
 
                                                 <option
-                                                    @if(isset($item->user_id) && $item->user_id == $user->id) selected
-                                                    @endif value="{{ $user->id }}">{{ $user->title }}
+                                                    @if(isset($object->user_id) && $object->user_id == $user->id) selected
+                                                    @endif value="{{ $user->id }}">{{ $user->full_name() }}
                                                 </option>
 
                                             @endforeach
@@ -353,9 +353,6 @@
 @section('Scripts')
     <script>
         CKEDITOR.replace('id_description');
-
-        $('#id_user_id').select2();
-        $('#id_category_id').select2();
     </script>
 
     <script>
