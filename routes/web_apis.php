@@ -9,11 +9,13 @@ use Modules\Product\Http\Controllers\Dashboard\ProductFeatureController;
 use Modules\User\Http\Controllers\Dashboard\UserController;
 
 Route::post('admin/bulk/actions', [BulkActionController::class, 'admin_bulk'])->middleware('check_admin');
-// Users
-Route::post('admin/users/status/change/{user}', [UserController::class, 'change_status'])->middleware('check_admin');
 
 // Products
-Route::prefix('admin')->group(function () {
+Route::prefix('admin')->middleware('check_admin')->group(function () {
+    // Users
+    Route::post('users/status/change/{user}', [UserController::class, 'change_status']);
+
+
     // Features
     Route::post('features', [FeatureController::class, 'store']);
     Route::post('features/{feature}', [FeatureController::class, 'update']);

@@ -57,11 +57,6 @@ class Product extends Model
         return $this->image ?? 'https://www.hardiagedcare.com.au/wp-content/uploads/2019/02/default-avatar-profile-icon-vector-18942381.jpg';
     }
 
-    public function get_avatar()
-    {
-        return $this->avatar ?? 'https://www.hardiagedcare.com.au/wp-content/uploads/2019/02/default-avatar-profile-icon-vector-18942381.jpg';
-    }
-
     public function get_status()
     {
         if ($this->is_active) {
@@ -129,5 +124,10 @@ class Product extends Model
     public function features()
     {
         return $this->belongsToMany(Feature::class, 'product_features');
+    }
+
+    public function galleries()
+    {
+        return $this->hasMany(Gallery::class);
     }
 }
