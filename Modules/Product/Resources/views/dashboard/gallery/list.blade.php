@@ -97,36 +97,8 @@
                                 </td>
 
                                 <td class="">
-                                    <a href="#"
-                                       class="btn btn-light btn-active-light-primary btn-flex btn-center btn-sm"
-                                       data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">عملیات
-                                        <i class="ki-duotone ki-down fs-5 ms-1"></i></a>
-                                    <!--begin::Menu-->
-                                    <div
-                                        class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4"
-                                        data-kt-menu="true">
-                                        <div class="menu-item px-3">
-                                            <a ng-click="AddEditGalleryModal([[ item.id ]])" class="menu-link px-3"
-                                               data-kt-features-table-filter="delete_row">ویرایش</a>
-                                        </div>
-                                        <div class="menu-item px-3">
-
-                                            {{--                                                <form--}}
-                                            {{--                                                    action="{{ route('product-features.destroy' , $item->id) }}?next_url={{ request()->fullUrl() }}"--}}
-                                            {{--                                                    id="delete_form_{{ $loop->index }}" method="post">--}}
-                                            {{--                                                    @csrf--}}
-                                            {{--                                                    @method('DELETE')--}}
-
-                                            {{--                                                    <a onclick="return Delete('{{ $loop->index }}')"--}}
-                                            {{--                                                       class="menu-link px-3"--}}
-                                            {{--                                                       data-kt-features-table-filter="delete_row">حذف</a>--}}
-
-                                            {{--                                                </form>--}}
-
-
-                                        </div>
-                                    </div>
-                                    <!--end::Menu-->
+                                    <a ng-click="removeGallery([[item.id]])"
+                                       class="btn btn-bg-light btn-color-muted btn-active-color-primary btn-sm px-4 me-2">حذف</a>
                                 </td>
                             </tr>
 
@@ -240,6 +212,22 @@
                 });
             }
 
+            $scope.removeGallery = function (itemId) {
+                let title = 'حذف آیتم';
+                let description = 'آیا از حذف این آیتم مطمئن هستید؟ این عملیات غیرقابل بازگشت است.';
+                let url = '/api/products/galleries/';
+                createSwal("warning", description, title).then((result) => {
+                    if (result.value) {
+                        $http.delete(`${url}${itemId}/`).then(function () {
+                            showToast('آیتم مورد نظر با موفقیت حذف شد.', 'success');
+                            $scope.GetGallery();
+                        }).catch(function (err) {
+                            parseError(err);
+                        })
+                    }
+                });
+            };
+
             $scope.SubmitAddEditGallery = function (type = 'create') {
                 if (!$("#id_image")[0].files[0]) {
                     showToast('فیلد تصویر اجباری است!', 'error');
@@ -261,12 +249,16 @@
                     showToast(res['data']['data'], 'success');
                     $scope.is_submited = false;
                     $scope.obj = {};
+
+                    $('#id_image').val('');
+                    $('#addEditGalleyModal').modal('hide');
                     $scope.GetGallery();
 
                 }).catch(err => {
                     $scope.is_submited = false;
                     if (err['data']['errors']['image']) {
                         showToast(err['data']['errors']['image'][0], 'error');
+                        showToast(err['data']['errors']['image'][1], 'error');
                         return;
                     }
                     showToast('خطایی رخ داد.', 'error');
