@@ -26,7 +26,7 @@ class FeatureRequest extends FormRequest
             ],
             'is_filter' => 'boolean',
             'filter_type' => 'nullable|in:checkbox,radio,text',
-            'filter_items' => 'string',
+            'filter_items' => 'nullable|string',
 //            'filter_items' => 'required_without:is_filter,true',
         ];
     }

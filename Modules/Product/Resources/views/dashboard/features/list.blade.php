@@ -4,7 +4,7 @@
 
 @endsection
 @section('content')
-    <div class="d-flex flex-column flex-column-fluid">
+    <div class="d-flex flex-column flex-column-fluid" ng-init="init()">
         <!--begin::Toolbar-->
         <div id="kt_app_toolbar" class="app-toolbar py-3 py-lg-6">
             <!--begin::Toolbar container-->
@@ -202,7 +202,7 @@
                                 <span class="required">عنوان</span>
                             </label>
 
-                            <input ng-model="obj.title" id="id_title" type="text"
+                            <input ng-model="instance.title" id="id_title" type="text"
                                    class="form-control form-control-solid" name="title">
                         </div>
 
@@ -211,17 +211,18 @@
                                 <span class="required">آیا به عنوان فیلتر استفاده شود؟</span>
                             </label>
 
-                            <input name="is_filter" ng-model="obj.is_filter"
+                            <input name="is_filter" ng-model="instance.is_filter"
                                    class="form-check-input w-45px h-30px" type="checkbox"
                                    id="id_is_filter">
                         </div>
 
-                        <div ng-if="obj.is_filter" class="d-flex flex-column mb-8 fv-row">
+                        <div ng-if="instance.is_filter" class="d-flex flex-column mb-8 fv-row">
                             <label for="id_filter_type" class="d-flex align-items-center fs-6 fw-semibold mb-2">
                                 <span class="required">نوع فیلتر</span>
                             </label>
 
-                            <select ng-model="obj.filter_type" id="id_filter_type" class="form-control form-control-solid">
+                            <select ng-model="instance.filter_type" id="id_filter_type"
+                                    class="form-control form-control-solid">
                                 <option value="" disabled>نوع فیلتر را انتخاب کنید</option>
                                 <option value="checkbox">چک باکس</option>
                                 <option value="radio">رادیو باتن</option>
@@ -229,15 +230,53 @@
                             </select>
                         </div>
 
-                        <div ng-if="obj.is_filter" class="d-flex flex-column mb-8 fv-row">
-                            <label for="id_filter_items" class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                <span class="required">گزینه های فیتلر</span>
-                            </label>
+                        <div
+                            ng-if="instance.is_filter && (instance.filter_type == 'checkbox' || instance.filter_type == 'radio')"
+                            class="modal-body" style="margin-top: 0px !important;">
+                            <div class="col-12 text-justify mt-3">
+                                <label class="form-label">
+                                    گزینه های فیتلر
+                                </label>
+                            </div>
+                            <div class="col-12 text-justify mt-3" ng-repeat="(id, j) in instance.filter_items">
+                                <div class="row">
+                                    <div class="col-lg-1 col-sm-1 col-md-1 col-xs-1 pl-0 ">
+                                        <div class="arrow-v mt-1 modal-body">
+                                            [[id + 1]]
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-10 col-sm-10 col-md-10 col-xs-10 modal-body">
+                                        <div class="form-row">
+                                            <input type="text" class="form-control"
+                                                   ng-model="j.text"
+                                                   placeholder="متن گزینه" required="">
+                                        </div>
+                                    </div>
 
-                            <input ng-model="obj.filter_items" id="id_filter_items" type="text"
-                                   class="form-control form-control-solid" name="filter_items">
-                            <p style="color: red">* گزین ها را با ویرگول از یکدیگر جداکنید. مثال (آبی،سبز،زرد)</p>
+                                    <div class="col-lg-1 col-sm-1 col-md-1 col-xs-1" style="margin-top: 25px">
+                                        <a class="text-center" type="button" style="cursor: pointer"
+                                           ng-click="instance.filter_items.push({ text: '', index: id+1 })"><i
+                                                class="text-center  fa fa-plus trash-custom text-success"></i></a>
+                                        &nbsp;
+                                        <a type="button" style="cursor: pointer"
+                                           ng-click="instance.filter_items.length > 1 ? RemoveChoice(id, j) : null">
+                                            <i class="text-center  fa fa-trash text-red"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+
+                        {{--                        <div ng-if="instance.is_filter" class="d-flex flex-column mb-8 fv-row">--}}
+                        {{--                            <label for="id_filter_items" class="d-flex align-items-center fs-6 fw-semibold mb-2">--}}
+                        {{--                                <span class="required">گزینه های فیتلر</span>--}}
+                        {{--                            </label>--}}
+
+                        {{--                            <input ng-model="instance.filter_items" id="id_filter_items" type="text"--}}
+                        {{--                            <input id="id_filter_items" type="text"--}}
+                        {{--                                   class="form-control form-control-solid" name="filter_items">--}}
+                        {{--                            <p style="color: red">* گزین ها را با ویرگول از یکدیگر جداکنید. مثال (آبی،سبز،زرد)</p>--}}
+                        {{--                        </div>--}}
 
                         <div class="text-center">
                             <button ng-disabled="is_submited" onclick="$('#addEditFeatureModal').modal('hide');"
@@ -270,47 +309,119 @@
         app.controller('myCtrl', function ($scope, $http) {
             @include('dashboard.section.components.bulk_actions.bulk_actions_js', ['items' => $objects, 'model' => \Modules\Product\Entities\Feature::class])
 
-                $scope.obj = {};
+                $scope.instance = {};
+            $scope.question = {};
 
-                $scope.AddEditFeatureModal = function (obj) {
-                $scope.obj = {};
+            $scope.init = function () {
+                $scope.instance.filter_items = [{
+                    text: "",
+                },];
+            }
+
+            $scope.RemoveChoice = function (id, j) {
+                $scope.instance.filter_items.splice(id, 1);
+            }
+
+            $scope.AddEditFeatureModal = function (obj) {
+                $scope.instance.filter_items = [{
+                    text: "",
+                },];
+
                 if (obj) {
-                    $scope.obj = obj;
-                    if (obj.is_filter){
+                    $scope.instance = obj;
+                    if (obj.is_filter) {
                         $('#id_is_filter').prop('checked', true);
                     }
+                    if ($scope.instance['filter_items'] && $scope.instance['filter_items'].split(',')){
+                        var tem_filter_items = [];
+                        for (const item in $scope.instance['filter_items'].split(',')){
+                            if (item == '_indexOf'){
+                                break;
+                            }
+                            tem_filter_items.push({
+                                text: "",
+                            })
+                        }
+
+                        $scope.instance['filter_items'] = tem_filter_items;
+                    }
                 }
+                console.log($scope.instance);
                 $('#addEditFeatureModal').modal('show');
             }
 
             $scope.SubmitAddEditFeature = function () {
-                if (!$scope.obj['title']) {
+                if (!$scope.instance['title']) {
                     showToast('فیلد عنوان اجباری است!', 'error');
                     return;
                 }
 
-                if ($scope.obj['is_filter']) {
-                    if (!$scope.obj['filter_type']) {
+                if ($scope.instance['is_filter']) {
+                    if (!$scope.instance['filter_type']) {
                         showToast('فیلد نوع فیلتر اجباری است!', 'error');
                         return;
                     }
-                    if (!$scope.obj['filter_items']) {
-                        showToast('فیلد گزینه های فیلتر اجباری است!', 'error');
-                        return;
+
+                   if ($scope.instance['filter_type'] == 'checkbox' || $scope.instance['filter_type'] == 'radio'){
+                       for (const item in $scope.instance.filter_items) {
+                           if (item == '_indexOf'){
+                               break;
+                           }
+                           console.log(item)
+                           if (!$scope.instance.filter_items[item]['text']) {
+                               showToast(`متن گزینه ${parseInt(item) + 1} خالی است!`, 'error');
+                               return;
+                           }
+
+                           const texts = [];
+
+                           for (const i in $scope.instance.filter_items) {
+                               if ($scope.instance.filter_items[i]['text']) {
+                                   texts.push($scope.instance.filter_items[i]['text']);
+                               }
+                           }
+
+                           const error_indexes = texts.filter(x => x == $scope.instance.filter_items[item]['text']);
+
+                           if (error_indexes.length > 1) {
+                               showToast(`عنوان گزینه ${error_indexes[0]} تکرار شده است!`, 'error');
+                               return false;
+                           }
+                       }
+                   }
+                }
+
+                var tem_filter_items = '';
+
+                if ($scope.instance['filter_items'] && $scope.instance['filter_items'].length > 0){
+
+                    for (const item in $scope.instance['filter_items']){
+                        if (item == '_indexOf'){
+                            break;
+                        }
+                        if (tem_filter_items === ''){
+                            tem_filter_items += $scope.instance['filter_items'][item]['text'];
+                        }else {
+                            tem_filter_items = tem_filter_items + '،' + $scope.instance['filter_items'][item]['text'];
+                        }
                     }
                 }
 
+                console.log(tem_filter_items);
+
                 $scope.is_submited = true;
+                var data = $scope.instance;
 
-                $scope.obj['category_id'] = {{ $category->id }};
+                data['category_id'] = {{ $category->id }};
+                data['filter_items'] = tem_filter_items;
 
-                if ($scope.obj['id']) {
-                    var url = `/api/admin/features/${$scope.obj['id']}/`
+                if (data['id']) {
+                    var url = `/api/admin/features/${data['id']}/`
                 } else {
                     var url = `/api/admin/features/`
                 }
 
-                $http.post(url, $scope.obj).then(res => {
+                $http.post(url, data).then(res => {
                     showToast(res['data']['data'], 'success');
                     $scope.is_submited = false;
                     setTimeout(() => {
