@@ -1,4 +1,10 @@
 <form id="search_form">
+    @if(request()->method() == 'GET')
+        @foreach(request()->all() as $key => $value)
+            <input type="hidden" name="{{ $key }}" value="{{ $value }}">
+        @endforeach
+    @endif
+
     <div class="card-title">
         <!--begin::جستجو-->
         <div class="d-flex align-items-center position-relative my-1">

@@ -18,7 +18,7 @@ class Feature extends Model
 
     protected $search_fields  = [
         'title',
-        'category_id.title',
+        'category.title',
     ];
 
     protected static function newFactory()

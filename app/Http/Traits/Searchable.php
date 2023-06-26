@@ -13,16 +13,28 @@ trait Searchable
             throw new \Exception("Please define the search_fields property .");
         }
 
-        foreach ($this->search_fields as $field) {
-            if (str_contains($field, '.')) {
-                $relation = Str::beforeLast($field, '.');
-                $column = Str::afterLast($field, '.');
+        if (count($this->search_fields) > 0){
+            $builder = $builder->where(function ($query) use ($search){
+                foreach ($this->search_fields as $field) {
+                    if (str_contains($field, '.')) {
+                        $relation = Str::beforeLast($field, '.');
+                        $column = Str::afterLast($field, '.');
 
-                $builder->orWhereRelation($relation, $column, 'like', '%' . $search . '%');
-                continue;
-            }
+                        if (count($this->search_fields) > 1){
+                            $query->orWhereRelation($relation, $column, 'like', '%' . $search . '%');
+                        }else{
+                            $query->WhereRelation($relation, $column, 'like', '%' . $search . '%');
+                        }
+                        continue;
+                    }
 
-            $builder->orWhere($field, 'like', '%' . $search . '%');
+                    if (count($this->search_fields) > 1){
+                        $query->orWhere($field, 'like', '%' . $search . '%');            }
+                    else{
+                        $query->Where($field, 'like', '%' . $search . '%');
+                    }
+                }
+            });
         }
 
         return $builder;
