@@ -124,8 +124,9 @@
                                             </div>
                                             <div class="menu-item px-3">
 
-                                                <form action="{{ route('product-features.destroy' , $item->id) }}?next_url={{ request()->fullUrl() }}"
-                                                      id="delete_form_{{ $loop->index }}" method="post">
+                                                <form
+                                                    action="{{ route('product-features.destroy' , $item->id) }}?next_url={{ request()->fullUrl() }}"
+                                                    id="delete_form_{{ $loop->index }}" method="post">
                                                     @csrf
                                                     @method('DELETE')
 
@@ -198,17 +199,10 @@
                                 <span class="required">ویژگی</span>
                             </label>
 
-
-                            <select ng-model="obj.feature_id" id="id_feature_id" name="contents" class="form-control">
-                                <option value="">ویژگی را انتخاب کنید</option>
-                                @foreach($features as $feature)
-                                    <option ng-selected="obj.feature_id === {{ $feature->id }}"
-                                            value="{{ $feature->id }}">{{ $feature->title }}</option>
-                                @endforeach
-{{--                                <option ng-repeat="item in dd"--}}
-{{--                                        ng-selected="obj.feature_id === item.id"--}}
-{{--                                        value="[[item.id]]">[[item.title]]--}}
-{{--                                </option>--}}
+                            <select ng-model="obj.feature_id" id="id_feature_id" name="contents"
+                                    data-kt-select2="true"
+                                    ng-options="item.id as item.title for item in features"
+                                    class="form-control">
                             </select>
 
                         </div>
@@ -219,18 +213,12 @@
                                 <span class="required">مقدار</span>
                             </label>
 
-                            <select ng-model="obj.value" id="id_feature_id" name="contents" class="form-control">
+                            <select ng-model="obj.value" id="id_value" name="contents"
+                                    ng-options="item as item for item in filter_items"
+                                    class="form-control">
                                 <option value="" disabled>مقدار را انتخاب کنید</option>
-                                <option ng-repeat="item in filter_items">[[item]]</option>
-                                {{--                                <option ng-repeat="item in dd"--}}
-                                {{--                                        ng-selected="obj.feature_id === item.id"--}}
-                                {{--                                        value="[[item.id]]">[[item.title]]--}}
-                                {{--                                </option>--}}
                             </select>
-
-{{--                            <input ng-model="obj.value" id="id_value" type="text"--}}
-{{--                                   class="form-control form-control-solid" name="value">--}}
-                        </div>
+                         </div>
 
                         <div class="text-center">
                             <button ng-disabled="is_submited" onclick="$('#addEditFeatureModal').modal('hide');"
@@ -258,12 +246,11 @@
     @include('dashboard.section.components.search_box_js')
 
     <script>
-        $('#id_feature_id').select2();
-
         app.controller('myCtrl', function ($scope, $http) {
             @include('dashboard.section.components.bulk_actions.bulk_actions_js', ['items' => $objects, 'model' => \Modules\Product\Entities\ProductFeature::class])
 
                 $scope.filter_items = [];
+                $scope.features = <?php echo json_encode($features); ?>;
 
             $scope.AddEditFeatureModal = function (obj) {
                 $scope.obj = {};
@@ -273,10 +260,10 @@
                 $('#addEditFeatureModal').modal('show');
             }
 
-            $scope.$watch('obj.feature_id', function(newValue, oldValue) {
-               if (newValue){
-                   $scope.GetFeatureFilterItems(newValue);
-               }
+            $scope.$watch('obj.feature_id', function (newValue, oldValue) {
+                if (newValue) {
+                    $scope.GetFeatureFilterItems(newValue);
+                }
             });
 
             $scope.GetFeatureFilterItems = function (feature_id) {
@@ -319,11 +306,11 @@
                     }, 500)
                 }).catch(err => {
                     $scope.is_submited = false;
-                    if (err['data']['errors']['feature_id']){
+                    if (err['data']['errors']['feature_id']) {
                         showToast(err['data']['errors']['feature_id'][0], 'error');
                         return;
                     }
-                    if (err['data']['errors']['product_id']){
+                    if (err['data']['errors']['product_id']) {
                         showToast(err['data']['errors']['product_id'][0], 'error');
                         return;
                     }
