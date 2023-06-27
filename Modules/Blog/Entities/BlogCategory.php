@@ -12,6 +12,8 @@ class BlogCategory extends Model
     use HasFactory;
     use Searchable;
 
+    protected $table = 'blog_categories';
+
     protected $fillable = [
         'title',
         'slug',

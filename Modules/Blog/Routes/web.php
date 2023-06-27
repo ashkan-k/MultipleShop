@@ -14,4 +14,4 @@
 use Illuminate\Support\Facades\Route;
 use Modules\Blog\Http\Controllers\BlogCategoryController;
 
-Route::resource('blog-categories', BlogCategoryController::class, ['prefix' => 'blog-categories']);
+Route::resource('blog/categories', BlogCategoryController::class, ['as' => 'blog-categories']);

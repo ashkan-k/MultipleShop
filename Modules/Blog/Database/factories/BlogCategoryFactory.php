@@ -21,7 +21,8 @@ class BlogCategoryFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'title' => fake()->title(),
+            'image' => fake()->imageUrl(),
         ];
     }
 }

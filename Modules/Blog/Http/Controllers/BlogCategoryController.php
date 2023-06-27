@@ -20,12 +20,12 @@ class BlogCategoryController extends Controller
             ->latest()
             ->paginate(\request('pagination', env('PAGINATION_NUMBER', 10)));
 
-        return view('product::dashboard.blog-categories.list', compact('objects'));
+        return view('blog::dashboard.blog-categories.list', compact('objects'));
     }
 
     public function create()
     {
-        return view('product::dashboard.blog-categories.form');
+        return view('blog::dashboard.blog-categories.form');
     }
 
     public function store(BlogCategoryRequest $request)
@@ -36,22 +36,23 @@ class BlogCategoryController extends Controller
         return $this->SuccessRedirect('آیتم مورد نظر با موفقیت ثبت شد.', 'blog-categories.index');
     }
 
-    public function edit(BlogCategory $blogCategory)
+    public function edit(BlogCategory $category)
     {
-        return view('product::dashboard.blog-categories.form')->with('object', $blogCategory);
+        return view('blog::dashboard.blog-categories.form')->with('object', $category);
     }
 
-    public function update(BlogCategoryRequest $request, BlogCategory $blogCategory)
+    public function update(BlogCategoryRequest $request, BlogCategory $category)
     {
-        $image = $this->UploadFile($request, 'image', 'blog_category_images', $blogCategory->title, $blogCategory->image);
+        dd($category);
+        $image = $this->UploadFile($request, 'image', 'blog_category_images', $category->title, $category->image);
 
-        $blogCategory->update(array_merge($request->all(), ['image' => $image]));
+        $category->update(array_merge($request->all(), ['image' => $image]));
         return $this->SuccessRedirect('آیتم مورد نظر با موفقیت ویرایش شد.', 'blog-categories.index');
     }
 
-    public function destroy(BlogCategory $blogCategory)
+    public function destroy(BlogCategory $category)
     {
-        $blogCategory->delete();
+        $category->delete();
         return $this->SuccessRedirect('آیتم مورد نظر با موفقیت حذف شد.', 'blog-categories.index');
     }
 }
