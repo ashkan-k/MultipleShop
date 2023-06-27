@@ -176,12 +176,12 @@
                                     <div class="d-flex align-items-center flex-wrap gap-2">
                                         <!--begin::Heading-->
                                         <h2 class="fw-semibold me-3 my-1">{{ $ticket->title ?: '---'  }}</h2>
-                                                                                <span class="badge badge-light-primary my-1 me-2">اینباکس</span>
-                                        @if($ticket->file)
-                                            <span onclick="window.open('{{ $ticket->file ?: '---' }}','_blank')"
-                                                  style="font-size: 13px !important;"
-                                                  class="active_modal_buttons badge badge-light-danger my-1">فایل ضمیمه</span>
-                                        @endif
+                                        {{--                                        <span class="badge badge-light-primary my-1 me-2">اینباکس</span>--}}
+{{--                                        @if($ticket->file)--}}
+{{--                                            <span onclick="window.open('{{ $ticket->file ?: '---' }}','_blank')"--}}
+{{--                                                  style="font-size: 13px !important;"--}}
+{{--                                                  class="active_modal_buttons badge badge-light-danger my-1">فایل ضمیمه</span>--}}
+{{--                                        @endif--}}
                                     </div>
                                 </div>
                                 <!--end::Title-->
@@ -203,6 +203,7 @@
                                                 <div class="d-flex align-items-center flex-wrap gap-1">
                                                     <a href="#"
                                                        class="fw-bold text-dark text-hover-primary">{{ $ticket->user ? $ticket->user->full_name() : '---' }}</a>
+                                                    &nbsp;&nbsp;
                                                     <span
                                                         class="text-muted fw-bold">{{ \Carbon\Carbon::parse( $ticket->created_at )->diffForHumans() }}</span>
                                                 </div>
@@ -220,6 +221,9 @@
 
                                     <div class="collapse fade show" data-kt-inbox-message="message">
                                         <div class="py-5">{!! $ticket->text ?: '---' !!}</div>
+                                        @if($ticket->file)
+                                            <a href="{{ $ticket->file ?: '---' }}" target="_blank" class="btn btn-sm btn-warning">فایل ضمیمه</a>
+                                        @endif
                                     </div>
                                 </div>
 
@@ -241,12 +245,17 @@
                                                     <div class="d-flex align-items-center flex-wrap gap-1">
                                                         <a href="#"
                                                            class="fw-bold text-dark text-hover-primary">{{ $answer->user ? $answer->user->full_name() : '---' }}</a>
+                                                        &nbsp;&nbsp;
                                                         <span
                                                             class="text-muted fw-bold">{{ \Carbon\Carbon::parse( $answer->created_at )->diffForHumans() }}</span>
                                                     </div>
 
-                                                    <div class="text-muted fw-semibold mw-450px"
-                                                         data-kt-inbox-message="نمایش">{!! $answer->text !!}</div>
+                                                    <div class="text-muted fw-semibold mw-450px">
+                                                        {!! $answer->text !!}
+                                                        @if($answer->file)
+                                                            <a href="{{ $answer->file ?: '---' }}" target="_blank" class="btn btn-sm btn-warning">فایل ضمیمه</a>
+                                                        @endif
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -263,7 +272,7 @@
                                       enctype="multipart/form-data">
                                     @csrf
 
-                                    <input style="display: none" type="file" name="file" id="id_file">
+                                    <input style="display: none" type="file" name="file" id="id_file" value="">
 
                                     <div class="d-flex flex-column fv-row">
                                             <textarea type="text" id="id_text" class="form-control form-control-solid"
