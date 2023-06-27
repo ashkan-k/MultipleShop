@@ -111,9 +111,7 @@
 
                                     <td>{{ $item->user ? $item->user->full_name() : '---'  }}</td>
 
-{{--                                    <td>{{ $item->expiration ?: '---'  }}</td>--}}
-
-                                    <td>{{ \Hekmatinasser\Verta\Verta:: instance($item->expiration)->format('%B %d، %Y') }}</td>
+                                    <td>{{ $item->expiration ? \Hekmatinasser\Verta\Verta:: parse($item->expiration)->format('%B %d، %Y') : '---' }}</td>
 
                                     <td class="">
                                         <a href="#"
