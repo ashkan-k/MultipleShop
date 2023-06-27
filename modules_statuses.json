@@ -4,5 +4,6 @@
     "Dashboard": true,
     "Product": true,
     "Slider": true,
-    "Coupon": true
+    "Coupon": true,
+    "Blog": true
 }
