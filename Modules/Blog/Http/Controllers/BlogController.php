@@ -51,4 +51,10 @@ class BlogController extends Controller
         $blog->update(array_merge($request->validated(), ['image' => $image]));
         return $this->SuccessRedirect('آیتم مورد نظر با موفقیت ویرایش شد.', 'blogs.index');
     }
+
+    public function change_status(Blog $blog)
+    {
+        $blog->update(['status' => \request('status')]);
+        return $this->SuccessResponse('وضعیت آیتم مورد نظر با موفقیت تغییر یافت.');
+    }
 }

@@ -4,6 +4,7 @@
 // BulkActions
 use App\Http\Controllers\BulkActionController;
 use Illuminate\Support\Facades\Route;
+use Modules\Blog\Http\Controllers\BlogController;
 use Modules\Product\Http\Controllers\Dashboard\FeatureController;
 use Modules\Product\Http\Controllers\Dashboard\ProductFeatureController;
 use Modules\User\Http\Controllers\Dashboard\UserController;
@@ -14,6 +15,7 @@ Route::post('admin/bulk/actions', [BulkActionController::class, 'admin_bulk'])->
 Route::prefix('admin')->middleware('check_admin')->group(function () {
     // Users
     Route::post('users/status/change/{user}', [UserController::class, 'change_status']);
+    Route::post('blogs/status/change/{blog}', [BlogController::class, 'change_status']);
 
     // Features
     Route::post('features', [FeatureController::class, 'store']);

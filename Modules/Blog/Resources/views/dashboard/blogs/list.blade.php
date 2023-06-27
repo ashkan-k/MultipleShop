@@ -111,12 +111,12 @@
 
                                     <td>{{ $item->user ? $item->user->full_name() : '---'}}</td>
 
-                                    <td>{{ $item->view_count ? : '---' }}</td>
+                                    <td>{{ $item->view_count ? : '0' }}</td>
 
-                                    <td>{{ $item->like_count ? : '---' }}</td>
+                                    <td>{{ $item->like_count ? : '0' }}</td>
 
                                     <td>
-                                        <div
+                                        <div ng-click="ChangeStatusModal({{ $item->id }}, '{{ $item->status }}')"
                                             class="badge badge-light-{{ $item->get_status_class() }} active_modal_buttons">{{ $item->get_status() }}</div>
                                     </td>
 
@@ -187,6 +187,65 @@
         </div>
         <!--end::Content-->
     </div>
+
+    <div class="modal fade" id="changeStatusModal" tabindex="-1" aria-hidden="true">
+        <!--begin::Modal dialog-->
+        <div class="modal-dialog modal-dialog-centered mw-650px">
+            <!--begin::Modal content-->
+            <div class="modal-content rounded">
+                <!--begin::Modal header-->
+                <div class="modal-header pb-0 border-0 justify-content-end">
+                    <!--begin::Close-->
+                    <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                        <i class="ki-duotone ki-cross fs-1">
+                            <span class="path1"></span>
+                            <span class="path2"></span>
+                        </i>
+                    </div>
+                    <!--end::Close-->
+                </div>
+                <!--begin::Modal header-->
+                <!--begin::Modal body-->
+                <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
+                    <!--begin:Form-->
+                    <form id="changeStatusModal_form" class="form" action="#">
+                        <!--begin::Heading-->
+                        <div class="mb-13 text-center">
+                            <h1 class="mb-3">تغییر وضعیت</h1>
+                        </div>
+
+                        <div class="d-flex flex-column mb-8 fv-row">
+                            <!--begin::Tags-->
+                            <label for="id_status" class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                <span class="required">وضعیت</span>
+                            </label>
+                            <!--end::Tags-->
+                            <select ng-model="status" id="id_status" class="form-control form-control-solid">
+                                <option value="draft">پیش نویس</option>
+                                <option value="publish">انتشار</option>
+                                <option value="done">پایان انتشار</option>
+                            </select>
+                        </div>
+
+                        <div class="text-center">
+                            <button ng-disabled="is_submited" onclick="$('#changeStatusModal').modal('hide');"
+                                    type="reset" id="changeStatusModal_cancel" class="btn btn-light me-3">انصراف
+                            </button>
+                            <button type="button" ng-click="ChangeStatus()" ng-disabled="is_submited"
+                                    class="btn btn-primary">
+                                <span class="indicator-label">ثبت</span>
+                            </button>
+                        </div>
+                        <!--end::Actions-->
+                    </form>
+                    <!--end:Form-->
+                </div>
+                <!--end::Modal body-->
+            </div>
+            <!--end::Modal content-->
+        </div>
+        <!--end::Modal dialog-->
+    </div>
 @endsection
 
 @section('Scripts')
@@ -196,6 +255,31 @@
     <script>
         app.controller('myCtrl', function ($scope, $http) {
             @include('dashboard.section.components.bulk_actions.bulk_actions_js', ['items' => $objects, 'model' => \Modules\Blog\Entities\Blog::class])
+
+            $scope.ChangeStatusModal = function (id, status) {
+                $scope.id = id;
+                $scope.status = status;
+                $('#changeStatusModal').modal('show');
+            }
+
+            $scope.ChangeStatus = function () {
+                $scope.is_submited = true;
+
+                var data = {
+                    "status": $scope.status
+                };
+
+                $http.post(`/api/admin/blogs/status/change/${$scope.id}`, data).then(res => {
+                    showToast('وضعیت آیتم مورد نظر با موفقیت تغییر کرد.', 'success');
+                    $scope.is_submited = false;
+                    setTimeout(() => {
+                        location.reload()
+                    }, 500)
+                }).catch(err => {
+                    $scope.is_submited = false;
+                    showToast('خطایی رخ داد.', 'error');
+                });
+            }
         });
     </script>
 @endsection
