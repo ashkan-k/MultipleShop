@@ -17,20 +17,29 @@ class BlogCategory extends Model
     protected $fillable = [
         'title',
         'slug',
+        'en_title',
+        'en_slug',
         'image',
     ];
 
     protected $search_fields  = [
         'title',
         'slug',
+        'en_title',
+        'en_slug',
     ];
 
     public function save(array $options = [])
     {
         if (!$this->slug){
-            $this->slug = Str::slug($this->title);
+            $this->slug = $this->title;
         }
         $this->slug = Str::slug($this->slug);
+
+        if (!$this->en_slug){
+            $this->en_slug = $this->en_title;
+        }
+        $this->en_slug = Str::slug($this->en_slug);
 
         try {
             $saved =  parent::save($options);

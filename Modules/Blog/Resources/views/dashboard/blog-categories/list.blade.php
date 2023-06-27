@@ -84,6 +84,8 @@
                                 </th>
                                 <th>عنوان</th>
                                 <th>نامک</th>
+                                <th>عنوان انگلیسی</th>
+                                <th>نامک انگلیسی</th>
                                 <th>عکس</th>
                                 <th>عملیات</th>
                             </tr>
@@ -104,6 +106,10 @@
                                     <td>{{ $item->title ?: '---'  }}</td>
 
                                     <td>{{ $item->slug ?: '---'  }}</td>
+
+                                    <td>{{ $item->en_title ?: '---'  }}</td>
+
+                                    <td>{{ $item->en_slug ?: '---'  }}</td>
 
                                     <td>
                                         <div class="symbol symbol-circle symbol-50px overflow-hidden me-3">

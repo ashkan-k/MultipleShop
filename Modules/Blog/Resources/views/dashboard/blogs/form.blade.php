@@ -1,5 +1,5 @@
 @extends('layouts.admin-master')
-@section('title','محصولات')
+@section('title','مقالات')
 @section('Styles')
 
 @endsection
@@ -13,7 +13,7 @@
                 <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
                     <!--begin::Title-->
                     <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">
-                        افزودن محصول</h1>
+                        افزودن مقاله</h1>
                     <!--end::Title-->
                     <!--begin::Breadcrumb-->
                     <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1">
@@ -29,7 +29,7 @@
                         <!--end::آیتم-->
                         <!--begin::آیتم-->
                         <li class="breadcrumb-item text-muted">
-                            <a href="{{ route('products.index') }}" class="text-muted text-hover-primary">محصول
+                            <a href="{{ route('blogs.index') }}" class="text-muted text-hover-primary">مقاله
                                 ها</a>
                         </li>
                         <!--end::آیتم-->
@@ -57,7 +57,7 @@
                                 <!--begin::Form-->
                                 <form role="form" enctype="multipart/form-data"
                                       method="post"
-                                      action="@if(isset($object)){{ route('products.update' , $object->id) }}@else{{ route('products.store') }}@endif">
+                                      action="@if(isset($object)){{ route('blogs.update' , $object->id) }}@else{{ route('blogs.store') }}@endif">
 
                                     @csrf
                                     @if(isset($object))
@@ -167,36 +167,16 @@
                                     </div>
 
                                     <div class="d-flex flex-column mb-8 fv-row">
-                                        <label for="id_price"
+                                        <label for="id_text"
                                                class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                            <span class="required">قیمت (تومان)</span>
+                                            <span class="required">متن</span>
                                         </label>
 
-                                        <input type="number" id="id_price" class="form-control form-control-solid"
-                                               value="@if(old('price')){{ old('price') }}@elseif(isset($object->price)){{ $object->price }}@endif"
-                                               placeholder="قیمت را وارد کنید" name="price" required/>
+                                        <textarea type="text" id="id_text" class="form-control form-control-solid"
+                                                  placeholder="متن را وارد کنید" name="text" rows="15"
+                                                  required>@if(old('text')){{ old('text') }}@elseif(isset($object->text)){{ $object->text }}@endif</textarea>
 
-                                        @error('price')
-                                        <div class="fv-plugins-message-container invalid-feedback">
-                                            <div data-field="meta_title" data-validator="notEmpty">
-                                                {{ $message }}
-                                            </div>
-                                        </div>
-                                        @enderror
-
-                                    </div>
-
-                                    <div class="d-flex flex-column mb-8 fv-row">
-                                        <label for="id_description"
-                                               class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                            <span class="required">توضیحات</span>
-                                        </label>
-
-                                        <textarea type="text" id="id_description" class="form-control form-control-solid"
-                                                  placeholder="توضیحات را وارد کنید" name="description" rows="12"
-                                                  required>@if(old('description')){{ old('description') }}@elseif(isset($object->description)){{ $object->description }}@endif</textarea>
-
-                                        @error('description')
+                                        @error('text')
                                         <div class="fv-plugins-message-container invalid-feedback">
                                             <div data-field="meta_title" data-validator="notEmpty">
                                                 {{ $message }}
@@ -213,7 +193,7 @@
                                         </label>
 
                                         <select id="id_category_id" name="category_id"
-                                                data-kt-select2="true"
+                                                data-kt-select2="true" required
                                                 class="form-control form-control-solid">
                                             <option value="" disabled>دسته بندی را انتخاب کنید</option>
                                             @foreach($categories as $category)
@@ -237,26 +217,32 @@
                                     </div>
 
                                     <div class="d-flex flex-column mb-8 fv-row">
-                                        <label for="id_user_id"
+                                        <label for="id_status"
                                                class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                            <span class="required">مالک</span>
+                                            <span class="required">وضعیت</span>
                                         </label>
 
-                                        <select id="id_user_id" name="user_id"
+                                        <select id="id_status" name="status"
                                                 data-kt-select2="true"
                                                 class="form-control form-control-solid">
-                                            <option value="" disabled>مالک را انتخاب کنید</option>
-                                            @foreach($users as $user)
+                                            <option value="" disabled>وضعیت را انتخاب کنید</option>
 
-                                                <option
-                                                    @if(isset($object->user_id) && $object->user_id == $user->id) selected
-                                                    @endif value="{{ $user->id }}">{{ $user->full_name() }}
-                                                </option>
 
-                                            @endforeach
+                                            <option
+                                                @if((isset($item->status) && $item->status == 'draft') || old('status') == 'draft') selected
+                                                @endif value="draft">پیش نویس
+                                            </option>
+                                            <option
+                                                @if((isset($item->status) && $item->status == 'publish') || old('status') == 'publish') selected
+                                                @endif value="publish">انتشار
+                                            </option>
+                                            <option
+                                                @if((isset($item->status) && $item->status == 'done') || old('status') == 'done') selected
+                                                @endif value="done">پایان انتشار
+                                            </option>
                                         </select>
 
-                                        @error('user_id')
+                                        @error('status')
                                         <div class="fv-plugins-message-container invalid-feedback">
                                             <div data-field="meta_title" data-validator="notEmpty">
                                                 {{ $message }}
@@ -264,112 +250,6 @@
                                         </div>
                                         @enderror
 
-                                    </div>
-
-                                    <div class="d-flex flex-column mb-8 fv-row">
-                                        <label for="id_discount_price"
-                                               class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                            <span>قیمت تخفیفی (تومان)</span>
-                                        </label>
-
-                                        <input type="number" id="id_discount_price" class="form-control form-control-solid"
-                                               value="@if(old('discount_price')){{ old('discount_price') }}@elseif(isset($object->discount_price)){{ $object->discount_price }}@endif"
-                                               placeholder="قیمت تخفیفی را وارد کنید" name="discount_price"/>
-
-                                        @error('discount_price')
-                                        <div class="fv-plugins-message-container invalid-feedback">
-                                            <div data-field="meta_title" data-validator="notEmpty">
-                                                {{ $message }}
-                                            </div>
-                                        </div>
-                                        @enderror
-
-                                    </div>
-
-                                    <div class="d-flex flex-column mb-8 fv-row">
-                                        <label for="id_discount_start_date"
-                                               class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                            <span>تاریخ شروع تخفیف</span>
-                                        </label>
-
-                                        <input type="text" id="id_discount_start_date" class="form-control form-control-solid"
-                                               value="@if(old('discount_start_date')){{ old('discount_start_date') }}@elseif(isset($object->discount_start_date)){{ $object->discount_start_date }}@endif"
-                                               placeholder="تاریخ شروع تخفیف را وارد کنید" name="discount_start_date"/>
-
-                                        @error('discount_start_date')
-                                        <div class="fv-plugins-message-container invalid-feedback">
-                                            <div data-field="meta_title" data-validator="notEmpty">
-                                                {{ $message }}
-                                            </div>
-                                        </div>
-                                        @enderror
-
-                                    </div>
-
-                                    <div class="d-flex flex-column mb-8 fv-row">
-                                        <label for="id_discount_end_date"
-                                               class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                            <span>تاریخ پایان تخفیف</span>
-                                        </label>
-
-                                        <input type="text" id="id_discount_end_date" class="form-control form-control-solid"
-                                               value="@if(old('discount_end_date')){{ old('discount_end_date') }}@elseif(isset($object->discount_end_date)){{ $object->discount_end_date }}@endif"
-                                               placeholder="تاریخ پایان تخفیف را وارد کنید" name="discount_end_date"/>
-
-                                        @error('discount_end_date')
-                                        <div class="fv-plugins-message-container invalid-feedback">
-                                            <div data-field="meta_title" data-validator="notEmpty">
-                                                {{ $message }}
-                                            </div>
-                                        </div>
-                                        @enderror
-
-                                    </div>
-
-                                    <div class="d-flex flex-column mb-8 fv-row">
-                                        <label for="id_is_special"
-                                               class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                            <span class="required">آیا ویژه است؟</span>
-                                        </label>
-
-                                        <div class="form-check form-check-solid form-switch form-check-custom fv-row">
-                                            <input @if(isset($object) && $object->is_special) checked
-                                                   @elseif(old('is_special')) checked @endif  name="is_special"
-                                                   class="form-check-input w-45px h-30px" type="checkbox"
-                                                   id="id_is_special" value="1">
-                                            <label class="form-check-label" for="id_is_special"></label>
-                                        </div>
-
-                                        @error('is_special')
-                                        <div class="fv-plugins-message-container invalid-feedback">
-                                            <div data-field="meta_title" data-validator="notEmpty">
-                                                {{ $message }}
-                                            </div>
-                                        </div>
-                                        @enderror
-                                    </div>
-
-                                    <div class="d-flex flex-column mb-8 fv-row">
-                                        <label for="id_is_active"
-                                               class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                            <span class="required">وضعیت فعال</span>
-                                        </label>
-
-                                        <div class="form-check form-check-solid form-switch form-check-custom fv-row">
-                                            <input @if(isset($object) && $object->is_active) checked
-                                                   @elseif(old('is_active')) checked @endif  name="is_active"
-                                                   class="form-check-input w-45px h-30px" type="checkbox"
-                                                   id="id_is_active" value="1">
-                                            <label class="form-check-label" for="id_is_active"></label>
-                                        </div>
-
-                                        @error('is_active')
-                                        <div class="fv-plugins-message-container invalid-feedback">
-                                            <div data-field="meta_title" data-validator="notEmpty">
-                                                {{ $message }}
-                                            </div>
-                                        </div>
-                                        @enderror
                                     </div>
 
                                     <div class="d-flex flex-column mb-8 fv-row">
@@ -403,7 +283,7 @@
                                     <div class="row py-5">
                                         <div class="col-md-9 offset-md-3">
                                             <div class="d-flex" style="float: left !important;">
-                                                <button onclick="window.location.href='{{ route('products.index') }}'"
+                                                <button onclick="window.location.href='{{ route('blogs.index') }}'"
                                                         type="reset" data-kt-ecommerce-settings-type="cancel"
                                                         class="btn btn-light me-3">انصراف
                                                 </button>
@@ -434,55 +314,7 @@
 
 @section('Scripts')
     <script>
-        CKEDITOR.replace('id_description');
-    </script>
-
-    <script>
-        $(document).ready(function() {
-            $('#id_discount_start_date').val(toEnglishDigits($('#id_discount_start_date').val()))
-            $('#id_discount_end_date').val(toEnglishDigits($('#id_discount_end_date').val()))
-
-        });
-        $('#id_discount_start_date').persianDatepicker({
-            theme: 'dark',
-            format: 'YYYY-MM-DD',
-            // initialValueType: 'persian',
-            timePicker: {
-                enabled: false
-            },
-            autoClose: true,
-            calendar: {
-                persian: {
-                    locale: 'fa'
-                }
-            },
-            onSelect: function () {
-                $('#id_discount_start_date').val($('#id_discount_start_date').val().replaceAll('/', '-'))
-            },
-        });
-        $("#id_discount_start_date").attr('autocomplete', 'off');
-
-
-        //////////////
-
-        $('#id_discount_end_date').persianDatepicker({
-            theme: 'dark',
-            format: 'YYYY-MM-DD',
-            initialValueType: 'persian',
-            timePicker: {
-                enabled: false
-            },
-            autoClose: true,
-            calendar: {
-                persian: {
-                    locale: 'fa'
-                }
-            },
-            onSelect: function () {
-                $('#id_discount_end_date').val($('#id_discount_end_date').val().replaceAll('/', '-'))
-            },
-        });
-        $("#id_discount_end_date").attr('autocomplete', 'off');
+        CKEDITOR.replace('id_text');
     </script>
 
     <script>

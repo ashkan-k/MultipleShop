@@ -14,13 +14,19 @@ class Blog extends Model
     use Searchable;
 
     protected $fillable = [
-        "title", "slug", "text", "status",
+        'title',
+        'slug',
+        'en_title',
+        'en_slug',
+        "text", "status",
         "like_count", "view_count", "image", "user_id", "category_id"
     ];
 
     protected $search_fields = [
         'title',
-        'text',
+        'slug',
+        'en_title',
+        'en_slug',
         'user.first_name',
         'user.last_name',
         'user.username',
@@ -58,16 +64,21 @@ class Blog extends Model
             $this->user_id = auth()->id();
         }
 
-        if (!$this->slug) {
-            $this->slug = Str::slug($this->title);
+        if (!$this->slug){
+            $this->slug = $this->title;
         }
         $this->slug = Str::slug($this->slug);
 
+        if (!$this->en_slug){
+            $this->en_slug = $this->en_title;
+        }
+        $this->en_slug = Str::slug($this->en_slug);
+
         try {
-            $saved = parent::save($options);
-        } catch (\Exception $exception) {
+            $saved =  parent::save($options);
+        }catch (\Exception $exception){
             $this->slug = Str::random(20);
-            $saved = parent::save($options);
+            $saved =  parent::save($options);
         }
         return $saved;
     }

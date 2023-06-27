@@ -2,78 +2,46 @@
 
 namespace Modules\Blog\Http\Controllers;
 
+use App\Http\Traits\Responses;
+use App\Http\Traits\Uploader;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Blog\Entities\Blog;
+use Modules\Blog\Http\Requests\BlogRequest;
 
 class BlogController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     * @return Renderable
-     */
+    use Responses, Uploader;
+
     public function index()
     {
-        return view('blog::index');
+        return view('blog::dashboard.blogs.list');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     * @return Renderable
-     */
     public function create()
     {
-        return view('blog::create');
+        return view('blog::dashboard.blogs.form');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     * @param Request $request
-     * @return Renderable
-     */
-    public function store(Request $request)
+    public function store(BlogRequest $request)
     {
-        //
+        $image = $this->UploadFile($request, 'image', 'blogs_images', $request->title);
+
+        Blog::create(array_merge($request->validated(), ['image' => $image]));
+        return $this->SuccessRedirect('آیتم مورد نظر با موفقیت ثبت شد.', 'blogs.index');
     }
 
-    /**
-     * Show the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function show($id)
+    public function edit(Blog $blog)
     {
-        return view('blog::show');
+        return view('blog::dashboard.blogs.form', compact('blog'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function edit($id)
+    public function update(BlogRequest $request, Blog $blog)
     {
-        return view('blog::edit');
-    }
+        $image = $this->UploadFile($request, 'image', 'blogs_images', $blog->title, $blog->image);
 
-    /**
-     * Update the specified resource in storage.
-     * @param Request $request
-     * @param int $id
-     * @return Renderable
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     * @param int $id
-     * @return Renderable
-     */
-    public function destroy($id)
-    {
-        //
+        $blog->update(array_merge($request->validated(), ['image' => $image]));
+        return $this->SuccessRedirect('آیتم مورد نظر با موفقیت ویرایش شد.', 'blogs.index');
     }
 }

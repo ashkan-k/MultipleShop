@@ -16,8 +16,11 @@ return new class extends Migration
     {
         Schema::create('blogs', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->string('slug');
+            $table->string('title')->nullable();
+            $table->string('slug')->nullable();
+            $table->string('en_title')->nullable();
+            $table->string('en_slug')->nullable();
+
             $table->text('text');
             $table->integer('like_count')->default(0);
             $table->integer('view_count')->default(0);

@@ -1,5 +1,5 @@
 @extends('layouts.admin-master')
-@section('title','محصولات')
+@section('title','مقالات')
 @section('Styles')
 
 @endsection
@@ -13,7 +13,7 @@
                 <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
                     <!--begin::Title-->
                     <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">
-                        لیست محصولات</h1>
+                        لیست مقالات</h1>
                     <!--end::Title-->
                     <!--begin::Breadcrumb-->
                     <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1">
@@ -29,7 +29,7 @@
                         <!--end::آیتم-->
                         <!--begin::آیتم-->
                         <li class="breadcrumb-item text-muted">
-                            <a href="{{ route('products.index') }}" class="text-muted text-hover-primary">محصول</a>
+                            <a href="{{ route('products.index') }}" class="text-muted text-hover-primary">مقاله</a>
                         </li>
                         <!--end::آیتم-->
                     </ul>
@@ -58,7 +58,7 @@
                                 <button onclick="window.location.href='{{ route('products.create') }}'" type="button"
                                         class="btn btn-primary" data-bs-toggle="modal"
                                         data-bs-target="#kt_modal_add_user">
-                                    <i class="ki-duotone ki-plus fs-2"></i>افزودن محصول
+                                    <i class="ki-duotone ki-plus fs-2"></i>افزودن مقاله
                                 </button>
                                 <!--end::Add user-->
                             </div>
@@ -84,15 +84,11 @@
                                 </th>
                                 <th>عنوان</th>
                                 <th>عنوان انگلیسی</th>
-                                <th>قیمت</th>
-                                <th>عکس</th>
-                                <th>مالک</th>
-                                <th>دسته بندی</th>
-                                <th>قیمت تخفیفی</th>
-                                <th>تاریخ شروع تخفیف</th>
-                                <th>تاریخ پایان تخفیف</th>
-{{--                                <th>شگفت انگیز</th>--}}
+                                <th>کاربر</th>
+                                <th>تعداد بازدید</th>
+                                <th>تعداد لایک</th>
                                 <th>وضعیت</th>
+                                <th>عکس</th>
                                 <th>عملیات</th>
                             </tr>
                             </thead>
@@ -113,7 +109,16 @@
 
                                     <td>{{ $item->en_title ?: '---'  }}</td>
 
-                                    <td>{{ $item->price ? number_format($item->price) : '---'  }} تومان</td>
+                                    <td>{{ $item->user ? $item->user->full_name() : '---'}}</td>
+
+                                    <td>{{ $item->view_count ? : '---' }}</td>
+
+                                    <td>{{ $item->like_count ? : '---' }}</td>
+
+                                    <td>
+                                        <div
+                                            class="badge badge-light-{{ $item->get_status_class() }} active_modal_buttons">{{ $item->get_status() }}</div>
+                                    </td>
 
                                     <td>
                                         <div class="symbol symbol-circle symbol-50px overflow-hidden me-3">
@@ -126,30 +131,7 @@
                                         </div>
                                     </td>
 
-                                    <td>{{ $item->user ? $item->user->full_name() : '---'  }}</td>
-
-                                    <td>{{ $item->category ? $item->category->title : '---'  }}</td>
-
-                                    <td>{{ $item->discount_price ?: '---'  }}</td>
-
-                                    <td>{{ $item->discount_start_date ?: '---'  }}</td>
-
-                                    <td>{{ $item->discount_end_date ?: '---'  }}</td>
-
-{{--                                    <td>--}}
-{{--                                        <div title="برای تبدیل محصول به شگفت انگیز وارد ویرایش محصول شوید و علاوه بر تیک شگفت انگیزی، قیمت و تاریخ دوره تخفیف را هم وارد کنید."--}}
-{{--                                             class="badge badge-light-{{ $item->get_special_class() }}">{{ $item->get_special() }}</div>--}}
-{{--                                    </td>--}}
-
-                                    <td>
-                                        <div
-                                            class="badge badge-light-{{ $item->get_status_class() }} active_modal_buttons">{{ $item->get_status() }}</div>
-                                    </td>
-
                                     <td class="">
-                                        <a href="{{ route('galleries.index', $item->id) }}" class="btn btn-bg-light btn-color-muted btn-active-color-primary btn-sm px-4 me-2">کالری تصاویر</a>
-                                        <a href="{{ route('product-features.index') }}?product={{ $item->id }}" class="btn btn-bg-light btn-color-muted btn-active-color-primary btn-sm px-4 me-2">ویژگی ها</a>
-
                                         <a href="#"
                                            class="btn btn-light btn-active-light-primary btn-flex btn-center btn-sm"
                                            data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">عملیات
@@ -213,7 +195,7 @@
 
     <script>
         app.controller('myCtrl', function ($scope, $http) {
-            @include('dashboard.section.components.bulk_actions.bulk_actions_js', ['items' => $objects, 'model' => \Modules\Product\Entities\Product::class])
+            @include('dashboard.section.components.bulk_actions.bulk_actions_js', ['items' => $objects, 'model' => \Modules\Blog\Entities\Blog::class])
         });
     </script>
 @endsection

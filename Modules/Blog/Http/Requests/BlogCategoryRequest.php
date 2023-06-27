@@ -15,10 +15,15 @@ class BlogCategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'string|required',
+            'title' => 'string|required_without:en_title',
+            'en_title' => 'string|required_without:title',
             'slug' => [
                 'nullable',
                 Rule::unique('blog_categories', 'slug')->ignore($this->category)
+            ],
+            'en_slug' => [
+                'nullable',
+                Rule::unique('blog_categories', 'en_slug')->ignore($this->category)
             ],
             'image' => 'mimes:jpeg,png,bmp,jpg',
         ];
