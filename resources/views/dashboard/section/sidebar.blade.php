@@ -86,7 +86,7 @@
                      class="menu-item @if(str_starts_with(\Illuminate\Support\Facades\Route::current()->getName(), 'ticket-categires.') || str_starts_with(\Illuminate\Support\Facades\Route::current()->getName(), 'tickets.') || str_starts_with(\Illuminate\Support\Facades\Route::current()->getName(), 'ticket-answers.')) show @endif menu-accordion">
                 <span class="menu-link">
 											<span class="menu-icon">
-												<i class="ki-duotone ki-abstract-26 fs-2">
+												<i class="ki-duotone ki-sms fs-2">
 													<span class="path1"></span>
 													<span class="path2"></span>
 													<span class="path3"></span>
