@@ -83,6 +83,7 @@
                                     </div>
                                 </th>
                                 <th>عنوان</th>
+                                <th>عنوان انگلیسی</th>
                                 <th>قیمت</th>
                                 <th>عکس</th>
                                 <th>مالک</th>
@@ -90,7 +91,7 @@
                                 <th>قیمت تخفیفی</th>
                                 <th>تاریخ شروع تخفیف</th>
                                 <th>تاریخ پایان تخفیف</th>
-                                <th>شگفت انگیز</th>
+{{--                                <th>شگفت انگیز</th>--}}
                                 <th>وضعیت</th>
                                 <th>عملیات</th>
                             </tr>
@@ -109,6 +110,8 @@
                                     </td>
 
                                     <td>{{ $item->title ?: '---'  }}</td>
+
+                                    <td>{{ $item->en_title ?: '---'  }}</td>
 
                                     <td>{{ $item->price ? number_format($item->price) : '---'  }} تومان</td>
 
@@ -133,10 +136,10 @@
 
                                     <td>{{ $item->discount_end_date ?: '---'  }}</td>
 
-                                    <td>
-                                        <div title="برای تبدیل محصول به شگفت انگیز وارد ویرایش محصول شوید و علاوه بر تیک شگفت انگیزی، قیمت و تاریخ دوره تخفیف را هم وارد کنید."
-                                             class="badge badge-light-{{ $item->get_special_class() }}">{{ $item->get_special() }}</div>
-                                    </td>
+{{--                                    <td>--}}
+{{--                                        <div title="برای تبدیل محصول به شگفت انگیز وارد ویرایش محصول شوید و علاوه بر تیک شگفت انگیزی، قیمت و تاریخ دوره تخفیف را هم وارد کنید."--}}
+{{--                                             class="badge badge-light-{{ $item->get_special_class() }}">{{ $item->get_special() }}</div>--}}
+{{--                                    </td>--}}
 
                                     <td>
                                         <div

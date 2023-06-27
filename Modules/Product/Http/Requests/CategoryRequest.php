@@ -21,6 +21,10 @@ class CategoryRequest extends FormRequest
                 'nullable',
                 Rule::unique('categories', 'slug')->ignore($this->category)
             ],
+            'en_slug' => [
+                'nullable',
+                Rule::unique('categories', 'en_slug')->ignore($this->category)
+            ],
             'image' => 'mimes:jpeg,png,bmp,jpg',
             'parent_id' => 'nullable|exists:categories,id',
         ];

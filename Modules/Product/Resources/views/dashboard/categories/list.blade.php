@@ -119,6 +119,8 @@
                                 </th>
                                 <th>عنوان</th>
                                 <th>نامک</th>
+                                <th>عنوان انگلیسی</th>
+                                <th>نامک انگلیسی</th>
                                 <th>والد</th>
                                 <th>عکس</th>
                                 <th>عملیات</th>
@@ -140,6 +142,10 @@
                                     <td>{{ $item->title ?: '---'  }}</td>
 
                                     <td>{{ $item->slug ?: '---'  }}</td>
+
+                                    <td>{{ $item->en_title ?: '---'  }}</td>
+
+                                    <td>{{ $item->en_slug ?: '---'  }}</td>
 
                                     <td>{{$item->parent ? $item->parent->title : 'ندارد'}}</td>
 

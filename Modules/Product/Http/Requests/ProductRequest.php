@@ -21,6 +21,10 @@ class ProductRequest extends FormRequest
                 'nullable',
                 Rule::unique('categories', 'slug')->ignore($this->category)
             ],
+            'en_slug' => [
+                'nullable',
+                Rule::unique('categories', 'en_slug')->ignore($this->category)
+            ],
            'description' => 'required',
            'price' => 'required|numeric',
            'discount_price' => 'nullable|numeric',

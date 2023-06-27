@@ -18,9 +18,9 @@ return new class extends Migration
             $table->text('code');
             $table->integer('percent');
             $table->integer('uses_number')->default(1);
-            $table->date('expiration')->nullable();
+            $table->string('expiration')->nullable();
 
-            $table->foreignId('user_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('user_id')->nullable()->constrained()->cascadeOnUpdate()->cascadeOnDelete();
 
             $table->timestamps();
         });
