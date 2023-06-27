@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
+use Modules\Ticket\Http\Controllers\Dashboard\TicketController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +15,4 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/ticket', function (Request $request) {
-    return $request->user();
-});
+Route::post('status/change/{ticket}', [TicketController::class, 'change_status']);

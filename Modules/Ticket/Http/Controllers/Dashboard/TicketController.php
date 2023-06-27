@@ -17,7 +17,11 @@ class TicketController extends Controller
 
     public function index()
     {
-        return view('ticket::dashboard.ticket.list');
+        $objects = Ticket::Search(request('search'))
+            ->latest()
+            ->paginate(\request('pagination', env('PAGINATION_NUMBER', 10)));
+
+        return view('ticket::dashboard.ticket.list', compact('objects'));
     }
 
     public function create()
@@ -35,20 +39,32 @@ class TicketController extends Controller
 
     public function edit(Ticket $ticket)
     {
-        if (auth()->user()->level != 'admin') {
+        if (auth()->user()->is_staff()) {
             $this->check_myself_queryset($ticket, 'web');
         }
-        return view('ticket::dashboard.ticket.form', compact('ticket'));
+        return view('ticket::dashboard.ticket.form')->with('object', $ticket);
     }
 
     public function update(TicketRequest $request, Ticket $ticket)
     {
-        if (auth()->user()->level != 'admin') {
+        if (auth()->user()->is_staff()) {
             $this->check_myself_queryset($ticket, 'web');
         }
         $file = $this->UploadFile($request, 'file', 'ticket_files', auth()->id(), $ticket->file);
 
         $ticket->update(array_merge($request->except(['status', 'user_id']), ['file' => $file]));
         return $this->SuccessRedirect('تیکت شما با موفقیت ویرایش شد.', 'tickets.index');
+    }
+
+    public function destroy(Ticket $ticket)
+    {
+        $ticket->delete();
+        return $this->SuccessRedirect('آیتم مورد نظر با موفقیت حذف شد.', 'tickets.index');
+    }
+
+    public function change_status(Ticket $ticket)
+    {
+        $ticket->update(['status' => \request('status')]);
+        return $this->SuccessResponse('وضعیت آیتم مورد نظر با موفقیت تغییر یافت.');
     }
 }
