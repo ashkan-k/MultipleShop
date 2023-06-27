@@ -322,7 +322,7 @@
                     "status": $scope.status
                 };
 
-                $http.post(`/api/admin/users/status/change/${$scope.id}`, data).then(res => {
+                $http.post(`/api/users/status/change/${$scope.id}`, data).then(res => {
                     showToast('وضعیت آیتم مورد نظر با موفقیت تغییر کرد.', 'success');
                     $scope.is_submited = false;
                     setTimeout(() => {
