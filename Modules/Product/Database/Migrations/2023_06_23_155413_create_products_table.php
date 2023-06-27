@@ -28,8 +28,8 @@ return new class extends Migration
             $table->string('price');
 
             $table->string('discount_price')->nullable();
-            $table->date('discount_start_date')->nullable();
-            $table->date('discount_end_date')->nullable();
+            $table->string('discount_start_date')->nullable();
+            $table->string('discount_end_date')->nullable();
             $table->boolean('is_special')->default(false);
 
             $table->foreignId('user_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();

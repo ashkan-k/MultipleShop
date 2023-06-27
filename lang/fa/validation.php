@@ -269,5 +269,6 @@ return [
         'discount_price' => 'قیمت تخفیفی',
         'discount_start_date' => 'تاریخ شروع تخفیف',
         'discount_end_date' => 'تاریخ پایان تخفیف',
+        'uses_number' => 'تعداد قابل استفاده',
     ],
 ];

@@ -1,5 +1,5 @@
 @extends('layouts.admin-master')
-@section('title','محصولات')
+@section('title','کد های تخفیف')
 @section('Styles')
 
 @endsection
@@ -13,7 +13,7 @@
                 <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
                     <!--begin::Title-->
                     <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">
-                        لیست محصولات</h1>
+                        لیست کد های تخفیف</h1>
                     <!--end::Title-->
                     <!--begin::Breadcrumb-->
                     <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1">
@@ -29,7 +29,7 @@
                         <!--end::آیتم-->
                         <!--begin::آیتم-->
                         <li class="breadcrumb-item text-muted">
-                            <a href="{{ route('products.index') }}" class="text-muted text-hover-primary">محصول</a>
+                            <a href="{{ route('coupons.index') }}" class="text-muted text-hover-primary">کد تخفیف</a>
                         </li>
                         <!--end::آیتم-->
                     </ul>
@@ -55,10 +55,10 @@
 
                         <div class="card-toolbar">
                             <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
-                                <button onclick="window.location.href='{{ route('products.create') }}'" type="button"
+                                <button onclick="window.location.href='{{ route('coupons.create') }}'" type="button"
                                         class="btn btn-primary" data-bs-toggle="modal"
                                         data-bs-target="#kt_modal_add_user">
-                                    <i class="ki-duotone ki-plus fs-2"></i>افزودن محصول
+                                    <i class="ki-duotone ki-plus fs-2"></i>افزودن کد تخفیف
                                 </button>
                                 <!--end::Add user-->
                             </div>
@@ -82,16 +82,11 @@
                                                data-kt-check-target="#kt_table_items .form-check-input"/>
                                     </div>
                                 </th>
-                                <th>عنوان</th>
-                                <th>قیمت</th>
-                                <th>عکس</th>
-                                <th>مالک</th>
-                                <th>دسته بندی</th>
-                                <th>قیمت تخفیفی</th>
-                                <th>تاریخ شروع تخفیف</th>
-                                <th>تاریخ پایان تخفیف</th>
-                                <th>شگفت انگیز</th>
-                                <th>وضعیت</th>
+                                <th>کد تخفیف</th>
+                                <th>درصد تخفیف</th>
+                                <th>تعداد قابل استفاده</th>
+                                <th>کاربر</th>
+                                <th>تاریخ انقضا</th>
                                 <th>عملیات</th>
                             </tr>
                             </thead>
@@ -108,45 +103,19 @@
                                         </div>
                                     </td>
 
-                                    <td>{{ $item->title ?: '---'  }}</td>
+                                    <td>{{ $item->code ?: '---'  }}</td>
 
-                                    <td>{{ $item->price ? number_format($item->price) : '---'  }} تومان</td>
+                                    <td>{{ $item->percent ?: '---'  }}</td>
 
-                                    <td>
-                                        <div class="symbol symbol-circle symbol-50px overflow-hidden me-3">
-                                            <a href="{{ $item->get_image() }}" target="_blank">
-                                                <div class="symbol-label">
-                                                    <img src="{{ $item->get_image() }}" alt="{{ $item->title }}"
-                                                         class="w-100">
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </td>
+                                    <td>{{ $item->uses_number ?: '---'  }}</td>
 
                                     <td>{{ $item->user ? $item->user->full_name() : '---'  }}</td>
 
-                                    <td>{{ $item->category ? $item->category->title : '---'  }}</td>
+{{--                                    <td>{{ $item->expiration ?: '---'  }}</td>--}}
 
-                                    <td>{{ $item->discount_price ?: '---'  }}</td>
-
-                                    <td>{{ $item->discount_start_date ?: '---'  }}</td>
-
-                                    <td>{{ $item->discount_end_date ?: '---'  }}</td>
-
-                                    <td>
-                                        <div title="برای تبدیل محصول به شگفت انگیز وارد ویرایش محصول شوید و علاوه بر تیک شگفت انگیزی، قیمت و تاریخ دوره تخفیف را هم وارد کنید."
-                                             class="badge badge-light-{{ $item->get_special_class() }}">{{ $item->get_special() }}</div>
-                                    </td>
-
-                                    <td>
-                                        <div
-                                            class="badge badge-light-{{ $item->get_status_class() }} active_modal_buttons">{{ $item->get_status() }}</div>
-                                    </td>
+                                    <td>{{ \Hekmatinasser\Verta\Verta:: instance($item->expiration)->format('%B %d، %Y') }}</td>
 
                                     <td class="">
-                                        <a href="{{ route('galleries.index', $item->id) }}" class="btn btn-bg-light btn-color-muted btn-active-color-primary btn-sm px-4 me-2">کالری تصاویر</a>
-                                        <a href="{{ route('product-features.index') }}?product={{ $item->id }}" class="btn btn-bg-light btn-color-muted btn-active-color-primary btn-sm px-4 me-2">ویژگی ها</a>
-
                                         <a href="#"
                                            class="btn btn-light btn-active-light-primary btn-flex btn-center btn-sm"
                                            data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">عملیات
@@ -156,12 +125,12 @@
                                             class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4"
                                             data-kt-menu="true">
                                             <div class="menu-item px-3">
-                                                <a href="{{ route('products.edit', $item->id) }}" class="menu-link px-3"
+                                                <a href="{{ route('coupons.edit', $item->id) }}" class="menu-link px-3"
                                                    data-kt-features-table-filter="delete_row">ویرایش</a>
                                             </div>
                                             <div class="menu-item px-3">
 
-                                                <form action="{{ route('products.destroy' , $item->id) }}"
+                                                <form action="{{ route('coupons.destroy' , $item->id) }}"
                                                       id="delete_form_{{ $loop->index }}" method="post">
                                                     @csrf
                                                     @method('DELETE')
@@ -210,7 +179,7 @@
 
     <script>
         app.controller('myCtrl', function ($scope, $http) {
-            @include('dashboard.section.components.bulk_actions.bulk_actions_js', ['items' => $objects, 'model' => \Modules\Product\Entities\Product::class])
+            @include('dashboard.section.components.bulk_actions.bulk_actions_js', ['items' => $objects, 'model' => \Modules\Coupon\Entities\Coupon::class])
         });
     </script>
 @endsection

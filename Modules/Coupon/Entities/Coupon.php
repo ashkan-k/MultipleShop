@@ -23,7 +23,6 @@ class Coupon extends Model
     protected $search_fields  = [
         'code',
         'percent',
-        'en_slug',
         'uses_number',
         'expiration',
         'user.first_name',

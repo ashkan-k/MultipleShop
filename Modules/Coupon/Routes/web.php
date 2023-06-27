@@ -11,6 +11,7 @@
 |
 */
 
-Route::prefix('coupon')->group(function() {
-    Route::get('/', 'CouponController@index');
-});
+use Illuminate\Support\Facades\Route;
+use Modules\Coupon\Http\Controllers\Dashboard\CouponController;
+
+Route::resource('coupons', CouponController::class);

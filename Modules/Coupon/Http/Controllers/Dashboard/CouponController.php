@@ -2,78 +2,54 @@
 
 namespace Modules\Coupon\Http\Controllers\Dashboard;
 
+use App\Http\Traits\Responses;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Coupon\Entities\Coupon;
+use Modules\Coupon\Http\Requests\CouponRequest;
+use Modules\User\Entities\User;
 
 class CouponController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     * @return Renderable
-     */
+    use Responses;
+
     public function index()
     {
-        return view('coupon::index');
+        $objects = Coupon::Search(request('search'))
+            ->latest()
+            ->paginate(\request('pagination', env('PAGINATION_NUMBER', 10)));
+
+        return view('coupon::dashboard.list', compact('objects'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     * @return Renderable
-     */
     public function create()
     {
-        return view('coupon::create');
+        $users = User::all();
+        return view('coupon::dashboard.form', compact('users'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     * @param Request $request
-     * @return Renderable
-     */
-    public function store(Request $request)
+    public function store(CouponRequest $request)
     {
-        //
+        Coupon::create($request->validated());
+        return $this->SuccessRedirect('آیتم مورد نظر با موفقیت ثبت شد.', 'coupons.index');
     }
 
-    /**
-     * Show the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function show($id)
+    public function edit(Coupon $coupon)
     {
-        return view('coupon::show');
+        $users = User::all();
+        return view('coupon::dashboard.form', compact('users'))->with('object', $coupon);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function edit($id)
+    public function update(CouponRequest $request, Coupon $coupon)
     {
-        return view('coupon::edit');
+        $coupon->update($request->validated());
+        return $this->SuccessRedirect('آیتم مورد نظر با موفقیت ویرایش شد.', 'coupons.index');
     }
 
-    /**
-     * Update the specified resource in storage.
-     * @param Request $request
-     * @param int $id
-     * @return Renderable
-     */
-    public function update(Request $request, $id)
+    public function destroy(Coupon $coupon)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     * @param int $id
-     * @return Renderable
-     */
-    public function destroy($id)
-    {
-        //
+        $coupon->delete();
+        return $this->SuccessRedirect('آیتم مورد نظر با موفقیت حذف شد.', 'coupons.index');
     }
 }
