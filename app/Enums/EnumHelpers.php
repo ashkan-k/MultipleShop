@@ -10,4 +10,5 @@ class EnumHelpers
     static $FeatureFilterTypeEnum = ['checkbox', 'radio', 'text'];
     static $ProductFeatureTypeTypeEnum = ['up', 'down', 'both'];
     static $BlogStatusEnum = ['draft', 'publish', 'done'];
+    static $TicketStatusEnum = ['waiting', 'answered', 'close'];
 }
