@@ -129,6 +129,8 @@
                                     </td>
 
                                     <td class="">
+                                        <a href="{{ route('ticket-answers.show', $item->id) }}" class="btn btn-bg-light btn-color-muted btn-active-color-primary btn-sm px-4 me-2">نمایش</a>
+
                                         <a href="#"
                                            class="btn btn-light btn-active-light-primary btn-flex btn-center btn-sm"
                                            data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">عملیات
