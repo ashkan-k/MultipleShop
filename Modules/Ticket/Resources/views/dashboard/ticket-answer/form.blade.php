@@ -175,37 +175,13 @@
                                 <div class="d-flex flex-wrap gap-2 justify-content-between mb-8">
                                     <div class="d-flex align-items-center flex-wrap gap-2">
                                         <!--begin::Heading-->
-                                        <h2 class="fw-semibold me-3 my-1">یادآوری سفر. ممنون که با ما پرواز کردید</h2>
-                                        <!--begin::Heading-->
-                                        <!--begin::Badges-->
-                                        <span class="badge badge-light-primary my-1 me-2">اینباکس</span>
-                                        <span class="badge badge-light-danger my-1">مهم</span>
-                                        <!--end::Badges-->
-                                    </div>
-                                    <div class="d-flex">
-                                        <!--begin::Sort-->
-                                        <a href="#" class="btn btn-sm btn-icon btn-light btn-active-light-primary me-2"
-                                           data-bs-toggle="tooltip" data-bs-placement="top" aria-label="Sort"
-                                           data-bs-original-title="Sort" data-kt-initialized="1">
-                                            <i class="ki-duotone ki-arrow-up-down fs-2 m-0">
-                                                <span class="path1"></span>
-                                                <span class="path2"></span>
-                                            </i>
-                                        </a>
-                                        <!--end::Sort-->
-                                        <!--begin::پرینت-->
-                                        <a href="#" class="btn btn-sm btn-icon btn-light btn-active-light-primary me-2"
-                                           data-bs-toggle="tooltip" data-bs-placement="top" aria-label="پرینت"
-                                           data-bs-original-title="پرینت" data-kt-initialized="1">
-                                            <i class="ki-duotone ki-printer fs-2">
-                                                <span class="path1"></span>
-                                                <span class="path2"></span>
-                                                <span class="path3"></span>
-                                                <span class="path4"></span>
-                                                <span class="path5"></span>
-                                            </i>
-                                        </a>
-                                        <!--end::پرینت-->
+                                        <h2 class="fw-semibold me-3 my-1">{{ $ticket->title ?: '---'  }}</h2>
+                                                                                <span class="badge badge-light-primary my-1 me-2">اینباکس</span>
+                                        @if($ticket->file)
+                                            <span onclick="window.open('{{ $ticket->file ?: '---' }}','_blank')"
+                                                  style="font-size: 13px !important;"
+                                                  class="active_modal_buttons badge badge-light-danger my-1">فایل ضمیمه</span>
+                                        @endif
                                     </div>
                                 </div>
                                 <!--end::Title-->
@@ -219,63 +195,16 @@
                                             <!--begin::Avatar-->
                                             <div class="symbol symbol-50 me-4">
                                                 <span class="symbol-label"
-                                                      style="background-image:url(assets/media/avatars/300-6.jpg);"></span>
+                                                      style="background-image:url({{ $ticket->user ? $ticket->user->get_avatar() : '---'  }});"></span>
                                             </div>
                                             <!--end::Avatar-->
                                             <div class="pe-5">
                                                 <!--begin::نویسنده details-->
                                                 <div class="d-flex align-items-center flex-wrap gap-1">
-                                                    <a href="#" class="fw-bold text-dark text-hover-primary">مرادی
-                                                        نیا</a>
-                                                    <i class="ki-duotone ki-abstract-8 fs-7 text-success mx-3">
-                                                        <span class="path1"></span>
-                                                        <span class="path2"></span>
-                                                    </i>
-                                                    <span class="text-muted fw-bold">یک روز پیش</span>
-                                                </div>
-                                                <!--end::نویسنده details-->
-                                                <!--begin::پیام details-->
-                                                <div data-kt-inbox-message="details">
-                                                    <span class="text-muted fw-semibold">to me</span>
-                                                    <!--begin::Menu toggle-->
-                                                    <a href="#" class="me-1" data-kt-menu-trigger="click"
-                                                       data-kt-menu-placement="bottom-end">
-                                                        <i class="ki-duotone ki-down fs-5 m-0"></i>
-                                                    </a>
-                                                    <!--end::Menu toggle-->
-                                                    <!--begin::Menu-->
-                                                    <div
-                                                        class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-300px p-4"
-                                                        data-kt-menu="true">
-                                                        <!--begin::Table-->
-                                                        <table class="table mb-0">
-                                                            <tbody>
-                                                            <tr>
-                                                                <td class="w-75px text-muted">از</td>
-                                                                <td>الهام بارانی</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="text-muted">تاریخ</td>
-                                                                <td>25 تیر 2023, 10:10 pm</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="text-muted">موضوع</td>
-                                                                <td>یادآوری سفر. ممنون که با ما پرواز کردید</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="text-muted">پاسخ-to</td>
-                                                                <td>emma@intenso.com</td>
-                                                            </tr>
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                                    <!--end::Menu-->
-                                                </div>
-                                                <!--end::پیام details-->
-                                                <!--begin::نمایش message-->
-                                                <div class="text-muted fw-semibold mw-450px d-none"
-                                                     data-kt-inbox-message="نمایش">With resrpect, i must disagree with
-                                                    Mr.Zinsser. We all know the most part of important part....
+                                                    <a href="#"
+                                                       class="fw-bold text-dark text-hover-primary">{{ $ticket->user ? $ticket->user->full_name() : '---' }}</a>
+                                                    <span
+                                                        class="text-muted fw-bold">{{ \Carbon\Carbon::parse( $ticket->created_at )->diffForHumans() }}</span>
                                                 </div>
                                                 <!--end::نمایش message-->
                                             </div>
@@ -285,405 +214,73 @@
                                         <div class="d-flex align-items-center flex-wrap gap-2">
                                             <!--begin::تاریخ-->
                                             <span
-                                                class="fw-semibold text-muted text-end me-3">10 آبان 2023, 6:43 am</span>
-                                            <!--end::تاریخ-->
-                                            <div class="d-flex">
-                                                <!--begin::ستاره-->
-                                                <a href="#"
-                                                   class="btn btn-sm btn-icon btn-clear btn-active-light-primary me-3"
-                                                   data-bs-toggle="tooltip" data-bs-placement="top" aria-label="ستاره"
-                                                   data-bs-original-title="ستاره" data-kt-initialized="1">
-                                                    <i class="ki-duotone ki-ستاره fs-2 m-0"></i>
-                                                </a>
-                                                <!--end::ستاره-->
-                                                <!--begin::اسفندk as important-->
-                                                <a href="#"
-                                                   class="btn btn-sm btn-icon btn-clear btn-active-light-primary me-3"
-                                                   data-bs-toggle="tooltip" data-bs-placement="top"
-                                                   aria-label="اسفندk as important"
-                                                   data-bs-original-title="اسفندk as important" data-kt-initialized="1">
-                                                    <i class="ki-duotone ki-save-2 fs-2 m-0">
-                                                        <span class="path1"></span>
-                                                        <span class="path2"></span>
-                                                    </i>
-                                                </a>
-                                                <!--end::اسفندk as important-->
-                                                <!--begin::پاسخ-->
-                                                <a href="#"
-                                                   class="btn btn-sm btn-icon btn-clear btn-active-light-primary me-3"
-                                                   data-bs-toggle="tooltip" data-bs-placement="top" aria-label="پاسخ"
-                                                   data-bs-original-title="پاسخ" data-kt-initialized="1">
-                                                    <i class="ki-duotone ki-message-edit fs-2 m-0">
-                                                        <span class="path1"></span>
-                                                        <span class="path2"></span>
-                                                    </i>
-                                                </a>
-                                                <!--end::پاسخ-->
-                                                <!--begin::تنظیمات-->
-                                                <a href="#"
-                                                   class="btn btn-sm btn-icon btn-clear btn-active-light-primary"
-                                                   data-bs-toggle="tooltip" data-bs-placement="top" aria-label="تنظیمات"
-                                                   data-bs-original-title="تنظیمات" data-kt-initialized="1">
-                                                    <i class="ki-duotone ki-dots-square-vertical fs-2 m-0">
-                                                        <span class="path1"></span>
-                                                        <span class="path2"></span>
-                                                        <span class="path3"></span>
-                                                        <span class="path4"></span>
-                                                    </i>
-                                                </a>
-                                                <!--end::تنظیمات-->
-                                            </div>
+                                                class="fw-semibold text-muted text-end me-3">{{ \Hekmatinasser\Verta\Verta:: instance($ticket->created_at)->format('%B %d، %Y') }}</span>
                                         </div>
-                                        <!--end::Actions-->
                                     </div>
-                                    <!--end::پیام header-->
-                                    <!--begin::پیام content-->
+
                                     <div class="collapse fade show" data-kt-inbox-message="message">
-                                        <div class="py-5">
-                                            <p>سلام</p>
-                                            <p>با احترام، من باید با آقای زینسر مخالفم. همه ما می دانیم که بیشترین بخش
-                                                مهم هر مقاله عنوان عنوان است.بدون عنوان قانع کننده ای است، خواننده شما
-                                                حتی به اولین جمله نمی رسد. با این حال، پس از عنوان، چند جمله اول مقاله
-                                                شما مطمئناً بیشترین است. بخش مهم.</p>
-                                            <p>روزنامه نگاران این بخش مهم و مقدماتی را "Lede" می نامند، و وقتی پل به
-                                                درستی اجرا شود، این همان چیزی است که خواننده شما را از یک تلاش سرفصل در
-                                                جلب توجه به بدنه پست وبلاگ خود می برد، اگر می خواهید آن را به درستی از
-                                                این موارد دریافت کنید. 10 روش هوشمندانه برای نوید دادن به وبلاگ بعدی
-                                                شما</p>
-                                            <p>ریچارد</p>
-                                            <p class="mb-0">شرکت ساتراس</p>
-                                        </div>
+                                        <div class="py-5">{!! $ticket->text ?: '---' !!}</div>
                                     </div>
-                                    <!--end::پیام content-->
                                 </div>
-                                <!--end::پیام accordion-->
-                                <div class="separator my-6"></div>
-                                <!--begin::پیام accordion-->
-                                <div data-kt-inbox-message="message_wrapper">
-                                    <!--begin::پیام header-->
-                                    <div class="d-flex flex-wrap gap-2 flex-stack cursor-pointer"
-                                         data-kt-inbox-message="header">
-                                        <!--begin::نویسنده-->
-                                        <div class="d-flex align-items-center">
-                                            <!--begin::Avatar-->
-                                            <div class="symbol symbol-50 me-4">
+
+                                @foreach($answers as $answer)
+                                    <div class="separator my-6"></div>
+                                    <div data-kt-inbox-message="message_wrapper">
+                                        <div class="d-flex flex-wrap gap-2 flex-stack cursor-pointer"
+                                             data-kt-inbox-message="header">
+                                            <!--begin::نویسنده-->
+                                            <div class="d-flex align-items-center">
+                                                <!--begin::Avatar-->
+                                                <div class="symbol symbol-50 me-4">
                                                 <span class="symbol-label"
-                                                      style="background-image:url(assets/media/avatars/300-1.jpg);"></span>
-                                            </div>
-                                            <!--end::Avatar-->
-                                            <div class="pe-5">
-                                                <!--begin::نویسنده details-->
-                                                <div class="d-flex align-items-center flex-wrap gap-1">
-                                                    <a href="#" class="fw-bold text-dark text-hover-primary">جلالی</a>
-                                                    <i class="ki-duotone ki-abstract-8 fs-7 text-success mx-3">
-                                                        <span class="path1"></span>
-                                                        <span class="path2"></span>
-                                                    </i>
-                                                    <span class="text-muted fw-bold">2 روز قبل</span>
+                                                      style="background-image:url({{ $answer->user ? $answer->user->get_avatar() : '---'  }});"></span>
                                                 </div>
-                                                <!--end::نویسنده details-->
-                                                <!--begin::پیام details-->
-                                                <div class="d-none" data-kt-inbox-message="details">
-                                                    <span class="text-muted fw-semibold">to me</span>
-                                                    <!--begin::Menu toggle-->
-                                                    <a href="#" class="me-1" data-kt-menu-trigger="click"
-                                                       data-kt-menu-placement="bottom-end">
-                                                        <i class="ki-duotone ki-down fs-5 m-0"></i>
-                                                    </a>
-                                                    <!--end::Menu toggle-->
-                                                    <!--begin::Menu-->
-                                                    <div
-                                                        class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-300px p-4"
-                                                        data-kt-menu="true">
-                                                        <!--begin::Table-->
-                                                        <table class="table mb-0">
-                                                            <tbody>
-                                                            <tr>
-                                                                <td class="w-75px text-muted">از</td>
-                                                                <td>الهام بارانی</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="text-muted">تاریخ</td>
-                                                                <td>22 شهریور 2023, 5:30 pm</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="text-muted">موضوع</td>
-                                                                <td>یادآوری سفر. ممنون که با ما پرواز کردید</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="text-muted">پاسخ-to</td>
-                                                                <td>emma@intenso.com</td>
-                                                            </tr>
-                                                            </tbody>
-                                                        </table>
+                                                <!--end::Avatar-->
+                                                <div class="pe-5">
+                                                    <!--begin::نویسنده details-->
+                                                    <div class="d-flex align-items-center flex-wrap gap-1">
+                                                        <a href="#"
+                                                           class="fw-bold text-dark text-hover-primary">{{ $answer->user ? $answer->user->full_name() : '---' }}</a>
+                                                        <span
+                                                            class="text-muted fw-bold">{{ \Carbon\Carbon::parse( $answer->created_at )->diffForHumans() }}</span>
                                                     </div>
-                                                    <!--end::Menu-->
+
+                                                    <div class="text-muted fw-semibold mw-450px"
+                                                         data-kt-inbox-message="نمایش">{!! $answer->text !!}</div>
                                                 </div>
-                                                <!--end::پیام details-->
-                                                <!--begin::نمایش message-->
-                                                <div class="text-muted fw-semibold mw-450px"
-                                                     data-kt-inbox-message="نمایش">روزنامه‌نگاران این بخش مهم و مقدماتی
-                                                    را «لِد» می‌نامند و زمانی که پل به درستی اجرا شود...
-                                                </div>
-                                                <!--end::نمایش message-->
                                             </div>
-                                        </div>
-                                        <!--end::نویسنده-->
-                                        <!--begin::Actions-->
-                                        <div class="d-flex align-items-center flex-wrap gap-2">
-                                            <!--begin::تاریخ-->
-                                            <span
-                                                class="fw-semibold text-muted text-end me-3">25 تیر 2023, 6:05 pm</span>
-                                            <!--end::تاریخ-->
-                                            <div class="d-flex">
-                                                <!--begin::ستاره-->
-                                                <a href="#"
-                                                   class="btn btn-sm btn-icon btn-clear btn-active-light-primary me-3"
-                                                   data-bs-toggle="tooltip" data-bs-placement="top" aria-label="ستاره"
-                                                   data-bs-original-title="ستاره" data-kt-initialized="1">
-                                                    <i class="ki-duotone ki-ستاره fs-2 text-warning m-0"></i>
-                                                </a>
-                                                <!--end::ستاره-->
-                                                <!--begin::اسفندk as important-->
-                                                <a href="#"
-                                                   class="btn btn-sm btn-icon btn-clear btn-active-light-primary me-3"
-                                                   data-bs-toggle="tooltip" data-bs-placement="top"
-                                                   aria-label="اسفندk as important"
-                                                   data-bs-original-title="اسفندk as important" data-kt-initialized="1">
-                                                    <i class="ki-duotone ki-save-2 fs-2 m-0">
-                                                        <span class="path1"></span>
-                                                        <span class="path2"></span>
-                                                    </i>
-                                                </a>
-                                                <!--end::اسفندk as important-->
-                                                <!--begin::پاسخ-->
-                                                <a href="#"
-                                                   class="btn btn-sm btn-icon btn-clear btn-active-light-primary me-3"
-                                                   data-bs-toggle="tooltip" data-bs-placement="top" aria-label="پاسخ"
-                                                   data-bs-original-title="پاسخ" data-kt-initialized="1">
-                                                    <i class="ki-duotone ki-message-edit fs-2 m-0">
-                                                        <span class="path1"></span>
-                                                        <span class="path2"></span>
-                                                    </i>
-                                                </a>
-                                                <!--end::پاسخ-->
-                                                <!--begin::تنظیمات-->
-                                                <a href="#"
-                                                   class="btn btn-sm btn-icon btn-clear btn-active-light-primary"
-                                                   data-bs-toggle="tooltip" data-bs-placement="top" aria-label="تنظیمات"
-                                                   data-bs-original-title="تنظیمات" data-kt-initialized="1">
-                                                    <i class="ki-duotone ki-dots-square-vertical fs-2 m-0">
-                                                        <span class="path1"></span>
-                                                        <span class="path2"></span>
-                                                        <span class="path3"></span>
-                                                        <span class="path4"></span>
-                                                    </i>
-                                                </a>
-                                                <!--end::تنظیمات-->
-                                            </div>
-                                        </div>
-                                        <!--end::Actions-->
-                                    </div>
-                                    <!--end::پیام header-->
-                                    <!--begin::پیام content-->
-                                    <div class="collapse fade" data-kt-inbox-message="message">
-                                        <div class="py-5">
-                                            <p>سلام</p>
-                                            <p>با احترام، من باید با آقای زینسر مخالفم. همه ما می دانیم که بیشترین بخش
-                                                مهم هر مقاله عنوان عنوان است.بدون عنوان قانع کننده ای است، خواننده شما
-                                                حتی به اولین جمله نمی رسد. با این حال، پس از عنوان، چند جمله اول مقاله
-                                                شما مطمئناً بیشترین است. بخش مهم.</p>
-                                            <p>روزنامه نگاران این بخش مهم و مقدماتی را "Lede" می نامند، و وقتی پل به
-                                                درستی اجرا شود، این همان چیزی است که خواننده شما را از یک تلاش سرفصل در
-                                                جلب توجه به بدنه پست وبلاگ خود می برد، اگر می خواهید آن را به درستی از
-                                                این موارد دریافت کنید. 10 روش هوشمندانه برای نوید دادن به وبلاگ بعدی
-                                                شما</p>
-                                            <p>ریچارد</p>
-                                            <p class="mb-0">شرکت ساتراس</p>
                                         </div>
                                     </div>
-                                    <!--end::پیام content-->
-                                </div>
-                                <!--end::پیام accordion-->
-                                <div class="separator my-6"></div>
-                                <!--begin::پیام accordion-->
-                                <div data-kt-inbox-message="message_wrapper">
-                                    <!--begin::پیام header-->
-                                    <div class="d-flex flex-wrap gap-2 flex-stack cursor-pointer"
-                                         data-kt-inbox-message="header">
-                                        <!--begin::نویسنده-->
-                                        <div class="d-flex align-items-center">
-                                            <!--begin::Avatar-->
-                                            <div class="symbol symbol-50 me-4">
-                                                <span class="symbol-label"
-                                                      style="background-image:url(assets/media/avatars/300-5.jpg);"></span>
-                                            </div>
-                                            <!--end::Avatar-->
-                                            <div class="pe-5">
-                                                <!--begin::نویسنده details-->
-                                                <div class="d-flex align-items-center flex-wrap gap-1">
-                                                    <a href="#" class="fw-bold text-dark text-hover-primary">محسن
-                                                        برومند</a>
-                                                    <i class="ki-duotone ki-abstract-8 fs-7 text-success mx-3">
-                                                        <span class="path1"></span>
-                                                        <span class="path2"></span>
-                                                    </i>
-                                                    <span class="text-muted fw-bold">سه روز پیش </span>
-                                                </div>
-                                                <!--end::نویسنده details-->
-                                                <!--begin::پیام details-->
-                                                <div class="d-none" data-kt-inbox-message="details">
-                                                    <span class="text-muted fw-semibold">to me</span>
-                                                    <!--begin::Menu toggle-->
-                                                    <a href="#" class="me-1" data-kt-menu-trigger="click"
-                                                       data-kt-menu-placement="bottom-end">
-                                                        <i class="ki-duotone ki-down fs-5 m-0"></i>
-                                                    </a>
-                                                    <!--end::Menu toggle-->
-                                                    <!--begin::Menu-->
-                                                    <div
-                                                        class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-300px p-4"
-                                                        data-kt-menu="true">
-                                                        <!--begin::Table-->
-                                                        <table class="table mb-0">
-                                                            <tbody>
-                                                            <tr>
-                                                                <td class="w-75px text-muted">از</td>
-                                                                <td>الهام بارانی</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="text-muted">تاریخ</td>
-                                                                <td>24 خرداد 2023, 9:23 pm</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="text-muted">موضوع</td>
-                                                                <td>یادآوری سفر. ممنون که با ما پرواز کردید</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="text-muted">پاسخ-to</td>
-                                                                <td>emma@intenso.com</td>
-                                                            </tr>
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                                    <!--end::Menu-->
-                                                </div>
-                                                <!--end::پیام details-->
-                                                <!--begin::نمایش message-->
-                                                <div class="text-muted fw-semibold mw-450px"
-                                                     data-kt-inbox-message="نمایش">روزنامه‌نگاران این بخش مهم و مقدماتی
-                                                    را «لِد» می‌نامند و زمانی که پل به درستی اجرا شود...
-                                                </div>
-                                                <!--end::نمایش message-->
+                                    <div class="separator my-6"></div>
+                                @endforeach
+
+                                <label for="id_text"
+                                       class="d-flex align-items-center fs-6 fw-semibold mb-2 mt-20">
+                                    <span class="required">متن پاسخ</span>
+                                </label>
+                                <form id="kt_inbox_reply_form" class="rounded border "
+                                      action="{{ route('ticket-answers.store', $ticket->id) }}" method="post"
+                                      enctype="multipart/form-data">
+                                    @csrf
+
+                                    <input style="display: none" type="file" name="file" id="id_file">
+
+                                    <div class="d-flex flex-column fv-row">
+                                            <textarea type="text" id="id_text" class="form-control form-control-solid"
+                                                      style="height: 100% !important;"
+                                                      placeholder="متن پاسخ را وارد کنید" name="text" rows="12"
+                                                      required>@if(old('text')){{ old('text') }}@elseif(isset($object->text)){{ $object->text }}@endif</textarea>
+
+                                        @error('text')
+                                        <div class="fv-plugins-message-container invalid-feedback">
+                                            <div data-field="meta_title" data-validator="notEmpty">
+                                                {{ $message }}
                                             </div>
                                         </div>
-                                        <!--end::نویسنده-->
-                                        <!--begin::Actions-->
-                                        <div class="d-flex align-items-center flex-wrap gap-2">
-                                            <!--begin::تاریخ-->
-                                            <span
-                                                class="fw-semibold text-muted text-end me-3">25 مهر 2023, 10:10 pm</span>
-                                            <!--end::تاریخ-->
-                                            <div class="d-flex">
-                                                <!--begin::ستاره-->
-                                                <a href="#"
-                                                   class="btn btn-sm btn-icon btn-clear btn-active-light-primary me-3"
-                                                   data-bs-toggle="tooltip" data-bs-placement="top" aria-label="ستاره"
-                                                   data-bs-original-title="ستاره" data-kt-initialized="1">
-                                                    <i class="ki-duotone ki-ستاره fs-2 m-0"></i>
-                                                </a>
-                                                <!--end::ستاره-->
-                                                <!--begin::اسفندk as important-->
-                                                <a href="#"
-                                                   class="btn btn-sm btn-icon btn-clear btn-active-light-primary me-3"
-                                                   data-bs-toggle="tooltip" data-bs-placement="top"
-                                                   aria-label="اسفندk as important"
-                                                   data-bs-original-title="اسفندk as important" data-kt-initialized="1">
-                                                    <i class="ki-duotone ki-save-2 fs-2 m-0">
-                                                        <span class="path1"></span>
-                                                        <span class="path2"></span>
-                                                    </i>
-                                                </a>
-                                                <!--end::اسفندk as important-->
-                                                <!--begin::پاسخ-->
-                                                <a href="#"
-                                                   class="btn btn-sm btn-icon btn-clear btn-active-light-primary me-3"
-                                                   data-bs-toggle="tooltip" data-bs-placement="top" aria-label="پاسخ"
-                                                   data-bs-original-title="پاسخ" data-kt-initialized="1">
-                                                    <i class="ki-duotone ki-message-edit fs-2 m-0">
-                                                        <span class="path1"></span>
-                                                        <span class="path2"></span>
-                                                    </i>
-                                                </a>
-                                                <!--end::پاسخ-->
-                                                <!--begin::تنظیمات-->
-                                                <a href="#"
-                                                   class="btn btn-sm btn-icon btn-clear btn-active-light-primary"
-                                                   data-bs-toggle="tooltip" data-bs-placement="top" aria-label="تنظیمات"
-                                                   data-bs-original-title="تنظیمات" data-kt-initialized="1">
-                                                    <i class="ki-duotone ki-dots-square-vertical fs-2 m-0">
-                                                        <span class="path1"></span>
-                                                        <span class="path2"></span>
-                                                        <span class="path3"></span>
-                                                        <span class="path4"></span>
-                                                    </i>
-                                                </a>
-                                                <!--end::تنظیمات-->
-                                            </div>
-                                        </div>
-                                        <!--end::Actions-->
-                                    </div>
-                                    <!--end::پیام header-->
-                                    <!--begin::پیام content-->
-                                    <div class="collapse fade" data-kt-inbox-message="message">
-                                        <div class="py-5">
-                                            <p>سلام</p>
-                                            <p>با احترام، من باید با آقای زینسر مخالفم. همه ما می دانیم که بیشترین بخش
-                                                مهم هر مقاله عنوان عنوان است.بدون عنوان قانع کننده ای است، خواننده شما
-                                                حتی به اولین جمله نمی رسد. با این حال، پس از عنوان، چند جمله اول مقاله
-                                                شما مطمئناً بیشترین است. بخش مهم.</p>
-                                            <p>روزنامه نگاران این بخش مهم و مقدماتی را "Lede" می نامند، و وقتی پل به
-                                                درستی اجرا شود، این همان چیزی است که خواننده شما را از یک تلاش سرفصل در
-                                                جلب توجه به بدنه پست وبلاگ خود می برد، اگر می خواهید آن را به درستی از
-                                                این موارد دریافت کنید. 10 روش هوشمندانه برای نوید دادن به وبلاگ بعدی
-                                                شما</p>
-                                            <p>ریچارد</p>
-                                            <p class="mb-0">شرکت ساتراس</p>
-                                        </div>
-                                    </div>
-                                    <!--end::پیام content-->
-                                </div>
-                                <!--end::پیام accordion-->
-                                <!--begin::Form-->
-                                <form id="kt_inbox_reply_form" class="rounded border mt-10">
-                                    <!--begin::Body-->
-                                    <div class="d-block">
-
-                                        <input type="hidden" name="file" id="id_file">
-
-                                        <div class="d-flex flex-column mb-8 fv-row">
-                                            <label for="id_description"
-                                                   class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                                <span class="required">توضیحات</span>
-                                            </label>
-
-                                            <textarea type="text" id="id_description" class="form-control form-control-solid"
-                                                      placeholder="توضیحات را وارد کنید" name="description" rows="12"
-                                                      required>@if(old('description')){{ old('description') }}@elseif(isset($object->description)){{ $object->description }}@endif</textarea>
-
-                                            @error('description')
-                                            <div class="fv-plugins-message-container invalid-feedback">
-                                                <div data-field="meta_title" data-validator="notEmpty">
-                                                    {{ $message }}
-                                                </div>
-                                            </div>
-                                            @enderror
-
-                                        </div>
+                                        @enderror
 
                                     </div>
-                                    <!--end::Body-->
-                                    <!--begin::Footer-->
+
                                     <div class="d-flex flex-stack flex-wrap gap-2 py-5 ps-8 pe-5 border-top">
                                         <!--begin::Actions-->
                                         <div class="d-flex align-items-center me-3">
@@ -691,64 +288,19 @@
                                             <div class="btn-group me-4">
                                                 <!--begin::ثبت-->
                                                 <span class="btn btn-primary fs-bold px-6" data-kt-inbox-form="send">
-																		<span class="indicator-label">ارسال</span>
+																		<span
+                                                                            onclick="$('#kt_inbox_reply_form').submit()"
+                                                                            class="indicator-label">ارسال</span>
 																		<span class="indicator-progress">لطفا صبر کنید...</span>
 																	</span>
-                                                <!--end::ثبت-->
-                                                <!--begin::ارسال options-->
-                                                <span class="btn btn-primary btn-icon fs-bold" role="button">
-																		<span class="btn btn-icon"
-                                                                              data-kt-menu-trigger="click"
-                                                                              data-kt-menu-placement="bottom-end">
-																			<i class="ki-duotone ki-down fs-2 m-0"></i>
-																		</span>
-																	</span>
-                                                <!--end::ارسال options-->
                                             </div>
-                                            <!--end::ارسال-->
-                                            <!--begin::Upload attachement-->
-                                            <span
-                                                class="btn btn-icon btn-sm btn-clean btn-active-light-primary me-2 dz-clickable"
-                                                id="kt_inbox_reply_attachments_select"
-                                                data-kt-inbox-form="dropzone_upload">
+                                            <span onclick="$('#id_file').click()"
+                                                  class="btn btn-icon btn-sm btn-clean btn-active-light-primary me-2 dz-clickable"
+                                                  id="kt_inbox_reply_attachments_select"
+                                                  data-kt-inbox-form="dropzone_upload">
 																	<i class="ki-duotone ki-paper-clip fs-2 m-0"></i>
 																</span>
-                                            <!--end::Upload attachement-->
-                                            <!--begin::Pin-->
-                                            <span class="btn btn-icon btn-sm btn-clean btn-active-light-primary">
-																	<i class="ki-duotone ki-geolocation fs-2 m-0">
-																		<span class="path1"></span>
-																		<span class="path2"></span>
-																	</i>
-																</span>
-                                            <!--end::Pin-->
                                         </div>
-                                        <!--end::Actions-->
-                                        <!--begin::Toolbar-->
-                                        <div class="d-flex align-items-center">
-                                            <!--begin::More actions-->
-                                            <span class="btn btn-icon btn-sm btn-clean btn-active-light-primary me-2"
-                                                  data-toggle="tooltip" title="More actions">
-																	<i class="ki-duotone ki-setting-2 fs-2">
-																		<span class="path1"></span>
-																		<span class="path2"></span>
-																	</i>
-																</span>
-                                            <!--end::More actions-->
-                                            <!--begin::Dismiss reply-->
-                                            <span class="btn btn-icon btn-sm btn-clean btn-active-light-primary"
-                                                  data-inbox="dismiss" data-toggle="tooltip" title="Dismiss reply">
-																	<i class="ki-duotone ki-حذف شده fs-2">
-																		<span class="path1"></span>
-																		<span class="path2"></span>
-																		<span class="path3"></span>
-																		<span class="path4"></span>
-																		<span class="path5"></span>
-																	</i>
-																</span>
-                                            <!--end::Dismiss reply-->
-                                        </div>
-                                        <!--end::Toolbar-->
                                     </div>
                                     <!--end::Footer-->
                                 </form>
