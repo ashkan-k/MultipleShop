@@ -29,7 +29,7 @@
                         <!--end::آیتم-->
                         <!--begin::آیتم-->
                         <li class="breadcrumb-item text-muted">
-                            <a href="{{ route('blog-categories.index') }}" class="text-muted text-hover-primary">دسته بندی ها</a>
+                            <a href="{{ route('blog.categories.index') }}" class="text-muted text-hover-primary">دسته بندی ها</a>
                         </li>
                         <!--end::آیتم-->
                     </ul>
@@ -55,7 +55,7 @@
 
                         <div class="card-toolbar">
                             <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
-                                <button onclick="window.location.href='{{ route('blog-categories.create') }}'" type="button"
+                                <button onclick="window.location.href='{{ route('blog.categories.create') }}'" type="button"
                                         class="btn btn-primary" data-bs-toggle="modal"
                                         data-bs-target="#kt_modal_add_user">
                                     <i class="ki-duotone ki-plus fs-2"></i>افزودن دسته بندی
@@ -126,12 +126,12 @@
                                             class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4"
                                             data-kt-menu="true">
                                             <div class="menu-item px-3">
-                                                <a href="{{ route('blog-categories.edit', $item->id) }}" class="menu-link px-3"
+                                                <a href="{{ route('blog.categories.edit', $item->id) }}" class="menu-link px-3"
                                                    data-kt-blog-categories-table-filter="delete_row">ویرایش</a>
                                             </div>
                                             <div class="menu-item px-3">
 
-                                                <form action="{{ route('blog-categories.destroy' , $item->id) }}"
+                                                <form action="{{ route('blog.categories.destroy' , $item->id) }}"
                                                       id="delete_form_{{ $loop->index }}" method="post">
                                                     @csrf
                                                     @method('DELETE')

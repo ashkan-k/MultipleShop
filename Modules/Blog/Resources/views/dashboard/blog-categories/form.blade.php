@@ -29,7 +29,7 @@
                         <!--end::آیتم-->
                         <!--begin::آیتم-->
                         <li class="breadcrumb-item text-muted">
-                            <a href="{{ route('blog-categories.index') }}" class="text-muted text-hover-primary">دسته بندی
+                            <a href="{{ route('blog.categories.index') }}" class="text-muted text-hover-primary">دسته بندی
                                 ها</a>
                         </li>
                         <!--end::آیتم-->
@@ -57,7 +57,7 @@
                                 <!--begin::Form-->
                                 <form role="form" enctype="multipart/form-data"
                                       method="post"
-                                      action="@if(isset($object)){{ route('blog-categories.update' , $object->id) }}@else{{ route('blog-categories.store') }}@endif">
+                                      action="@if(isset($object)){{ route('blog.categories.update' , $object->id) }}@else{{ route('blog.categories.store') }}@endif">
 
                                     @csrf
                                     @if(isset($object))
@@ -135,7 +135,7 @@
                                     <div class="row py-5">
                                         <div class="col-md-9 offset-md-3">
                                             <div class="d-flex" style="float: left !important;">
-                                                <button onclick="window.location.href='{{ route('blog-categories.index') }}'"
+                                                <button onclick="window.location.href='{{ route('blog.categories.index') }}'"
                                                         type="reset" data-kt-ecommerce-settings-type="cancel"
                                                         class="btn btn-light me-3">انصراف
                                                 </button>

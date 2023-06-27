@@ -18,7 +18,7 @@ class BlogCategoryRequest extends FormRequest
             'title' => 'string|required',
             'slug' => [
                 'nullable',
-                Rule::unique('blog-categories', 'slug')->ignore($this->blogCategory)
+                Rule::unique('blog_categories', 'slug')->ignore($this->category)
             ],
             'image' => 'mimes:jpeg,png,bmp,jpg',
         ];

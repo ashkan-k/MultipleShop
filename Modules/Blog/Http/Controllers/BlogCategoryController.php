@@ -33,7 +33,7 @@ class BlogCategoryController extends Controller
         $image = $this->UploadFile($request, 'image', 'blog_category_images', $request->title);
 
         BlogCategory::create(array_merge($request->all(), ['image' => $image]));
-        return $this->SuccessRedirect('آیتم مورد نظر با موفقیت ثبت شد.', 'blog-categories.index');
+        return $this->SuccessRedirect('آیتم مورد نظر با موفقیت ثبت شد.', 'blog.categories.index');
     }
 
     public function edit(BlogCategory $category)
@@ -43,16 +43,15 @@ class BlogCategoryController extends Controller
 
     public function update(BlogCategoryRequest $request, BlogCategory $category)
     {
-        dd($category);
         $image = $this->UploadFile($request, 'image', 'blog_category_images', $category->title, $category->image);
 
         $category->update(array_merge($request->all(), ['image' => $image]));
-        return $this->SuccessRedirect('آیتم مورد نظر با موفقیت ویرایش شد.', 'blog-categories.index');
+        return $this->SuccessRedirect('آیتم مورد نظر با موفقیت ویرایش شد.', 'blog.categories.index');
     }
 
     public function destroy(BlogCategory $category)
     {
         $category->delete();
-        return $this->SuccessRedirect('آیتم مورد نظر با موفقیت حذف شد.', 'blog-categories.index');
+        return $this->SuccessRedirect('آیتم مورد نظر با موفقیت حذف شد.', 'blog.categories.index');
     }
 }
