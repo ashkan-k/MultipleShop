@@ -29,7 +29,7 @@
                         <!--end::آیتم-->
                         <!--begin::آیتم-->
                         <li class="breadcrumb-item text-muted">
-                            <a href="{{ route('products.index') }}" class="text-muted text-hover-primary">مقاله</a>
+                            <a href="{{ route('blogs.index') }}" class="text-muted text-hover-primary">مقاله</a>
                         </li>
                         <!--end::آیتم-->
                     </ul>
@@ -55,7 +55,7 @@
 
                         <div class="card-toolbar">
                             <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
-                                <button onclick="window.location.href='{{ route('products.create') }}'" type="button"
+                                <button onclick="window.location.href='{{ route('blogs.create') }}'" type="button"
                                         class="btn btn-primary" data-bs-toggle="modal"
                                         data-bs-target="#kt_modal_add_user">
                                     <i class="ki-duotone ki-plus fs-2"></i>افزودن مقاله
@@ -141,12 +141,12 @@
                                             class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4"
                                             data-kt-menu="true">
                                             <div class="menu-item px-3">
-                                                <a href="{{ route('products.edit', $item->id) }}" class="menu-link px-3"
+                                                <a href="{{ route('blogs.edit', $item->id) }}" class="menu-link px-3"
                                                    data-kt-features-table-filter="delete_row">ویرایش</a>
                                             </div>
                                             <div class="menu-item px-3">
 
-                                                <form action="{{ route('products.destroy' , $item->id) }}"
+                                                <form action="{{ route('blogs.destroy' , $item->id) }}"
                                                       id="delete_form_{{ $loop->index }}" method="post">
                                                     @csrf
                                                     @method('DELETE')

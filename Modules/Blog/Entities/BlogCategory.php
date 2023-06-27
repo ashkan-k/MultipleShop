@@ -59,4 +59,11 @@ class BlogCategory extends Model
     {
         return \Modules\Blog\Database\factories\BlogCategoryFactory::new();
     }
+
+    //
+
+    public function blogs()
+    {
+        return $this->hasMany(Blog::class);
+    }
 }

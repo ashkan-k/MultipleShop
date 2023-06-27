@@ -16,8 +16,11 @@ return new class extends Migration
     {
         Schema::create('blogs', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->string('slug');
+            $table->string('title')->nullable();
+            $table->string('slug')->nullable();
+            $table->string('en_title')->nullable();
+            $table->string('en_slug')->nullable();
+
             $table->text('text');
             $table->integer('like_count')->default(0);
             $table->integer('view_count')->default(0);
@@ -25,7 +28,7 @@ return new class extends Migration
             $table->enum('status', EnumHelpers::$BlogStatusEnum)->default('draft');
 
             $table->foreignId('user_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
-            $table->foreignId('category_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('category_id')->constrained('blog_categories')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }

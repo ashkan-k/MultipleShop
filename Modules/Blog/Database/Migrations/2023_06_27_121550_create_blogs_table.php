@@ -28,7 +28,7 @@ return new class extends Migration
             $table->enum('status', EnumHelpers::$BlogStatusEnum)->default('draft');
 
             $table->foreignId('user_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
-            $table->foreignId('category_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('category_id')->constrained('blog_categories')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }

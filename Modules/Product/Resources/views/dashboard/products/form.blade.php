@@ -94,7 +94,7 @@
 
                                         <input type="text" id="id_title" class="form-control form-control-solid"
                                                value="@if(old('title')){{ old('title') }}@elseif(isset($object->title)){{ $object->title }}@endif"
-                                               placeholder="نام را وارد کنید" name="title" required/>
+                                               placeholder="نام را وارد کنید" name="title"/>
 
                                         @error('title')
                                         <div class="fv-plugins-message-container invalid-feedback">
@@ -134,7 +134,7 @@
 
                                         <input type="text" id="id_en_title" class="form-control form-control-solid"
                                                value="@if(old('en_title')){{ old('en_title') }}@elseif(isset($object->en_title)){{ $object->en_title }}@endif"
-                                               placeholder="نام انگلیسی را وارد کنید" name="en_title" required/>
+                                               placeholder="نام انگلیسی را وارد کنید" name="en_title"/>
 
                                         @error('en_title')
                                         <div class="fv-plugins-message-container invalid-feedback">

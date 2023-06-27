@@ -15,5 +15,5 @@ use Illuminate\Support\Facades\Route;
 use Modules\Blog\Http\Controllers\BlogCategoryController;
 use Modules\Blog\Http\Controllers\BlogController;
 
-Route::resource('blogs', BlogController::class);
 Route::resource('blogs/categories', BlogCategoryController::class, ['as' => 'blog']);
+Route::resource('blogs', BlogController::class);

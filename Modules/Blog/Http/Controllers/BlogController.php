@@ -8,6 +8,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Blog\Entities\Blog;
+use Modules\Blog\Entities\BlogCategory;
 use Modules\Blog\Http\Requests\BlogRequest;
 
 class BlogController extends Controller
@@ -16,12 +17,17 @@ class BlogController extends Controller
 
     public function index()
     {
-        return view('blog::dashboard.blogs.list');
+        $objects = Blog::Search(request('search'))
+            ->latest()
+            ->paginate(\request('pagination', env('PAGINATION_NUMBER', 10)));
+
+        return view('blog::dashboard.blogs.list', compact('objects'));
     }
 
     public function create()
     {
-        return view('blog::dashboard.blogs.form');
+        $categories = BlogCategory::all();
+        return view('blog::dashboard.blogs.form', compact('categories'));
     }
 
     public function store(BlogRequest $request)
@@ -34,7 +40,8 @@ class BlogController extends Controller
 
     public function edit(Blog $blog)
     {
-        return view('blog::dashboard.blogs.form', compact('blog'));
+        $categories = BlogCategory::all();
+        return view('blog::dashboard.blogs.form', compact('categories'))->with('object', $blog);
     }
 
     public function update(BlogRequest $request, Blog $blog)

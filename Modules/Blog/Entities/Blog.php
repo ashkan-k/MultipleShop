@@ -94,4 +94,9 @@ class Blog extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function category()
+    {
+        return $this->belongsTo(BlogCategory::class);
+    }
 }

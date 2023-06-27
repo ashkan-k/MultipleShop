@@ -15,8 +15,8 @@ class BlogRequest extends FormRequest
     public function rules()
     {
         $rules = [
-            'title' => 'string|required_without:en_title',
-            'en_title' => 'string|required_without:title',
+            'title' => 'required_without:en_title',
+            'en_title' => 'required_without:title',
             'slug' => [
                 'nullable',
                 Rule::unique('blogs', 'slug')->ignore($this->blog)
@@ -28,7 +28,7 @@ class BlogRequest extends FormRequest
             'text' => 'required',
             'status' => 'in:draft,publish,done',
             'image' => 'mimes:jpeg,png,bmp,jpg',
-            'category_id' => 'required|exists:categories,id',
+            'category_id' => 'required|exists:blog_categories,id',
         ];
 
         if (request()->method == 'POST'){
