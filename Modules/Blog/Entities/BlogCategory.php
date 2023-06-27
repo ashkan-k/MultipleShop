@@ -34,12 +34,12 @@ class BlogCategory extends Model
         if (!$this->slug){
             $this->slug = $this->title;
         }
-        $this->slug = Str::slug($this->slug);
+        $this->slug = Slugify($this->slug);
 
         if (!$this->en_slug){
             $this->en_slug = $this->en_title;
         }
-        $this->en_slug = Str::slug($this->en_slug);
+        $this->en_slug = Slugify($this->en_slug);
 
         try {
             $saved =  parent::save($options);
