@@ -18,6 +18,7 @@ class BlogController extends Controller
     public function index()
     {
         $objects = Blog::Search(request('search'))
+            ->with('user')
             ->latest()
             ->paginate(\request('pagination', env('PAGINATION_NUMBER', 10)));
 
