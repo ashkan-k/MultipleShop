@@ -148,7 +148,7 @@
                                 <span class="required">تصویر</span>
                             </label>
 
-                            <input type="file" id="id_image" multiple class="form-control">
+                            <input type="file" id="id_image" accept="image/*" multiple class="form-control">
                             <div ng-if="obj.image" class="input-field col s12 mt-3">
                                 <p>تصویر قبلی:</p>
                                 <a href="[[ obj.image]]" target="_blank"><img
@@ -235,7 +235,7 @@
                 }
 
                 fd = new FormData();
-                for (const item in $("#id_image")[0].files){
+                for (item = 0; item < $("#id_image")[0].files.length; item++){
                     fd.append('image[]', $("#id_image")[0].files[item]);
                 }
 

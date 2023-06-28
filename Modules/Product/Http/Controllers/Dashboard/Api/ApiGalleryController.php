@@ -22,7 +22,6 @@ class ApiGalleryController extends Controller
 
     public function store(Product $product, GalleryRequest $request)
     {
-        dd($request->file('image'));
         if ($request->file('image')){
             foreach($request->file('image') as $file)
             {
