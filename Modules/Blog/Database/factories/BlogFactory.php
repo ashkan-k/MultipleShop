@@ -4,6 +4,7 @@ namespace Modules\Blog\Database\factories;
 
 use App\Enums\EnumHelpers;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Modules\Blog\Entities\BlogCategory;
 use Modules\Product\Entities\Category;
 use Modules\User\Entities\User;
 
@@ -25,7 +26,7 @@ class BlogFactory extends Factory
     {
         return [
             'user_id' => User::factory(),
-            'category_id' => Category::factory(),
+            'category_id' => BlogCategory::factory(),
             'title' => fake()->title(),
             'slug' => fake()->shuffleString(),
             'text' => fake()->text(),

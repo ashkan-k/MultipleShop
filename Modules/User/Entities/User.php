@@ -12,6 +12,9 @@ use Illuminate\Support\Facades\Hash;
 use Laravel\Sanctum\HasApiTokens;
 use Modules\Blog\Entities\Blog;
 use Modules\Cart\Entities\Cart;
+use Modules\Comment\Entities\Comment;
+use Modules\Coupon\Entities\Coupon;
+use Modules\Payment\Entities\Payment;
 use Modules\Product\Entities\Product;
 use Modules\Ticket\Entities\Ticket;
 use Modules\Ticket\Entities\TicketAnswer;
@@ -172,5 +175,20 @@ class User extends Authenticatable
     public function carts()
     {
         return $this->hasMany(Cart::class);
+    }
+
+    public function payments()
+    {
+        return $this->hasMany(Payment::class);
+    }
+
+    public function coupons()
+    {
+        return $this->hasMany(Coupon::class);
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
     }
 }

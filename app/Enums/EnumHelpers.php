@@ -11,4 +11,6 @@ class EnumHelpers
     static $ProductFeatureTypeTypeEnum = ['up', 'down', 'both'];
     static $BlogStatusEnum = ['draft', 'publish', 'done'];
     static $TicketStatusEnum = ['waiting', 'answered', 'close'];
+    static $CommentStatusEnum = ['pending', 'approved', 'reject'];
+    static $CommentSeggestToFriendEnum = ['suggest', 'not_suggest', 'no_idea'];
 }

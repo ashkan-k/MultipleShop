@@ -1,12 +1,12 @@
 <?php
 
-namespace Modules\Payment\Database\Seeders;
+namespace Modules\Comment\Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
-use Modules\Payment\Entities\Payment;
+use Modules\Comment\Entities\Comment;
 
-class PaymentDatabaseSeeder extends Seeder
+class CommentDatabaseSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -16,7 +16,7 @@ class PaymentDatabaseSeeder extends Seeder
     public function run()
     {
         Model::unguard();
-        Payment::factory(5)->create();
+        Comment::factory(5)->create();
 
         // $this->call("OthersTableSeeder");
     }
