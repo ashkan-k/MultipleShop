@@ -18,6 +18,7 @@ class CartController extends Controller
     public function index()
     {
         $objects = Cart::Search(request('search'))
+            ->with(['user', 'product'])
             ->latest()
             ->paginate(\request('pagination', env('PAGINATION_NUMBER', 10)));
 

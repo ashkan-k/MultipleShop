@@ -352,7 +352,6 @@
                 </div>
             </div>
 
-
             <div data-kt-menu-trigger="click"
                  class="menu-item @if(str_starts_with(\Illuminate\Support\Facades\Route::current()->getName(), 'carts.')) show @endif menu-accordion">
                 <span class="menu-link">
@@ -381,6 +380,36 @@
 
                 </div>
             </div>
+
+            <div data-kt-menu-trigger="click"
+                 class="menu-item @if(str_starts_with(\Illuminate\Support\Facades\Route::current()->getName(), 'wishlists.')) show @endif menu-accordion">
+                <span class="menu-link">
+											<span class="menu-icon">
+												<i class="ki-duotone ki-save-2 fs-2">
+													<span class="path1"></span>
+													<span class="path2"></span>
+													<span class="path3"></span>
+													<span class="path4"></span>
+												</i>
+											</span>
+											<span class="menu-title">علافه مندی ها</span>
+											<span class="menu-arrow"></span>
+										</span>
+                <div class="menu-sub menu-sub-accordion">
+
+                    <div class="menu-item">
+                        <a class="menu-link @if(\Illuminate\Support\Facades\Route::current()->getName() == 'wishlists.index') active @endif"
+                           href="{{ route('wishlists.index') }}">
+													<span class="menu-bullet">
+														<span class="bullet bullet-dot"></span>
+													</span>
+                            <span class="menu-title">لیست علافه مندی ها</span>
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+
 
             <div class="menu-item pt-5">
                 <div class="menu-content">

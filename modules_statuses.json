@@ -7,5 +7,6 @@
     "Coupon": true,
     "Ticket": true,
     "Blog": true,
-    "Cart": true
+    "Cart": true,
+    "Wishlist": true
 }
