@@ -83,7 +83,7 @@
                             <tbody class="text-gray-600 fw-semibold">
 
                             <tr ng-repeat="item in items">
-                                <td>[[ item.title ]]</td>
+                                <td>[[ item.product.title ]]</td>
 
                                 <td>
                                     <div class="symbol symbol-circle symbol-50px overflow-hidden me-3">
@@ -148,7 +148,7 @@
                                 <span class="required">تصویر</span>
                             </label>
 
-                            <input type="file" id="id_image" class="form-control">
+                            <input type="file" id="id_image" multiple class="form-control">
                             <div ng-if="obj.image" class="input-field col s12 mt-3">
                                 <p>تصویر قبلی:</p>
                                 <a href="[[ obj.image]]" target="_blank"><img
@@ -235,7 +235,9 @@
                 }
 
                 fd = new FormData();
-                fd.append('image', $("#id_image")[0].files[0]);
+                for (const item in $("#id_image")[0].files){
+                    fd.append('image[]', $("#id_image")[0].files[item]);
+                }
 
                 $scope.is_submited = true;
 

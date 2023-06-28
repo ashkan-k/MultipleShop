@@ -16,15 +16,20 @@ class ApiGalleryController extends Controller
 
     public function list(Product $product)
     {
-        $gallery = $product->galleries()->get();
+        $gallery = $product->galleries()->with('product')->get();
         return $this->SuccessResponse($gallery);
     }
 
     public function store(Product $product, GalleryRequest $request)
     {
-        $image = $this->UploadFile($request, 'image', 'product_galleries', $product->title);
-
-        $product->galleries()->create(array_merge($request->validated(), ['image' => $image]));
+        dd($request->file('image'));
+        if ($request->file('image')){
+            foreach($request->file('image') as $file)
+            {
+                $image = $this->Upload($file, 'product_galleries', $product->title);
+                $product->galleries()->create(['image' => $image]);
+            }
+        }
         return $this->SuccessResponse('تصویر مورد نظر با موفقیت آپلود شد.');
     }
 
