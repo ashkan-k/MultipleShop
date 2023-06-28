@@ -2,6 +2,7 @@
 
 namespace Modules\Order\Http\Controllers\Dashboard;
 
+use App\Http\Traits\Responses;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -9,73 +10,24 @@ use Modules\Order\Entities\Order;
 
 class OrderController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     * @return Renderable
-     */
+    use Responses;
+
+    private $order_relations = ['user', 'product', 'payment'];
+
     public function index()
     {
-        return view('order::index');
+        $objects = Order::Search(request('search'))
+            ->with($this->order_relations)
+            ->latest()
+            ->paginate(\request('pagination', env('PAGINATION_NUMBER', 10)));
+
+        return view('order::dashboard.list', compact('objects'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     * @return Renderable
-     */
-    public function create()
+    public function destroy(Order $order)
     {
-        return view('order::create');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     * @param Request $request
-     * @return Renderable
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Show the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function show($id)
-    {
-        return view('order::show');
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function edit($id)
-    {
-        return view('order::edit');
-    }
-
-    /**
-     * Update the specified resource in storage.
-     * @param Request $request
-     * @param int $id
-     * @return Renderable
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     * @param int $id
-     * @return Renderable
-     */
-    public function destroy($id)
-    {
-        //
+        $order->delete();
+        return $this->SuccessRedirect('آیتم مورد نظر با موفقیت حذف شد.', 'orders.index');
     }
 
     public function change_status(Order $order)

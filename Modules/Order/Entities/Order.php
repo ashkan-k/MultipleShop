@@ -6,7 +6,9 @@ use App\Http\Traits\Searchable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\Payment\Entities\Payment;
+use Modules\Product\Entities\Color;
 use Modules\Product\Entities\Product;
+use Modules\Product\Entities\Size;
 use Modules\User\Entities\User;
 
 class Order extends Model
@@ -93,5 +95,15 @@ class Order extends Model
     public function payment()
     {
         return $this->belongsTo(Payment::class);
+    }
+
+    public function size()
+    {
+        return $this->belongsTo(Size::class);
+    }
+
+    public function color()
+    {
+        return $this->belongsTo(Color::class);
     }
 }
