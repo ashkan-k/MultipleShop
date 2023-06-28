@@ -71,6 +71,7 @@
                                 <th>قیمت (تومن)</th>
                                 <th>کد پیگیری</th>
                                 <th>ip</th>
+                                <th>تاریخ ثبت</th>
                                 <th>وضعیت</th>
                             </tr>
                             </thead>
@@ -87,6 +88,8 @@
                                     <td>{{ $item->refID ?: '---' }}</td>
 
                                     <td>{{ $item->ip }}</td>
+
+                                    <td>{{ \Hekmatinasser\Verta\Verta:: instance($item->created_at)->format('%B %d، %Y') }}</td>
 
                                     <td>
                                         <div class="badge badge-light-{{ $item->status ? 'success' : 'danger' }} active_modal_buttons">

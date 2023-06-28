@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
+use Modules\Comment\Http\Controllers\Dashboard\CommentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +15,4 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/comment', function (Request $request) {
-    return $request->user();
-});
+Route::post('status/change/{comment}', [CommentController::class, 'change_status']);

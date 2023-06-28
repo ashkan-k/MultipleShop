@@ -19,17 +19,16 @@
                     <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1">
                         <!--begin::آیتم-->
                         <li class="breadcrumb-item text-muted">
-                            <a href="../../demo1/dist/index.html" class="text-muted text-hover-primary">خانه</a>
+                            <a href="{{ route('dashboard') }}" class="text-muted text-hover-primary">خانه</a>
                         </li>
-                        <!--end::آیتم-->
-                        <!--begin::آیتم-->
+
                         <li class="breadcrumb-item">
                             <span class="bullet bg-gray-400 w-5px h-2px"></span>
                         </li>
-                        <!--end::آیتم-->
-                        <!--begin::آیتم-->
-                        <li class="breadcrumb-item text-muted">صندوق پیام</li>
-                        <!--end::آیتم-->
+
+                        <li class="breadcrumb-item text-muted">
+                            <a href="{{ route('tickets.index') }}" class="text-muted text-hover-primary">تیکت ها</a>
+                        </li>
                     </ul>
                     <!--end::Breadcrumb-->
                 </div>

@@ -47,6 +47,16 @@ class Comment extends Model
         return 'رد شده';
     }
 
+    public function get_suggest_score()
+    {
+        if ($this->suggest_score == 'suggest') {
+            return 'پیشنهاد میکنم';
+        } elseif ($this->suggest_score == 'not_suggest') {
+            return 'پیشنهاد نمیکنم';
+        }
+        return 'نظری ندارم';
+    }
+
     public function get_status_class()
     {
         if ($this->status == 'pending') {
