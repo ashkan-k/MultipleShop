@@ -11,6 +11,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Sanctum\HasApiTokens;
 use Modules\Blog\Entities\Blog;
+use Modules\Cart\Entities\Cart;
 use Modules\Product\Entities\Product;
 use Modules\Ticket\Entities\Ticket;
 use Modules\Ticket\Entities\TicketAnswer;
@@ -166,5 +167,10 @@ class User extends Authenticatable
     public function ticket_answeres()
     {
         return $this->hasMany(TicketAnswer::class);
+    }
+
+    public function carts()
+    {
+        return $this->hasMany(Cart::class);
     }
 }

@@ -6,6 +6,7 @@ use App\Http\Traits\Searchable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Str;
+use Modules\Cart\Entities\Cart;
 use Modules\User\Entities\User;
 
 class Product extends Model
@@ -142,5 +143,10 @@ class Product extends Model
     public function galleries()
     {
         return $this->hasMany(Gallery::class);
+    }
+
+    public function carts()
+    {
+        return $this->hasMany(Cart::class);
     }
 }

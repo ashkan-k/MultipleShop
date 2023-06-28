@@ -6,5 +6,6 @@
     "Slider": true,
     "Coupon": true,
     "Ticket": true,
-    "Blog": true
+    "Blog": true,
+    "Cart": true
 }

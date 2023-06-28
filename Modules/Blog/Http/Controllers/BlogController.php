@@ -52,6 +52,12 @@ class BlogController extends Controller
         return $this->SuccessRedirect('آیتم مورد نظر با موفقیت ویرایش شد.', 'blogs.index');
     }
 
+    public function destroy(Blog $blog)
+    {
+        $blog->delete();
+        return $this->SuccessRedirect('آیتم مورد نظر با موفقیت حذف شد.', 'blogs.index');
+    }
+
     public function change_status(Blog $blog)
     {
         $blog->update(['status' => \request('status')]);

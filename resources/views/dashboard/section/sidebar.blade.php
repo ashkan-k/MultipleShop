@@ -81,6 +81,42 @@
                     </div>
                 </div>
 
+                <div data-kt-menu-trigger="click"
+                     class="menu-item @if(str_starts_with(\Illuminate\Support\Facades\Route::current()->getName(), 'blogs.') || str_starts_with(\Illuminate\Support\Facades\Route::current()->getName(), 'blog.categories.')) show @endif menu-accordion">
+                <span class="menu-link">
+											<span class="menu-icon">
+												<i class="ki-duotone ki-bank fs-2">
+													<span class="path1"></span>
+													<span class="path2"></span>
+													<span class="path3"></span>
+													<span class="path4"></span>
+												</i>
+											</span>
+											<span class="menu-title">اخبار و مقالات</span>
+											<span class="menu-arrow"></span>
+										</span>
+                    <div class="menu-sub menu-sub-accordion">
+
+                        <div class="menu-item">
+                            <a class="menu-link @if(\Illuminate\Support\Facades\Route::current()->getName() == 'blog.categories.index' || \Illuminate\Support\Facades\Route::current()->getName() == 'blog.categories.create') active @endif"
+                               href="{{ route('blog.categories.index') }}">
+													<span class="menu-bullet">
+														<span class="bullet bullet-dot"></span>
+													</span>
+                                <span class="menu-title">دسته بندی ها</span>
+                            </a>
+
+                            <a class="menu-link @if(\Illuminate\Support\Facades\Route::current()->getName() == 'blogs.index' || \Illuminate\Support\Facades\Route::current()->getName() == 'blogs.create') active @endif"
+                               href="{{ route('blogs.index') }}">
+													<span class="menu-bullet">
+														<span class="bullet bullet-dot"></span>
+													</span>
+                                <span class="menu-title">مقالات</span>
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
 
                 <div data-kt-menu-trigger="click"
                      class="menu-item @if(str_starts_with(\Illuminate\Support\Facades\Route::current()->getName(), 'ticket-categires.') || str_starts_with(\Illuminate\Support\Facades\Route::current()->getName(), 'tickets.') || str_starts_with(\Illuminate\Support\Facades\Route::current()->getName(), 'ticket-answers.')) show @endif menu-accordion">
@@ -201,9 +237,11 @@
                 </div>
             </div>
 
-            <div data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="left-start" class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention">
+            <div data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="left-start"
+                 class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention">
                 <!--begin:Menu link-->
-                <span class="menu-link @if(str_starts_with(\Illuminate\Support\Facades\Route::current()->getName(), 'colors.') || str_starts_with(\Illuminate\Support\Facades\Route::current()->getName(), 'sizes.')) active @endif">
+                <span
+                    class="menu-link @if(str_starts_with(\Illuminate\Support\Facades\Route::current()->getName(), 'colors.') || str_starts_with(\Illuminate\Support\Facades\Route::current()->getName(), 'sizes.')) active @endif">
 											<span class="menu-icon">
 												<i class="ki-duotone ki-file fs-2">
 													<span class="path1"></span>
@@ -215,9 +253,11 @@
 										</span>
                 <!--end:Menu link-->
                 <!--begin:Menu sub-->
-                <div class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown px-2 py-4 w-200px mh-75 overflow-auto">
+                <div
+                    class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown px-2 py-4 w-200px mh-75 overflow-auto">
                     <div class="menu-item">
-                        <a class="menu-link @if(str_starts_with(\Illuminate\Support\Facades\Route::current()->getName(), 'colors.')) active @endif" href="{{ route('colors.index') }}">
+                        <a class="menu-link @if(str_starts_with(\Illuminate\Support\Facades\Route::current()->getName(), 'colors.')) active @endif"
+                           href="{{ route('colors.index') }}">
 													<span class="menu-bullet">
 														<span class="bullet bullet-dot"></span>
 													</span>
@@ -226,7 +266,8 @@
                     </div>
 
                     <div class="menu-item">
-                        <a class="menu-link @if(str_starts_with(\Illuminate\Support\Facades\Route::current()->getName(), 'sizes.')) active @endif" href="{{ route('sizes.index') }}">
+                        <a class="menu-link @if(str_starts_with(\Illuminate\Support\Facades\Route::current()->getName(), 'sizes.')) active @endif"
+                           href="{{ route('sizes.index') }}">
 													<span class="menu-bullet">
 														<span class="bullet bullet-dot"></span>
 													</span>
@@ -311,37 +352,30 @@
                 </div>
             </div>
 
+
             <div data-kt-menu-trigger="click"
-                 class="menu-item @if(str_starts_with(\Illuminate\Support\Facades\Route::current()->getName(), 'blogs.') || str_starts_with(\Illuminate\Support\Facades\Route::current()->getName(), 'blog.categories.')) show @endif menu-accordion">
+                 class="menu-item @if(str_starts_with(\Illuminate\Support\Facades\Route::current()->getName(), 'carts.')) show @endif menu-accordion">
                 <span class="menu-link">
 											<span class="menu-icon">
-												<i class="ki-duotone ki-abstract-41 fs-2">
+												<i class="ki-duotone ki-basket fs-2">
 													<span class="path1"></span>
 													<span class="path2"></span>
 													<span class="path3"></span>
 													<span class="path4"></span>
 												</i>
 											</span>
-											<span class="menu-title">اخبار و مقالات</span>
+											<span class="menu-title">سبد خرید ها</span>
 											<span class="menu-arrow"></span>
 										</span>
                 <div class="menu-sub menu-sub-accordion">
 
                     <div class="menu-item">
-                        <a class="menu-link @if(\Illuminate\Support\Facades\Route::current()->getName() == 'blog.categories.index' || \Illuminate\Support\Facades\Route::current()->getName() == 'blog.categories.create') active @endif"
-                           href="{{ route('blog.categories.index') }}">
+                        <a class="menu-link @if(\Illuminate\Support\Facades\Route::current()->getName() == 'carts.index') active @endif"
+                           href="{{ route('carts.index') }}">
 													<span class="menu-bullet">
 														<span class="bullet bullet-dot"></span>
 													</span>
-                            <span class="menu-title">دسته بندی ها</span>
-                        </a>
-
-                        <a class="menu-link @if(\Illuminate\Support\Facades\Route::current()->getName() == 'blogs.index' || \Illuminate\Support\Facades\Route::current()->getName() == 'blogs.create') active @endif"
-                           href="{{ route('blogs.index') }}">
-													<span class="menu-bullet">
-														<span class="bullet bullet-dot"></span>
-													</span>
-                            <span class="menu-title">مقالات</span>
+                            <span class="menu-title">لیست سبد خرید ها</span>
                         </a>
                     </div>
 
