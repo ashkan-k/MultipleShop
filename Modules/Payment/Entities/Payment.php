@@ -6,6 +6,7 @@ use App\Http\Traits\Searchable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\Coupon\Entities\Coupon;
+use Modules\Order\Entities\Order;
 use Modules\Reserve\Entities\Reserve;
 use Modules\User\Entities\User;
 
@@ -50,5 +51,10 @@ class Payment extends Model
     public function coupon()
     {
         return $this->belongsTo(Coupon::class);
+    }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
     }
 }

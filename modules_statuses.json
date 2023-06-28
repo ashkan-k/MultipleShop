@@ -10,5 +10,6 @@
     "Cart": true,
     "Payment": true,
     "Wishlist": true,
-    "Comment": true
+    "Comment": true,
+    "Order": true
 }

@@ -14,6 +14,7 @@ use Modules\Blog\Entities\Blog;
 use Modules\Cart\Entities\Cart;
 use Modules\Comment\Entities\Comment;
 use Modules\Coupon\Entities\Coupon;
+use Modules\Order\Entities\Order;
 use Modules\Payment\Entities\Payment;
 use Modules\Product\Entities\Product;
 use Modules\Ticket\Entities\Ticket;
@@ -190,5 +191,10 @@ class User extends Authenticatable
     public function comments()
     {
         return $this->hasMany(Comment::class);
+    }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
     }
 }
