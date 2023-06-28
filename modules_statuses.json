@@ -8,5 +8,6 @@
     "Ticket": true,
     "Blog": true,
     "Cart": true,
+    "Payment": true,
     "Wishlist": true
 }
