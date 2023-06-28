@@ -181,7 +181,7 @@ Like: www.facebook.com/keenthemes
                             <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-title-gray-700 menu-icon-gray-500 menu-active-bg menu-state-color fw-semibold py-4 fs-base w-150px" data-kt-menu="true" data-kt-element="theme-mode-menu" style="">
                                 <!--begin::Menu item-->
                                 <div class="menu-item px-3 my-0">
-                                    <a href="#" class="menu-link px-3 py-2 active" data-kt-element="mode" data-kt-value="light">
+                                    <a href="#" id="id_light" class="menu-link px-3 py-2 active" data-kt-element="mode" data-kt-value="light">
 												<span class="menu-icon" data-kt-element="icon">
 													<i class="ki-duotone ki-night-day fs-2">
 														<span class="path1"></span>
@@ -202,7 +202,7 @@ Like: www.facebook.com/keenthemes
                                 <!--end::Menu item-->
                                 <!--begin::Menu item-->
                                 <div class="menu-item px-3 my-0">
-                                    <a href="#" class="menu-link px-3 py-2" data-kt-element="mode" data-kt-value="dark">
+                                    <a href="#" id="id_dark" class="menu-link px-3 py-2" data-kt-element="mode" data-kt-value="dark">
 												<span class="menu-icon" data-kt-element="icon">
 													<i class="ki-duotone ki-moon fs-2">
 														<span class="path1"></span>
@@ -215,7 +215,7 @@ Like: www.facebook.com/keenthemes
                                 <!--end::Menu item-->
                                 <!--begin::Menu item-->
                                 <div class="menu-item px-3 my-0">
-                                    <a href="#" class="menu-link px-3 py-2" data-kt-element="mode" data-kt-value="system">
+                                    <a href="#" id="id_system" class="menu-link px-3 py-2" data-kt-element="mode" data-kt-value="system">
 												<span class="menu-icon" data-kt-element="icon">
 													<i class="ki-duotone ki-screen fs-2">
 														<span class="path1"></span>
