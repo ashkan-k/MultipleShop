@@ -109,9 +109,9 @@
                                         {{ $item->commentable_type ?  $item->commentable->title  :  '---' }}
                                     </td>
 
-                                    <td>{{ $item->negative_points ?: '---'  }}</td>
+                                    <td title="{{ $item->negative_points }}">{{ $item->negative_points ? \Illuminate\Support\Str::limit($item->negative_points, 15) : '---'  }}</td>
 
-                                    <td>{{ $item->positive_points ?: '---'  }}</td>
+                                    <td title="{{ $item->positive_points }}">{{ $item->positive_points ? \Illuminate\Support\Str::limit($item->positive_points, 15) : '---'  }}</td>
 
                                     <td>{{ $item->get_suggest_score() ?: '---'  }}</td>
 
@@ -123,6 +123,8 @@
                                     <td>{{ \Hekmatinasser\Verta\Verta:: instance($item->created_at)->format('%B %d، %Y') }}</td>
 
                                     <td class="">
+                                        <a ng-click="ShowCommentTextModal('{{ $item->body }}')" class="btn btn-bg-light btn-color-muted btn-active-color-primary btn-sm px-4 me-2">نمایش متن</a>
+
                                         <a href="#"
                                            class="btn btn-light btn-active-light-primary btn-flex btn-center btn-sm"
                                            data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">عملیات
@@ -173,6 +175,57 @@
             <!--end::Content container-->
         </div>
         <!--end::Content-->
+    </div>
+
+    <div class="modal fade" id="showTextModal" tabindex="-1" aria-hidden="true">
+        <!--begin::Modal dialog-->
+        <div class="modal-dialog modal-dialog-centered mw-650px">
+            <!--begin::Modal content-->
+            <div class="modal-content rounded">
+                <!--begin::Modal header-->
+                <div class="modal-header pb-0 border-0 justify-content-end">
+                    <!--begin::Close-->
+                    <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                        <i class="ki-duotone ki-cross fs-1">
+                            <span class="path1"></span>
+                            <span class="path2"></span>
+                        </i>
+                    </div>
+                    <!--end::Close-->
+                </div>
+                <!--begin::Modal header-->
+                <!--begin::Modal body-->
+                <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
+                    <!--begin:Form-->
+                    <form id="changeStatusModal_form" class="form" action="#">
+                        <!--begin::Heading-->
+                        <div class="mb-13 text-center">
+                            <h1 class="mb-3">مشاهده متن نظر</h1>
+                        </div>
+
+                        <div class="d-flex flex-column mb-8 fv-row">
+                            <!--begin::Tags-->
+                            <label for="id_status" class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                <span class="required">متن نظر</span>
+                            </label>
+
+                            <textarea rows="20" ng-model="comment_text" disabled class="form-control"></textarea>
+                        </div>
+
+                        <div class="text-center">
+                            <button ng-disabled="is_submited" onclick="$('#showTextModal').modal('hide');"
+                                    type="reset" id="showTextModal_cancel" class="btn btn-light me-3">بستن
+                            </button>
+                        </div>
+                        <!--end::Actions-->
+                    </form>
+                    <!--end:Form-->
+                </div>
+                <!--end::Modal body-->
+            </div>
+            <!--end::Modal content-->
+        </div>
+        <!--end::Modal dialog-->
     </div>
 
     <div class="modal fade" id="changeStatusModal" tabindex="-1" aria-hidden="true">
@@ -242,6 +295,13 @@
     <script>
         app.controller('myCtrl', function ($scope, $http) {
             @include('dashboard.section.components.bulk_actions.bulk_actions_js', ['items' => $objects, 'model' => \Modules\Comment\Entities\Comment::class])
+
+            $scope.comment_text = '';
+
+            $scope.ShowCommentTextModal = function (text) {
+                $scope.comment_text = text;
+                $('#showTextModal').modal('show');
+            }
 
             $scope.ChangeStatusModal = function (id, status) {
                 $scope.id = id;
