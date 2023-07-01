@@ -11,5 +11,6 @@
     "Payment": true,
     "Wishlist": true,
     "Comment": true,
-    "Order": true
+    "Order": true,
+    "Poster": true
 }
