@@ -23,8 +23,12 @@ class UserController extends Controller
             ->latest()
             ->paginate(\request('pagination', env('PAGINATION_NUMBER', 10)));
         $status_filters = [['1', 'فعال'], ['0', 'غیرفعال']];
+        $role_filters = [
+            ['admin', 'مدیر'], ['staff', 'کارمند'],
+            ['user', 'کاربر']
+        ];
 
-        return view('user::dashboard.list', compact('objects', 'status_filters'));
+        return view('user::dashboard.list', compact('objects', 'status_filters', 'role_filters'));
     }
 
     public function create()

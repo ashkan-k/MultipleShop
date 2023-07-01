@@ -78,11 +78,22 @@ class User extends Authenticatable
     public function scopeFilter($query, $request)
     {
         $is_active = $request->is_active;
+        $role = $request->role;
+
         if ($is_active == '1') {
             $query->WhereNotNull('email_verified_at');
         } elseif ($is_active == '0') {
             $query->WhereNull('email_verified_at');
         }
+
+        if ($role == 'admin'){
+            $query->Where('is_admin', true);
+        } elseif ($role == 'staff') {
+            $query->Where('is_staff', true)->where('is_admin', false);
+        } elseif ($role == 'user') {
+            $query->Where('is_staff', false)->where('is_admin', false);
+        }
+
         return $query;
     }
 

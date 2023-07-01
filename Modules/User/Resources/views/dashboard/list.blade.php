@@ -73,6 +73,7 @@
                                     <div class="px-7 py-5" data-kt-user-table-filter="form">
                                         <form id="frm_filter">
                                             @include('dashboard.section.components.filters.select_box', ['items' => $status_filters, 'name' => 'is_active', 'label' => 'وضعیت'])
+                                            @include('dashboard.section.components.filters.select_box', ['items' => $role_filters, 'name' => 'role', 'label' => 'نقش'])
 
                                             <div class="d-flex justify-content-end">
                                                 <button type="reset"
