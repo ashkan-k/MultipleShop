@@ -22,6 +22,31 @@ class Poster extends Model
         'link',
     ];
 
+    public function get_image()
+    {
+        return $this->image ?? 'https://www.hardiagedcare.com.au/wp-content/uploads/2019/02/default-avatar-profile-icon-vector-18942381.jpg';
+    }
+
+    public function get_location()
+    {
+        if ($this->location == 'top') {
+            return 'بالا';
+        } elseif ($this->location == 'center'){
+            return 'وسط';
+        }
+        return 'پایین';
+    }
+
+    public function get_location_class()
+    {
+        if ($this->location == 'top') {
+            return 'success';
+        } elseif ($this->location == 'center'){
+            return 'warning';
+        }
+        return 'danger';
+    }
+
     protected static function newFactory()
     {
         return \Modules\Poster\Database\factories\PosterFactory::new();

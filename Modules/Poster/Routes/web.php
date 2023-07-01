@@ -11,6 +11,7 @@
 |
 */
 
-Route::prefix('poster')->group(function() {
-    Route::get('/', 'PosterController@index');
-});
+use Illuminate\Support\Facades\Route;
+use Modules\Poster\Http\Controllers\PosterController;
+
+Route::resource('posters', PosterController::class);

@@ -13,9 +13,17 @@ class PosterRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            //
+        $rules =  [
+            'link' => 'required|url',
+            'image' => 'image|mimes:jpeg,png,bmp,jpg',
+            'location' => 'required|in:top,center,bottom',
         ];
+
+        if (request()->method() == 'POST'){
+            $rules['image'] .= '|required';
+        }
+
+        return $rules;
     }
 
     /**

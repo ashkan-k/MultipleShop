@@ -2,78 +2,63 @@
 
 namespace Modules\Poster\Http\Controllers;
 
+use App\Http\Traits\Responses;
+use App\Http\Traits\Uploader;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Poster\Entities\Poster;
+use Modules\Poster\Http\Requests\PosterRequest;
 
 class PosterController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     * @return Renderable
-     */
+    use Responses, Uploader;
+
     public function index()
     {
-        return view('poster::index');
+        $objects = Poster::Search(request('search'))
+//            ->Filter(\request())
+            ->latest()
+            ->paginate(\request('pagination', env('PAGINATION_NUMBER', 10)));
+
+//        $filter_posters = [];
+//        foreach (Poster::all()->pluck('title', 'id') as $key => $item){
+//            $filter_posters[] = [$key, $item];
+//        }
+
+        return view('poster::dashboard.list', compact('objects'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     * @return Renderable
-     */
     public function create()
     {
-        return view('poster::create');
+        $parents = Poster::all();
+        return view('poster::dashboard.form', compact('parents'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     * @param Request $request
-     * @return Renderable
-     */
-    public function store(Request $request)
+    public function store(PosterRequest $request)
     {
-        //
+        $image = $this->UploadFile($request, 'image', 'poster_images', $request->title);
+
+        Poster::create(array_merge($request->validated(), ['image' => $image]));
+        return $this->SuccessRedirect('آیتم مورد نظر با موفقیت ثبت شد.', 'posters.index');
     }
 
-    /**
-     * Show the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function show($id)
+    public function edit(Poster $poster)
     {
-        return view('poster::show');
+        return view('poster::dashboard.form')->with('object', $poster);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function edit($id)
+    public function update(PosterRequest $request, Poster $poster)
     {
-        return view('poster::edit');
+        $image = $this->UploadFile($request, 'image', 'poster_images', $poster->title, $poster->image);
+
+        $poster->update(array_merge($request->validated(), ['image' => $image]));
+        return $this->SuccessRedirect('آیتم مورد نظر با موفقیت ویرایش شد.', 'posters.index');
     }
 
-    /**
-     * Update the specified resource in storage.
-     * @param Request $request
-     * @param int $id
-     * @return Renderable
-     */
-    public function update(Request $request, $id)
+    public function destroy(Poster $poster)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     * @param int $id
-     * @return Renderable
-     */
-    public function destroy($id)
-    {
-        //
+        $poster->delete();
+        return $this->SuccessRedirect('آیتم مورد نظر با موفقیت حذف شد.', 'posters.index');
     }
 }
