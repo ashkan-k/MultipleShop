@@ -42,26 +42,28 @@ trait Searchable
         return $builder;
     }
 
-    public function scopeFilter(Builder $builder, string $request = null)
+    public function scopeFilter(Builder $builder, $request = null)
     {
         if (!$this->filter_fields) {
             throw new \Exception("Please define the filter_fields property .");
         }
 
-        foreach ($this->filter_fields as $field) {
-           if ($request->$field){
-               if (str_contains($field, '.')) {
-                   $relation = Str::beforeLast($field, '.');
-                   $column = Str::afterLast($field, '.');
+        if (count($request->all())){
+            foreach ($this->filter_fields as $field) {
+                if ($request->$field){
+                    if (str_contains($field, '.')) {
+                        $relation = Str::beforeLast($field, '.');
+                        $column = Str::afterLast($field, '.');
 
-                   $builder->orWhereHas($relation, function ($query) use ($column, $request){
-                       return $query->whereIn($column, explode(',', $request->$column));
-                   });
-                   continue;
-               }
+                        $builder->orWhereHas($relation, function ($query) use ($column, $request){
+                            return $query->whereIn($column, explode(',', $request->$column));
+                        });
+                        continue;
+                    }
 
-               $builder->orWhereIn($field, explode(',', $request->$field));
-           }
+                    $builder->orWhereIn($field, explode(',', $request->$field));
+                }
+            }
         }
 
         return $builder;

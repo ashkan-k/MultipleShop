@@ -72,7 +72,7 @@
                                     <div class="separator border-gray-200"></div>
                                     <div class="px-7 py-5" data-kt-user-table-filter="form">
                                         <form id="frm_filter">
-{{--                                            @include('dashboard.section.components.filters.select_box', ['items' => $filter_types, 'name' => 'parent_id', 'label' => 'موقعیت'])--}}
+                                            @include('dashboard.section.components.filters.select_box', ['items' => $filter_types, 'name' => 'location', 'label' => 'موقعیت'])
 
                                             <div class="d-flex justify-content-end">
                                                 <button type="reset"

@@ -17,16 +17,17 @@ class PosterController extends Controller
     public function index()
     {
         $objects = Poster::Search(request('search'))
-//            ->Filter(\request())
+            ->Filter(\request())
             ->latest()
             ->paginate(\request('pagination', env('PAGINATION_NUMBER', 10)));
 
-//        $filter_posters = [];
-//        foreach (Poster::all()->pluck('title', 'id') as $key => $item){
-//            $filter_posters[] = [$key, $item];
-//        }
+        $filter_types = [
+            ['top', 'بالا'],
+            ['center', 'وسط'],
+            ['bottom', 'پایین'],
+        ];
 
-        return view('poster::dashboard.list', compact('objects'));
+        return view('poster::dashboard.list', compact('objects', 'filter_types'));
     }
 
     public function create()

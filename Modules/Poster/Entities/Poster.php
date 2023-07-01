@@ -22,6 +22,10 @@ class Poster extends Model
         'link',
     ];
 
+    protected $filter_fields = [
+        'location',
+    ];
+
     public function get_image()
     {
         return $this->image ?? 'https://www.hardiagedcare.com.au/wp-content/uploads/2019/02/default-avatar-profile-icon-vector-18942381.jpg';
