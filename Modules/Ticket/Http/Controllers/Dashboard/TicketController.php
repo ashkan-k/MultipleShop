@@ -18,10 +18,12 @@ class TicketController extends Controller
     public function index()
     {
         $objects = Ticket::Search(request('search'))
+            ->Filter(\request())
             ->latest()
             ->paginate(\request('pagination', env('PAGINATION_NUMBER', 10)));
+        $status_filters = [['waiting', 'در انتظار'], ['answered', 'پاسخ داده شده'], ['close', 'بسته']];
 
-        return view('ticket::dashboard.ticket.list', compact('objects'));
+        return view('ticket::dashboard.ticket.list', compact('objects', 'status_filters'));
     }
 
     public function create()

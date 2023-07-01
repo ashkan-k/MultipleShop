@@ -66,7 +66,7 @@
 
                                 <div class="menu menu-sub menu-sub-dropdown w-300px w-md-325px" data-kt-menu="true">
                                     <div class="px-7 py-5">
-                                        <div class="fs-5 text-dark fw-bold">فیلتر تنظیمات ها</div>
+                                        <div class="fs-5 text-dark fw-bold">فیلتر مقالات</div>
                                     </div>
                                     <div class="separator border-gray-200"></div>
                                     <div class="px-7 py-5" data-kt-user-table-filter="form">
