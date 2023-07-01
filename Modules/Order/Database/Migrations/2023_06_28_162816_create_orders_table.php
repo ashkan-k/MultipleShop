@@ -32,7 +32,7 @@ return new class extends Migration
             $table->string('postal_code')->nullable();
 
             $table->enum('payment_type', EnumHelpers::$PaymentTypeEnum);
-            $table->enum('status', EnumHelpers::$PaymentStatusEnum)->default('sending');
+            $table->enum('status', EnumHelpers::$OrderStatusEnum)->default('sending');
 
             $table->timestamps();
         });

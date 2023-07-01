@@ -38,7 +38,7 @@ class OrderFactory extends Factory
             'address' => fake()->text(),
             'postal_code' => fake()->postcode(),
             'count' => fake()->randomNumber(),
-            'status' => fake()->randomElement(EnumHelpers::$PaymentStatusEnum),
+            'status' => fake()->randomElement(EnumHelpers::$OrderStatusEnum),
             'payment_type' => fake()->randomElement(EnumHelpers::$PaymentTypeEnum),
         ];
     }

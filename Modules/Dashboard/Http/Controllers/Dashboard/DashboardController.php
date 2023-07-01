@@ -9,11 +9,15 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Carbon;
 use Modules\Dashboard\Http\Requests\ProfileRequest;
+use Modules\Order\Entities\Order;
 use Modules\Payment\Entities\Payment;
+use Modules\Product\Entities\Product;
 
 class DashboardController extends Controller
 {
     use Responses, Uploader;
+
+    private $order_relations = ['user', 'product', 'payment', 'size', 'color'];
 
     public function index()
     {
@@ -31,7 +35,19 @@ class DashboardController extends Controller
         $yesterday_incomes = Payment::whereStatus(1)->whereDate('created_at', '=', Carbon::now()->subDay()->toDate())->sum('amount');
         $degree_difference = (($today_incomes - $yesterday_incomes) / (($today_incomes + $yesterday_incomes) / 2)) * 100;
 
-        return view('dashboard::index', compact('all_incomes', 'today_incomes', 'last_week', 'last_month', 'degree_difference'));
+        // Products Box
+        $products = Product::all();
+        $all_products_count = $products->count();
+        $active_products_count = $products->where('is_active', 1)->count();
+        $active_products_percent = 0;
+        if ($all_products_count){
+            $active_products_percent = round(($active_products_count * 100) / $all_products_count);
+        }
+
+        // Today Orders
+        $orders = Order::whereDate('created_at', '=', date('Y-m-d'))->with($this->order_relations)->get();
+
+        return view('dashboard::index', compact('all_incomes', 'today_incomes', 'last_week', 'last_month', 'degree_difference', 'all_products_count', 'active_products_count', 'active_products_percent', 'orders'));
     }
 
     public function profile(ProfileRequest $request)

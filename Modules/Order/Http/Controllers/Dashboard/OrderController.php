@@ -12,7 +12,7 @@ class OrderController extends Controller
 {
     use Responses;
 
-    private $order_relations = ['user', 'product', 'payment'];
+    private $order_relations = ['user', 'product', 'payment', 'size', 'color'];
 
     public function index()
     {

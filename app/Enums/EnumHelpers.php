@@ -14,6 +14,6 @@ class EnumHelpers
     static $CommentStatusEnum = ['pending', 'approved', 'reject'];
     static $CommentSeggestToFriendEnum = ['suggest', 'not_suggest', 'no_idea'];
     static $PaymentTypeEnum = ['online', 'cash'];
-    static $PaymentStatusEnum = ['sending', 'posted', 'delivered'];
+    static $OrderStatusEnum = ['sending', 'posted', 'delivered'];
     static $PosterLocationEnum = ['top', 'center', 'bottom'];
 }
