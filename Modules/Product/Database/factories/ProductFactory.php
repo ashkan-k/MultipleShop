@@ -3,7 +3,10 @@
 namespace Modules\Product\Database\factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Modules\Product\Entities\Brand;
 use Modules\Product\Entities\Category;
+use Modules\Product\Entities\Color;
+use Modules\Product\Entities\Size;
 use Modules\User\Entities\User;
 
 class ProductFactory extends Factory
@@ -36,6 +39,9 @@ class ProductFactory extends Factory
             'discount_end_date' => fake()->date(),
             'user_id' => User::factory(),
             'category_id' => Category::factory(),
+            'color_id' => Color::factory(),
+            'size_id' => Size::factory(),
+            'brand_id' => Brand::factory(),
         ];
     }
 }

@@ -4,6 +4,7 @@ namespace Modules\Product\Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
+use Modules\Product\Entities\Brand;
 use Modules\Product\Entities\Category;
 use Modules\Product\Entities\Color;
 use Modules\Product\Entities\Feature;
@@ -20,7 +21,8 @@ class ProductDatabaseSeeder extends Seeder
     public function run()
     {
         Model::unguard();
-        Category::factory(10)->create();
+        Category::factory(5)->create();
+        Brand::factory(5)->create();
         Color::factory(5)->create();
         Size::factory(5)->create();
         Feature::factory(5)->create();

@@ -267,6 +267,96 @@
                                     </div>
 
                                     <div class="d-flex flex-column mb-8 fv-row">
+                                        <label for="id_brand_id"
+                                               class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                            <span>برند</span>
+                                        </label>
+
+                                        <select id="id_brand_id" name="brand_id"
+                                                data-kt-select2="true"
+                                                class="form-control form-control-solid">
+                                            <option value="" disabled>برند را انتخاب کنید</option>
+                                            @foreach($brands as $brand)
+
+                                                <option
+                                                    @if(isset($object->brand_id) && $object->brand_id == $brand->id) selected
+                                                    @endif value="{{ $brand->id }}">{{ $brand->title }}
+                                                </option>
+
+                                            @endforeach
+                                        </select>
+
+                                        @error('brand_id')
+                                        <div class="fv-plugins-message-container invalid-feedback">
+                                            <div data-field="meta_title" data-validator="notEmpty">
+                                                {{ $message }}
+                                            </div>
+                                        </div>
+                                        @enderror
+
+                                    </div>
+
+                                    <div class="d-flex flex-column mb-8 fv-row">
+                                        <label for="id_color_id"
+                                               class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                            <span>رنگ</span>
+                                        </label>
+
+                                        <select id="id_color_id" name="color_id"
+                                                data-kt-select2="true"
+                                                class="form-control form-control-solid">
+                                            <option value="" disabled>رنگ را انتخاب کنید</option>
+                                            @foreach($colors as $color)
+
+                                                <option
+                                                    @if(isset($object->color_id) && $object->color_id == $color->id) selected
+                                                    @endif value="{{ $color->id }}">{{ $color->title }}
+                                                </option>
+
+                                            @endforeach
+                                        </select>
+
+                                        @error('color_id')
+                                        <div class="fv-plugins-message-container invalid-feedback">
+                                            <div data-field="meta_title" data-validator="notEmpty">
+                                                {{ $message }}
+                                            </div>
+                                        </div>
+                                        @enderror
+
+                                    </div>
+
+                                    <div class="d-flex flex-column mb-8 fv-row">
+                                        <label for="id_size_id"
+                                               class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                            <span>سایز</span>
+                                        </label>
+
+                                        <select id="id_size_id" name="size_id"
+                                                data-kt-select2="true"
+                                                class="form-control form-control-solid">
+                                            <option value="" disabled>سایز را انتخاب کنید</option>
+                                            @foreach($sizes as $size)
+
+                                                <option
+                                                    @if(isset($object->size_id) && $object->size_id == $size->id) selected
+                                                    @endif value="{{ $size->id }}">{{ $size->title }}
+                                                </option>
+
+                                            @endforeach
+                                        </select>
+
+                                        @error('size_id')
+                                        <div class="fv-plugins-message-container invalid-feedback">
+                                            <div data-field="meta_title" data-validator="notEmpty">
+                                                {{ $message }}
+                                            </div>
+                                        </div>
+                                        @enderror
+
+                                    </div>
+
+                                    <div class="d-flex flex-column mb-8 fv-row">
                                         <label for="id_discount_price"
                                                class="d-flex align-items-center fs-6 fw-semibold mb-2">
                                             <span>قیمت تخفیفی (تومان)</span>
