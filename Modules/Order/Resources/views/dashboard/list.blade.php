@@ -125,6 +125,10 @@
                                     </td>
 
                                     <td class="">
+                                        <a href="{{ route('orders.show', $item->id) }}"
+                                           class="btn btn-sm btn-icon btn-bg-light btn-active-color-primary w-30px h-30px">
+                                            <i class="ki-duotone ki-black-right fs-2 text-gray-500"></i>
+                                        </a>
                                         <a href="#"
                                            class="btn btn-light btn-active-light-primary btn-flex btn-center btn-sm"
                                            data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">عملیات

@@ -218,11 +218,7 @@
                                         <tr class="fs-7 fw-bold text-gray-400 border-bottom-0">
                                             <th>کاربر</th>
                                             <th>محصول</th>
-                                            <th>سایز</th>
-                                            <th>رنگ</th>
                                             <th>تعداد</th>
-                                            <th>آدرس</th>
-                                            <th>کد پستی</th>
                                             <th>نوع پرداخت</th>
                                             <th>وضعیت</th>
                                             <th class="p-0 pb-3 w-50px text-end">نمایش</th>
@@ -238,15 +234,7 @@
 
                                                 <td>{{ $item->product ? $item->product->title : '---'}}</td>
 
-                                                <td>{{ $item->size ? $item->size->title : '---'}}</td>
-
-                                                <td>{{ $item->color ? $item->color->title : '---'}}</td>
-
                                                 <td>{{ $item->count ?: '---'  }}</td>
-
-                                                <td title="{{ $item->address }}">{{ $item->address ? \Illuminate\Support\Str::limit($item->address, 20) : '---'  }}</td>
-
-                                                <td>{{ $item->postal_code ?: '---'  }}</td>
 
                                                 <td>
                                                     <div
@@ -258,7 +246,7 @@
                                                         class="badge badge-light-{{ $item->get_status_class() }} active_modal_buttons">{{ $item->get_status() }}</div>
                                                 </td>
                                                 <td class="text-end">
-                                                    <a href="#"
+                                                    <a href="{{ route('orders.show', $item->id) }}"
                                                        class="btn btn-sm btn-icon btn-bg-light btn-active-color-primary w-30px h-30px">
                                                         <i class="ki-duotone ki-black-right fs-2 text-gray-500"></i>
                                                     </a>

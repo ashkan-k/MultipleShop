@@ -24,6 +24,11 @@ class OrderController extends Controller
         return view('order::dashboard.list', compact('objects'));
     }
 
+    public function show(Order $order)
+    {
+        return view('order::dashboard.detail')->with('object', $order);
+    }
+
     public function destroy(Order $order)
     {
         $order->delete();
