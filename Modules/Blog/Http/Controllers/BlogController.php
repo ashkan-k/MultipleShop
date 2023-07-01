@@ -18,11 +18,13 @@ class BlogController extends Controller
     public function index()
     {
         $objects = Blog::Search(request('search'))
+            ->Filter(\request())
             ->with('user')
             ->latest()
             ->paginate(\request('pagination', env('PAGINATION_NUMBER', 10)));
+        $status_filters = [['draft', 'پیش نویس'], ['publish', 'انتشار'], ['done', 'پایان انتشار']];
 
-        return view('blog::dashboard.blogs.list', compact('objects'));
+        return view('blog::dashboard.blogs.list', compact('objects', 'status_filters'));
     }
 
     public function create()
