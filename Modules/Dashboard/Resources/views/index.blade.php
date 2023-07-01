@@ -148,22 +148,22 @@
                                     <!--begin::Info-->
                                     <div class="d-flex align-items-center">
                                         <!--begin::واحد پول-->
-                                        <span class="fs-4 fw-semibold text-gray-400 me-1 align-self-start">$</span>
+                                        <span class="fs-4 fw-semibold text-gray-400 me-1 align-self-start">تومان</span>
                                         <!--end::واحد پول-->
                                         <!--begin::مقدار-->
-                                        <span class="fs-2hx fw-bold text-dark me-2 lh-1 ls-n2">69,700</span>
+                                        <span class="fs-2hx fw-bold text-dark me-2 lh-1 ls-n2">{{ number_format($all_incomes) }}</span>
                                         <!--end::مقدار-->
                                         <!--begin::Badge-->
                                         <span class="badge badge-light-success fs-base">
 															<i class="ki-duotone ki-arrow-up fs-5 text-success ms-n1">
 																<span class="path1"></span>
 																<span class="path2"></span>
-															</i>2.2%</span>
+															</i>{{ round($degree_difference) }}%</span>
                                         <!--end::Badge-->
                                     </div>
                                     <!--end::Info-->
                                     <!--begin::Subtitle-->
-                                    <span class="text-gray-400 pt-1 fw-semibold fs-6">درآمد پروژه ها در فروردین</span>
+                                    <span class="text-gray-400 pt-1 fw-semibold fs-6">درآمد کل تا امروز</span>
                                     <!--end::Subtitle-->
                                 </div>
                                 <!--end::Title-->
@@ -184,10 +184,10 @@
                                         <div class="bullet w-8px h-3px rounded-2 bg-success me-3"></div>
                                         <!--end::Bullet-->
                                         <!--begin::Tags-->
-                                        <div class="text-gray-500 flex-grow-1 me-4">سیستم لیف</div>
+                                        <div class="text-gray-500 flex-grow-1 me-4">امروز</div>
                                         <!--end::Tags-->
                                         <!--begin::Stats-->
-                                        <div class="fw-bolder text-gray-700 text-xxl-end">$7,660</div>
+                                        <div class="fw-bolder text-gray-700 text-xxl-end">{{ $today_incomes }} تومان</div>
                                         <!--end::Stats-->
                                     </div>
                                     <!--end::Tags-->
@@ -197,10 +197,10 @@
                                         <div class="bullet w-8px h-3px rounded-2 bg-primary me-3"></div>
                                         <!--end::Bullet-->
                                         <!--begin::Tags-->
-                                        <div class="text-gray-500 flex-grow-1 me-4">اپلیکیشن</div>
+                                        <div class="text-gray-500 flex-grow-1 me-4">هفته اخیر</div>
                                         <!--end::Tags-->
                                         <!--begin::Stats-->
-                                        <div class="fw-bolder text-gray-700 text-xxl-end">$2,820</div>
+                                        <div class="fw-bolder text-gray-700 text-xxl-end">{{ $last_week }} تومان</div>
                                         <!--end::Stats-->
                                     </div>
                                     <!--end::Tags-->
@@ -210,10 +210,10 @@
                                         <div class="bullet w-8px h-3px rounded-2 me-3" style="background-color: #E4E6EF"></div>
                                         <!--end::Bullet-->
                                         <!--begin::Tags-->
-                                        <div class="text-gray-500 flex-grow-1 me-4">سایر</div>
+                                        <div class="text-gray-500 flex-grow-1 me-4">ماه اخیر</div>
                                         <!--end::Tags-->
                                         <!--begin::Stats-->
-                                        <div class="fw-bolder text-gray-700 text-xxl-end">$45,257</div>
+                                        <div class="fw-bolder text-gray-700 text-xxl-end">{{ $last_month }} تومان</div>
                                         <!--end::Stats-->
                                     </div>
                                     <!--end::Tags-->
