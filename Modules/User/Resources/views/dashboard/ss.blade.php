@@ -13,7 +13,7 @@
                 <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
                     <!--begin::Title-->
                     <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">
-                        لیست کاربران</h1>
+                        لیست کاربر ها</h1>
                     <!--end::Title-->
                     <!--begin::Breadcrumb-->
                     <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1">
@@ -29,7 +29,7 @@
                         <!--end::آیتم-->
                         <!--begin::آیتم-->
                         <li class="breadcrumb-item text-muted">
-                            <a href="{{ route('users.index') }}" class="text-muted text-hover-primary">کاربران</a>
+                            <a href="{{ route('users.index') }}" class="text-muted text-hover-primary">کاربر ها</a>
                         </li>
                         <!--end::آیتم-->
                     </ul>
@@ -127,7 +127,7 @@
                                 <th>نقش</th>
                                 <th>عکس</th>
                                 <th>تاریخ ثبت نام</th>
-                                <th>عملیات</th>
+                                <th class="text-end min-w-100px">عملیات</th>
                             </tr>
                             </thead>
                             <tbody class="text-gray-600 fw-semibold">
@@ -185,7 +185,7 @@
 
                                     <td>{{ \Hekmatinasser\Verta\Verta:: instance($item->created_at)->format('%B %d، %Y') }}</td>
 
-                                    <td class="">
+                                    <td class="text-end">
                                         <a href="#"
                                            class="btn btn-light btn-active-light-primary btn-flex btn-center btn-sm"
                                            data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">عملیات
@@ -195,6 +195,10 @@
                                             class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4"
                                             data-kt-menu="true">
                                             <div class="menu-item px-3">
+                                                <a href="{{ route('users.edit', $item->id) }}" class="menu-link px-3"
+                                                   data-kt-users-table-filter="delete_row">ویرایش</a>
+                                            </div>
+                                            <div class="menu-item px-3">
 
                                                 <form action="{{ route('users.destroy' , $item->id) }}"
                                                       id="delete_form_{{ $loop->index }}" method="post">
@@ -203,7 +207,7 @@
 
                                                     <a onclick="return Delete('{{ $loop->index }}')"
                                                        class="menu-link px-3"
-                                                       data-kt-features-table-filter="delete_row">حذف</a>
+                                                       data-kt-users-table-filter="delete_row">حذف</a>
 
                                                 </form>
 
@@ -305,7 +309,7 @@
         app.controller('myCtrl', function ($scope, $http) {
             @include('dashboard.section.components.bulk_actions.bulk_actions_js', ['items' => $objects, 'model' => \Modules\User\Entities\User::class])
 
-            $scope.ChangeStatusModal = function (id, status) {
+                $scope.ChangeStatusModal = function (id, status) {
                 $scope.id = id;
                 $scope.status = status;
                 $('#changeStatusModal').modal('show');
