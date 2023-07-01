@@ -12,6 +12,7 @@
 */
 
 use Illuminate\Support\Facades\Route;
+use Modules\Product\Http\Controllers\Dashboard\BrandController;
 use Modules\Product\Http\Controllers\Dashboard\CategoryController;
 use Modules\Product\Http\Controllers\Dashboard\ColorController;
 use Modules\Product\Http\Controllers\Dashboard\FeatureController;
@@ -24,6 +25,7 @@ Route::resource('products', ProductController::class);
 Route::resource('categories', CategoryController::class);
 Route::resource('colors', ColorController::class);
 Route::resource('sizes', SizeController::class);
+Route::resource('brands', BrandController::class);
 Route::resource('features', FeatureController::class)->only(['index', 'destroy']);
 Route::resource('product-features', ProductFeatureController::class, ['prefix' => 'product-features'])->only(['index', 'destroy']);
 
