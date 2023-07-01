@@ -9,6 +9,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Ticket\Entities\Ticket;
+use Modules\Ticket\Entities\TicketCategory;
 use Modules\Ticket\Http\Requests\TicketRequest;
 
 class TicketController extends Controller
@@ -21,9 +22,14 @@ class TicketController extends Controller
             ->Filter(\request())
             ->latest()
             ->paginate(\request('pagination', env('PAGINATION_NUMBER', 10)));
-        $status_filters = [['waiting', 'در انتظار'], ['answered', 'پاسخ داده شده'], ['close', 'بسته']];
 
-        return view('ticket::dashboard.ticket.list', compact('objects', 'status_filters'));
+        $status_filters = [['waiting', 'در انتظار'], ['answered', 'پاسخ داده شده'], ['close', 'بسته']];
+        $filter_categories = [];
+        foreach (TicketCategory::all()->pluck('title', 'id') as $key => $item){
+            $filter_categories[] = [$key, $item];
+        }
+
+        return view('ticket::dashboard.ticket.list', compact('objects', 'status_filters', 'filter_categories'));
     }
 
     public function create()

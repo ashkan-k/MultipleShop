@@ -32,7 +32,7 @@ class Ticket extends Model
 
     protected $filter_fields = [
         'user_id',
-        'category_id',
+        'ticket_category_id',
         'status',
     ];
 
