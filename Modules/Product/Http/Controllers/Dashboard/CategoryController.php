@@ -26,13 +26,20 @@ class CategoryController extends Controller
             $filter_categories[] = [$key, $item];
         }
 
-        return view('product::dashboard.categories.list', compact('objects', 'filter_categories'));
+        $filter_types = [
+            ['1', 'ویژه'],
+            ['0', 'معمولی']
+        ];
+
+        return view('product::dashboard.categories.list', compact('objects', 'filter_categories', 'filter_types'));
     }
 
     public function create()
     {
         $parents = Category::all();
-        return view('product::dashboard.categories.form', compact('parents'));
+        $icons = Category::GetFontAwesomeIcons();
+
+        return view('product::dashboard.categories.form', compact('parents', 'icons'));
     }
 
     public function store(CategoryRequest $request)
@@ -46,7 +53,9 @@ class CategoryController extends Controller
     public function edit(Category $category)
     {
         $parents = Category::whereNot('id', $category->id)->get();
-        return view('product::dashboard.categories.form', compact('parents'))->with('object', $category);
+        $icons = Category::GetFontAwesomeIcons();
+
+        return view('product::dashboard.categories.form', compact('parents', 'icons'))->with('object', $category);
     }
 
     public function update(CategoryRequest $request, Category $category)
@@ -57,7 +66,10 @@ class CategoryController extends Controller
             $image = null;
         }
 
-        $category->update(array_merge($request->all(), ['image' => $image]));
+        $data = $request->validated();
+
+        $data['is_special'] = $request->has('is_special') ?? false;
+        $category->update(array_merge($data, ['image' => $image]));
         return $this->SuccessRedirect('آیتم مورد نظر با موفقیت ویرایش شد.', 'categories.index');
     }
 

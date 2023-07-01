@@ -4,7 +4,7 @@
 
 @endsection
 @section('content')
-    <div class="d-flex flex-column flex-column-fluid">
+    <div class="d-flex flex-column flex-column-fluid" ng-init="init()">
         <!--begin::Toolbar-->
         <div id="kt_app_toolbar" class="app-toolbar py-3 py-lg-6">
             <!--begin::Toolbar container-->
@@ -166,7 +166,7 @@
 
                                     </div>
 
-                                    <div class="d-flex flex-column mb-8 fv-row">
+                                    <div class=" d-flex flex-column mb-8 fv-row">
                                         <label for="id_parent_id"
                                                class="d-flex align-items-center fs-6 fw-semibold mb-2">
                                             <span class="required">والد</span>
@@ -187,6 +187,58 @@
                                         </select>
 
                                         @error('parent_id')
+                                        <div class="fv-plugins-message-container invalid-feedback">
+                                            <div data-field="meta_title" data-validator="notEmpty">
+                                                {{ $message }}
+                                            </div>
+                                        </div>
+                                        @enderror
+
+                                    </div>
+
+                                    <div class="d-flex flex-column mb-8 fv-row">
+                                        <label for="id_is_special"
+                                               class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                            <span class="required">ایا ویژه است؟</span>
+                                        </label>
+
+                                        <div class="form-check form-check-solid form-switch form-check-custom fv-row">
+                                            <input @if(isset($object) && $object->is_special) checked
+                                                   @elseif(old('is_special')) checked @endif  name="is_special"
+                                                   ng-model="is_special"
+                                                   class="form-check-input w-45px h-30px" type="checkbox"
+                                                   id="id_is_special" value="1">
+                                            <label class="form-check-label" for="id_is_special"></label>
+                                        </div>
+
+                                        @error('is_special')
+                                        <div class="fv-plugins-message-container invalid-feedback">
+                                            <div data-field="meta_title" data-validator="notEmpty">
+                                                {{ $message }}
+                                            </div>
+                                        </div>
+                                        @enderror
+                                    </div>
+
+                                    <div class="d-flex flex-column mb-8 fv-row" ng-show="is_special">
+                                        <label for="id_icon_name"
+                                               class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                            <span class="required">آیکون</span>
+                                        </label>
+
+                                        <select id="id_icon_name" name="icon_name"
+                                                data-kt-select2="true"
+                                                class="form-control form-control-solid">
+                                            <option value="">آیکون را انتخاب کنید</option>
+                                            @foreach($icons as $icon)
+                                                <option
+                                                    @if((isset($object->icon_name) && $object->icon_name == $icon) || old('icon_name') == $icon) selected
+                                                    @endif value="{{ $icon }}">{{ $icon }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+
+                                        @error('icon_name')
                                         <div class="fv-plugins-message-container invalid-feedback">
                                             <div data-field="meta_title" data-validator="notEmpty">
                                                 {{ $message }}
@@ -274,6 +326,13 @@
     <script>
         app.controller('myCtrl', function ($scope, $http) {
             $scope.is_english = false;
+            $scope.is_special = false;
+
+            $scope.init = function () {
+                @if((isset($object) && $object->is_special) || old('is_special'))
+                    $scope.is_special = true;
+                @endif
+            }
         });
     </script>
 @endsection

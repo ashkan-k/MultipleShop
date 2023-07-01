@@ -273,5 +273,9 @@ return [
         'discount_start_date' => 'تاریخ شروع تخفیف',
         'discount_end_date' => 'تاریخ پایان تخفیف',
         'uses_number' => 'تعداد قابل استفاده',
+        'is_special' => 'آیا ویژه است',
+        'icon_name' => 'نام آیکون',
+        'en_title' => 'عنوان انگلیسی',
+        'en_slug' => 'نامک انگلیسی',
     ],
 ];

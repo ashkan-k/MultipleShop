@@ -73,6 +73,7 @@
                                     <div class="px-7 py-5" data-kt-user-table-filter="form">
                                         <form id="frm_filter">
                                             @include('dashboard.section.components.filters.select_box', ['items' => $filter_categories, 'name' => 'parent_id', 'label' => 'والد'])
+                                            @include('dashboard.section.components.filters.select_box', ['items' => $filter_types, 'name' => 'is_special', 'label' => 'نوع'])
 
                                             <div class="d-flex justify-content-end">
                                                 <button type="reset"
@@ -122,6 +123,7 @@
                                 <th>عنوان انگلیسی</th>
                                 <th>نامک انگلیسی</th>
                                 <th>والد</th>
+                                <th>نوع</th>
                                 <th>عکس</th>
                                 <th>عملیات</th>
                             </tr>
@@ -148,6 +150,11 @@
                                     <td>{{ $item->en_slug ?: '---'  }}</td>
 
                                     <td>{{$item->parent ? $item->parent->title : 'ندارد'}}</td>
+
+                                    <td>
+                                        <div
+                                            class="badge badge-light-{{ $item->get_type_class() }} active_modal_buttons">{{ $item->get_type() }}</div>
+                                    </td>
 
                                     <td>
                                         <div class="symbol symbol-circle symbol-50px overflow-hidden me-3">

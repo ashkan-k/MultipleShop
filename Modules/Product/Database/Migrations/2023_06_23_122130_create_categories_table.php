@@ -21,6 +21,9 @@ return new class extends Migration
             $table->string('en_title')->nullable();
             $table->string('en_slug')->nullable();
 
+            $table->boolean('is_special')->default(false);
+            $table->string('icon_name')->nullable();
+
             $table->text('image')->nullable();
             $table->foreignId('parent_id')->nullable()->constrained('categories')->cascadeOnUpdate()->nullOnDelete();
             $table->timestamps();
