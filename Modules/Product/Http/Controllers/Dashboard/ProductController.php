@@ -19,9 +19,11 @@ class ProductController extends Controller
 {
     use Responses, Uploader;
 
+    private $relations = ['user', 'category'];
+
     public function index()
     {
-        $objects = Product::Search(request('search'))
+        $objects = Product::with($this->relations)->Search(request('search'))
             ->latest()
             ->paginate(\request('pagination', env('PAGINATION_NUMBER', 10)));
 

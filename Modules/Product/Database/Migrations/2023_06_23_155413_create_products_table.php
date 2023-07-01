@@ -34,9 +34,9 @@ return new class extends Migration
 
             $table->foreignId('user_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignId('category_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
-            $table->foreignId('color_id')->nullable()->constrained()->cascadeOnUpdate()->cascadeOnDelete();
-            $table->foreignId('size_id')->nullable()->constrained()->cascadeOnUpdate()->cascadeOnDelete();
-            $table->foreignId('brand_id')->nullable()->constrained()->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('color_id')->nullable()->constrained()->nullOnDelete()->nullOnDelete();
+            $table->foreignId('size_id')->nullable()->constrained()->nullOnDelete()->nullOnDelete();
+            $table->foreignId('brand_id')->nullable()->constrained()->nullOnDelete()->nullOnDelete();
             $table->timestamps();
         });
     }

@@ -270,7 +270,7 @@
                  class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention">
                 <!--begin:Menu link-->
                 <span
-                    class="menu-link @if(str_starts_with(\Illuminate\Support\Facades\Route::current()->getName(), 'colors.') || str_starts_with(\Illuminate\Support\Facades\Route::current()->getName(), 'sizes.')) active @endif">
+                    class="menu-link @if(str_starts_with(\Illuminate\Support\Facades\Route::current()->getName(), 'colors.') || str_starts_with(\Illuminate\Support\Facades\Route::current()->getName(), 'sizes.') || str_starts_with(\Illuminate\Support\Facades\Route::current()->getName(), 'brands.')) active @endif">
 											<span class="menu-icon">
 												<i class="ki-duotone ki-file fs-2">
 													<span class="path1"></span>
@@ -301,6 +301,16 @@
 														<span class="bullet bullet-dot"></span>
 													</span>
                             <span class="menu-title">سایز ها</span>
+                        </a>
+                    </div>
+
+                    <div class="menu-item">
+                        <a class="menu-link @if(str_starts_with(\Illuminate\Support\Facades\Route::current()->getName(), 'brands.')) active @endif"
+                           href="{{ route('brands.index') }}">
+													<span class="menu-bullet">
+														<span class="bullet bullet-dot"></span>
+													</span>
+                            <span class="menu-title">برند ها</span>
                         </a>
                     </div>
                 </div>
