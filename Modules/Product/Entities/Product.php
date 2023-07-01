@@ -31,6 +31,9 @@ class Product extends Model
         'is_special',
         'user_id',
         'category_id',
+        'color_id',
+        'size_id',
+        'brand_id',
     ];
 
     protected $search_fields  = [
@@ -44,6 +47,9 @@ class Product extends Model
         'user.username',
         'user.phone',
         'category.title',
+        'color.title',
+        'size.title',
+        'brand.title',
     ];
 
     public function save(array $options = [])

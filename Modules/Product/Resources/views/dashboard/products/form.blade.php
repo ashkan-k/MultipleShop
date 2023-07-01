@@ -275,7 +275,7 @@
                                         <select id="id_brand_id" name="brand_id"
                                                 data-kt-select2="true"
                                                 class="form-control form-control-solid">
-                                            <option value="" disabled>برند را انتخاب کنید</option>
+                                            <option value="">بدون برند</option>
                                             @foreach($brands as $brand)
 
                                                 <option
@@ -305,7 +305,7 @@
                                         <select id="id_color_id" name="color_id"
                                                 data-kt-select2="true"
                                                 class="form-control form-control-solid">
-                                            <option value="" disabled>رنگ را انتخاب کنید</option>
+                                            <option value="">بدون رنگ</option>
                                             @foreach($colors as $color)
 
                                                 <option
@@ -335,7 +335,7 @@
                                         <select id="id_size_id" name="size_id"
                                                 data-kt-select2="true"
                                                 class="form-control form-control-solid">
-                                            <option value="" disabled>سایز را انتخاب کنید</option>
+                                            <option value="">بدون سایز</option>
                                             @foreach($sizes as $size)
 
                                                 <option

@@ -7,8 +7,11 @@ use App\Http\Traits\Uploader;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Product\Entities\Brand;
 use Modules\Product\Entities\Category;
+use Modules\Product\Entities\Color;
 use Modules\Product\Entities\Product;
+use Modules\Product\Entities\Size;
 use Modules\Product\Http\Requests\ProductRequest;
 use Modules\User\Entities\User;
 
@@ -29,7 +32,10 @@ class ProductController extends Controller
     {
         $users = User::all();
         $categories = Category::all();
-        return view('product::dashboard.products.form', compact('users', 'categories'));
+        $brands = Brand::all();
+        $colors = Color::all();
+        $sizes = Size::all();
+        return view('product::dashboard.products.form', compact('users', 'categories', 'brands', 'colors', 'sizes'));
     }
 
     public function store(ProductRequest $request)
@@ -44,7 +50,10 @@ class ProductController extends Controller
     {
         $users = User::all();
         $categories = Category::all();
-        return view('product::dashboard.products.form', compact('users', 'categories'))->with('object', $product);
+        $brands = Brand::all();
+        $colors = Color::all();
+        $sizes = Size::all();
+        return view('product::dashboard.products.form', compact('users', 'categories', 'brands', 'colors', 'sizes'))->with('object', $product);
     }
 
     public function update(ProductRequest $request, Product $product)
