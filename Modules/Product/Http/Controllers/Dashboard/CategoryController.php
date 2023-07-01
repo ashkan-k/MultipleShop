@@ -53,6 +53,10 @@ class CategoryController extends Controller
     {
         $image = $this->UploadFile($request, 'image', 'product_category_images', $category->title, $category->image);
 
+        if ($request->is_delete_image){
+            $image = null;
+        }
+
         $category->update(array_merge($request->all(), ['image' => $image]));
         return $this->SuccessRedirect('آیتم مورد نظر با موفقیت ویرایش شد.', 'categories.index');
     }

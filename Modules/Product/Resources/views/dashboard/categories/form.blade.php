@@ -200,9 +200,23 @@
                                         <label for="id_image" class="d-flex align-items-center fs-6 fw-semibold mb-2">
                                             <span class="required">عکس</span>
                                         </label>
-
                                         <input type="file" id="id_image" class="form-control form-control-solid"
                                                value="{{ old('image') }}" name="image"/>
+
+                                        @if(isset($object) && $object->image)
+                                            <label for="id_is_delete_image"
+                                                   class="d-flex align-items-center fs-6 fw-semibold mb-2 mt-2">
+                                                <span class="required">عکس حذف شود</span>
+                                            </label>
+
+                                            <div
+                                                class="form-check form-check-solid form-switch form-check-custom fv-row">
+                                                <input name="is_delete_image"
+                                                       class="form-check-input w-45px h-30px" type="checkbox"
+                                                       id="id_is_delete_image" value="1">
+                                                <label class="form-check-label" for="id_is_delete_image"></label>
+                                            </div>
+                                        @endif
 
                                         @error('image')
                                         <div class="fv-plugins-message-container invalid-feedback">
