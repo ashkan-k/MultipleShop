@@ -39,6 +39,15 @@ class Order extends Model
         'postal_code',
     ];
 
+    protected $filter_fields = [
+        'user_id',
+        'product_id',
+        'size_id',
+        'color_id',
+        'status',
+        'payment_type',
+    ];
+
     public function get_status()
     {
         if ($this->status == 'sending') {

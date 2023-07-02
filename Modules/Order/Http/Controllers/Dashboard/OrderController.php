@@ -7,6 +7,9 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Order\Entities\Order;
+use Modules\Product\Entities\Color;
+use Modules\Product\Entities\Product;
+use Modules\User\Entities\User;
 
 class OrderController extends Controller
 {
@@ -17,11 +20,32 @@ class OrderController extends Controller
     public function index()
     {
         $objects = Order::Search(request('search'))
+            ->Filter(\request())
             ->with($this->order_relations)
             ->latest()
             ->paginate(\request('pagination', env('PAGINATION_NUMBER', 10)));
 
-        return view('order::dashboard.list', compact('objects'));
+        $filter_products = [];
+        foreach (Product::all()->pluck('title', 'id') as $key => $item){
+            $filter_products[] = [$key, $item];
+        }
+        $filter_users = [];
+        foreach (User::all()->pluck('email', 'id') as $key => $item){
+            $filter_users[] = [$key, $item];
+        }
+        $filter_colors = [];
+        foreach (Color::all()->pluck('title', 'id') as $key => $item){
+            $filter_colors[] = [$key, $item];
+        }
+        $filter_sizes = [];
+        foreach (Color::all()->pluck('title', 'id') as $key => $item){
+            $filter_sizes[] = [$key, $item];
+        }
+
+        $status_filters = [['sending', 'درحال ارسال'], ['posted', 'ارسال شده'], ['delivered', 'تحویل داده شده']];
+        $payment_type_filters = [['online', 'آنلاین'], ['cash', 'نقدی']];
+
+        return view('order::dashboard.list', compact('objects', 'filter_products', 'payment_type_filters', 'filter_users', 'filter_colors', 'filter_sizes', 'status_filters'));
     }
 
     public function show(Order $order)
