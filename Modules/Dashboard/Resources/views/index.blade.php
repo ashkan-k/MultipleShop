@@ -197,7 +197,8 @@
                                 <!--begin::Title-->
                                 <h3 class="card-title align-items-start flex-column">
                                     <span class="card-label fw-bold text-gray-800">سفارش های امروز</span>
-                                    <span class="text-gray-400 mt-1 fw-semibold fs-6"> {{ \Illuminate\Support\Carbon::parse($orders->last()->created_at)->diffForHumans() }} اخرین بروزرسانی</span>
+                                    <?php $latest_order = \Modules\Order\Entities\Order::latest()->first(); ?>
+                                    <span class="text-gray-400 mt-1 fw-semibold fs-6"> {{ $latest_order ? \Carbon\Carbon::parse($latest_order->created_at)->diffForHumans() : '---' }} اخرین بروزرسانی</span>
                                 </h3>
                                 <!--end::Title-->
                                 <!--begin::Toolbar-->

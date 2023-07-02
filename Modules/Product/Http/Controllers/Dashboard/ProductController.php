@@ -24,10 +24,21 @@ class ProductController extends Controller
     public function index()
     {
         $objects = Product::with($this->relations)->Search(request('search'))
+            ->Filter(\request())
             ->latest()
             ->paginate(\request('pagination', env('PAGINATION_NUMBER', 10)));
 
-        return view('product::dashboard.products.list', compact('objects'));
+        $filter_categories = [];
+        foreach (Category::all()->pluck('title', 'id') as $key => $item){
+            $filter_categories[] = [$key, $item];
+        }
+        $filter_users = [];
+        foreach (User::all()->pluck('email', 'id') as $key => $item){
+            $filter_users[] = [$key, $item];
+        }
+        $status_filters = [['1', 'فعال'], ['0', 'غیر فعال']];
+
+        return view('product::dashboard.products.list', compact('objects', 'filter_categories', 'filter_users', 'status_filters'));
     }
 
     public function create()

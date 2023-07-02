@@ -7,6 +7,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Comment\Entities\Comment;
+use Modules\User\Entities\User;
 
 class CommentController extends Controller
 {
@@ -15,11 +16,18 @@ class CommentController extends Controller
     public function index()
     {
         $objects = Comment::Search(request('search'))
+            ->Filter(\request())
             ->with(['user', 'commentable'])
             ->latest()
             ->paginate(\request('pagination', env('PAGINATION_NUMBER', 10)));
 
-        return view('comment::dashboard.list', compact('objects'));
+        $status_filters = [['pending', 'در انتظار'], ['approved', 'تایید شده'], ['reject', 'رد شده']];
+        $filter_users = [];
+        foreach (User::all()->pluck('email', 'id') as $key => $item){
+            $filter_users[] = [$key, $item];
+        }
+
+        return view('comment::dashboard.list', compact('objects', 'filter_users', 'status_filters'));
     }
 
     public function destroy(Comment $comment)

@@ -72,6 +72,7 @@
                                     <div class="px-7 py-5" data-kt-user-table-filter="form">
                                         <form id="frm_filter">
                                             @include('dashboard.section.components.filters.select_box', ['items' => $filter_categories, 'name' => 'ticket_category_id', 'label' => 'دسته بندی'])
+                                            @include('dashboard.section.components.filters.select_box', ['items' => $filter_users, 'name' => 'user_id', 'label' => 'کاربر'])
                                             @include('dashboard.section.components.filters.select_box', ['items' => $status_filters, 'name' => 'status', 'label' => 'وضعیت'])
 
                                             <div class="d-flex justify-content-end">

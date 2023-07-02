@@ -52,6 +52,12 @@ class Product extends Model
         'brand.title',
     ];
 
+    protected $filter_fields = [
+        'is_active',
+        'user_id',
+        'category_id',
+    ];
+
     public function save(array $options = [])
     {
         if (!$this->slug){
@@ -108,21 +114,6 @@ class Product extends Model
             return 'success';
         }
         return 'danger';
-    }
-
-    public function scopeFilter($query, $request)
-    {
-        $category_id = $request->category_id;
-        if ($category_id) {
-            $query->where('category_id', $category_id);
-        }
-
-        $is_active = $request->is_active;
-        if ($is_active) {
-            $query->where('is_active', $is_active);
-        }
-
-        return $query;
     }
 
     protected static function newFactory()

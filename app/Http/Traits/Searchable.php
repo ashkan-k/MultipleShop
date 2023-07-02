@@ -63,6 +63,10 @@ trait Searchable
 
                     $builder->orWhereIn($field, explode(',', $request->$field));
                 }
+
+                if ($request->$field === '0' || $request->$field === '1'){
+                    $builder->orWhere($field, explode(',', $request->$field));
+                }
             }
         }
 
