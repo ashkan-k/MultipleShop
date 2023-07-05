@@ -11,7 +11,7 @@ class SmsController extends Controller
 {
     public function send_sms()
     {
-        $users = User::all();
+        $users = User::whereNotNull('phone')->get();
         return view('sms::dashboard.form', compact('users'));
     }
 }
