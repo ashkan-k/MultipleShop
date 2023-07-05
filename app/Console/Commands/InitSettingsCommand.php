@@ -23,6 +23,10 @@ class InitSettingsCommand extends Command
         'footer_phone' => "۰۹۹۲۰۴۴۳۵۰۷ - ۰۹۹۲۰۴۴۳۵۰۷",
         'footer_working_time' => "هفت روز هفته (حتی روزهای تعطیل) ، ساعت ۹-۲۴ پاسخگوی شما هستیم.",
 
+        # Website Sections handler
+        'show_special_categories_products_count' => 1,
+        'show_special_products' => 1,
+
         # Social
         'email' => "multi_shop-ir@gmail.com",
         'telegram' => "multi_shop",

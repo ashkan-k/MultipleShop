@@ -121,6 +121,11 @@ class Product extends Model
         return \Modules\Product\Database\factories\ProductFactory::new();
     }
 
+    public function scopeActiveProducts($query)
+    {
+        return $query->where('is_active', 1);
+    }
+
     //
 
     public function user()
