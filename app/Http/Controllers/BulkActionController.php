@@ -79,6 +79,10 @@ class BulkActionController extends Controller
             else if ($action == 'deactive'){
                 $model::whereIn('id', $items)->ChangeActiveStatus(false);
             }
+
+            else if (in_array($action, ['admin', 'staff', 'user'])){
+                $model::whereIn('id', $items)->ChangeRole($action);
+            }
         }
         catch (\Exception $exception){
             return $this->FailResponse($exception->getMessage());

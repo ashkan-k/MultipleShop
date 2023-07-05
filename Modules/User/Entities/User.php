@@ -97,6 +97,27 @@ class User extends Authenticatable
         return $query;
     }
 
+    public function scopeChangeActiveStatus($query, $new_status)
+    {
+        if ($new_status == true){
+            $query->update(['email_verified_at' => now()]);
+        }else{
+            $query->update(['email_verified_at' => null]);
+        }
+    }
+
+    public function scopeChangeRole($query, $new_role)
+    {
+        if ($new_role == 'admin'){
+            $query->update(['is_admin' => true]);
+        }elseif ($new_role == 'staff'){
+            $query->update(['is_staff' => true]);
+        }
+        else{
+            $query->update(['is_staff' => false, 'is_admin' => false]);
+        }
+    }
+
     public function save(array $options = [])
     {
         if ($this->is_admin)
