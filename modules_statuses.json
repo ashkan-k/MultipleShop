@@ -13,5 +13,6 @@
     "Comment": true,
     "Order": true,
     "Sms": true,
-    "Poster": true
+    "Poster": true,
+    "Index": true
 }
