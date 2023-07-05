@@ -346,7 +346,7 @@
         </div>
 
 
-        <?php  $main_categories = \Modules\Product\Entities\Category::whereNull('parent_id')->with(['parent', 'children'])->get() ?>
+        <?php  $main_categories = \Modules\Product\Entities\Category::whereNull('parent_id')->with(['children'])->get() ?>
 
         <nav class="main-menu">
             <div class="container">
@@ -358,7 +358,7 @@
                                 <a class="nav-link" href="#">{{ $main_cat->title ?: '---' }}</a>
                                 <ul class="sub-menu nav">
 
-                                    @foreach($main_cat->children as $child_1)
+                                    @foreach($main_cat->children()->with(['children'])->get() as $child_1)
 
                                         @if(count($child_1->children))
 
@@ -369,7 +369,7 @@
 
                                                 <ul class="sub-menu nav">
 
-                                                    @foreach($child_1->children as $child_2)
+                                                    @foreach($child_1->children()->with(['children'])->get() as $child_2)
 
                                                         @if(count($child_2->children))
 
