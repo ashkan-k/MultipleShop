@@ -14,36 +14,16 @@
                         <li data-target="#main-slider" data-slide-to="4"></li>
                     </ol>
                     <div class="carousel-inner1">
-                        <div class="carousel-item active">
-                            <a class="d-block" href="#">
-                                <img src="/front/assets/img/slider/1.jpg"
-                                     class="d-block w-100" alt="">
-                            </a>
-                        </div>
-                        <div class="carousel-item">
-                            <a class="d-block" href="#">
-                                <img src="/front/assets/img/slider/2.jpg"
-                                     class="d-block w-100" alt="">
-                            </a>
-                        </div>
-                        <div class="carousel-item">
-                            <a class="d-block" href="#">
-                                <img src="/front/assets/img/slider/3.jpg"
-                                     class="d-block w-100" alt="">
-                            </a>
-                        </div>
-                        <div class="carousel-item">
-                            <a class="d-block" href="#">
-                                <img src="/front/assets/img/slider/4.jpg"
-                                     class="d-block w-100" alt="">
-                            </a>
-                        </div>
-                        <div class="carousel-item">
-                            <a class="d-block" href="#">
-                                <img src="/front/assets/img/slider/5.jpg"
-                                     class="d-block w-100" alt="">
-                            </a>
-                        </div>
+
+                        @foreach($sliders as $slider)
+                            <div class="carousel-item @if($loop->index == 0) active @endif">
+                                <a class="d-block" href="{{ $slider->url }}">
+                                    <img src="{{ $slider->get_image() }}"
+                                         class="d-block w-100" alt="{{ $slider->title }}">
+                                </a>
+                            </div>
+                        @endforeach
+
                     </div>
                     <a class="carousel-control-prev" href="#main-slider" role="button" data-slide="prev">
                         <i class="now-ui-icons arrows-1_minimal-right"></i>

@@ -70,7 +70,7 @@
 
         <div class="collapse navbar-collapse justify-content-end" id="navigation">
             <div class="logo-nav-res default text-center">
-                <a href="index.html">
+                <a href="/">
                     <img src="/front/assets/img/14.png" height="36px" alt="">
                 </a>
             </div>
@@ -170,7 +170,7 @@
             <div class="row">
                 <div class="col-lg-2 col-md-3 col-sm-4 col-5">
                     <div class="logo-area default">
-                        <a href="index.html">
+                        <a href="/">
                             <img src="/front/assets/img/14.png" alt="">
                         </a>
                     </div>
