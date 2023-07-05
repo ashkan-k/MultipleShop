@@ -30,8 +30,8 @@ class OrderController extends Controller
             $filter_products[] = [$key, $item];
         }
         $filter_users = [];
-        foreach (User::all()->pluck('email', 'id') as $key => $item){
-            $filter_users[] = [$key, $item];
+        foreach (User::all() as $item){
+            $filter_users[] = [$item->id, $item->full_name()];
         }
         $filter_colors = [];
         foreach (Color::all()->pluck('title', 'id') as $key => $item){

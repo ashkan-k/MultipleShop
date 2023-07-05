@@ -23,8 +23,8 @@ class CommentController extends Controller
 
         $status_filters = [['pending', 'در انتظار'], ['approved', 'تایید شده'], ['reject', 'رد شده']];
         $filter_users = [];
-        foreach (User::all()->pluck('email', 'id') as $key => $item){
-            $filter_users[] = [$key, $item];
+        foreach (User::all() as $item){
+            $filter_users[] = [$item->id, $item->full_name()];
         }
 
         return view('comment::dashboard.list', compact('objects', 'filter_users', 'status_filters'));

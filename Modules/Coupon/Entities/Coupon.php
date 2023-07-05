@@ -31,15 +31,9 @@ class Coupon extends Model
         'user.phone',
     ];
 
-    public function scopeFilter($query, $request)
-    {
-        $user_id = $request->user_id;
-        if ($user_id) {
-            $query->where('user_id', $user_id);
-        }
-
-        return $query;
-    }
+    protected $filter_fields = [
+        'user_id',
+    ];
 
     protected static function newFactory()
     {

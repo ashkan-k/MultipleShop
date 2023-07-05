@@ -33,8 +33,8 @@ class TicketController extends Controller
             $filter_categories[] = [$key, $item];
         }
         $filter_users = [];
-        foreach (User::all()->pluck('email', 'id') as $key => $item){
-            $filter_users[] = [$key, $item];
+        foreach (User::all() as $item){
+            $filter_users[] = [$item->id, $item->full_name()];
         }
 
         return view('ticket::dashboard.ticket.list', compact('objects', 'status_filters', 'filter_categories', 'filter_users'));

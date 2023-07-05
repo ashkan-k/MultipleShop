@@ -33,7 +33,11 @@ class DashboardController extends Controller
 
         // Calculate today and yesterday incomes, difference percent
         $yesterday_incomes = Payment::whereStatus(1)->whereDate('created_at', '=', Carbon::now()->subDay()->toDate())->sum('amount');
-        $degree_difference = (($today_incomes - $yesterday_incomes) / (($today_incomes + $yesterday_incomes) / 2)) * 100;
+
+        $degree_difference = 0;
+        if (($today_incomes - $yesterday_incomes) > 0){
+            $degree_difference = (($today_incomes - $yesterday_incomes) / (($today_incomes + $yesterday_incomes) / 2)) * 100;
+        }
 
         // Products Box
         $products = Product::all();

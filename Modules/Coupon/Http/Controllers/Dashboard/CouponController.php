@@ -17,10 +17,17 @@ class CouponController extends Controller
     public function index()
     {
         $objects = Coupon::Search(request('search'))
+            ->Filter(\request())
+            ->with(['user'])
             ->latest()
             ->paginate(\request('pagination', env('PAGINATION_NUMBER', 10)));
 
-        return view('coupon::dashboard.list', compact('objects'));
+        $filter_users = [];
+        foreach (User::all() as $item){
+            $filter_users[] = [$item->id, $item->full_name()];
+        }
+
+        return view('coupon::dashboard.list', compact('objects', 'filter_users'));
     }
 
     public function create()
