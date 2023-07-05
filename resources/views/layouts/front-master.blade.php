@@ -66,6 +66,8 @@
             </div>
         </div>
 
+        <?php  $main_categories = \Modules\Product\Entities\Category::whereNull('parent_id')->with(['children'])->get() ?>
+
         <div class="collapse navbar-collapse justify-content-end" id="navigation">
             <div class="logo-nav-res default text-center">
                 <a href="index.html">
@@ -73,195 +75,87 @@
                 </a>
             </div>
             <ul class="navbar-nav default">
-                <li class="sub-menu">
-                    <a href="#">کالای دیجیتال</a>
-                    <ul>
+
+                @foreach($main_categories as $main_cat)
+
+                    @if(count($main_cat->children))
+
                         <li class="sub-menu">
-                            <a href="#">لوازم جانبی گوشی</a>
-                            <ul>
-                                <li>
-                                    <a href="#">کیف و کاور گوشی</a>
-                                </li>
-                                <li>
-                                    <a href="#">پاور بانک</a>
-                                </li>
-                                <li>
-                                    <a href="#">هندزفری،هدفون</a>
-                                </li>
-                                <li>
-                                    <a href="#">پایه نگهدارنده گوشی</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="sub-menu">
-                            <a href="#">گوشی موبایل</a>
+                            <a href="#">{{ $main_cat->title ?: '---' }}</a>
                             <ul>
                                 <li>
                                     <a href="#"></a>
                                 </li>
-                                <li>
-                                    <a href="#">آیفون اپل</a>
-                                </li>
-                                <li>
-                                    <a href="#">هوآوی</a>
-                                </li>
+
+                                @foreach($main_cat->children()->with(['children'])->get() as $child_1)
+
+                                    @if(count($child_1->children))
+
+                                        <li class="sub-menu">
+                                            <a href="#">{{ $child_1->title ?: '---' }}</a>
+                                            <ul>
+                                                <li>
+                                                    <a href="#"></a>
+                                                </li>
+
+                                                @foreach($child_1->children()->with(['children'])->get() as $child_2)
+
+                                                    @if(count($child_2->children))
+
+                                                        <li class="sub-menu">
+                                                            <a href="#">{{ $child_2->title ?: '---' }}</a>
+                                                            <ul>
+                                                                <li>
+                                                                    <a href="#"></a>
+                                                                </li>
+
+                                                                @foreach($child_2->children as $child_3)
+
+                                                                    <li>
+                                                                        <a href="#">{{ $child_3->title ?: '---' }}</a>
+                                                                    </li>
+
+                                                                @endforeach
+
+                                                            </ul>
+                                                        </li>
+
+                                                    @else
+
+                                                        <li>
+                                                            <a href="#">{{ $child_2->title ?: '---' }}</a>
+                                                        </li>
+
+                                                    @endif
+
+                                                @endforeach
+
+                                            </ul>
+                                        </li>
+
+                                    @else
+
+                                        <li>
+                                            <a href="#">{{ $child_1->title ?: '---' }}</a>
+                                        </li>
+
+                                    @endif
+
+                                @endforeach
+
                             </ul>
                         </li>
+
+                    @else
+
                         <li>
-                            <a href="#">ساعت هوشمند</a>
+                            <a href="#">{{ $main_cat->title ?: '---' }}</a>
                         </li>
-                        <li>
-                            <a href="#">اسپیکر بلوتوث و با سیم</a>
-                        </li>
-                        <li class="sub-menu">
-                            <a href="#">موبایل</a>
-                            <ul>
-                                <li>
-                                    <a href="#">Apple</a>
-                                </li>
-                                <li>
-                                    <a href="#">Asus</a>
-                                </li>
-                                <li>
-                                    <a href="#">HTC</a>
-                                </li>
-                                <li>
-                                    <a href="#">LG</a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </li>
-                <li class="sub-menu">
-                    <a href="#">آرایشی،بهداشت</a>
-                    <ul>
-                        <li class="sub-menu">
-                            <a href="#">لوازم جانبی گوشی</a>
-                            <ul>
-                                <li>
-                                    <a href="#">کیف و کاور گوشی</a>
-                                </li>
-                                <li>
-                                    <a href="#">پاور بانک</a>
-                                </li>
-                                <li>
-                                    <a href="#">هندزفری،هدفون</a>
-                                </li>
-                                <li>
-                                    <a href="#">پایه نگهدارنده گوشی</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="sub-menu">
-                            <a href="#">گوشی موبایل</a>
-                            <ul>
-                                <li>
-                                    <a href="#"></a>
-                                </li>
-                                <li>
-                                    <a href="#">آیفون اپل</a>
-                                </li>
-                                <li>
-                                    <a href="#">هوآوی</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="#">ساعت هوشمند</a>
-                        </li>
-                        <li>
-                            <a href="#">اسپیکر بلوتوث و با سیم</a>
-                        </li>
-                        <li class="sub-menu">
-                            <a href="#">موبایل</a>
-                            <ul>
-                                <li>
-                                    <a href="#">Apple</a>
-                                </li>
-                                <li>
-                                    <a href="#">Asus</a>
-                                </li>
-                                <li>
-                                    <a href="#">HTC</a>
-                                </li>
-                                <li>
-                                    <a href="#">LG</a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </li>
-                <li class="sub-menu">
-                    <a href="#">خودرو،ابزار و اداری</a>
-                    <ul>
-                        <li class="sub-menu">
-                            <a href="#">لوازم جانبی گوشی</a>
-                            <ul>
-                                <li>
-                                    <a href="#">کیف و کاور گوشی</a>
-                                </li>
-                                <li>
-                                    <a href="#">پاور بانک</a>
-                                </li>
-                                <li>
-                                    <a href="#">هندزفری،هدفون</a>
-                                </li>
-                                <li>
-                                    <a href="#">پایه نگهدارنده گوشی</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="sub-menu">
-                            <a href="#">گوشی موبایل</a>
-                            <ul>
-                                <li>
-                                    <a href="#"></a>
-                                </li>
-                                <li>
-                                    <a href="#">آیفون اپل</a>
-                                </li>
-                                <li>
-                                    <a href="#">هوآوی</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="#">ساعت هوشمند</a>
-                        </li>
-                        <li>
-                            <a href="#">اسپیکر بلوتوث و با سیم</a>
-                        </li>
-                        <li class="sub-menu">
-                            <a href="#">موبایل</a>
-                            <ul>
-                                <li>
-                                    <a href="#">Apple</a>
-                                </li>
-                                <li>
-                                    <a href="#">Asus</a>
-                                </li>
-                                <li>
-                                    <a href="#">HTC</a>
-                                </li>
-                                <li>
-                                    <a href="#">LG</a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#">مد و پوشاک</a>
-                </li>
-                <li>
-                    <a href="#">خانه و آشپزخانه</a>
-                </li>
-                <li>
-                    <a href="#">کتاب،لوازم تحریر</a>
-                </li>
-                <li>
-                    <a href="#">ورزش و سفر</a>
-                </li>
+
+                    @endif
+
+                @endforeach
+
             </ul>
         </div>
     </div>
@@ -346,8 +240,6 @@
         </div>
 
 
-        <?php  $main_categories = \Modules\Product\Entities\Category::whereNull('parent_id')->with(['children'])->get() ?>
-
         <nav class="main-menu">
             <div class="container">
                 <ul class="list float-right">
@@ -375,13 +267,15 @@
 
                                                             <li class="list-item list-item-has-children">
                                                                 <i class="now-ui-icons arrows-1_minimal-left"></i><a
-                                                                    class="main-list-item nav-link" href="#">{{ $child_2->title ?: '---' }}</a>
+                                                                    class="main-list-item nav-link"
+                                                                    href="#">{{ $child_2->title ?: '---' }}</a>
                                                                 <ul class="sub-menu nav">
 
                                                                     @foreach($child_2->children as $child_3)
 
                                                                         <li class="list-item">
-                                                                            <a class="nav-link" href="#">{{ $child_3->title ?: '---' }}</a>
+                                                                            <a class="nav-link"
+                                                                               href="#">{{ $child_3->title ?: '---' }}</a>
                                                                         </li>
 
                                                                     @endforeach
@@ -392,7 +286,8 @@
                                                         @else
 
                                                             <li class="list-item">
-                                                                <a class="nav-link" href="#">{{ $child_2->title ?: '---' }}</a>
+                                                                <a class="nav-link"
+                                                                   href="#">{{ $child_2->title ?: '---' }}</a>
                                                             </li>
 
                                                         @endif
