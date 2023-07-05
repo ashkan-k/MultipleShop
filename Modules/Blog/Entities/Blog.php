@@ -87,6 +87,11 @@ class Blog extends Model
         return $saved;
     }
 
+    public function scopeChangeStatus($query, $new_status)
+    {
+        $query->update(['status' => $new_status]);
+    }
+
     protected static function newFactory()
     {
         return \Modules\Blog\Database\factories\BlogFactory::new();

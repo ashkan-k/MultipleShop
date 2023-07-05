@@ -20,6 +20,39 @@ class BulkActionController extends Controller
                 $model::whereIn('id', $items)->delete();
             }
 
+            else if (in_array($action, [
+                'draft', 'publish', 'done',
+                'waiting', 'answered', 'close',
+                'pending', 'approved', 'reject',
+                'sending', 'posted', 'delivered']))
+            {
+                $model::whereIn('id', $items)->ChangeStatus($action);
+            }
+
+            else if (in_array($action, ['online', 'cash'])){
+                $model::whereIn('id', $items)->ChangePaymentType($action);
+            }
+
+            else if (in_array($action, ['top', 'center', 'bottom'])){
+                $model::whereIn('id', $items)->ChangeLocation($action);
+            }
+
+            else if ($action == 'is_special'){
+                $model::whereIn('id', $items)->update(['is_special' => 1]);
+            }
+
+            else if ($action == 'is_not_special'){
+                $model::whereIn('id', $items)->update(['is_special' => 0]);
+            }
+
+            else if ($action == 'is_active'){
+                $model::whereIn('id', $items)->update(['is_active' => 1]);
+            }
+
+            else if ($action == 'is_not_active'){
+                $model::whereIn('id', $items)->update(['is_active' => 0]);
+            }
+
             else if ($action == 'is_approve'){
                 $model::whereIn('id', $items)->update(['is_approved' => 1]);
             }

@@ -224,7 +224,7 @@
                         <!--end::Table-->
 
                         <div class="row">
-                            @include('dashboard.section.components.bulk_actions.bulk_actions', ['actions' => [['delete', 'حذف کردن']], 'items' => $objects])
+                            @include('dashboard.section.components.bulk_actions.bulk_actions', ['actions' => [['delete', 'حذف کردن'], ['is_active', 'فعال کردن'], ['is_not_active', 'غیر فعال کردن']], 'items' => $objects])
                             @include('dashboard.section.components.filters.limit_select_box')
 
 

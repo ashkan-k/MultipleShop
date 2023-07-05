@@ -89,6 +89,16 @@ class Order extends Model
         return \Modules\Order\Database\factories\OrderFactory::new();
     }
 
+    public function scopeChangePaymentType($query, $new_payment_type)
+    {
+        $query->update(['payment_type' => $new_payment_type]);
+    }
+
+    public function scopeChangeStatus($query, $new_status)
+    {
+        $query->update(['status' => $new_status]);
+    }
+
     //
 
     public function user()

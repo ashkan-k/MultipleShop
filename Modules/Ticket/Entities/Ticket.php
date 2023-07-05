@@ -66,6 +66,11 @@ class Ticket extends Model
         return \Modules\Ticket\Database\factories\TicketFactory::new();
     }
 
+    public function scopeChangeStatus($query, $new_status)
+    {
+        $query->update(['status' => $new_status]);
+    }
+
     //
 
     public function user()

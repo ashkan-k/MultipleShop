@@ -145,7 +145,7 @@ Like: www.facebook.com/keenthemes
                         <!--begin::چت-->
                         <div class="app-navbar-item ms-1 ms-md-3">
                             <!--begin::Menu wrapper-->
-                            <div onclick="window.location.href = '{{ route('tickets.index') }}'" class="btn btn-icon btn-custom btn-icon-muted btn-active-light btn-active-color-primary w-30px h-30px w-md-40px h-md-40px position-relative">
+                            <div onclick="window.location.href = '{{ route('tickets.index') }}?status=waiting'" class="btn btn-icon btn-custom btn-icon-muted btn-active-light btn-active-color-primary w-30px h-30px w-md-40px h-md-40px position-relative">
                                 <i class="ki-duotone ki-message-text-2 fs-2 fs-lg-1">
                                     <span class="path1"></span>
                                     <span class="path2"></span>

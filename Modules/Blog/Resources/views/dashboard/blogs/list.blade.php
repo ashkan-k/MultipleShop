@@ -204,7 +204,7 @@
                         <!--end::Table-->
 
                         <div class="row">
-                            @include('dashboard.section.components.bulk_actions.bulk_actions', ['actions' => [['delete', 'حذف کردن']], 'items' => $objects])
+                            @include('dashboard.section.components.bulk_actions.bulk_actions', ['actions' => [['delete', 'حذف کردن'], ['draft', 'پیش نویس شدن'], ['publish', 'منتشر شدن'], ['done', 'پایان انتشار شدن']], 'items' => $objects])
                             @include('dashboard.section.components.filters.limit_select_box')
 
 

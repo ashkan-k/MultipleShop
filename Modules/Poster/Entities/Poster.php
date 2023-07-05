@@ -55,4 +55,9 @@ class Poster extends Model
     {
         return \Modules\Poster\Database\factories\PosterFactory::new();
     }
+
+    public function scopeChangeLocation($query, $new_location)
+    {
+        $query->update(['location' => $new_location]);
+    }
 }

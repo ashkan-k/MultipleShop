@@ -72,6 +72,11 @@ class Comment extends Model
         return \Modules\Comment\Database\factories\CommentFactory::new();
     }
 
+    public function scopeChangeStatus($query, $new_status)
+    {
+        $query->update(['status' => $new_status]);
+    }
+
     //
 
     public function user()

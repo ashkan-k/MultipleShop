@@ -194,9 +194,8 @@
                         <!--end::Table-->
 
                         <div class="row">
-                            @include('dashboard.section.components.bulk_actions.bulk_actions', ['actions' => [['delete', 'حذف کردن']], 'items' => $objects])
+                            @include('dashboard.section.components.bulk_actions.bulk_actions', ['actions' => [['delete', 'حذف کردن'], ['pending', 'در انتظار شدن'], ['approved', 'تایید شدن'], ['reject', 'رد شدن']], 'items' => $objects])
                             @include('dashboard.section.components.filters.limit_select_box')
-
 
                             {{ $objects->onEachSide(3)->links('dashboard.section.components.pagination') }}
 
