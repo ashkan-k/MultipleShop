@@ -12,5 +12,6 @@
     "Wishlist": true,
     "Comment": true,
     "Order": true,
+    "Sms": true,
     "Poster": true
 }
