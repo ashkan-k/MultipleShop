@@ -18,11 +18,21 @@ class CartController extends Controller
     public function index()
     {
         $objects = Cart::Search(request('search'))
+            ->Filter(\request())
             ->with(['user', 'product'])
             ->latest()
             ->paginate(\request('pagination', env('PAGINATION_NUMBER', 10)));
 
-        return view('cart::dashboard.list', compact('objects'));
+        $filter_users = [];
+        foreach (User::all() as $item){
+            $filter_users[] = [$item->id, $item->full_name()];
+        }
+        $filter_products = [];
+        foreach (Product::all()->pluck('title', 'id') as $key => $item){
+            $filter_products[] = [$key, $item];
+        }
+
+        return view('cart::dashboard.list', compact('objects', 'filter_users', 'filter_products'));
     }
 
     public function create()

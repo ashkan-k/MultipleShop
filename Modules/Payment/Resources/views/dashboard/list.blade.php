@@ -54,7 +54,43 @@
                         @include('dashboard.section.components.search_box')
 
                         <div class="card-toolbar">
-                            <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base"></div>
+                            <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
+                                <!--begin:: فیلتر ها header-->
+                                <button type="button" class="btn btn-light-primary me-3" data-kt-menu-trigger="click"
+                                        data-kt-menu-placement="bottom-end">
+                                    <i class="ki-duotone ki-filter fs-2">
+                                        <span class="path1"></span>
+                                        <span class="path2"></span>
+                                    </i>فیلتر
+                                </button>
+
+                                <div class="menu menu-sub menu-sub-dropdown w-300px w-md-325px" data-kt-menu="true">
+                                    <div class="px-7 py-5">
+                                        <div class="fs-5 text-dark fw-bold">فیلتر تراکنش ها</div>
+                                    </div>
+                                    <div class="separator border-gray-200"></div>
+                                    <div class="px-7 py-5" data-kt-user-table-filter="form">
+                                        <form id="frm_filter">
+                                            @include('dashboard.section.components.filters.select_box', ['items' => $filter_users, 'name' => 'user_id', 'label' => 'کاربر'])
+                                            @include('dashboard.section.components.filters.select_box', ['items' => $filter_coupons, 'name' => 'coupon_id', 'label' => 'کد تخفیف'])
+                                            @include('dashboard.section.components.filters.select_box', ['items' => $status_filters, 'name' => 'status', 'label' => 'وضعیت'])
+
+                                            <div class="d-flex justify-content-end">
+                                                <button type="reset"
+                                                        class="btn btn-light btn-active-light-primary fw-semibold me-2 px-6"
+                                                        data-kt-menu-dismiss="true" data-kt-user-table-filter="reset">
+                                                    بستن
+                                                </button>
+                                                <button type="submit" onclick="$('#frm_filter').submit()"
+                                                        class="btn btn-primary fw-semibold px-6">
+                                                    فیلتر
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <!--end:: پایان فیلتر ها -->
+                            </div>
                             <!--end::Toolbar-->
                         </div>
                         <!--end::کارت toolbar-->

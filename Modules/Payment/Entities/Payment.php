@@ -36,6 +36,12 @@ class Payment extends Model
         'ip',
     ];
 
+    protected $filter_fields = [
+        'user_id',
+        'coupon_id',
+        'status',
+    ];
+
     protected static function newFactory()
     {
         return \Modules\Payment\Database\factories\PaymentFactory::new();

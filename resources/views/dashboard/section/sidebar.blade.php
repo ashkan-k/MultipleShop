@@ -431,7 +431,7 @@
 													<span class="path4"></span>
 												</i>
 											</span>
-											<span class="menu-title">اسلایدر ها</span>
+											<span class="menu-title">پوستر ها</span>
 											<span class="menu-arrow"></span>
 										</span>
                 <div class="menu-sub menu-sub-accordion">

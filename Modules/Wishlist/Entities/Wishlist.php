@@ -25,6 +25,11 @@ class Wishlist extends Model
         'product.title',
     ];
 
+    protected $filter_fields = [
+        'user_id',
+        'product_id',
+    ];
+
     protected static function newFactory()
     {
         return \Modules\Wishlist\Database\factories\WishlistFactory::new();
