@@ -81,7 +81,7 @@
                     @if(count($main_cat->children))
 
                         <li class="sub-menu">
-                            <a href="#">{{ $main_cat->title ?: '---' }}</a>
+                            <a href="#">@if(app()->getLocale() == 'fa'){{ $main_cat->title ?: '---' }}@else{{ $main_cat->en_title ?: '---' }}@endif</a>
                             <ul>
                                 <li>
                                     <a href="#"></a>
@@ -92,7 +92,7 @@
                                     @if(count($child_1->children))
 
                                         <li class="sub-menu">
-                                            <a href="#">{{ $child_1->title ?: '---' }}</a>
+                                            <a href="#">@if(app()->getLocale() == 'fa'){{ $child_1->title ?: '---' }}@else{{ $child_1->en_title ?: '---' }}@endif</a>
                                             <ul>
                                                 <li>
                                                     <a href="#"></a>
@@ -103,7 +103,7 @@
                                                     @if(count($child_2->children))
 
                                                         <li class="sub-menu">
-                                                            <a href="#">{{ $child_2->title ?: '---' }}</a>
+                                                            <a href="#">@if(app()->getLocale() == 'fa'){{ $child_2->title ?: '---' }}@else{{ $child_2->en_title ?: '---' }}@endif</a>
                                                             <ul>
                                                                 <li>
                                                                     <a href="#"></a>
@@ -112,7 +112,7 @@
                                                                 @foreach($child_2->children as $child_3)
 
                                                                     <li>
-                                                                        <a href="#">{{ $child_3->title ?: '---' }}</a>
+                                                                        <a href="#">@if(app()->getLocale() == 'fa'){{ $child_3->title ?: '---' }}@else{{ $child_3->en_title ?: '---' }}@endif</a>
                                                                     </li>
 
                                                                 @endforeach
@@ -123,7 +123,7 @@
                                                     @else
 
                                                         <li>
-                                                            <a href="#">{{ $child_2->title ?: '---' }}</a>
+                                                            <a href="#">@if(app()->getLocale() == 'fa'){{ $child_2->title ?: '---' }}@else{{ $child_2->en_title ?: '---' }}@endif</a>
                                                         </li>
 
                                                     @endif
@@ -136,7 +136,7 @@
                                     @else
 
                                         <li>
-                                            <a href="#">{{ $child_1->title ?: '---' }}</a>
+                                            <a href="#">@if(app()->getLocale() == 'fa'){{ $child_1->title ?: '---' }}@else{{ $child_1->en_title ?: '---' }}@endif</a>
                                         </li>
 
                                     @endif
@@ -149,7 +149,7 @@
                     @else
 
                         <li>
-                            <a href="#">{{ $main_cat->title ?: '---' }}</a>
+                            <a href="#">@if(app()->getLocale() == 'fa'){{ $main_cat->title ?: '---' }}@else{{ $main_cat->en_title ?: '---' }}@endif</a>
                         </li>
 
                     @endif
@@ -247,7 +247,7 @@
 
                         @if(count($main_cat->children))
                             <li class="list-item list-item-has-children mega-menu mega-menu-col-5">
-                                <a class="nav-link" href="#">{{ $main_cat->title ?: '---' }}</a>
+                                <a class="nav-link" href="#">@if(app()->getLocale() == 'fa'){{ $main_cat->title ?: '---' }}@else{{ $main_cat->en_title ?: '---' }}@endif</a>
                                 <ul class="sub-menu nav">
 
                                     @foreach($main_cat->children as $child_1)
@@ -275,7 +275,7 @@
                                             <li class="list-item list-item-has-children">
                                                 <i class="now-ui-icons arrows-1_minimal-left"></i><a
                                                     class="main-list-item nav-link"
-                                                    href="#">{{ $child_1->title ?: '---' }}</a>
+                                                    href="#">@if(app()->getLocale() == 'fa'){{ $child_1->title ?: '---' }}@else{{ $child_1->en_title ?: '---' }}@endif</a>
 
                                                 <ul class="sub-menu nav">
 
@@ -286,14 +286,14 @@
                                                             <li class="list-item list-item-has-children">
                                                                 <i class="now-ui-icons arrows-1_minimal-left"></i><a
                                                                     class="main-list-item nav-link"
-                                                                    href="#">{{ $child_2->title ?: '---' }}</a>
+                                                                    href="#">@if(app()->getLocale() == 'fa'){{ $child_2->title ?: '---' }}@else{{ $child_2->en_title ?: '---' }}@endif</a>
                                                                 <ul class="sub-menu nav">
 
                                                                     @foreach($child_2->children as $child_3)
 
                                                                         <li class="list-item">
                                                                             <a class="nav-link"
-                                                                               href="#">{{ $child_3->title ?: '---' }}</a>
+                                                                               href="#">@if(app()->getLocale() == 'fa'){{ $child_3->title ?: '---' }}@else{{ $child_3->en_title ?: '---' }}@endif</a>
                                                                         </li>
 
                                                                     @endforeach
@@ -305,7 +305,7 @@
 
                                                             <li class="list-item">
                                                                 <a class="nav-link"
-                                                                   href="#">{{ $child_2->title ?: '---' }}</a>
+                                                                   href="#">@if(app()->getLocale() == 'fa'){{ $child_2->title ?: '---' }}@else{{ $child_2->en_title ?: '---' }}@endif</a>
                                                             </li>
 
                                                         @endif
@@ -320,7 +320,7 @@
                                             <li class="list-item list-item-has-children">
                                                 <i class="now-ui-icons arrows-1_minimal-left"></i><a
                                                     class="main-list-item nav-link"
-                                                    href="#">{{ $child_1->title ?: '---' }}</a>
+                                                    href="#">@if(app()->getLocale() == 'fa'){{ $child_1->title ?: '---' }}@else{{ $child_1->en_title ?: '---' }}@endif</a>
                                             </li>
 
                                         @endif
@@ -328,12 +328,12 @@
                                     @endforeach
 
 
-                                    <img src="{{ $main_cat->get_image() }}" alt="{{ $main_cat->title ?: '---' }}">
+                                    <img src="{{ $main_cat->get_image() }}" alt="@if(app()->getLocale() == 'fa'){{ $main_cat->title ?: '---' }}@else{{ $main_cat->en_title ?: '---' }}@endif">
                                 </ul>
                             </li>
                         @else
                             <li class="list-item">
-                                <a class="nav-link" href="#">{{ $main_cat->title ?: '---' }}</a>
+                                <a class="nav-link" href="#">@if(app()->getLocale() == 'fa'){{ $main_cat->title ?: '---' }}@else{{ $main_cat->en_title ?: '---' }}@endif</a>
                             </li>
                         @endif
 

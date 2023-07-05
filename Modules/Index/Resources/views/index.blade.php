@@ -19,7 +19,7 @@
                             <div class="carousel-item @if($loop->index == 0) active @endif">
                                 <a class="d-block" href="{{ $slider->url }}">
                                     <img src="{{ $slider->get_image() }}"
-                                         class="d-block w-100" alt="{{ $slider->title }}">
+                                         class="d-block w-100" alt="{{ __($slider->title) }}">
                                 </a>
                             </div>
                         @endforeach
