@@ -83,7 +83,7 @@ trait AuthHelpers
 
     public function SendVerifyCode($user)
     {
-        if ($user && !$user->phone_verified_at) {
+        if ($user && !$user->email_verified_at) {
             $this->SendCode($user);
             $this->set_helper_sessions($user, true);
             session()->flash('message', 'یک پیامک حاوی کد احراز هویت به شماره تلفن شما ارسال شده است.');

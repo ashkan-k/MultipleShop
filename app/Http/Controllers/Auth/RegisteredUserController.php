@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
+use App\Http\Traits\AuthHelpers;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
@@ -12,9 +12,12 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
+use Modules\User\Entities\User;
 
 class RegisteredUserController extends Controller
 {
+    use AuthHelpers;
+
     /**
      * Display the registration view.
      */
@@ -44,7 +47,7 @@ class RegisteredUserController extends Controller
 
         event(new Registered($user));
 
-        Auth::login($user);
+        $this->SendVerifyCode($user);
 
         return redirect(RouteServiceProvider::HOME);
     }
