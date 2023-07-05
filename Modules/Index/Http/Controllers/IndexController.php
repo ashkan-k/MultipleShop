@@ -20,9 +20,14 @@ class IndexController extends Controller
             ->limit(6)->get();
         $special_products = Product::ActiveProducts()->where('is_special', 1)->get();
         $latest_products = Product::ActiveProducts()->latest()->limit(10)->get();
+        $most_favorite_products = Product::ActiveProducts()
+            ->withCount('orders')->orderByDesc('orders_count')
+            ->limit(10)->get();
 
         $top_posters = Poster::where('location', 'top')->get();
+        $center_posters = Poster::where('location', 'center')->get();
+        $bottom_posters = Poster::where('location', 'bottom')->get();
 
-        return view('index::index', compact('sliders', 'special_categories', 'special_products', 'top_posters', 'latest_products'));
+        return view('index::index', compact('sliders', 'special_categories', 'special_products', 'top_posters','center_posters', 'bottom_posters', 'latest_products', 'most_favorite_products'));
     }
 }

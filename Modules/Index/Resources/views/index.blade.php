@@ -129,204 +129,119 @@
                 </div>
             </div>
 
-            <div class="row">
-                <div class="col-12">
-                    <div class="widget widget-product card">
-                        <header class="card-header">
-                            <h3 class="card-title">
-                                <span>{{ __('Latest Products') }}</span>
-                            </h3>
-                            <a href="#" class="view-all">{{ __('View All') }}</a>
-                        </header>
-                        <div class="product-carousel owl-carousel owl-theme">
+            @if($settings['show_latest_products'])
+                <div class="row">
+                    <div class="col-12">
+                        <div class="widget widget-product card">
+                            <header class="card-header">
+                                <h3 class="card-title">
+                                    <span>{{ __('Latest Products') }}</span>
+                                </h3>
+                                <a href="#" class="view-all">{{ __('View All') }}</a>
+                            </header>
+                            <div class="product-carousel owl-carousel owl-theme">
 
-                            @foreach($latest_products as $latest_pro)
-                                <div class="item">
-                                    <a href="single-product.html">
-                                        <img src="{{ $latest_pro->get_image() }}"
-                                             class="img-fluid" alt="@if($lang == 'fa'){{ $latest_pro->title }}@else{{ $latest_pro->en_title }}@endif">
+                                @foreach($latest_products as $latest_pro)
+                                    <div class="item">
+                                        <a href="single-product.html">
+                                            <img src="{{ $latest_pro->get_image() }}"
+                                                 class="img-fluid"
+                                                 alt="@if($lang == 'fa'){{ $latest_pro->title }}@else{{ $latest_pro->en_title }}@endif">
+                                        </a>
+                                        <h2 class="post-title">
+                                            <a href="single-product.html">@if($lang == 'fa'){{ $latest_pro->title }}@else{{ $latest_pro->en_title }}@endif</a>
+                                        </h2>
+                                        <div class="price">
+                                            <div class="text-center">
+                                                <del>
+                                                    <span>{{ number_format($latest_pro->price) }}<span>تومان</span></span>
+                                                </del>
+                                            </div>
+                                            <div class="text-center">
+                                                <ins>
+                                                    <span>{{ number_format($latest_pro->discount_price) }}<span>تومان</span></span>
+                                                </ins>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endif
+
+            <div class="row banner-ads">
+                <div class="col-12">
+                    <div class="row">
+
+                        @foreach($center_posters as $center_pos)
+                            <div class="col-6">
+                                <div class="widget-banner card">
+                                    <a href="{{ $center_pos->link }}" target="_blank">
+                                        <img class="img-fluid" src="{{ $center_pos->get_image() }}"
+                                             alt="{{ $center_pos->link }}">
                                     </a>
-                                    <h2 class="post-title">
-                                        <a href="single-product.html">@if($lang == 'fa'){{ $latest_pro->title }}@else{{ $latest_pro->en_title }}@endif</a>
-                                    </h2>
-                                    <div class="price">
-                                        <div class="text-center">
-                                            <del><span>{{ number_format($latest_pro->price) }}<span>تومان</span></span></del>
-                                        </div>
-                                        <div class="text-center">
-                                            <ins><span>{{ number_format($latest_pro->discount_price) }}<span>تومان</span></span></ins>
-                                        </div>
-                                    </div>
                                 </div>
-                            @endforeach
+                            </div>
+                        @endforeach
 
-                        </div>
                     </div>
                 </div>
             </div>
+
+            @if($settings['show_most_favorite_products'])
+                <div class="row">
+                    <div class="col-12">
+                        <div class="widget widget-product card">
+                            <header class="card-header">
+                                <h3 class="card-title">
+                                    <span>{{ __('The most favorite products') }}</span>
+                                </h3>
+                                <a href="#" class="view-all">{{ __('View All') }}</a>
+                            </header>
+                            <div class="product-carousel owl-carousel owl-theme">
+
+                                @foreach($most_favorite_products as $most_favorite_pro)
+                                    <div class="item">
+                                        <a href="single-product.html">
+                                            <img src="{{ $most_favorite_pro->get_image() }}"
+                                                 class="img-fluid"
+                                                 alt="@if($lang == 'fa'){{ $most_favorite_pro->title }}@else{{ $most_favorite_pro->en_title }}@endif">
+                                        </a>
+                                        <h2 class="post-title">
+                                            <a href="single-product.html">@if($lang == 'fa'){{ $most_favorite_pro->title }}@else{{ $most_favorite_pro->en_title }}@endif</a>
+                                        </h2>
+                                        <div class="price">
+                                            <del><span>{{ number_format($most_favorite_pro->price) }}<span>تومان</span></span>
+                                            </del>
+                                            <ins><span>{{ number_format($most_favorite_pro->discount_price) }}<span>تومان</span></span>
+                                            </ins>
+                                        </div>
+                                    </div>
+                                @endforeach
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endif
 
             <div class="row banner-ads">
                 <div class="col-12">
                     <div class="row">
-                        <div class="col-6">
-                            <div class="widget-banner card">
-                                <a href="javascript:void(0)" target="_blank">
-                                    <img class="img-fluid" src="/front/assets/img/banner/banner-9.jpg" alt="">
-                                </a>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="widget-banner card">
-                                <a href="javascript:void(0)" target="_top">
-                                    <img class="img-fluid" src="/front/assets/img/banner/banner-10.jpg" alt="">
-                                </a>
-                            </div>
-                        </div>
 
-                    </div>
-                </div>
-            </div>
+                        @foreach($bottom_posters as $bottom_pos)
+                            <div class="col-6 col-md-3">
+                                <div class="widget-banner card">
+                                    <a href="{{ $bottom_pos->link }}" target="_blank">
+                                        <img class="img-fluid" src="{{ $bottom_pos->get_image() }}" alt="{{ $bottom_pos->link }}">
+                                    </a>
+                                </div>
+                            </div>
+                        @endforeach
 
-            <div class="row">
-                <div class="col-12">
-                    <div class="widget widget-product card">
-                        <header class="card-header">
-                            <h3 class="card-title">
-                                <span>محبوب ترین محصولات</span>
-                            </h3>
-                            <a href="#" class="view-all">مشاهده همه</a>
-                        </header>
-                        <div class="product-carousel owl-carousel owl-theme">
-                            <div class="item">
-                                <a href="single-product.html">
-                                    <img src="/front/assets/img/product/band-products.jpg"
-                                         class="img-fluid" alt="">
-                                </a>
-                                <h2 class="post-title">
-                                    <a href="single-product.html">اسپیکر بلوتوثی لیتو مدل PARTY PLUS 400</a>
-                                </h2>
-                                <div class="price">
-                                    <del><span>2,890,000<span>تومان</span></span></del>
-                                    <ins><span>1,699,000<span>تومان</span></span></ins>
-                                </div>
-                            </div>
-
-                            <div class="item">
-                                <a href="single-product.html">
-                                    <img src="/front/assets/img/product/ptb.jpg"
-                                         class="img-fluid" alt="">
-                                </a>
-                                <h2 class="post-title">
-                                    <a href="single-product.html">اسباب بازی ایپکا مدل دار بافندگی کد GE3010</a>
-                                </h2>
-                                <div class="price">
-                                    <div class="text-center">
-                                        <del><span>4,299,000<span>تومان</span></span></del>
-                                    </div>
-                                    <div class="text-center">
-                                        <ins><span>175,000<span>تومان</span></span></ins>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <a href="single-product.html">
-                                    <img src="/front/assets/img/product/handsfery-products.jpg"
-                                         class="img-fluid" alt="">
-                                </a>
-                                <h2 class="post-title">
-                                    <a href="single-product.html">هندزفری بلوتوثی لیتو مدل LT9</a>
-                                </h2>
-                                <div class="price">
-                                    <span>895,000<span>تومان</span></span>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <a href="single-product.html">
-                                    <img src="/front/assets/img/product/knife-products.jpg"
-                                         class="img-fluid" alt="">
-                                </a>
-                                <h2 class="post-title">
-                                    <a href="single-product.html">چاقو تیز کن ریور مدل 002</a>
-                                </h2>
-                                <div class="price">
-                                    <span>82,000<span>تومان</span></span>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <a href="single-product.html">
-                                    <img src="/front/assets/img/product/paye-mobile.jpg"
-                                         class="img-fluid" alt="">
-                                </a>
-                                <h2 class="post-title">
-                                    <a href="single-product.html">پایه نگهدارنده گوشی موبایل لیتو مدل LR18</a>
-                                </h2>
-                                <div class="price">
-                                    <span>299,000<span>تومان</span></span>
-                                </div>
-                            </div>
-
-                            <div class="item">
-                                <a href="single-product.html">
-                                    <img src="/front/assets/img/product/glasses-products.jpg"
-                                         class="img-fluid" alt="">
-                                </a>
-                                <h2 class="post-title">
-                                    <a href="single-product.html">عینک آفتابی مردانه فیلا مدل SF9329-7F7P</a>
-                                </h2>
-                                <div class="price">
-                                    <del><span>2,799,000<span>تومان</span></span></del>
-                                    <ins><span>1,722,000<span>تومان</span></span></ins>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <a href="single-product.html">
-                                    <img src="/front/assets/img/product/box-details.jpg"
-                                         class="img-fluid" alt="">
-                                </a>
-                                <h2 class="post-title">
-                                    <a href="single-product.html">مجموعه 120 عددی آچارباکس ساتاگود مدل 9530</a>
-                                </h2>
-                                <div class="price">
-                                    <del><span>8,999,000<span>تومان</span></span></del>
-                                    <ins><span>2,299,000<span>تومان</span></span></ins>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row banner-ads">
-                <div class="col-12">
-                    <div class="row">
-                        <div class="col-6 col-md-3">
-                            <div class="widget-banner card">
-                                <a href="javascript:void(0)" target="_blank">
-                                    <img class="img-fluid" src="/front/assets/img/banner/ads3.jpg" alt="">
-                                </a>
-                            </div>
-                        </div>
-                        <div class="col-6 col-md-3">
-                            <div class="widget-banner card">
-                                <a href="javascript:void(0)" target="_top">
-                                    <img class="img-fluid" src="/front/assets/img/banner/ads1.jpg" alt="">
-                                </a>
-                            </div>
-                        </div>
-                        <div class="col-6 col-md-3">
-                            <div class="widget-banner card">
-                                <a href="javascript:void(0)" target="_blank">
-                                    <img class="img-fluid" src="/front/assets/img/banner/ads4.jpg" alt="">
-                                </a>
-                            </div>
-                        </div>
-                        <div class="col-6 col-md-3">
-                            <div class="widget-banner card">
-                                <a href="javascript:void(0)" target="_top">
-                                    <img class="img-fluid" src="/front/assets/img/banner/ads2.jpg" alt="">
-                                </a>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>

@@ -26,6 +26,8 @@ class InitSettingsCommand extends Command
         # Website Sections handler
         'show_special_categories_products_count' => 1,
         'show_special_products' => 1,
+        'show_latest_products' => 1,
+        'show_most_favorite_products' => 1,
 
         # Social
         'email' => "multi_shop-ir@gmail.com",
