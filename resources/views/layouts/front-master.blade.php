@@ -250,9 +250,27 @@
                                 <a class="nav-link" href="#">{{ $main_cat->title ?: '---' }}</a>
                                 <ul class="sub-menu nav">
 
-                                    @foreach($main_cat->children()->with(['children'])->get() as $child_1)
+                                    @foreach($main_cat->children as $child_1)
 
                                         @if(count($child_1->children))
+
+                                            {{--                                            <li class="list-item list-item-has-children">--}}
+                                            {{--                                                <i class="now-ui-icons arrows-1_minimal-left"></i><a--}}
+                                            {{--                                                    class="main-list-item nav-link"--}}
+                                            {{--                                                    href="#">{{ $child_2->title ?: '---' }}</a>--}}
+                                            {{--                                                <ul class="sub-menu nav">--}}
+
+                                            {{--                                                    @foreach($child_1->children as $child_3)--}}
+
+                                            {{--                                                        <li class="list-item">--}}
+                                            {{--                                                            <a class="nav-link"--}}
+                                            {{--                                                               href="#">{{ $child_3->title ?: '---' }}</a>--}}
+                                            {{--                                                        </li>--}}
+
+                                            {{--                                                    @endforeach--}}
+
+                                            {{--                                                </ul>--}}
+                                            {{--                                            </li>--}}
 
                                             <li class="list-item list-item-has-children">
                                                 <i class="now-ui-icons arrows-1_minimal-left"></i><a
@@ -261,7 +279,7 @@
 
                                                 <ul class="sub-menu nav">
 
-                                                    @foreach($child_1->children()->with(['children'])->get() as $child_2)
+                                                    @foreach($child_1->children as $child_2)
 
                                                         @if(count($child_2->children))
 
