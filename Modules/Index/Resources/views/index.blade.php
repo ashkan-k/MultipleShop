@@ -40,66 +40,28 @@
                 <div class="col-12 mt-3">
                     <div class="brand-slider card">
                         <div class="row">
-                            <div class="col-lg-2 col-md-4 col-6">
-                                <div class="text-center style-icon">
-                                    <div>
-                                        <i class="fa fa-taxi "></i>
 
-                                    </div>
-                                    <a>خودرو و لوازم جانبی</a>
-                                    <p class="color-kala">2,000 کالا</p>
-                                </div>
-                            </div>
-                            <div class="col-lg-2 col-md-4 col-6">
-                                <div class="text-center style-icon">
-                                    <div>
-                                        <i class="fa fa-user-o"></i>
+                            @foreach($special_categories as $special_cat)
+                                <div class="col-lg-2 col-md-4 col-6">
+                                    <div class="text-center style-icon">
+                                        <div>
+                                            <i class="fa fa-{{ $special_cat->icon_name }} "></i>
 
+                                        </div>
+                                        <a>
+                                            @if(app()->getLocale() == 'fa')
+                                                {{ $special_cat->title ?: '---' }}
+                                            @else
+                                                {{ $special_cat->en_title ?: '---' }}
+                                            @endif
+                                        </a>
+                                        @if(isset($settings['show_special_categories_products_count']))
+                                            <p class="color-kala">{{ number_format($special_cat->products_count) }} کالا</p>
+                                        @endif
                                     </div>
-                                    <a href="#">کیف و چمدان</a>
-                                    <p class="color-kala">54,000 کالا</p>
                                 </div>
-                            </div>
-                            <div class="col-lg-2 col-md-4 col-6">
-                                <div class="text-center style-icon">
-                                    <div>
-                                        <i class="fa fa-home "></i>
+                            @endforeach
 
-                                    </div>
-                                    <a href="#"> لوازم خانگی</a>
-                                    <p class="color-kala">24,000 کالا</p>
-                                </div>
-                            </div>
-                            <div class="col-lg-2 col-md-4 col-6">
-                                <div class="text-center style-icon">
-                                    <div>
-                                        <i class="fa fa-shopping-basket "></i>
-
-                                    </div>
-                                    <a href="#">سوپر مارکت</a>
-                                    <p class="color-kala">12,000 کالا</p>
-                                </div>
-                            </div>
-                            <div class="col-lg-2 col-md-4 col-6">
-                                <div class="text-center style-icon">
-                                    <div>
-                                        <i class="fa fa-smile-o "></i>
-
-                                    </div>
-                                    <a href="#">آرایشی و بهداشتی</a>
-                                    <p class="color-kala">64,000 کالا</p>
-                                </div>
-                            </div>
-                            <div class="col-lg-2 col-md-4 col-6">
-                                <div class="text-center style-icon">
-                                    <div>
-                                        <i class="fa fa-thermometer-quarter "></i>
-
-                                    </div>
-                                    <a href="#">لوازم کمکی</a>
-                                    <p class="color-kala">24,000 کالا</p>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
