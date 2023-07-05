@@ -371,18 +371,21 @@
 
                                                     @foreach($child_1->children as $child_2)
 
-                                                        @if(count($child_1->children))
+                                                        @if(count($child_2->children))
 
                                                             <li class="list-item list-item-has-children">
                                                                 <i class="now-ui-icons arrows-1_minimal-left"></i><a
                                                                     class="main-list-item nav-link" href="#">{{ $child_2->title ?: '---' }}</a>
                                                                 <ul class="sub-menu nav">
-                                                                    <li class="list-item">
-                                                                        <a class="nav-link" href="#">آیفون اپل</a>
-                                                                    </li>
-                                                                    <li class="list-item">
-                                                                        <a class="nav-link" href="#">هوآوی</a>
-                                                                    </li>
+
+                                                                    @foreach($child_2->children as $child_3)
+
+                                                                        <li class="list-item">
+                                                                            <a class="nav-link" href="#">{{ $child_3->title ?: '---' }}</a>
+                                                                        </li>
+
+                                                                    @endforeach
+
                                                                 </ul>
                                                             </li>
 
