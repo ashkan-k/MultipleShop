@@ -35,7 +35,7 @@
 
 </head>
 
-<body class="index-page sidebar-collapse" ng-app="myApp" ng-controller="myCtrl">
+<body class="index-page sidebar-collapse" ng-app="myApp" ng-controller="myCtrl" ng-init="init()">
 
 <!-- responsive-header -->
 <nav class="navbar direction-rtl fixed-top header-responsive">
@@ -54,7 +54,7 @@
 
             <div class="search-nav default">
                 <form action="">
-                    <input type="text" placeholder="جستجو ...">
+                    <input type="text" name="search" value="{{ request('search') }}" placeholder="جستجو ...">
                     <button type="submit">
                         <i class="fa fa-search style-icon-search"></i>
                     </button>
@@ -178,37 +178,13 @@
                 <div class="col-lg-6 col-md-5 col-sm-8 col-7">
                     <div class="search-area default">
                         <form action="" class="search">
-                            <input type="text" id="gsearchsimple"
+                            <input type="text" id="gsearchsimple" name="search" value="{{ request('search') }}"
                                    placeholder="نام کالا، برند و یا دسته مورد نظر خود را جستجو کنید…">
                             <ul class="list-group search-box-list">
-                                <li class="list-group-item contsearch">
-                                    <a href="#" class="gsearch">
+                                <li ng-repeat="item in search_history track by $index" ng-if="item" class="list-group-item contsearch">
+                                    <a href="?search=[[ item ]]" class="gsearch">
                                         <i class="fa fa-clock-o"></i>
-                                        گوشی موبایل
-                                    </a>
-                                </li>
-                                <li class="list-group-item contsearch">
-                                    <a href="#" class="gsearch">
-                                        <i class="fa fa-clock-o"></i>
-                                        لپ تاپ
-                                    </a>
-                                </li>
-                                <li class="list-group-item contsearch">
-                                    <a href="#" class="gsearch">
-                                        <i class="fa fa-clock-o"></i>
-                                        کفش
-                                    </a>
-                                </li>
-                                <li class="list-group-item contsearch">
-                                    <a href="#" class="gsearch">
-                                        <i class="fa fa-clock-o"></i>
-                                        مانتو
-                                    </a>
-                                </li>
-                                <li class="list-group-item contsearch">
-                                    <a href="#" class="gsearch">
-                                        <i class="fa fa-clock-o"></i>
-                                        لباس ورزشی
+                                        [[ item ]]
                                     </a>
                                 </li>
                             </ul>
@@ -562,6 +538,24 @@
         // $httpProvider.defaults.xsrfCookieName = 'csrftoken';
         // $httpProvider.defaults.xsrfHeaderName = 'X-CSRF-TOKEN';
         $httpProvider.defaults.headers.common['X-CSRF-TOKEN'] = $('meta[name="csrf-token"]').attr('content');
+    });
+</script>
+
+<script>
+    app.controller('myCtrl', function ($scope, $http) {
+        $scope.search_history = [];
+
+        $scope.init = function () {
+            @if(request('search'))
+                var searchHistory = (localStorage.searchHistory) ? JSON.parse(localStorage.searchHistory) : [];
+                searchHistory.push('{{ request('search') }}');
+                searchHistory = [...new Set(searchHistory)];
+                localStorage.searchHistory = JSON.stringify(searchHistory);
+
+                console.log(searchHistory)
+                $scope.search_history = searchHistory;
+            @endif
+        }
     });
 </script>
 
