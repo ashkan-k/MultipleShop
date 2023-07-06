@@ -54,7 +54,7 @@
 
             <div class="search-nav default">
                 <form action="">
-                    <input type="text" name="search" value="{{ request('search') }}" placeholder="جستجو ...">
+                    <input type="text" name="search" value="{{ request('search') }}" placeholder="{{ __('Search ...') }}">
                     <button type="submit">
                         <i class="fa fa-search style-icon-search"></i>
                     </button>
@@ -179,7 +179,7 @@
                     <div class="search-area default">
                         <form action="" class="search">
                             <input type="text" id="gsearchsimple" name="search" value="{{ request('search') }}"
-                                   placeholder="نام کالا، برند و یا دسته مورد نظر خود را جستجو کنید…">
+                                   placeholder="{{ __('Search for the name of the product, brand or category you want...') }}">
                             <ul class="list-group search-box-list">
                                 <li ng-repeat="item in search_history track by $index" ng-if="item"
                                     class="list-group-item contsearch">
@@ -451,10 +451,16 @@
                 <div class="info">
                     <div class="row">
                         <div class="col-12 col-lg-4">
-                            <span>{!! $settings['footer_chant'] !!}</span>
+                            <span>
+                                @if($lang == 'fa')
+                                    {!! $settings['footer_chant'] !!}
+                                @else
+                                    {!! $settings['footer_en_chant'] !!}
+                                @endif
+                            </span>
                         </div>
-                        <div class="col-12 col-lg-2">شماره تماس: {!! $settings['footer_phone'] !!}</div>
-                        <div class="col-12 col-lg-2">آدرس ایمیل:<a href="#">{!! $settings['footer_email'] !!}</a></div>
+                        <div class="col-12 col-lg-2">{{ __('Phone Number') }}: {!! $settings['footer_phone'] !!}</div>
+                        <div class="col-12 col-lg-2">{{ __('Email') }}:<a href="#">{!! $settings['footer_email'] !!}</a></div>
                         <div class="col-12 col-lg-4 text-center">
                             {!! $settings['footer_app_links'] !!}
                         </div>
@@ -467,9 +473,19 @@
             <div class="container">
                 <div class="row">
                     <div class="site-description col-12 col-lg-7">
-                        <h1 class="site-title">{!! $settings['footer_about_us_title'] !!}</h1>
+                        <h1 class="site-title">
+                            @if($lang == 'fa')
+                                {!! $settings['footer_about_us_title'] !!}
+                            @else
+                                {!! $settings['footer_about_us_en_title'] !!}
+                            @endif
+                        </h1>
                         <p style="text-align: justify;line-height: 30px;">
-                            {!! $settings['footer_about_us_text'] !!}
+                            @if($lang == 'fa')
+                                {!! $settings['footer_about_us_text'] !!}
+                            @else
+                                {!! $settings['footer_about_us_en_text'] !!}
+                            @endif
                         </p>
                     </div>
                     <div class="symbol col-12 col-lg-5">
@@ -483,7 +499,11 @@
         <div class="copyright">
             <div class="container">
                 <p>
-                    {!! $settings['footer_copyright'] !!}
+                    @if($lang == 'fa')
+                        {!! $settings['footer_copyright'] !!}
+                    @else
+                        {!! $settings['footer_en_copyright'] !!}
+                    @endif
                 </p>
                 <div class="row">
                     <div class="col-12 ">
