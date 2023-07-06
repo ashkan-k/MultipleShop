@@ -35,15 +35,23 @@ class InitSettingsCommand extends Command
         # Footer section
         'footer_social_section' => '<a href="#" target="_blank"><i class="fa fa-instagram"></i>اینستاگرام جی تی کالا</a>',
         'footer_right_links_title' => "راهنمای خرید جی تی کالا",
+        'footer_right_links_en_title' => "GT Kala buying guide",
         'footer_center_links_title' => "خدمات مشتریان",
+        'footer_center_links_en_title' => "Customer Services",
         'footer_left_links_title' => "با جی تی کالا",
+        'footer_left_links_en_title' => "With GT Kala",
         'footer_chant' => "هفت روز هفته ، 24 ساعت شبانه‌روز پاسخگوی شما هستیم.",
+        'footer_en_chant' => "We are at your service 24 hours a day, seven days a week.",
         'footer_phone' => "021-123456789",
         'footer_email' => "info@Gitikala.com",
         'footer_copyright' => "استفاده از مطالب فروشگاه اینترنتی جی تی کالا فقط برای مقاصد غیرتجاری و با ذکر منبع بلامانع است.
                     کلیه حقوق این سایت متعلق
                     به فروشگاه آنلاین جی تی کالا می‌باشد.",
+        'footer_en_copyright' => "The use of the contents of the GT Kala online store is permitted only for non-commercial purposes and with reference to the source.
+                    All rights of this site belong
+                    It is to the online store of GT Kala.",
         'footer_about_us_title' => "فروشگاه اینترنتی جی تی کالا، بررسی، انتخاب و خرید آنلاین",
+        'footer_about_us_en_title' => "GT Kala online store, review, choose and buy online",
         'footer_about_us_text' => "جی تی کالا به عنوان یکی از قدیمی‌ترین فروشگاه های اینترنتی با بیش از یک دهه تجربه، با
                             پایبندی به سه اصل کلیدی، پرداخت در
                             محل، 7 روز ضمانت بازگشت کالا و تضمین اصل‌بودن کالا، موفق شده تا همگام با فروشگاه‌های
@@ -51,6 +59,13 @@ class InitSettingsCommand extends Command
                             اینترنتی ایران تبدیل شود. به محض ورود به جی تی کالا با یک سایت پر از کالا رو به رو
                             می‌شوید! هر آنچه که نیاز دارید و به
                             ذهن شما خطور می‌کند در اینجا پیدا خواهید کرد.",
+        'footer_about_us_en_text' => "GT Kala as one of the oldest online stores with more than a decade of experience, with
+                            Adhering to three key principles, pay in
+                            The place, 7 days guarantee of product return and guarantee of the originality of the product, has managed to keep up with the stores
+                            Authentic in the world, to the biggest store
+                            become Iran's internet. As soon as you enter GT Kala, you are faced with a site full of goods
+                            You will! Everything you need and to
+                            You'll find what you're thinking here.",
 
         'footer_app_links' => '<a href="#" target="_blank"><img src="/front/assets/img/bazzar.png" width="159" height="48"
                                                              alt=""></a>
