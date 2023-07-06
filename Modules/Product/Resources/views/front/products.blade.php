@@ -37,11 +37,11 @@
 
                 <aside class="sidebar-page col-12 col-sm-12 col-md-4 col-lg-3 order-md-1 order-2">
                     <div class="box">
-                        <div class="box-header">جستجو در نتایج:</div>
+                        <div class="box-header">{{ __('Search results') }}:</div>
                         <div class="box-content">
                             <div class="ui-input ui-input--quick-search">
                                 <input type="text" class="ui-input-field ui-input-field--cleanable"
-                                       placeholder="نام محصول یا برند مورد نظر را بنویسید…">
+                                       placeholder="{{ __('Write the name of the desired product or brand...') }}">
                                 <span class="ui-input-cleaner"></span>
                             </div>
                         </div>
@@ -50,7 +50,7 @@
                         <div class="box-header">
                             <div class="box-toggle" data-toggle="collapse" href="#collapseExample1" role="button"
                                  aria-expanded="true" aria-controls="collapseExample1">
-                                دسته بندی نتایج
+                                {{ __('Categorize the results') }}
                                 <i class="now-ui-icons arrows-1_minimal-down"></i>
                             </div>
                         </div>
@@ -58,7 +58,7 @@
                             <div class="collapse show" id="collapseExample1">
                                 <div class="ui-input ui-input--quick-search">
                                     <input type="text" class="ui-input-field ui-input-field--cleanable"
-                                           placeholder="نام دسته بندی مورد نظر را بنویسید…">
+                                           placeholder="{{ __('Write the name of the desired category...') }}">
                                     <span class="ui-input-cleaner"></span>
                                 </div>
 
@@ -88,7 +88,7 @@
                             <div class="collapse show" id="collapseExample2">
                                 <div class="ui-input ui-input--quick-search">
                                     <input type="text" class="ui-input-field ui-input-field--cleanable"
-                                           placeholder="نام برند مورد نظر را بنویسید…">
+                                           placeholder="{{ __('Write the desired brand name...') }}">
                                     <span class="ui-input-cleaner"></span>
                                 </div>
                                 <div class="filter-option">
@@ -107,15 +107,15 @@
 
                     <div class="box">
                         <div class="box-content">
-                            <input type="checkbox" name="checkbox" class="bootstrap-switch" checked />
-                            <label>فقط کالاهای موجود</label>
+                            <input id="only_available_items_checkbox" type="checkbox" name="checkbox" class="bootstrap-switch" checked />
+                            <label for="only_available_items_checkbox">{{ __('Only available items') }}</label>
                         </div>
                     </div>
 
                     <div class="box">
                         <div class="box-content">
-                            <input type="checkbox" name="checkbox" class="bootstrap-switch" checked />
-                            <label >فقط کالاهای آماده ارسال</label>
+                            <input id="ready_to_ship_checkbox" type="checkbox" name="checkbox" class="bootstrap-switch" checked />
+                            <label for="ready_to_ship_checkbox">{{ __('Ready to ship items only') }}</label>
                         </div>
                     </div>
                 </aside>

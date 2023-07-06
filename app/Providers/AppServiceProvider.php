@@ -35,7 +35,5 @@ class AppServiceProvider extends ServiceProvider
             $guides = Guide::all();
             View::share('guides', $guides);
         }
-
-        View::share('lang', app()->getLocale());
     }
 }
