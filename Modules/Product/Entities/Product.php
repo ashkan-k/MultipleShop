@@ -56,6 +56,7 @@ class Product extends Model
         'is_active',
         'user_id',
         'category_id',
+        'brand_id',
     ];
 
     protected $appends = [

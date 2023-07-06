@@ -95,7 +95,7 @@
                                 <div class="filter-option">
 
                                     <div ng-repeat="item in brands" class="checkbox">
-                                        <input id="brands_checkbox_[[ item['id'] ]]" type="checkbox">
+                                        <input id="brands_checkbox_[[ item['id'] ]]" ng-model="brands_[[ item['id'] ]]" ng-change="FilterBrands(item['id'], this)" type="checkbox">
                                         <label for="brands_checkbox_[[ item['id'] ]]">
                                             [[ item['title'] ]]
                                         </label>
@@ -250,6 +250,7 @@
             $scope.categories = [];
             $scope.brands = [];
             $scope.selected_categories = [];
+            $scope.selected_brands = [];
             $scope.page_info = {
                 'total': 0
             };
@@ -280,7 +281,23 @@
                     $scope.selected_categories.splice(index,1);
                 }
 
+                $scope.GetProducts();
+
                 console.log($scope.selected_categories)
+            }
+
+            $scope.FilterBrands = function (item, $event){
+                if ($event['brands_'][item]){
+                    $scope.selected_brands.push(item);
+                }
+                else {
+                    var index = $scope.selected_brands.indexOf(item);
+                    $scope.selected_brands.splice(index,1);
+                }
+
+                $scope.GetProducts();
+
+                console.log($scope.selected_brands)
             }
 
             $scope.GetNumberHumanize = function (number) {
@@ -290,7 +307,7 @@
             $scope.GetProducts = function () {
                 $scope.is_submited = true;
 
-                $http.get(`{{ route('products.api.list') }}?search=${$scope.search}`).then(res => {
+                $http.get(`{{ route('products.api.list') }}?search=${$scope.search}&category_id=${$scope.selected_categories.toString()}&brand_id=${$scope.selected_brands.toString()}`).then(res => {
                     $scope.is_submited = false;
 
                     $scope.products = res['data']['data']['data'];
