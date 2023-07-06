@@ -271,7 +271,7 @@ Like: www.facebook.com/keenthemes
                                     <a href="{{ route('settings.index') }}" class="menu-link px-5">تنظیمات</a>
                                 </div>
 
-                                <form id="frm_logout" style="display: none" action="{{ route('logout') }}" method="post">
+                                <form id="frm_logout" style="display: none" action="{{ route('logout', ['locale' => $lang]) }}" method="post">
                                     @csrf
                                 </form>
 

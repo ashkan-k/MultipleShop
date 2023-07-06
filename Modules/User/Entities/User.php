@@ -75,6 +75,15 @@ class User extends Authenticatable
         'postal_code',
     ];
 
+    protected $appends = [
+        'full_name'
+    ];
+
+    public function getFullNameAttribute()
+    {
+        return $this->full_name();
+    }
+
     public function scopeFilter($query, $request)
     {
         $is_active = $request->is_active;

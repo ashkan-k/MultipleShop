@@ -58,6 +58,15 @@ class Product extends Model
         'category_id',
     ];
 
+    protected $appends = [
+        'get_image'
+    ];
+
+    public function getGetImageAttribute()
+    {
+        return $this->get_image();
+    }
+
     public function save(array $options = [])
     {
         if (!$this->slug){
