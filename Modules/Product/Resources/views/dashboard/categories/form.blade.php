@@ -197,6 +197,30 @@
                                     </div>
 
                                     <div class="d-flex flex-column mb-8 fv-row">
+                                        <label for="id_is_best"
+                                               class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                            <span class="required">ایا بهترین دسته بندی شود؟</span>
+                                        </label>
+
+                                        <div class="form-check form-check-solid form-switch form-check-custom fv-row">
+                                            <input @if(isset($object) && $object->is_best) checked
+                                                   @elseif(old('is_best')) checked @endif  name="is_best"
+                                                   ng-model="is_best"
+                                                   class="form-check-input w-45px h-30px" type="checkbox"
+                                                   id="id_is_best" value="1">
+                                            <label class="form-check-label" for="id_is_best"></label>
+                                        </div>
+
+                                        @error('is_best')
+                                        <div class="fv-plugins-message-container invalid-feedback">
+                                            <div data-field="meta_title" data-validator="notEmpty">
+                                                {{ $message }}
+                                            </div>
+                                        </div>
+                                        @enderror
+                                    </div>
+
+                                    <div class="d-flex flex-column mb-8 fv-row">
                                         <label for="id_is_special"
                                                class="d-flex align-items-center fs-6 fw-semibold mb-2">
                                             <span class="required">ایا ویژه است؟</span>
@@ -327,10 +351,15 @@
         app.controller('myCtrl', function ($scope, $http) {
             $scope.is_english = false;
             $scope.is_special = false;
+            $scope.is_best = false;
 
             $scope.init = function () {
                 @if((isset($object) && $object->is_special) || old('is_special'))
                     $scope.is_special = true;
+                @endif
+
+                @if((isset($object) && $object->is_best) || old('is_best'))
+                    $scope.is_best = true;
                 @endif
             }
         });

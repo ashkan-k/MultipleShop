@@ -23,9 +23,14 @@ class CategoryFactory extends Factory
     {
         return [
             'title' => fake()->title(),
-//            'slug' => fake()->slug(),
+            'en_title' => fake()->title(),
+            'icon_name' => fake()->title(),
+            'slug' => fake()->slug(),
+            'en_slug' => fake()->slug(),
             'image' => fake()->imageUrl(),
-//            'parent_id' => Category::factory(),
+            'is_special' => fake()->boolean(),
+            'is_best' => fake()->boolean(),
+            'parent_id' => Category::factory(),
         ];
     }
 }

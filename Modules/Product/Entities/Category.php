@@ -21,6 +21,7 @@ class Category extends Model
         'image',
         'parent_id',
         'is_special',
+        'is_best',
         'icon_name',
     ];
 

@@ -69,6 +69,8 @@ class CategoryController extends Controller
         $data = $request->validated();
 
         $data['is_special'] = $request->has('is_special') ?? false;
+        $data['is_best'] = $request->has('is_best') ?? false;
+
         $category->update(array_merge($data, ['image' => $image]));
         return $this->SuccessRedirect('آیتم مورد نظر با موفقیت ویرایش شد.', 'categories.index');
     }

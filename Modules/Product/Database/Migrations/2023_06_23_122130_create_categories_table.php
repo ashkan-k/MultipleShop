@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('en_slug')->nullable();
 
             $table->boolean('is_special')->default(false);
+            $table->boolean('is_best')->default(false);
             $table->string('icon_name')->nullable();
 
             $table->text('image')->nullable();
