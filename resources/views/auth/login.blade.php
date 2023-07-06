@@ -3,6 +3,8 @@
 @section('title')ورود / ثبت نام@endsection
 
 @section('content')
+    <?php $website_title = $lang == 'fa' ? $settings['website_title'] : $settings['website_en_title'];  ?>
+
     <div class="wrapper default mt-5">
         <main class="cart-page default">
             <div class="container">
@@ -14,21 +16,27 @@
                                 <ul class="nav nav-tabs justify-content-center mt-3">
                                     <div class="d-flex">
                                         <li class="px-2" ng-click="ChangePage('register')">
-                                            <a class="[[ current_page == 'register' ? 'active show' : '' ]] btn-radius" data-toggle="tab" href="#register">عضویت</a>
+                                            <a class="[[ current_page == 'register' ? 'active show' : '' ]] btn-radius"
+                                               data-toggle="tab" href="#register">{{ __('Register') }}</a>
                                         </li>
 
                                         <li class="px-2" ng-click="ChangePage('login')">
-                                            <a data-toggle="tab" class="[[ current_page == 'login' ? 'active show' : '' ]] btn-radius" href="#login">ورود</a>
+                                            <a data-toggle="tab"
+                                               class="[[ current_page == 'login' ? 'active show' : '' ]] btn-radius"
+                                               href="#login">{{ __('Login') }}</a>
                                         </li>
                                     </div>
 
                                 </ul>
 
                                 <div class="tab-content">
-                                    <div id="register" class="tab-pane [[ current_page == 'register' ? 'show in active' : 'fade' ]]  ">
+                                    <div id="register"
+                                         class="tab-pane [[ current_page == 'register' ? 'show in active' : 'fade' ]]  ">
 
-                                        <div class="message-light">اگر قبلا با ایمیل ثبت‌نام کرده‌اید، نیاز به
-                                            ثبت‌نام مجدد با ایمیل ندارید. <a data-toggle="tab" href="#login" ng-click="ChangePage('login')">وارد شوید</a>
+                                        <div
+                                            class="message-light">{{ __('If you have already registered with email, you do not need to register again with email.') }}
+                                            <a data-toggle="tab" href="#login"
+                                               ng-click="ChangePage('login')">{{ __('Please Login') }}</a>
                                         </div>
                                         <div class="account-box-content">
                                             <form class="form-account" method="post" action="{{ route('register') }}">
@@ -39,7 +47,7 @@
                                                     <label class="input-label"></label>
                                                     <input class="input-field" type="text" name="email"
                                                            required
-                                                           placeholder="{{ __('Email') }} خود را وارد نمایید">
+                                                           placeholder="{{ __('Enter your email') }}">
                                                 </div>
 
                                                 <div class="form-account-title">{{ __('Password') }}</div>
@@ -47,15 +55,16 @@
                                                     <label class="input-label"></label>
                                                     <input class="input-field" type="password" name="password"
                                                            required
-                                                           placeholder="{{ __('Password') }} خود را وارد نمایید">
+                                                           placeholder="{{ __('Enter your password') }}">
                                                 </div>
 
                                                 <div class="form-account-title">{{ __('Confirm Password') }}</div>
                                                 <div class="form-account-row">
                                                     <label class="input-label"></label>
-                                                    <input class="input-field" type="password" name="password_confirmation"
+                                                    <input class="input-field" type="password"
+                                                           name="password_confirmation"
                                                            required
-                                                           placeholder="{{ __('Confirm Password') }} خود را وارد نمایید">
+                                                           placeholder="{{ __('Enter your confirmation password') }}">
                                                 </div>
 
                                                 <div class="form-account-agree">
@@ -64,10 +73,12 @@
                                                         <span class="checkbox-check"></span>
                                                     </label>
                                                     <label for="terms">
-                                                        <a href="#" class="btn-link-border">حریم خصوصی</a> و <a href="#"
-                                                                                                                class="btn-link-border">شرایط
-                                                            و قوانین</a> استفاده از سرویس های سایت
-                                                        جی تی کالا را مطالعه نموده و با کلیه موارد آن موافقم.</label>
+                                                        <a href="#"
+                                                           class="btn-link-border">{{ __('Privacy') }}</a> {{ __('And') }}
+                                                        <a href="#"
+                                                           class="btn-link-border">{{ __('Terms and rules') }}</a>
+                                                        استفاده از سرویس های سایت
+                                                        {{ $website_title }} را مطالعه نموده و با کلیه موارد آن موافقم.</label>
                                                 </div>
 
                                                 <div class="form-account-row form-account-submit">
@@ -86,32 +97,33 @@
                                             </form>
                                         </div>
                                         <div class="account-box-footer">
-                                            <span>قبلا در جی تی کالا ثبت‌نام کرده‌اید؟</span>
-                                            <a data-toggle="tab" href="#login" ng-click="ChangePage('login')" class="btn-link-border">وارد شوید</a>
+                                            <span>{{ __('Already registered?') }}</span>
+                                            <a data-toggle="tab" href="#login" ng-click="ChangePage('login')"
+                                               class="btn-link-border">{{ __('Please Login') }}</a>
                                         </div>
                                     </div>
 
-                                    <div id="login" class="tab-pane [[ current_page == 'login' ? 'show in active' : 'fade' ]]">
+                                    <div id="login"
+                                         class="tab-pane [[ current_page == 'login' ? 'show in active' : 'fade' ]]">
 
                                         <div class="account-box-content">
                                             <form class="form-account" method="post" action="{{ route('login') }}">
                                                 @csrf
 
-                                                <div class="form-account-title">ایمیل</div>
+                                                <div class="form-account-title">{{ __('Email') }}</div>
                                                 <div class="form-account-row">
                                                     <label class="input-label"></label>
                                                     <input class="input-field" type="email" name="email"
-                                                           placeholder="ایمیل خود را وارد نمایید">
+                                                           placeholder="{{ __('Enter your email') }}">
                                                 </div>
-                                                <div class="form-account-title">رمز عبور
-                                                    <a href="" class="btn-link-border form-account-link">رمز
-                                                        عبور خود را فراموش
-                                                        کرده ام</a>
+                                                <div class="form-account-title">{{ __('Password') }}
+                                                    <a href=""
+                                                       class="btn-link-border form-account-link">{{ __('Forgot your password?') }}</a>
                                                 </div>
                                                 <div class="form-account-row">
                                                     <label class="input-label"></label>
                                                     <input class="input-field" type="password" name="password"
-                                                           placeholder="رمز عبور خود را وارد نمایید">
+                                                           placeholder="{{ __('Enter your password') }}">
                                                 </div>
                                                 <div class="form-account-row form-account-submit">
                                                     <div class="parent-btn">
@@ -130,14 +142,16 @@
                                                         <input type="checkbox" name="remember" id="remember_me">
                                                         <span class="checkbox-check"></span>
                                                     </label>
-                                                    <label for="remember_me">مرا به خاطر داشته باش</label>
+                                                    <label for="remember_me">{{ __('Remember me') }}</label>
                                                 </div>
                                             </form>
                                         </div>
                                         <div class="account-box-footer">
-                                            <span>کاربر جدید هستید؟</span>
-                                            <a data-toggle="tab" href="#login" ng-click="ChangePage('register')" class="btn-link-border">ثبت‌نام در
-                                                جی تی کالا</a>
+                                            <span>{{ __('Are you a new user?') }}</span>
+                                            <a data-toggle="tab" href="#login" ng-click="ChangePage('register')"
+                                               class="btn-link-border">
+                                                {{ __('Register In') }}  {{ $website_title }}
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
@@ -158,7 +172,7 @@
         app.controller('myCtrl', function ($scope, $http) {
             $scope.current_page = 'register';
 
-            $scope.ChangePage = function (new_page){
+            $scope.ChangePage = function (new_page) {
                 $scope.current_page = new_page;
             }
         });
