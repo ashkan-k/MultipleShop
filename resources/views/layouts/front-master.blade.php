@@ -53,8 +53,8 @@
             </a>
 
             <div class="search-nav default">
-                <form action="">
-                    <input type="text" name="search" value="{{ request('search') }}"
+                <form action="{{ route('search') }}">
+                    <input type="text" name="q" value="{{ request('search') }}"
                            placeholder="{{ __('Search ...') }}">
                     <button type="submit">
                         <i class="fa fa-search style-icon-search"></i>
@@ -178,8 +178,8 @@
                 </div>
                 <div class="col-lg-6 col-md-5 col-sm-8 col-7">
                     <div class="search-area default">
-                        <form action="" class="search">
-                            <input type="text" id="gsearchsimple" name="search" value="{{ request('search') }}"
+                        <form action="{{ route('search') }}" class="search">
+                            <input type="text" id="gsearchsimple" name="q" value="{{ request('search') }}"
                                    placeholder="{{ __('Search for the name of the product, brand or category you want...') }}">
                             <ul class="list-group search-box-list">
                                 <li ng-repeat="item in search_history track by $index" ng-if="item"
