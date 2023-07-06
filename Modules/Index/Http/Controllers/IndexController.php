@@ -31,10 +31,12 @@ class IndexController extends Controller
 
         $blogs = Blog::latest()->get();
 
+        $best_category = Category::where('is_best', 1)->with(['products'])->first();
+
         $top_posters = Poster::where('location', 'top')->get();
         $center_posters = Poster::where('location', 'center')->get();
         $bottom_posters = Poster::where('location', 'bottom')->get();
 
-        return view('index::index', compact('sliders', 'special_categories', 'special_products', 'top_posters','center_posters', 'bottom_posters', 'latest_products', 'most_favorite_products', 'cheapest_products', 'blogs'));
+        return view('index::index', compact('sliders', 'special_categories', 'special_products', 'top_posters','center_posters', 'bottom_posters', 'latest_products', 'most_favorite_products', 'cheapest_products', 'blogs', 'best_category'));
     }
 }

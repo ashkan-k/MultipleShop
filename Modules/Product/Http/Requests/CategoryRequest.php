@@ -17,7 +17,11 @@ class CategoryRequest extends FormRequest
         return [
             'title' => 'required_without:en_title',
             'en_title' => 'required_without:title',
-            'is_best' => 'nullable|boolean',
+            'is_best' => [
+                'nullable',
+                'boolean',
+                Rule::unique('categories', 'is_best')->ignore($this->category)
+            ],
             'is_special' => 'nullable|boolean',
             'icon_name' => 'required_if:is_special,1',
             'slug' => [

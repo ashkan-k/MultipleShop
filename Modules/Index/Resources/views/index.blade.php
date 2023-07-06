@@ -323,166 +323,60 @@
                 </div>
             @endif
 
-            <div class="row">
-                <div class="col-12">
-                    <header class="mt-3">
-                        <h5>
-                            <span>بهترین تلفن های همراه</span>
-                        </h5>
-                    </header>
-                    <div class="row">
-                        <div class="col-lg-4 col-md-6 col-12">
-                            <div class="style-border-box-best mt-3">
-                                <div class="p-3">
-                                    <div class="row">
-                                        <div class="col-4">
-                                            <img src="/front/assets/img/product/1335154.jpg" class="img-fluid">
-                                        </div>
-                                        <div class="col-8">
-                                            <div class="mt-4 pl-0">
-                                                <a href="single-product.html" class="color-title ">
-                                                    گوشی موبایل هوآوی مدل Mate 20 Pro
-                                                </a>
-                                                <p class="mt-3">
-                                                    <span class="float-right font_12">10,499,000 تومان</span>
-                                                    <span class="float-left font_12">
+            @if($best_category)
+                <div class="row">
+                    <div class="col-12">
+                        <header class="mt-3">
+                            <h5>
+                                @if($lang == 'fa')
+                                    <span>{{ __('The best') }} {{ $best_category->title }}</span>
+                                @else
+                                    <span>{{ __('The best') }} {{ $best_category->en_title }}</span>
+                                @endif
+                            </h5>
+                        </header>
+                        <div class="row">
+
+                            @foreach($best_category->products as $prod)
+                                <div class="col-lg-4 col-md-6 col-12">
+                                    <div class="style-border-box-best mt-3">
+                                        <div class="p-3">
+                                            <div class="row">
+                                                <div class="col-4">
+                                                    <img src="{{ $prod->get_image() }}"
+                                                         alt="@if($lang == 'fa'){{ $prod->title }}@else{{ $prod->en_title }}@endif"
+                                                         class="img-fluid">
+                                                </div>
+                                                <div class="col-8">
+                                                    <div class="mt-4 pl-0">
+                                                        <a href="single-product.html" class="color-title ">
+                                                            @if($lang == 'fa'){{ $prod->title }}@else{{ $prod->en_title }}@endif
+                                                        </a>
+                                                        <p class="mt-3">
+                                                            <span class="float-right font_12">{{ number_format($prod->price) }} تومان</span>
+                                                            <span class="float-left font_12">
                                                             <i class="fa fa-star" style="color: #faba00"></i>
                                                             <i class="fa fa-star" style="color: #faba00"></i>
                                                             <i class="fa fa-star" style="color: #faba00"></i>
-                                                            <i class="fa fa-star-o" style="color: #faba00"></i>
-                                                            <i class="fa fa-star-o" style="color: #faba00"></i>
+                                                            <i class="fa fa-star" style="color: #faba00"></i>
+                                                            <i class="fa fa-star" style="color: #faba00"></i>
+{{--                                                            <i class="fa fa-star-o" style="color: #faba00"></i>--}}
+                                                                {{--                                                            <i class="fa fa-star-o" style="color: #faba00"></i>--}}
                                                         </span>
-                                                </p>
+                                                        </p>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-6 col-12">
-                            <div class="style-border-box-best mt-3">
-                                <div class="p-3">
-                                    <div class="row">
-                                        <div class="col-4">
-                                            <img src="/front/assets/img/product/110197298.jpg" class="img-fluid">
-                                        </div>
-                                        <div class="col-8">
-                                            <div class="mt-4 pl-0">
-                                                <a href="single-product.html" class="color-title ">
-                                                    گوشی موبایل هوآوی مدل Nova 3i INE-LX1M
-                                                </a>
-                                                <p class="mt-3">
-                                                    <span class="float-right font_12">10,899,000 تومان</span>
-                                                    <span class="float-left font_12">
-                                                            <i class="fa fa-star" style="color: #faba00"></i>
-                                                            <i class="fa fa-star" style="color: #faba00"></i>
-                                                            <i class="fa fa-star" style="color: #faba00"></i>
-                                                            <i class="fa fa-star-o" style="color: #faba00"></i>
-                                                            <i class="fa fa-star-o" style="color: #faba00"></i>
-                                                        </span>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-6 col-12">
-                            <div class="style-border-box-best mt-3">
-                                <div class="p-3">
-                                    <div class="row">
-                                        <div class="col-4">
-                                            <img src="/front/assets/img/product/3694075.jpg" class="img-fluid">
-                                        </div>
-                                        <div class="col-8">
-                                            <div class="mt-4 pl-0">
-                                                <a href="single-product.html" class="color-title ">
-                                                    گوشی موبایل هوآوی مدل Nova 3i INE-LX1M
-                                                </a>
-                                                <p class="mt-3">
-                                                    <span class="float-right font_12">10,499,000 تومان</span>
-                                                    <span class="float-left font_12">
-                                                            <i class="fa fa-star" style="color: #faba00"></i>
-                                                            <i class="fa fa-star" style="color: #faba00"></i>
-                                                            <i class="fa fa-star" style="color: #faba00"></i>
-                                                            <i class="fa fa-star-o" style="color: #faba00"></i>
-                                                            <i class="fa fa-star-o" style="color: #faba00"></i>
-                                                        </span>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-6 col-12">
-                            <div class="style-border-box-best mt-3">
-                                <div class="p-3">
-                                    <div class="row">
-                                        <div class="col-4">
-                                            <img src="/front/assets/img/product/4560651.jpg" class="img-fluid">
-                                        </div>
-                                        <div class="col-8">
-                                            <div class="mt-4 pl-0">
-                                                <a href="single-product.html" class="color-title ">
-                                                    گوشی موبایل اپل مدل iPhone XS Max دو سیم‌ کارت ظرفیت 256 گیگابایت
-                                                </a>
-                                                <p class="mt-3">
-                                                    <span class="float-right font_11">10,499,000 تومان</span>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-6 col-12">
-                            <div class="style-border-box-best mt-3">
-                                <div class="p-3">
-                                    <div class="row">
-                                        <div class="col-4">
-                                            <img src="/front/assets/img/product/5489258.jpg" class="img-fluid">
-                                        </div>
-                                        <div class="col-8">
-                                            <div class="mt-4 pl-0">
-                                                <a href="single-product.html" class="color-title ">
-                                                    گوشی موبایل هوآوی مدل Mate 20 Pro
-                                                </a>
-                                                <p class="mt-3">
-                                                    <span class="float-right font_11">4,500,000 تومان</span>
-                                                    <del class="float-left font_11">4,250,000 تومان</del>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-6 col-12">
-                            <div class="style-border-box-best mt-3">
-                                <div class="p-3">
-                                    <div class="row">
-                                        <div class="col-4">
-                                            <img src="/front/assets/img/product/2310961.jpg" class="img-fluid">
-                                        </div>
-                                        <div class="col-8">
-                                            <div class="mt-4 pl-0">
-                                                <a href="single-product.html" class="color-title ">
-                                                    گوشی موبایل اپل مدل iPhone X ظرفیت 256 گیگابایت
-                                                </a>
-                                                <p class="mt-3">
-                                                    <span class="float-right font_11">10,900,000 تومان</span>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            @endforeach
+
                         </div>
                     </div>
                 </div>
-            </div>
-            <!-- banner -->
+        @endif
+        <!-- banner -->
         </div>
     </main>
 @endsection
