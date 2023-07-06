@@ -32,6 +32,12 @@ class InitSettingsCommand extends Command
         'show_blogs' => 1,
         'show_guides' => 1,
 
+        # Footer section
+        'social_section' => '<a href="#" target="_blank"><i class="fa fa-instagram"></i>اینستاگرام جی تی کالا</a>',
+        'right_links_title' => "راهنمای خرید جی تی کالا",
+        'center_links_title' => "خدمات مشتریان",
+        'left_links_title' => "با جی تی کالا",
+
         # Social
         'email' => "multi_shop-ir@gmail.com",
         'telegram' => "multi_shop",

@@ -320,7 +320,7 @@
 
 
                     <li class="list-item amazing-item">
-                        <a class="nav-link" href="#" target="_blank">شگفت‌انگیزها</a>
+                        <a class="nav-link" href="#" target="_blank">{{ __('The Amazing') }}</a>
                     </li>
                 </ul>
             </div>
@@ -364,25 +364,25 @@
                 <div class="footer-widgets">
                     <div class="row">
                         <div class="col-12 col-md-6 col-lg-3">
-                            <div class="newsletter">
-                                <p>از تخفیف‌ها و جدیدترین‌های فروشگاه باخبر شوید:</p>
-                                <form action="">
-                                    <input type="email" class="form-control"
-                                           placeholder="آدرس ایمیل خود را وارد کنید...">
-                                    <input type="submit" class="btn btn-primary" value="ارسال">
-                                </form>
-                            </div>
+{{--                            <div class="newsletter">--}}
+{{--                                <p>از تخفیف‌ها و جدیدترین‌های فروشگاه باخبر شوید:</p>--}}
+{{--                                <form action="">--}}
+{{--                                    <input type="email" class="form-control"--}}
+{{--                                           placeholder="آدرس ایمیل خود را وارد کنید...">--}}
+{{--                                    <input type="submit" class="btn btn-primary" value="ارسال">--}}
+{{--                                </form>--}}
+{{--                            </div>--}}
                             <div class="socials">
-                                <p>ما را در شبکه های اجتماعی دنبال کنید.</p>
+                                <p>{{ __('Follow us on social networks.') }}</p>
                                 <div class="footer-social">
-                                    <a href="#" target="_blank"><i class="fa fa-instagram"></i>اینستاگرام جی تی کالا</a>
+                                    {!! $settings['social_section'] !!}
                                 </div>
                             </div>
                         </div>
                         <div class="col-12 col-md-6 col-lg-3">
                             <div class="widget-menu widget card">
                                 <header class="card-header ">
-                                    <h3 class="card-title style-border-bottom pb-3">راهنمای خرید جی تی کالا</h3>
+                                    <h3 class="card-title style-border-bottom pb-3">{!! $settings['right_links_title'] !!}</h3>
                                 </header>
                                 <ul class="footer-menu">
                                     <li>
@@ -400,7 +400,7 @@
                         <div class="col-12 col-md-6 col-lg-3">
                             <div class="widget-menu widget card">
                                 <header class="card-header">
-                                    <h3 class="card-title style-border-bottom pb-3">خدمات مشتریان</h3>
+                                    <h3 class="card-title style-border-bottom pb-3">{!! $settings['center_links_title'] !!}</h3>
                                 </header>
                                 <ul class="footer-menu">
                                     <li>
@@ -421,7 +421,7 @@
                         <div class="col-12 col-md-6 col-lg-3">
                             <div class="widget-menu widget card">
                                 <header class="card-header">
-                                    <h3 class="card-title style-border-bottom pb-3">با جی تی کالا</h3>
+                                    <h3 class="card-title style-border-bottom pb-3">{!! $settings['left_links_title'] !!}</h3>
                                 </header>
                                 <ul class="footer-menu">
                                     <li>
