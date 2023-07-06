@@ -247,7 +247,8 @@
 
                         @if(count($main_cat->children))
                             <li class="list-item list-item-has-children mega-menu mega-menu-col-5">
-                                <a class="nav-link" href="#">@if($lang == 'fa'){{ $main_cat->title ?: '---' }}@else{{ $main_cat->en_title ?: '---' }}@endif</a>
+                                <a class="nav-link"
+                                   href="#">@if($lang == 'fa'){{ $main_cat->title ?: '---' }}@else{{ $main_cat->en_title ?: '---' }}@endif</a>
                                 <ul class="sub-menu nav">
 
                                     @foreach($main_cat->children as $child_1)
@@ -328,12 +329,14 @@
                                     @endforeach
 
 
-                                    <img src="{{ $main_cat->get_image() }}" alt="@if($lang == 'fa'){{ $main_cat->title ?: '---' }}@else{{ $main_cat->en_title ?: '---' }}@endif">
+                                    <img src="{{ $main_cat->get_image() }}"
+                                         alt="@if($lang == 'fa'){{ $main_cat->title ?: '---' }}@else{{ $main_cat->en_title ?: '---' }}@endif">
                                 </ul>
                             </li>
                         @else
                             <li class="list-item">
-                                <a class="nav-link" href="#">@if($lang == 'fa'){{ $main_cat->title ?: '---' }}@else{{ $main_cat->en_title ?: '---' }}@endif</a>
+                                <a class="nav-link"
+                                   href="#">@if($lang == 'fa'){{ $main_cat->title ?: '---' }}@else{{ $main_cat->en_title ?: '---' }}@endif</a>
                             </li>
                         @endif
 
@@ -363,147 +366,127 @@
                     <span class="icon">
                         <i class="now-ui-icons arrows-1_minimal-up"></i>
                     </span>
-                <span>
-                        بازگشت به
-                        بالا
-                    </span>
+                <span>{{ __('Back to top') }}</span>
             </a>
         </div>
-        <div class="container">
-            <div class="footer-services">
-                <div class="row">
-                    <div class="service-item col">
-                        <a href="#" target="_blank">
-                            <img src="/front/assets/img/svg/delivery.svg">
-                        </a>
-                        <p>تحویل اکسپرس</p>
-                    </div>
-                    <div class="service-item col">
-                        <a href="#" target="_blank">
-                            <img src="/front/assets/img/svg/contact-us.svg">
-                        </a>
-                        <p>پشتیبانی 24 ساعته</p>
-                    </div>
-                    <div class="service-item col">
-                        <a href="#" target="_blank">
-                            <img src="/front/assets/img/svg/payment-terms.svg">
-                        </a>
-                        <p>پرداخت درمحل</p>
-                    </div>
-                    <div class="service-item col">
-                        <a href="#" target="_blank">
-                            <img src="/front/assets/img/svg/return-policy.svg">
-                        </a>
-                        <p>۷ روز ضمانت بازگشت</p>
-                    </div>
-                    <div class="service-item col">
-                        <a href="#" target="_blank">
-                            <img src="/front/assets/img/svg/origin-guarantee.svg">
-                        </a>
-                        <p>ضمانت اصل بودن کالا</p>
+
+        @if($settings['show_guides'])
+            <div class="container">
+                <div class="footer-services">
+                    <div class="row">
+                        @foreach($guides as $guide)
+                            <div class="service-item col">
+                                <a href="#" target="_blank">
+                                    <img src="{{ $guide->get_image() }}" alt="{{ $guide->title ?: '---' }}">
+                                </a>
+                                <p>{{ $guide->title ?: '---' }}</p>
+                            </div>
+                        @endforeach
                     </div>
                 </div>
-            </div>
-            <div class="footer-widgets">
-                <div class="row">
-                    <div class="col-12 col-md-6 col-lg-3">
-                        <div class="newsletter">
-                            <p>از تخفیف‌ها و جدیدترین‌های فروشگاه باخبر شوید:</p>
-                            <form action="">
-                                <input type="email" class="form-control"
-                                       placeholder="آدرس ایمیل خود را وارد کنید...">
-                                <input type="submit" class="btn btn-primary" value="ارسال">
-                            </form>
-                        </div>
-                        <div class="socials">
-                            <p>ما را در شبکه های اجتماعی دنبال کنید.</p>
-                            <div class="footer-social">
-                                <a href="#" target="_blank"><i class="fa fa-instagram"></i>اینستاگرام جی تی کالا</a>
+
+                <div class="footer-widgets">
+                    <div class="row">
+                        <div class="col-12 col-md-6 col-lg-3">
+                            <div class="newsletter">
+                                <p>از تخفیف‌ها و جدیدترین‌های فروشگاه باخبر شوید:</p>
+                                <form action="">
+                                    <input type="email" class="form-control"
+                                           placeholder="آدرس ایمیل خود را وارد کنید...">
+                                    <input type="submit" class="btn btn-primary" value="ارسال">
+                                </form>
+                            </div>
+                            <div class="socials">
+                                <p>ما را در شبکه های اجتماعی دنبال کنید.</p>
+                                <div class="footer-social">
+                                    <a href="#" target="_blank"><i class="fa fa-instagram"></i>اینستاگرام جی تی کالا</a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-12 col-md-6 col-lg-3">
-                        <div class="widget-menu widget card">
-                            <header class="card-header ">
-                                <h3 class="card-title style-border-bottom pb-3">راهنمای خرید جی تی کالا</h3>
-                            </header>
-                            <ul class="footer-menu">
-                                <li>
-                                    <a href="#">نحوه ثبت سفارش</a>
-                                </li>
-                                <li>
-                                    <a href="#">رویه ارسال سفارش</a>
-                                </li>
-                                <li>
-                                    <a href="#">شیوه‌های پرداخت</a>
-                                </li>
-                            </ul>
+                        <div class="col-12 col-md-6 col-lg-3">
+                            <div class="widget-menu widget card">
+                                <header class="card-header ">
+                                    <h3 class="card-title style-border-bottom pb-3">راهنمای خرید جی تی کالا</h3>
+                                </header>
+                                <ul class="footer-menu">
+                                    <li>
+                                        <a href="#">نحوه ثبت سفارش</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">رویه ارسال سفارش</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">شیوه‌های پرداخت</a>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-12 col-md-6 col-lg-3">
-                        <div class="widget-menu widget card">
-                            <header class="card-header">
-                                <h3 class="card-title style-border-bottom pb-3">خدمات مشتریان</h3>
-                            </header>
-                            <ul class="footer-menu">
-                                <li>
-                                    <a href="#">پاسخ به پرسش‌های متداول</a>
-                                </li>
-                                <li>
-                                    <a href="#">رویه‌های بازگرداندن کالا</a>
-                                </li>
-                                <li>
-                                    <a href="#">شرایط استفاده</a>
-                                </li>
-                                <li>
-                                    <a href="#">حریم خصوصی</a>
-                                </li>
-                            </ul>
+                        <div class="col-12 col-md-6 col-lg-3">
+                            <div class="widget-menu widget card">
+                                <header class="card-header">
+                                    <h3 class="card-title style-border-bottom pb-3">خدمات مشتریان</h3>
+                                </header>
+                                <ul class="footer-menu">
+                                    <li>
+                                        <a href="#">پاسخ به پرسش‌های متداول</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">رویه‌های بازگرداندن کالا</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">شرایط استفاده</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">حریم خصوصی</a>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-12 col-md-6 col-lg-3">
-                        <div class="widget-menu widget card">
-                            <header class="card-header">
-                                <h3 class="card-title style-border-bottom pb-3">با جی تی کالا</h3>
-                            </header>
-                            <ul class="footer-menu">
-                                <li>
-                                    <a href="#">فروش در جی تی کالا</a>
-                                </li>
-                                <li>
-                                    <a href="#">همکاری با سازمان‌ها</a>
-                                </li>
-                                <li>
-                                    <a href="#">فرصت‌های شغلی</a>
-                                </li>
-                                <li>
-                                    <a href="#">تماس با جی تی کالا</a>
-                                </li>
-                                <li>
-                                    <a href="#">درباره جی تی کالا</a>
-                                </li>
-                            </ul>
+                        <div class="col-12 col-md-6 col-lg-3">
+                            <div class="widget-menu widget card">
+                                <header class="card-header">
+                                    <h3 class="card-title style-border-bottom pb-3">با جی تی کالا</h3>
+                                </header>
+                                <ul class="footer-menu">
+                                    <li>
+                                        <a href="#">فروش در جی تی کالا</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">همکاری با سازمان‌ها</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">فرصت‌های شغلی</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">تماس با جی تی کالا</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">درباره جی تی کالا</a>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
-                    </div>
 
-                </div>
-            </div>
-            <div class="info">
-                <div class="row">
-                    <div class="col-12 col-lg-4">
-                        <span>هفت روز هفته ، 24 ساعت شبانه‌روز پاسخگوی شما هستیم.</span>
-                    </div>
-                    <div class="col-12 col-lg-2">شماره تماس: 021-123456789</div>
-                    <div class="col-12 col-lg-2">آدرس ایمیل:<a href="#">info@Gitikala.com</a></div>
-                    <div class="col-12 col-lg-4 text-center">
-                        <a href="#" target="_blank"><img src="/front/assets/img/bazzar.png" width="159" height="48"
-                                                         alt=""></a>
-                        <a href="#" target="_blank"><img src="/front/assets/img/sibapp.png" width="159" height="48"
-                                                         alt=""></a>
                     </div>
                 </div>
+                <div class="info">
+                    <div class="row">
+                        <div class="col-12 col-lg-4">
+                            <span>هفت روز هفته ، 24 ساعت شبانه‌روز پاسخگوی شما هستیم.</span>
+                        </div>
+                        <div class="col-12 col-lg-2">شماره تماس: 021-123456789</div>
+                        <div class="col-12 col-lg-2">آدرس ایمیل:<a href="#">info@Gitikala.com</a></div>
+                        <div class="col-12 col-lg-4 text-center">
+                            <a href="#" target="_blank"><img src="/front/assets/img/bazzar.png" width="159" height="48"
+                                                             alt=""></a>
+                            <a href="#" target="_blank"><img src="/front/assets/img/sibapp.png" width="159" height="48"
+                                                             alt=""></a>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
+        @endif
+
         <div class="description">
             <div class="container">
                 <div class="row">

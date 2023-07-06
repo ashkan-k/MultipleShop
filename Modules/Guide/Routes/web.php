@@ -11,6 +11,7 @@
 |
 */
 
-Route::prefix('guide')->group(function() {
-    Route::get('/', 'GuideController@index');
-});
+use Illuminate\Support\Facades\Route;
+use Modules\Guide\Http\Controllers\Dashboard\GuideController;
+
+Route::resource('guides', GuideController::class);

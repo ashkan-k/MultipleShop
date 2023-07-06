@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
+use Modules\Guide\Entities\Guide;
 use Modules\Setting\Entities\Setting;
 
 class AppServiceProvider extends ServiceProvider
@@ -28,6 +29,9 @@ class AppServiceProvider extends ServiceProvider
                 $settings[$item->key] = $item->value;
             }
             View::share('settings', $settings);
+
+            $guides = Guide::all();
+            View::share('guides', $guides);
         }
 
         View::share('lang', app()->getLocale());
