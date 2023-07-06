@@ -376,7 +376,11 @@
                             <div class="socials">
                                 <p>{{ __('Follow us on social networks.') }}</p>
                                 <div class="footer-social">
-                                    {!! $settings['footer_social_section'] !!}
+                                    @if($lang == 'fa')
+                                        {!! $settings['footer_social_section'] !!}
+                                    @else
+                                        {!! $settings['footer_en_social_section'] !!}
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -384,30 +388,60 @@
                         <div class="col-12 col-md-6 col-lg-3">
                             <div class="widget-menu widget card">
                                 <header class="card-header ">
-                                    <h3 class="card-title style-border-bottom pb-3">{!! $settings['footer_right_links_title'] !!}</h3>
+                                    <h3 class="card-title style-border-bottom pb-3">
+                                        @if($lang == 'fa')
+                                            {!! $settings['footer_right_links_title'] !!}
+                                        @else
+                                            {!! $settings['footer_right_links_en_title'] !!}
+                                        @endif
+                                    </h3>
                                 </header>
                                 <ul class="footer-menu">
-                                    {!! $settings['footer_right_links'] !!}
+                                    @if($lang == 'fa')
+                                        {!! $settings['footer_right_links'] !!}
+                                    @else
+                                        {!! $settings['footer_en_right_links'] !!}
+                                    @endif
                                 </ul>
                             </div>
                         </div>
                         <div class="col-12 col-md-6 col-lg-3">
                             <div class="widget-menu widget card">
                                 <header class="card-header">
-                                    <h3 class="card-title style-border-bottom pb-3">{!! $settings['footer_center_links_title'] !!}</h3>
+                                    <h3 class="card-title style-border-bottom pb-3">
+                                        @if($lang == 'fa')
+                                            {!! $settings['footer_center_links_title'] !!}
+                                        @else
+                                            {!! $settings['footer_center_links_en_title'] !!}
+                                        @endif
+                                    </h3>
                                 </header>
                                 <ul class="footer-menu">
-                                    {!! $settings['footer_center_links'] !!}
+                                    @if($lang == 'fa')
+                                        {!! $settings['footer_center_links'] !!}
+                                    @else
+                                        {!! $settings['footer_en_center_links'] !!}
+                                    @endif
                                 </ul>
                             </div>
                         </div>
                         <div class="col-12 col-md-6 col-lg-3">
                             <div class="widget-menu widget card">
                                 <header class="card-header">
-                                    <h3 class="card-title style-border-bottom pb-3">{!! $settings['footer_left_links_title'] !!}</h3>
+                                    <h3 class="card-title style-border-bottom pb-3">
+                                        @if($lang == 'fa')
+                                            {!! $settings['footer_left_links_title'] !!}
+                                        @else
+                                            {!! $settings['footer_left_links_en_title'] !!}
+                                        @endif
+                                    </h3>
                                 </header>
                                 <ul class="footer-menu">
-                                    {!! $settings['footer_left_links'] !!}
+                                    @if($lang == 'fa')
+                                        {!! $settings['footer_left_links'] !!}
+                                    @else
+                                        {!! $settings['footer_en_left_links'] !!}
+                                    @endif
                                 </ul>
                             </div>
                         </div>

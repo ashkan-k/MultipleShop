@@ -34,6 +34,7 @@ class InitSettingsCommand extends Command
 
         # Footer section
         'footer_social_section' => '<a href="#" target="_blank"><i class="fa fa-instagram"></i>اینستاگرام جی تی کالا</a>',
+        'footer_en_social_section' => '<a href="#" target="_blank"><i class="fa fa-instagram"></i>Instagram GT Kala</a>',
         'footer_right_links_title' => "راهنمای خرید جی تی کالا",
         'footer_right_links_en_title' => "GT Kala buying guide",
         'footer_center_links_title' => "خدمات مشتریان",
@@ -82,7 +83,29 @@ class InitSettingsCommand extends Command
                                         <a href="#">شیوه‌های پرداخت</a>
                                     </li>',
 
+        'footer_en_right_links' => '<li>
+                                        <a href="#">نحوه ثبت سفارش</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">رویه ارسال سفارش</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">شیوه‌های پرداخت</a>
+                                    </li>',
+
         'footer_center_links' => '<li>
+                                        <a href="#">پاسخ به پرسش‌های متداول</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">رویه‌های بازگرداندن کالا</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">شرایط استفاده</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">حریم خصوصی</a>
+                                    </li>',
+        'footer_en_center_links' => '<li>
                                         <a href="#">پاسخ به پرسش‌های متداول</a>
                                     </li>
                                     <li>
@@ -96,6 +119,21 @@ class InitSettingsCommand extends Command
                                     </li>',
 
         'footer_left_links' => '<li>
+                                        <a href="#">فروش در جی تی کالا</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">همکاری با سازمان‌ها</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">فرصت‌های شغلی</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">تماس با جی تی کالا</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">درباره جی تی کالا</a>
+                                    </li>',
+        'footer_en_left_links' => '<li>
                                         <a href="#">فروش در جی تی کالا</a>
                                     </li>
                                     <li>
