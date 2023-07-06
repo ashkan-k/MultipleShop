@@ -181,7 +181,8 @@
                             <input type="text" id="gsearchsimple" name="search" value="{{ request('search') }}"
                                    placeholder="نام کالا، برند و یا دسته مورد نظر خود را جستجو کنید…">
                             <ul class="list-group search-box-list">
-                                <li ng-repeat="item in search_history track by $index" ng-if="item" class="list-group-item contsearch">
+                                <li ng-repeat="item in search_history track by $index" ng-if="item"
+                                    class="list-group-item contsearch">
                                     <a href="?search=[[ item ]]" class="gsearch">
                                         <i class="fa fa-clock-o"></i>
                                         [[ item ]]
@@ -364,81 +365,49 @@
                 <div class="footer-widgets">
                     <div class="row">
                         <div class="col-12 col-md-6 col-lg-3">
-{{--                            <div class="newsletter">--}}
-{{--                                <p>از تخفیف‌ها و جدیدترین‌های فروشگاه باخبر شوید:</p>--}}
-{{--                                <form action="">--}}
-{{--                                    <input type="email" class="form-control"--}}
-{{--                                           placeholder="آدرس ایمیل خود را وارد کنید...">--}}
-{{--                                    <input type="submit" class="btn btn-primary" value="ارسال">--}}
-{{--                                </form>--}}
-{{--                            </div>--}}
+                            {{--                            <div class="newsletter">--}}
+                            {{--                                <p>از تخفیف‌ها و جدیدترین‌های فروشگاه باخبر شوید:</p>--}}
+                            {{--                                <form action="">--}}
+                            {{--                                    <input type="email" class="form-control"--}}
+                            {{--                                           placeholder="آدرس ایمیل خود را وارد کنید...">--}}
+                            {{--                                    <input type="submit" class="btn btn-primary" value="ارسال">--}}
+                            {{--                                </form>--}}
+                            {{--                            </div>--}}
                             <div class="socials">
                                 <p>{{ __('Follow us on social networks.') }}</p>
                                 <div class="footer-social">
-                                    {!! $settings['social_section'] !!}
+                                    {!! $settings['footer_social_section'] !!}
                                 </div>
                             </div>
                         </div>
+
                         <div class="col-12 col-md-6 col-lg-3">
                             <div class="widget-menu widget card">
                                 <header class="card-header ">
-                                    <h3 class="card-title style-border-bottom pb-3">{!! $settings['right_links_title'] !!}</h3>
+                                    <h3 class="card-title style-border-bottom pb-3">{!! $settings['footer_right_links_title'] !!}</h3>
                                 </header>
                                 <ul class="footer-menu">
-                                    <li>
-                                        <a href="#">نحوه ثبت سفارش</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">رویه ارسال سفارش</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">شیوه‌های پرداخت</a>
-                                    </li>
+                                    {!! $settings['footer_right_links'] !!}
                                 </ul>
                             </div>
                         </div>
                         <div class="col-12 col-md-6 col-lg-3">
                             <div class="widget-menu widget card">
                                 <header class="card-header">
-                                    <h3 class="card-title style-border-bottom pb-3">{!! $settings['center_links_title'] !!}</h3>
+                                    <h3 class="card-title style-border-bottom pb-3">{!! $settings['footer_center_links_title'] !!}</h3>
                                 </header>
                                 <ul class="footer-menu">
-                                    <li>
-                                        <a href="#">پاسخ به پرسش‌های متداول</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">رویه‌های بازگرداندن کالا</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">شرایط استفاده</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">حریم خصوصی</a>
-                                    </li>
+                                    {!! $settings['footer_center_links'] !!}
                                 </ul>
                             </div>
                         </div>
                         <div class="col-12 col-md-6 col-lg-3">
                             <div class="widget-menu widget card">
                                 <header class="card-header">
-                                    <h3 class="card-title style-border-bottom pb-3">{!! $settings['left_links_title'] !!}</h3>
+                                    <h3 class="card-title style-border-bottom pb-3">{!! $settings['footer_left_links_title'] !!}</h3>
                                 </header>
                                 <ul class="footer-menu">
-                                    <li>
-                                        <a href="#">فروش در جی تی کالا</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">همکاری با سازمان‌ها</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">فرصت‌های شغلی</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">تماس با جی تی کالا</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">درباره جی تی کالا</a>
-                                    </li>
+                                    {!! $settings['footer_left_links'] !!}
                                 </ul>
                             </div>
                         </div>
@@ -448,15 +417,12 @@
                 <div class="info">
                     <div class="row">
                         <div class="col-12 col-lg-4">
-                            <span>هفت روز هفته ، 24 ساعت شبانه‌روز پاسخگوی شما هستیم.</span>
+                            <span>{!! $settings['footer_chant'] !!}</span>
                         </div>
-                        <div class="col-12 col-lg-2">شماره تماس: 021-123456789</div>
-                        <div class="col-12 col-lg-2">آدرس ایمیل:<a href="#">info@Gitikala.com</a></div>
+                        <div class="col-12 col-lg-2">شماره تماس: {!! $settings['footer_phone'] !!}</div>
+                        <div class="col-12 col-lg-2">آدرس ایمیل:<a href="#">{!! $settings['footer_email'] !!}</a></div>
                         <div class="col-12 col-lg-4 text-center">
-                            <a href="#" target="_blank"><img src="/front/assets/img/bazzar.png" width="159" height="48"
-                                                             alt=""></a>
-                            <a href="#" target="_blank"><img src="/front/assets/img/sibapp.png" width="159" height="48"
-                                                             alt=""></a>
+                            {!! $settings['footer_app_links'] !!}
                         </div>
                     </div>
                 </div>
@@ -547,13 +513,13 @@
 
         $scope.init = function () {
             @if(request('search'))
-                var searchHistory = (localStorage.searchHistory) ? JSON.parse(localStorage.searchHistory) : [];
-                searchHistory.push('{{ request('search') }}');
-                searchHistory = [...new Set(searchHistory)];
-                localStorage.searchHistory = JSON.stringify(searchHistory);
+            var searchHistory = (localStorage.searchHistory) ? JSON.parse(localStorage.searchHistory) : [];
+            searchHistory.push('{{ request('search') }}');
+            searchHistory = [...new Set(searchHistory)];
+            localStorage.searchHistory = JSON.stringify(searchHistory);
 
-                console.log(searchHistory)
-                $scope.search_history = searchHistory;
+            console.log(searchHistory)
+            $scope.search_history = searchHistory;
             @endif
         }
     });
