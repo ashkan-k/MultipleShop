@@ -46,8 +46,12 @@
                                                 <div class="form-account-row">
                                                     <label class="input-label"></label>
                                                     <input class="input-field" type="text" name="email"
-                                                           required
+                                                           required value="{{ old('email') }}"
                                                            placeholder="{{ __('Enter your email') }}">
+
+                                                    @error('email')
+                                                        <span class="text-danger text-wrap">{{ $message }}</span>
+                                                    @enderror
                                                 </div>
 
                                                 <div class="form-account-title">{{ __('Password') }}</div>
@@ -56,6 +60,10 @@
                                                     <input class="input-field" type="password" name="password"
                                                            required
                                                            placeholder="{{ __('Enter your password') }}">
+
+                                                    @error('password')
+                                                    <span class="text-danger text-wrap">{{ $message }}</span>
+                                                    @enderror
                                                 </div>
 
                                                 <div class="form-account-title">{{ __('Confirm Password') }}</div>
@@ -65,6 +73,10 @@
                                                            name="password_confirmation"
                                                            required
                                                            placeholder="{{ __('Enter your confirmation password') }}">
+
+                                                    @error('password_confirmation')
+                                                    <span class="text-danger text-wrap">{{ $message }}</span>
+                                                    @enderror
                                                 </div>
 
                                                 <div class="form-account-agree">
@@ -114,7 +126,12 @@
                                                 <div class="form-account-row">
                                                     <label class="input-label"></label>
                                                     <input class="input-field" type="email" name="email"
+                                                           value="{{ old('email') }}"
                                                            placeholder="{{ __('Enter your email') }}">
+
+                                                    @error('email')
+                                                    <span class="text-danger text-wrap">{{ $message }}</span>
+                                                    @enderror
                                                 </div>
                                                 <div class="form-account-title">{{ __('Password') }}
                                                     <a href=""
@@ -124,6 +141,10 @@
                                                     <label class="input-label"></label>
                                                     <input class="input-field" type="password" name="password"
                                                            placeholder="{{ __('Enter your password') }}">
+
+                                                    @error('password')
+                                                    <span class="text-danger text-wrap">{{ $message }}</span>
+                                                    @enderror
                                                 </div>
                                                 <div class="form-account-row form-account-submit">
                                                     <div class="parent-btn">
