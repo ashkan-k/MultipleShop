@@ -59,6 +59,7 @@
                             <div class="collapse show" id="collapseExample1">
                                 <div class="ui-input ui-input--quick-search">
                                     <input type="text" class="ui-input-field ui-input-field--cleanable"
+                                           ng-model="search_categories" ng-model-options="{ debounce: 600 }"
                                            placeholder="{{ __('Write the name of the desired category...') }}">
                                     <span class="ui-input-cleaner"></span>
                                 </div>
@@ -66,7 +67,7 @@
                                 <div class="filter-option">
 
                                     <div ng-repeat="item in categories" class="checkbox">
-                                        <input id="checkbox_[[ item['id'] ]]" ng-model="categories_[[ item['id'] ]]" ng-change="FilterCategories(item['id'], this)" type="checkbox">
+                                        <input id="checkbox_[[ item['id'] ]]" ng-model="categories_[[ item['id'] ]]" ng-change="FilterByCategories(item['id'], this)" type="checkbox">
                                         <label for="checkbox_[[ item['id'] ]]">
                                             @if($lang == 'fa') [[ item['title'] ]] @else [[ item['en_title'] ]] @endif
                                         </label>
@@ -89,13 +90,14 @@
                             <div class="collapse show" id="collapseExample2">
                                 <div class="ui-input ui-input--quick-search">
                                     <input type="text" class="ui-input-field ui-input-field--cleanable"
+                                           ng-model="search_brands" ng-model-options="{ debounce: 600 }"
                                            placeholder="{{ __('Write the desired brand name...') }}">
                                     <span class="ui-input-cleaner"></span>
                                 </div>
                                 <div class="filter-option">
 
                                     <div ng-repeat="item in brands" class="checkbox">
-                                        <input id="brands_checkbox_[[ item['id'] ]]" ng-model="brands_[[ item['id'] ]]" ng-change="FilterBrands(item['id'], this)" type="checkbox">
+                                        <input id="brands_checkbox_[[ item['id'] ]]" ng-model="brands_[[ item['id'] ]]" ng-change="FilterByBrands(item['id'], this)" type="checkbox">
                                         <label for="brands_checkbox_[[ item['id'] ]]">
                                             [[ item['title'] ]]
                                         </label>
@@ -247,10 +249,16 @@
         app.controller('myCtrl', function ($scope, $http) {
             $scope.is_submited = false;
             $scope.products = [];
+
             $scope.categories = [];
             $scope.brands = [];
+
+            $scope.search_categories = '';
+            $scope.search_brands = '';
+
             $scope.selected_categories = [];
             $scope.selected_brands = [];
+
             $scope.page_info = {
                 'total': 0
             };
@@ -266,13 +274,25 @@
                 $scope.GetBrands();
             }
 
+            $scope.GetNumberHumanize = function (number) {
+                return numberWithCommas(number);
+            }
+
             //
 
             $scope.$watch('search', function (newValue, oldValue) {
                 $scope.GetProducts();
             });
 
-            $scope.FilterCategories = function (item, $event){
+            $scope.$watch('search_categories', function (newValue, oldValue) {
+                $scope.GetCategories();
+            });
+
+            $scope.$watch('search_brands', function (newValue, oldValue) {
+                $scope.GetBrands();
+            });
+
+            $scope.FilterByCategories = function (item, $event){
                 if ($event['categories_'][item]){
                     $scope.selected_categories.push(item);
                 }
@@ -286,7 +306,7 @@
                 console.log($scope.selected_categories)
             }
 
-            $scope.FilterBrands = function (item, $event){
+            $scope.FilterByBrands = function (item, $event){
                 if ($event['brands_'][item]){
                     $scope.selected_brands.push(item);
                 }
@@ -298,10 +318,6 @@
                 $scope.GetProducts();
 
                 console.log($scope.selected_brands)
-            }
-
-            $scope.GetNumberHumanize = function (number) {
-                return numberWithCommas(number);
             }
 
             $scope.GetProducts = function () {
@@ -323,7 +339,7 @@
             $scope.GetCategories = function () {
                 $scope.is_submited = true;
 
-                $http.get(`{{ route('categories.api.list') }}`).then(res => {
+                $http.get(`{{ route('categories.api.list') }}?search=${$scope.search_categories}`).then(res => {
                     $scope.is_submited = false;
                     $scope.categories = res['data']['data'];
                 }).catch(err => {
@@ -335,7 +351,7 @@
             $scope.GetBrands = function () {
                 $scope.is_submited = true;
 
-                $http.get(`{{ route('brands.api.list') }}`).then(res => {
+                $http.get(`{{ route('brands.api.list') }}?search=${$scope.search_brands}`).then(res => {
                     $scope.is_submited = false;
                     $scope.brands = res['data']['data'];
                 }).catch(err => {
