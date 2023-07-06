@@ -54,7 +54,8 @@
 
             <div class="search-nav default">
                 <form action="">
-                    <input type="text" name="search" value="{{ request('search') }}" placeholder="{{ __('Search ...') }}">
+                    <input type="text" name="search" value="{{ request('search') }}"
+                           placeholder="{{ __('Search ...') }}">
                     <button type="submit">
                         <i class="fa fa-search style-icon-search"></i>
                     </button>
@@ -197,21 +198,29 @@
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-12 text-left">
-                    <button class="style-user-button">
-                        <div class="bg-color user-style">
-                            <i class="fa fa-user style-icon-head"></i>
-                        </div>
-                    </button>
-                    <button class="style-user-button">
-                        <div class="bg-color user-style">
-                            <i class="fa fa-heart-o style-icon-head"></i>
-                        </div>
-                    </button>
-                    <button class="style-user-button">
-                        <div class="bg-color user-style">
-                            <i class="fa fa-shopping-basket style-icon-head"></i>
-                        </div>
-                    </button>
+                    @auth
+                        <button class="style-user-button">
+                            <div class="bg-color user-style">
+                                <i class="fa fa-user style-icon-head"></i>
+                            </div>
+                        </button>
+                        <button class="style-user-button">
+                            <div class="bg-color user-style">
+                                <i class="fa fa-heart-o style-icon-head"></i>
+                            </div>
+                        </button>
+                        <button class="style-user-button">
+                            <div class="bg-color user-style">
+                                <i class="fa fa-shopping-basket style-icon-head"></i>
+                            </div>
+                        </button>
+                    @else
+                        <button onclick="window.location.href='{{ route('login') }}'" class="style-user-button">
+                            <div class="bg-color user-style">
+                                <i class="fa fa-user style-icon-head"></i>
+                            </div>
+                        </button>
+                    @endauth
                 </div>
             </div>
         </div>
@@ -354,7 +363,8 @@
                         @foreach($guides as $guide)
                             <div class="service-item col">
                                 <a href="#" target="_blank">
-                                    <img src="{{ $guide->get_image() }}" alt="@if($lang == 'fa'){{ $guide->title }}@else{{ $guide->en_title }}@endif">
+                                    <img src="{{ $guide->get_image() }}"
+                                         alt="@if($lang == 'fa'){{ $guide->title }}@else{{ $guide->en_title }}@endif">
                                 </a>
                                 <p>@if($lang == 'fa'){{ $guide->title }}@else{{ $guide->en_title }}@endif</p>
                             </div>
@@ -460,7 +470,8 @@
                             </span>
                         </div>
                         <div class="col-12 col-lg-2">{{ __('Phone Number') }}: {!! $settings['footer_phone'] !!}</div>
-                        <div class="col-12 col-lg-2">{{ __('Email') }}:<a href="#">{!! $settings['footer_email'] !!}</a></div>
+                        <div class="col-12 col-lg-2">{{ __('Email') }}:<a href="#">{!! $settings['footer_email'] !!}</a>
+                        </div>
                         <div class="col-12 col-lg-4 text-center">
                             {!! $settings['footer_app_links'] !!}
                         </div>
