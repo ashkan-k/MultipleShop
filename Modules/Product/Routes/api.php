@@ -2,6 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Modules\Product\Http\Controllers\Dashboard\Api\ApiBrandController;
+use Modules\Product\Http\Controllers\Dashboard\Api\ApiCategoryController;
 use Modules\Product\Http\Controllers\Dashboard\Api\ApiGalleryController;
 use Modules\Product\Http\Controllers\Dashboard\Api\ApiProductController;
 use Modules\Product\Http\Controllers\Dashboard\FeatureController;
@@ -38,4 +40,6 @@ Route::middleware('check_admin')->group(function () {
 
 
 // Products
+Route::get('categories', [ApiCategoryController::class, 'list'])->name('categories.api.list');
+Route::get('brands', [ApiBrandController::class, 'list'])->name('brands.api.list');
 Route::get('', [ApiProductController::class, 'list'])->name('products.api.list');

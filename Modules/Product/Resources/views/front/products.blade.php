@@ -5,7 +5,7 @@
 <?php $website_title = $lang == 'fa' ? $settings['website_title'] : $settings['website_en_title'];  ?>
 
 @section('content')
-    <main class="search-page default" ng-init="GetProducts()">
+    <main class="search-page default">
         <div class="container">
             <div class="row">
                 <div class="col-12">
@@ -61,53 +61,21 @@
                                            placeholder="نام دسته بندی مورد نظر را بنویسید…">
                                     <span class="ui-input-cleaner"></span>
                                 </div>
+
                                 <div class="filter-option">
-                                    <div class="checkbox">
-                                        <input id="checkbox1" type="checkbox">
-                                        <label for="checkbox1">
-                                            نایک
+
+                                    <div ng-repeat="item in categories" class="checkbox">
+                                        <input id="checkbox_[[ item['id'] ]]" type="checkbox">
+                                        <label for="checkbox_[[ item['id'] ]]">
+                                            @if($lang == 'fa') [[ item['title'] ]] @else [[ item['en_title'] ]] @endif
                                         </label>
                                     </div>
-                                    <div class="checkbox">
-                                        <input id="checkbox2" type="checkbox">
-                                        <label for="checkbox2">
-                                            رولکس
-                                        </label>
-                                    </div>
-                                    <div class="checkbox">
-                                        <input id="checkbox3" type="checkbox">
-                                        <label for="checkbox3">
-                                            اپل
-                                        </label>
-                                    </div>
-                                    <div class="checkbox">
-                                        <input id="checkbox4" type="checkbox">
-                                        <label for="checkbox4">
-                                            پوما
-                                        </label>
-                                    </div>
-                                    <div class="checkbox">
-                                        <input id="checkbox5" type="checkbox">
-                                        <label for="checkbox5">
-                                            ال استار
-                                        </label>
-                                    </div>
-                                    <div class="checkbox">
-                                        <input id="checkbox6" type="checkbox">
-                                        <label for="checkbox6">
-                                            نیو بالانس
-                                        </label>
-                                    </div>
-                                    <div class="checkbox">
-                                        <input id="checkbox7" type="checkbox">
-                                        <label for="checkbox7">
-                                            فراری
-                                        </label>
-                                    </div>
+
                                 </div>
                             </div>
                         </div>
                     </div>
+
                     <div class="box">
                         <div class="box-header">
                             <div class="box-toggle" data-toggle="collapse" href="#collapseExample2" role="button"
@@ -124,58 +92,26 @@
                                     <span class="ui-input-cleaner"></span>
                                 </div>
                                 <div class="filter-option">
-                                    <div class="checkbox">
-                                        <input id="checkbox8" type="checkbox">
-                                        <label for="checkbox8">
-                                            نایک
+
+                                    <div ng-repeat="item in brands" class="checkbox">
+                                        <input id="brands_checkbox_[[ item['id'] ]]" type="checkbox">
+                                        <label for="brands_checkbox_[[ item['id'] ]]">
+                                            [[ item['title'] ]]
                                         </label>
                                     </div>
-                                    <div class="checkbox">
-                                        <input id="checkbox9" type="checkbox">
-                                        <label for="checkbox9">
-                                            رولکس
-                                        </label>
-                                    </div>
-                                    <div class="checkbox">
-                                        <input id="checkbox10" type="checkbox">
-                                        <label for="checkbox10">
-                                            اپل
-                                        </label>
-                                    </div>
-                                    <div class="checkbox">
-                                        <input id="checkbox11" type="checkbox">
-                                        <label for="checkbox11">
-                                            پوما
-                                        </label>
-                                    </div>
-                                    <div class="checkbox">
-                                        <input id="checkbox12" type="checkbox">
-                                        <label for="checkbox12">
-                                            ال استار
-                                        </label>
-                                    </div>
-                                    <div class="checkbox">
-                                        <input id="checkbox13" type="checkbox">
-                                        <label for="checkbox13">
-                                            نیو بالانس
-                                        </label>
-                                    </div>
-                                    <div class="checkbox">
-                                        <input id="checkbox14" type="checkbox">
-                                        <label for="checkbox14">
-                                            فراری
-                                        </label>
-                                    </div>
+
                                 </div>
                             </div>
                         </div>
                     </div>
+
                     <div class="box">
                         <div class="box-content">
                             <input type="checkbox" name="checkbox" class="bootstrap-switch" checked />
                             <label>فقط کالاهای موجود</label>
                         </div>
                     </div>
+
                     <div class="box">
                         <div class="box-content">
                             <input type="checkbox" name="checkbox" class="bootstrap-switch" checked />
@@ -304,9 +240,17 @@
         app.controller('myCtrl', function ($scope, $http) {
             $scope.is_submited = false;
             $scope.products = [];
+            $scope.categories = [];
+            $scope.brands = [];
             $scope.page_info = {
                 'total': 0
             };
+
+            $scope.init = function (){
+                $scope.GetProducts();
+                $scope.GetCategories();
+                $scope.GetBrands();
+            }
 
             $scope.GetNumberHumanize = function (number) {
                 return numberWithCommas(number);
@@ -328,19 +272,24 @@
                 });
             }
 
-            $scope.ChangeStatus = function () {
+            $scope.GetCategories = function () {
                 $scope.is_submited = true;
 
-                var data = {
-                    "status": $scope.status
-                };
-
-                $http.post(`/api/tickets/status/change/${$scope.id}`, data).then(res => {
-                    showToast('وضعیت آیتم مورد نظر با موفقیت تغییر کرد.', 'success');
+                $http.get(`{{ route('categories.api.list') }}`).then(res => {
                     $scope.is_submited = false;
-                    setTimeout(() => {
-                        location.reload()
-                    }, 500)
+                    $scope.categories = res['data']['data'];
+                }).catch(err => {
+                    $scope.is_submited = false;
+                    showToast('خطایی رخ داد.', 'error');
+                });
+            }
+
+            $scope.GetBrands = function () {
+                $scope.is_submited = true;
+
+                $http.get(`{{ route('brands.api.list') }}`).then(res => {
+                    $scope.is_submited = false;
+                    $scope.brands = res['data']['data'];
                 }).catch(err => {
                     $scope.is_submited = false;
                     showToast('خطایی رخ داد.', 'error');
