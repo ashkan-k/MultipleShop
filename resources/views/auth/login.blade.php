@@ -1,56 +1,3 @@
-<x-guest-layout>
-    <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')"/>
-
-    <form method="POST" action="{{ route('login') }}">
-    @csrf
-
-    <!-- Email Address -->
-        <div>
-            <x-input-label for="email" :value="__('Email')"/>
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required
-                          autofocus autocomplete="username"/>
-            <x-input-error :messages="$errors->get('email')" class="mt-2"/>
-        </div>
-
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')"/>
-
-            <x-text-input id="password" class="block mt-1 w-full"
-                          type="password"
-                          name="password"
-                          required autocomplete="current-password"/>
-
-            <x-input-error :messages="$errors->get('password')" class="mt-2"/>
-        </div>
-
-        <!-- Remember Me -->
-        <div class="block mt-4">
-            <label for="remember_me" class="inline-flex items-center">
-                <input id="remember_me" type="checkbox"
-                       class="rounded dark:bg-gray-900 border-gray-300 dark:border-gray-700 text-indigo-600 shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:focus:ring-offset-gray-800"
-                       name="remember">
-                <span class="ml-2 text-sm text-gray-600 dark:text-gray-400">{{ __('Remember me') }}</span>
-            </label>
-        </div>
-
-        <div class="flex items-center justify-end mt-4">
-            @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800"
-                   href="{{ route('password.request') }}">
-                    {{ __('Forgot your password?') }}
-                </a>
-            @endif
-
-            <x-primary-button class="ml-3">
-                {{ __('Log in') }}
-            </x-primary-button>
-        </div>
-    </form>
-</x-guest-layout>
-
-
 @extends('layouts.front-master')
 
 @section('title')ورود / ثبت نام@endsection
@@ -81,28 +28,39 @@
                                     <div id="home" class="tab-pane show in active ">
 
                                         <div class="message-light">اگر قبلا با ایمیل ثبت‌نام کرده‌اید، نیاز به
-                                            ثبت‌نام مجدد با شماره
-                                            همراه ندارید
+                                            ثبت‌نام مجدد با ایمیل ندارید. وارد شوید
                                         </div>
                                         <div class="account-box-content">
-                                            <form class="form-account" action="{{ route('login') }}">
+                                            <form class="form-account" method="post" action="{{ route('register') }}">
                                                 @csrf
 
-                                                <div class="form-account-title">پست الکترونیک یا شماره موبایل</div>
+                                                <div class="form-account-title">{{ __('Email') }}</div>
                                                 <div class="form-account-row">
                                                     <label class="input-label"></label>
-                                                    <input class="input-field" type="text"
-                                                           placeholder="پست الکترونیک یا شماره موبایل خود را وارد نمایید">
+                                                    <input class="input-field" type="text" name="email"
+                                                           required
+                                                           placeholder="{{ __('Email') }} خود را وارد نمایید">
                                                 </div>
-                                                <div class="form-account-title">کلمه عبور</div>
+
+                                                <div class="form-account-title">{{ __('Password') }}</div>
                                                 <div class="form-account-row">
                                                     <label class="input-label"></label>
-                                                    <input class="input-field" type="password"
-                                                           placeholder="کلمه عبور خود را وارد نمایید">
+                                                    <input class="input-field" type="password" name="password"
+                                                           required
+                                                           placeholder="{{ __('Password') }} خود را وارد نمایید">
                                                 </div>
+
+                                                <div class="form-account-title">{{ __('Confirm Password') }}</div>
+                                                <div class="form-account-row">
+                                                    <label class="input-label"></label>
+                                                    <input class="input-field" type="password" name="password_confirmation"
+                                                           required
+                                                           placeholder="{{ __('Confirm Password') }} خود را وارد نمایید">
+                                                </div>
+
                                                 <div class="form-account-agree">
                                                     <label class="checkbox-form checkbox-primary">
-                                                        <input type="checkbox" checked="checked">
+                                                        <input type="checkbox" required>
                                                         <span class="checkbox-check"></span>
                                                     </label>
                                                     <label for="agree">
@@ -111,14 +69,20 @@
                                                             و قوانین</a> استفاده از سرویس های سایت
                                                         جی تی کالا را مطالعه نموده و با کلیه موارد آن موافقم.</label>
                                                 </div>
+
                                                 <div class="form-account-row form-account-submit">
                                                     <div class="parent-btn">
-                                                        <button class="dk-btn dk-btn-info">
-                                                            ثبت نام در جی تی کالا
+                                                        <button type="submit" class="dk-btn dk-btn-info">
+                                                            @if($lang == 'fa')
+                                                                ثبت نام در {!! $settings['website_title'] !!}
+                                                            @else
+                                                                Register in {!! $settings['website_en_title'] !!}
+                                                            @endif
                                                             <i class="now-ui-icons users_circle-08"></i>
                                                         </button>
                                                     </div>
                                                 </div>
+
                                             </form>
                                         </div>
                                         <div class="account-box-footer">
