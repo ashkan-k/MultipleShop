@@ -13,22 +13,22 @@
                             <div class="account-box">
                                 <ul class="nav nav-tabs justify-content-center mt-3">
                                     <div class="d-flex">
-                                        <li class="px-2">
-                                            <a class="active show btn-radius" data-toggle="tab" href="#home">عضویت</a>
+                                        <li class="px-2" ng-click="ChangePage('register')">
+                                            <a class="[[ current_page == 'register' ? 'active show' : '' ]] btn-radius" data-toggle="tab" href="#register">عضویت</a>
                                         </li>
 
-                                        <li class="px-2">
-                                            <a data-toggle="tab" class="btn-radius" href="#menu1">ورود</a>
+                                        <li class="px-2" ng-click="ChangePage('login')">
+                                            <a data-toggle="tab" class="[[ current_page == 'login' ? 'active show' : '' ]] btn-radius" href="#login">ورود</a>
                                         </li>
                                     </div>
 
                                 </ul>
 
                                 <div class="tab-content">
-                                    <div id="home" class="tab-pane show in active ">
+                                    <div id="register" class="tab-pane [[ current_page == 'register' ? 'show in active' : 'fade' ]]  ">
 
                                         <div class="message-light">اگر قبلا با ایمیل ثبت‌نام کرده‌اید، نیاز به
-                                            ثبت‌نام مجدد با ایمیل ندارید. وارد شوید
+                                            ثبت‌نام مجدد با ایمیل ندارید. <a data-toggle="tab" href="#login" ng-click="ChangePage('login')">وارد شوید</a>
                                         </div>
                                         <div class="account-box-content">
                                             <form class="form-account" method="post" action="{{ route('register') }}">
@@ -60,10 +60,10 @@
 
                                                 <div class="form-account-agree">
                                                     <label class="checkbox-form checkbox-primary">
-                                                        <input type="checkbox" required>
+                                                        <input type="checkbox" required id="terms">
                                                         <span class="checkbox-check"></span>
                                                     </label>
-                                                    <label for="agree">
+                                                    <label for="terms">
                                                         <a href="#" class="btn-link-border">حریم خصوصی</a> و <a href="#"
                                                                                                                 class="btn-link-border">شرایط
                                                             و قوانین</a> استفاده از سرویس های سایت
@@ -87,10 +87,11 @@
                                         </div>
                                         <div class="account-box-footer">
                                             <span>قبلا در جی تی کالا ثبت‌نام کرده‌اید؟</span>
-                                            <a href="#" class="btn-link-border">وارد شوید</a>
+                                            <a data-toggle="tab" href="#login" ng-click="ChangePage('login')" class="btn-link-border">وارد شوید</a>
                                         </div>
                                     </div>
-                                    <div id="menu1" class="tab-pane fade">
+
+                                    <div id="login" class="tab-pane [[ current_page == 'login' ? 'show in active' : 'fade' ]]">
 
                                         <div class="account-box-content">
                                             <form class="form-account" method="post" action="{{ route('login') }}">
@@ -126,16 +127,16 @@
                                                 </div>
                                                 <div class="form-account-agree">
                                                     <label class="checkbox-form checkbox-primary">
-                                                        <input type="checkbox" name="remember" checked="checked" id="agree">
+                                                        <input type="checkbox" name="remember" id="remember_me">
                                                         <span class="checkbox-check"></span>
                                                     </label>
-                                                    <label for="agree">مرا به خاطر داشته باش</label>
+                                                    <label for="remember_me">مرا به خاطر داشته باش</label>
                                                 </div>
                                             </form>
                                         </div>
                                         <div class="account-box-footer">
                                             <span>کاربر جدید هستید؟</span>
-                                            <a href="#" class="btn-link-border">ثبت‌نام در
+                                            <a data-toggle="tab" href="#login" ng-click="ChangePage('register')" class="btn-link-border">ثبت‌نام در
                                                 جی تی کالا</a>
                                         </div>
                                     </div>
@@ -150,4 +151,16 @@
             </div>
         </main>
     </div>
+@endsection
+
+@section('scripts')
+    <script>
+        app.controller('myCtrl', function ($scope, $http) {
+            $scope.current_page = 'register';
+
+            $scope.ChangePage = function (new_page){
+                $scope.current_page = new_page;
+            }
+        });
+    </script>
 @endsection
