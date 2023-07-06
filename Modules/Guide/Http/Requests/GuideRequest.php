@@ -15,6 +15,8 @@ class GuideRequest extends FormRequest
     {
         $rules =  [
             'title' => 'required|string',
+            'en_title' => 'required|string',
+            'link' => 'required|url',
             'image' => 'image|mimes:jpeg,png,bmp,jpg,svg',
         ];
 

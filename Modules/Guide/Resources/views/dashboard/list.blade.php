@@ -83,6 +83,8 @@
                                     </div>
                                 </th>
                                 <th>عنوان</th>
+                                <th>عنوان انگلیسی</th>
+                                <th>لینک</th>
                                 <th>عکس</th>
                                 <th>عملیات</th>
                             </tr>
@@ -101,6 +103,10 @@
                                     </td>
 
                                     <td>{{ $item->title ?: '---'  }}</td>
+
+                                    <td>{{ $item->en_title ?: '---'  }}</td>
+
+                                    <td>{{ $item->link ?: '---'  }}</td>
 
                                     <td>
                                         <div class="symbol symbol-circle symbol-50px overflow-hidden me-3">

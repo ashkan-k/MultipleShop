@@ -85,6 +85,46 @@
                                     </div>
 
                                     <div class="d-flex flex-column mb-8 fv-row">
+                                        <label for="id_en_title"
+                                               class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                            <span class="required">عنوان انگلیسی</span>
+                                        </label>
+
+                                        <input type="text" id="id_en_title" class="form-control form-control-solid"
+                                               value="@if(old('en_title')){{ old('en_title') }}@elseif(isset($object->en_title)){{ $object->en_title }}@endif"
+                                               placeholder="عنوان انگلیسی را وارد کنید" required name="en_title"/>
+
+                                        @error('en_title')
+                                        <div class="fv-plugins-message-container invalid-feedback">
+                                            <div data-field="meta_title" data-validator="notEmpty">
+                                                {{ $message }}
+                                            </div>
+                                        </div>
+                                        @enderror
+
+                                    </div>
+
+                                    <div class="d-flex flex-column mb-8 fv-row">
+                                        <label for="id_link"
+                                               class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                            <span class="required">لینک</span>
+                                        </label>
+
+                                        <input type="url" id="id_link" class="form-control form-control-solid"
+                                               value="@if(old('link')){{ old('link') }}@elseif(isset($object->link)){{ $object->link }}@endif"
+                                               placeholder="لینک را وارد کنید" required name="link"/>
+
+                                        @error('link')
+                                        <div class="fv-plugins-message-container invalid-feedback">
+                                            <div data-field="meta_title" data-validator="notEmpty">
+                                                {{ $message }}
+                                            </div>
+                                        </div>
+                                        @enderror
+
+                                    </div>
+
+                                    <div class="d-flex flex-column mb-8 fv-row">
                                         <label for="id_image" class="d-flex align-items-center fs-6 fw-semibold mb-2">
                                             <span class="required">عکس</span>
                                         </label>

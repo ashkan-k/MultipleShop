@@ -29,7 +29,9 @@ class AppServiceProvider extends ServiceProvider
                 $settings[$item->key] = $item->value;
             }
             View::share('settings', $settings);
+        }
 
+        if (Schema::hasTable('guides') && !str_contains('dashboard', request()->url())){
             $guides = Guide::all();
             View::share('guides', $guides);
         }

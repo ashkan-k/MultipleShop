@@ -13,11 +13,15 @@ class Guide extends Model
 
     protected $fillable = [
         'title',
+        'en_title',
+        'link',
         'image',
     ];
 
     protected $search_fields  = [
         'title',
+        'en_title',
+        'link',
         'image',
     ];
 

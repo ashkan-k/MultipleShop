@@ -22,6 +22,8 @@ class GuideFactory extends Factory
     {
         return [
             'title' => fake()->title(),
+            'en_title' => fake()->title(),
+            'link' => fake()->url(),
             'image' => fake()->imageUrl(),
         ];
     }

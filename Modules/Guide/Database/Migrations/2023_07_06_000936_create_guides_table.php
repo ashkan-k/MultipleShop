@@ -16,6 +16,8 @@ return new class extends Migration
         Schema::create('guides', function (Blueprint $table) {
             $table->id();
             $table->string('title');
+            $table->string('en_title');
+            $table->string('link');
             $table->text('image');
             $table->timestamps();
         });
