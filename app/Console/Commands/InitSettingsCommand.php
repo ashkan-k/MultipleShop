@@ -28,6 +28,8 @@ class InitSettingsCommand extends Command
         'show_special_products' => 1,
         'show_latest_products' => 1,
         'show_most_favorite_products' => 1,
+        'show_cheapest_products' => 1,
+        'show_blogs' => 1,
 
         # Social
         'email' => "multi_shop-ir@gmail.com",

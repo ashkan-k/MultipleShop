@@ -14,5 +14,6 @@
     "Order": true,
     "Sms": true,
     "Poster": true,
-    "Index": true
+    "Index": true,
+    "Guide": true
 }
