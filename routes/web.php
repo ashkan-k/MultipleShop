@@ -15,7 +15,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('layouts.front-master');
+    $lang = session()->get('current_lang');
+    if ($lang){
+        app()->setLocale($lang);
+    }
+
+    return redirect(app()->getLocale());
 });
 
 Route::get('/dashboard', function () {
