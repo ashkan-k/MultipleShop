@@ -31,6 +31,8 @@
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
+    @livewireStyles
+
     @yield('styles')
 
 </head>
@@ -581,6 +583,8 @@
         }
     });
 </script>
+
+@livewireScripts
 
 @include('dashboard.section.components.sweet_alert')
 @yield('scripts')

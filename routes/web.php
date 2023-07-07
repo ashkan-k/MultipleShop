@@ -14,6 +14,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+Route::get('/ddddd', function () {
+    $lang = app()->getLocale();
+    return view('test', compact('lang'));
+});
+
 Route::get('/', function () {
     $lang = session()->get('current_lang');
     if ($lang) {
