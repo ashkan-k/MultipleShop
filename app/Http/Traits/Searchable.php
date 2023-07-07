@@ -42,32 +42,50 @@ trait Searchable
         return $builder;
     }
 
-    public function scopeFilter(Builder $builder, $request = null)
+    public function scopeFilter(Builder $builder, $request = null, $type='or')
     {
         if (!$this->filter_fields) {
             throw new \Exception("Please define the filter_fields property .");
         }
 
         if (count($request->all())){
-            foreach ($this->filter_fields as $field) {
-                if ($request->$field){
-                    if (str_contains($field, '.')) {
-                        $relation = Str::beforeLast($field, '.');
-                        $column = Str::afterLast($field, '.');
+            $builder = $builder->where(function ($builder) use ($request, $type) {
+                foreach ($this->filter_fields as $field) {
+                    if ($request->$field){
+                        if (str_contains($field, '.')) {
+                            $relation = Str::beforeLast($field, '.');
+                            $column = Str::afterLast($field, '.');
 
-                        $builder->orWhereHas($relation, function ($query) use ($column, $request){
-                            return $query->whereIn($column, explode(',', $request->$column));
-                        });
-                        continue;
+                            if ($type == 'or'){
+                                $builder = $builder->orWhereHas($relation, function ($query) use ($column, $request){
+                                    return $query->whereIn($column, explode(',', $request->$column));
+                                });
+                            }else{
+                                $builder = $builder->WhereHas($relation, function ($query) use ($column, $request){
+                                    return $query->whereIn($column, explode(',', $request->$column));
+                                });
+                            }
+                            continue;
+                        }
+
+                        if ($type == 'or'){
+                            $builder = $builder->orWhereIn($field, explode(',', $request->$field));
+                        }else{
+                            $builder = $builder->WhereIn($field, explode(',', $request->$field));
+                        }
                     }
 
-                    $builder->orWhereIn($field, explode(',', $request->$field));
+                    if ($request->$field === '0' || $request->$field === '1'){
+                        if ($type == 'or'){
+                            $builder = $builder->orWhere($field, explode(',', $request->$field));
+                        }else{
+                            $builder = $builder->Where($field, explode(',', $request->$field));
+                        }
+                    }
                 }
 
-                if ($request->$field === '0' || $request->$field === '1'){
-                    $builder->orWhere($field, explode(',', $request->$field));
-                }
-            }
+                return $builder;
+            });
         }
 
         return $builder;
