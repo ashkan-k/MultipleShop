@@ -40,7 +40,8 @@
                         <div class="box-header">{{ __('Search in results') }}:</div>
                         <div class="box-content">
                             <div class="ui-input ui-input--quick-search">
-                                <input type="text" ng-model="search" ng-model-options="{ debounce: 600 }" value="{{ request('q') }}"
+                                <input type="text" ng-model="search" ng-model-options="{ debounce: 600 }"
+                                       value="{{ request('q') }}"
                                        class="ui-input-field ui-input-field--cleanable"
                                        placeholder="{{ __('Write the name of the desired product or brand...') }}">
                                 <span class="ui-input-cleaner"></span>
@@ -67,7 +68,8 @@
                                 <div class="filter-option">
 
                                     <div ng-repeat="item in categories" class="checkbox">
-                                        <input id="checkbox_[[ item['id'] ]]" ng-model="categories_[[ item['id'] ]]" ng-change="FilterByCategories(item['id'], this)" type="checkbox">
+                                        <input id="checkbox_[[ item['id'] ]]" ng-model="categories_[[ item['id'] ]]"
+                                               ng-change="FilterByCategories(item['id'], this)" type="checkbox">
                                         <label for="checkbox_[[ item['id'] ]]">
                                             @if($lang == 'fa') [[ item['title'] ]] @else [[ item['en_title'] ]] @endif
                                         </label>
@@ -97,7 +99,8 @@
                                 <div class="filter-option">
 
                                     <div ng-repeat="item in brands" class="checkbox">
-                                        <input id="brands_checkbox_[[ item['id'] ]]" ng-model="brands_[[ item['id'] ]]" ng-change="FilterByBrands(item['id'], this)" type="checkbox">
+                                        <input id="brands_checkbox_[[ item['id'] ]]" ng-model="brands_[[ item['id'] ]]"
+                                               ng-change="FilterByBrands(item['id'], this)" type="checkbox">
                                         <label for="brands_checkbox_[[ item['id'] ]]">
                                             [[ item['title'] ]]
                                         </label>
@@ -111,18 +114,20 @@
                     <div class="box">
                         <div class="box-content">
                             <input id="only_available_items_checkbox" type="checkbox" name="checkbox"
-                                   class="bootstrap-switch" checked/>
+                                   onchange="angular.element(document.querySelector('[ng-app]')).scope().GetProducts()"
+                                   value="1"
+                                   class="bootstrap-switch"/>
                             <label for="only_available_items_checkbox">{{ __('Only available items') }}</label>
                         </div>
                     </div>
 
-                    <div class="box">
-                        <div class="box-content">
-                            <input id="ready_to_ship_checkbox" type="checkbox" name="checkbox" class="bootstrap-switch"
-                                   checked/>
-                            <label for="ready_to_ship_checkbox">{{ __('Ready to ship items only') }}</label>
-                        </div>
-                    </div>
+                    {{--                    <div class="box">--}}
+                    {{--                        <div class="box-content">--}}
+                    {{--                            <input id="ready_to_ship_checkbox" type="checkbox" name="checkbox" class="bootstrap-switch"--}}
+                    {{--                                   checked/>--}}
+                    {{--                            <label for="ready_to_ship_checkbox">{{ __('Ready to ship items only') }}</label>--}}
+                    {{--                        </div>--}}
+                    {{--                    </div>--}}
                 </aside>
                 <div class="col-12 col-sm-12 col-md-8 col-lg-9 order-md-2 order-1">
 
@@ -253,6 +258,8 @@
             $scope.categories = [];
             $scope.brands = [];
 
+            $scope.only_has_quantity_filter;
+
             $scope.search_categories = '';
             $scope.search_brands = '';
 
@@ -267,7 +274,7 @@
                 @if(request('q'))
                     $scope.search = '{{ request('q') }}';
                 @else
-                    $scope.GetProducts();
+                $scope.GetProducts();
                 @endif
 
                 $scope.GetCategories();
@@ -292,44 +299,43 @@
                 $scope.GetBrands();
             });
 
-            $scope.FilterByCategories = function (item, $event){
-                if ($event['categories_'][item]){
+            $scope.FilterByCategories = function (item, $event) {
+                if ($event['categories_'][item]) {
                     $scope.selected_categories.push(item);
-                }
-                else {
+                } else {
                     var index = $scope.selected_categories.indexOf(item);
-                    $scope.selected_categories.splice(index,1);
+                    $scope.selected_categories.splice(index, 1);
                 }
 
                 $scope.GetProducts();
-
-                console.log($scope.selected_categories)
             }
 
-            $scope.FilterByBrands = function (item, $event){
-                if ($event['brands_'][item]){
+            $scope.FilterByBrands = function (item, $event) {
+                if ($event['brands_'][item]) {
                     $scope.selected_brands.push(item);
-                }
-                else {
+                } else {
                     var index = $scope.selected_brands.indexOf(item);
-                    $scope.selected_brands.splice(index,1);
+                    $scope.selected_brands.splice(index, 1);
                 }
 
                 $scope.GetProducts();
-
-                console.log($scope.selected_brands)
             }
 
             $scope.GetProducts = function () {
+                $scope.only_has_quantity_filter = $('#only_available_items_checkbox').prop('checked');
+
                 $scope.is_submited = true;
 
-                $http.get(`{{ route('products.api.list') }}?search=${$scope.search}&category_id=${$scope.selected_categories.toString()}&brand_id=${$scope.selected_brands.toString()}`).then(res => {
+                var url = `{{ route('products.api.list') }}?search=${$scope.search}&category_id=${$scope.selected_categories.toString()}&brand_id=${$scope.selected_brands.toString()}&only_has_quantity_filter=${$scope.only_has_quantity_filter}`;
+
+                $http.get(url).then(res => {
                     $scope.is_submited = false;
 
                     $scope.products = res['data']['data']['data'];
                     $scope.page_info = res['data']['data'];
-                    console.log($scope.products)
-                    console.log($scope.page_info)
+
+                    console.log($scope.products);
+                    console.log($scope.page_info);
                 }).catch(err => {
                     $scope.is_submited = false;
                     showToast('خطایی رخ داد.', 'error');

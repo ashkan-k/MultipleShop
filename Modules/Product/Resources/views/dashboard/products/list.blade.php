@@ -121,6 +121,7 @@
                                 <th>عنوان</th>
                                 <th>عنوان انگلیسی</th>
                                 <th>قیمت</th>
+                                <th>موجودی</th>
                                 <th>عکس</th>
                                 <th>مالک</th>
                                 <th>دسته بندی</th>
@@ -150,6 +151,8 @@
                                     <td>{{ $item->en_title ?: '---'  }}</td>
 
                                     <td>{{ $item->price ? number_format($item->price) : '---'  }} تومان</td>
+
+                                    <td>{{ $item->quantity ?: '0'  }} عدد</td>
 
                                     <td>
                                         <div class="symbol symbol-circle symbol-50px overflow-hidden me-3">

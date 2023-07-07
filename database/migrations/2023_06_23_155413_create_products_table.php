@@ -26,6 +26,7 @@ return new class extends Migration
             $table->integer('view_count')->default(0);
             $table->text('image');
             $table->string('price');
+            $table->integer('quantity')->default(1);
 
             $table->string('discount_price')->nullable();
             $table->string('discount_start_date')->nullable();

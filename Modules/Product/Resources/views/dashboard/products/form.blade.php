@@ -187,6 +187,26 @@
                                     </div>
 
                                     <div class="d-flex flex-column mb-8 fv-row">
+                                        <label for="id_quantity"
+                                               class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                            <span class="required">تعداد موجودی</span>
+                                        </label>
+
+                                        <input type="number" id="id_quantity" class="form-control form-control-solid"
+                                               value="@if(old('quantity')){{ old('quantity') }}@elseif(isset($object->quantity)){{ $object->quantity }}@endif"
+                                               placeholder="تعداد موجودی را وارد کنید" name="quantity" required/>
+
+                                        @error('quantity')
+                                        <div class="fv-plugins-message-container invalid-feedback">
+                                            <div data-field="meta_title" data-validator="notEmpty">
+                                                {{ $message }}
+                                            </div>
+                                        </div>
+                                        @enderror
+
+                                    </div>
+
+                                    <div class="d-flex flex-column mb-8 fv-row">
                                         <label for="id_description"
                                                class="d-flex align-items-center fs-6 fw-semibold mb-2">
                                             <span class="required">توضیحات</span>

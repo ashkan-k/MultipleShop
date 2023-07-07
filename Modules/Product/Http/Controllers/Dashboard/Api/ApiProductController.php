@@ -9,6 +9,7 @@ use Modules\Product\Entities\Gallery;
 use Modules\Product\Entities\Product;
 use Modules\Product\Http\Requests\GalleryRequest;
 use Modules\Product\Http\Requests\ProductRequest;
+use function Ramsey\Collection\offer;
 
 class ApiProductController extends Controller
 {
@@ -20,10 +21,13 @@ class ApiProductController extends Controller
     {
         $objects = Product::ActiveProducts()->with($this->relations)
             ->Search(request('search'))
-            ->Filter(\request())
-            ->latest()
-            ->paginate(\request('pagination', env('PAGINATION_NUMBER', 10)));
+            ->Filter(\request());
 
+        if (request('only_has_quantity_filter') == 'true'){
+            $objects = $objects->where('quantity', '>', 0);
+        }
+
+        $objects = $objects->latest()->paginate(\request('pagination', env('PAGINATION_NUMBER', 10)));
         return $this->SuccessResponse($objects);
     }
 }

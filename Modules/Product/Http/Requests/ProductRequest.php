@@ -27,6 +27,7 @@ class ProductRequest extends FormRequest
             ],
            'description' => 'required',
            'price' => 'required|numeric',
+           'quantity' => 'required|numeric|min:0',
            'discount_price' => 'nullable|numeric',
             'discount_start_date' => 'nullable|jdate:Y-m-d|after:' . \verta()->subDay(),
             'discount_end_date' => 'nullable|jdate:Y-m-d|after:' . \verta()->subDay(),

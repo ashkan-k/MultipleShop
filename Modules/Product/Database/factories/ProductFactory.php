@@ -34,6 +34,7 @@ class ProductFactory extends Factory
             'view_count' => fake()->randomNumber(),
             'image' => fake()->imageUrl(),
             'price' => fake()->randomNumber(),
+            'quantity' => fake()->randomNumber(),
             'discount_price' => fake()->randomNumber(),
             'discount_start_date' => fake()->date(),
             'discount_end_date' => fake()->date(),
