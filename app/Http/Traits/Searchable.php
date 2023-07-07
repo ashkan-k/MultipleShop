@@ -15,26 +15,27 @@ trait Searchable
             }
 
             if (count($this->search_fields) > 0){
-                $builder = $builder->where(function ($query) use ($search){
+                $builder = $builder->where(function ($builder) use ($search){
                     foreach ($this->search_fields as $field) {
                         if (str_contains($field, '.')) {
                             $relation = Str::beforeLast($field, '.');
                             $column = Str::afterLast($field, '.');
 
                             if (count($this->search_fields) > 1){
-                                $query->orWhereRelation($relation, $column, 'like', '%' . $search . '%');
+                                $builder = $builder->orWhereRelation($relation, $column, 'like', '%' . $search . '%');
                             }else{
-                                $query->WhereRelation($relation, $column, 'like', '%' . $search . '%');
+                                $builder = $builder->WhereRelation($relation, $column, 'like', '%' . $search . '%');
                             }
                             continue;
                         }
 
                         if (count($this->search_fields) > 1){
-                            $query->orWhere($field, 'like', '%' . $search . '%');            }
+                            $builder = $builder->orWhere($field, 'like', '%' . $search . '%');            }
                         else{
-                            $query->Where($field, 'like', '%' . $search . '%');
+                            $builder = $builder->Where($field, 'like', '%' . $search . '%');
                         }
                     }
+                    return $builder;
                 });
             }
         }
