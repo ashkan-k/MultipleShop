@@ -23,6 +23,6 @@ class FrontProductController extends Controller
 
     public function search()
     {
-        return view('product::front.products');
+        return view('product::front.products-search');
     }
 }

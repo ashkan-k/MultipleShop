@@ -8,7 +8,7 @@ use Modules\Product\Entities\Brand;
 use Modules\Product\Entities\Category;
 use Modules\Product\Entities\Product;
 
-class ProductsPage extends Component
+class ProductsSearchPage extends Component
 {
     use WithPagination;
 
@@ -86,6 +86,6 @@ class ProductsPage extends Component
             'brands' => $this->GetBrands(),
         ];
 
-        return view('product::livewire.pages.front.products-page', $data);
+        return view('product::livewire.pages.front.products-search-page', $data);
     }
 }
