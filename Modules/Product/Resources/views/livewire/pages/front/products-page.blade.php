@@ -88,7 +88,7 @@
                         <div class="collapse show" id="collapseExample2">
                             <div class="ui-input ui-input--quick-search">
                                 <input type="text" class="ui-input-field ui-input-field--cleanable"
-                                       ng-model="search_brands" ng-model-options="{ debounce: 600 }"
+                                       ng-model="search_brands" wire:model.debounce.300ms="brand_search"
                                        placeholder="{{ __('Write the desired brand name...') }}">
                                 <span class="ui-input-cleaner"></span>
                             </div>
