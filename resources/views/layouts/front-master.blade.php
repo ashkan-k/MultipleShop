@@ -56,7 +56,7 @@
 
             <div class="search-nav default">
                 <form action="{{ route('search') }}">
-                    <input type="text" name="q" value="{{ request('search') }}"
+                    <input type="text" name="q" value="{{ request('q') }}"
                            placeholder="{{ __('Search ...') }}">
                     <button type="submit">
                         <i class="fa fa-search style-icon-search"></i>
@@ -181,7 +181,7 @@
                 <div class="col-lg-6 col-md-5 col-sm-8 col-7">
                     <div class="search-area default">
                         <form action="{{ route('search') }}" class="search">
-                            <input type="text" id="gsearchsimple" name="q" value="{{ request('search') }}"
+                            <input type="text" id="gsearchsimple" name="q" value="{{ request('q') }}"
                                    placeholder="{{ __('Search for the name of the product, brand or category you want...') }}">
                             <ul class="list-group search-box-list">
                                 <li ng-repeat="item in search_history track by $index" ng-if="item"
@@ -570,16 +570,20 @@
     app.controller('myCtrl', function ($scope, $http) {
         $scope.search_history = [];
 
-        $scope.init = function () {
+        $scope.SaveSearchHistory = function (){
             @if(request('search'))
             var searchHistory = (localStorage.searchHistory) ? JSON.parse(localStorage.searchHistory) : [];
-            searchHistory.push('{{ request('search') }}');
+            searchHistory.push('{{ request('q') }}');
             searchHistory = [...new Set(searchHistory)];
             localStorage.searchHistory = JSON.stringify(searchHistory);
 
             console.log(searchHistory)
             $scope.search_history = searchHistory;
             @endif
+        }
+
+        $scope.init = function () {
+            $scope.SaveSearchHistory();
         }
     });
 </script>
@@ -588,5 +592,7 @@
 
 @include('dashboard.section.components.sweet_alert')
 @yield('scripts')
+
+@stack('StackScript')
 
 </html>

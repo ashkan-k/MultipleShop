@@ -7,34 +7,45 @@
                         <ul class="breadcrumb-list">
                             <li>
                                 <a href="#">
-                                    <span>فروشگاه اینترنتی جی تی کالا</span>
+                                    <span>{{ __('Online Shop') }} {{ $website_title }}</span>
                                 </a>
                             </li>
-                            <li><span>جستجوی موبایل</span></li>
+                            <li>
+                                    <span>
+                                        @if(isset($search))
+                                            {{ __('Search') }} $search
+                                        @else
+                                            @if($lang == 'fa')
+                                                {{ $category->title ?: '---' }}
+                                            @else
+                                                {{ $category->en_title ?: '---' }}
+                                            @endif
+                                        @endif
+                                    </span>
+                            </li>
                         </ul>
                     </div>
                 </div>
             </div>
 
             <aside class="sidebar-page col-12 col-sm-12 col-md-4 col-lg-3 order-md-1 order-2">
-
                 <div class="box">
-                    <div class="box-header">جستجو در نتایج:</div>
+                    <div class="box-header">{{ __('Search in results') }}:</div>
                     <div class="box-content">
                         <div class="ui-input ui-input--quick-search">
-                            <input type="text" class="ui-input-field ui-input-field--cleanable"
-                                   wire:model.debounce.300ms="search"
-                                   placeholder="نام محصول یا برند مورد نظر را بنویسید…">
+                            <input type="text" wire:model.debounce.300ms="search"
+                                   value="{{ $search }}"
+                                   class="ui-input-field ui-input-field--cleanable"
+                                   placeholder="{{ __('Write the name of the desired product or brand...') }}">
                             <span class="ui-input-cleaner"></span>
                         </div>
                     </div>
                 </div>
-
                 <div class="box">
                     <div class="box-header">
                         <div class="box-toggle" data-toggle="collapse" href="#collapseExample1" role="button"
                              aria-expanded="true" aria-controls="collapseExample1">
-                            دسته بندی نتایج
+                            {{ __('Categorize the results') }}
                             <i class="now-ui-icons arrows-1_minimal-down"></i>
                         </div>
                     </div>
@@ -42,16 +53,20 @@
                         <div class="collapse show" id="collapseExample1">
                             <div class="ui-input ui-input--quick-search">
                                 <input type="text" class="ui-input-field ui-input-field--cleanable"
-                                       placeholder="نام دسته بندی مورد نظر را بنویسید…">
+                                       ng-model="search_categories" ng-model-options="{ debounce: 600 }"
+                                       placeholder="{{ __('Write the name of the desired category...') }}">
                                 <span class="ui-input-cleaner"></span>
                             </div>
+
                             <div class="filter-option">
 
                                 @foreach($categories as $cat)
                                     <div class="checkbox">
-                                        <input id="checkbox_{{ $cat->id }}" value="{{ $cat->id }}" wire:model.debounce.1000ms="categories_filter.{{ $cat->id }}" type="checkbox">
+                                        <input id="checkbox_{{ $cat->id }}" value="{{ $cat->id }}"
+                                               wire:model.debounce.1000ms="categories_filter.{{ $cat->id }}"
+                                               type="checkbox">
                                         <label for="checkbox_{{ $cat->id }}">
-                                            {{ $cat->title }}
+                                            @if($lang == 'fa') {{ $cat->title }} @else {{ $cat->en_title }} @endif
                                         </label>
                                     </div>
                                 @endforeach
@@ -65,7 +80,7 @@
                     <div class="box-header">
                         <div class="box-toggle" data-toggle="collapse" href="#collapseExample2" role="button"
                              aria-expanded="true" aria-controls="collapseExample2">
-                            برند
+                            {{ __('Brand') }}
                             <i class="now-ui-icons arrows-1_minimal-down"></i>
                         </div>
                     </div>
@@ -73,15 +88,18 @@
                         <div class="collapse show" id="collapseExample2">
                             <div class="ui-input ui-input--quick-search">
                                 <input type="text" class="ui-input-field ui-input-field--cleanable"
-                                       placeholder="نام برند مورد نظر را بنویسید…">
+                                       ng-model="search_brands" ng-model-options="{ debounce: 600 }"
+                                       placeholder="{{ __('Write the desired brand name...') }}">
                                 <span class="ui-input-cleaner"></span>
                             </div>
                             <div class="filter-option">
 
                                 @foreach($brands as $brand)
                                     <div class="checkbox">
-                                        <input id="checkbox_brands_{{ $brand->id }}" value="{{ $brand->id }}" wire:model.debounce.1000ms="brands_filter.{{ $brand->id }}" type="checkbox">
-                                        <label for="checkbox_brands_{{ $brand->id }}">
+                                        <input id="brands_checkbox_{{ $brand->id }}" value="{{ $brand->id }}"
+                                               wire:model.debounce.1000ms="brands_filter.{{ $brand->id }}"
+                                               type="checkbox">
+                                        <label for="brands_checkbox_{{ $brand->id }}">
                                             {{ $brand->title }}
                                         </label>
                                     </div>
@@ -94,15 +112,16 @@
 
                 <div class="box" wire:ignore>
                     <div class="box-content">
-                        <input id="only_available_items_checkbox" onchange="FilterByQuantity()" type="checkbox" name="checkbox" class="bootstrap-switch"/>
-                        <label>فقط کالاهای موجود</label>
+                        <input id="only_available_items_checkbox" onchange="FilterByQuantity()" type="checkbox"
+                               name="checkbox" class="bootstrap-switch"/>
+                        <label for="only_available_items_checkbox">{{ __('Only available items') }}</label>
                     </div>
                 </div>
             </aside>
             <div class="col-12 col-sm-12 col-md-8 col-lg-9 order-md-2 order-1">
 
 
-                <div class="listing-counter">۶,۱۸۸ کالا</div>
+                <div class="listing-counter">{{ count($products) }} {{ __('items') }}</div>
                 <div class="style-tatrib listing style-listing">
                     <div class="row">
                         <div class="col-12">
@@ -118,7 +137,8 @@
                                            aria-expanded="false">پربازدیدترین</a>
                                     </li>
                                     <li>
-                                        <a data-toggle="tab" href="#new" role="tab" aria-expanded="true">جدیدترین</a>
+                                        <a data-toggle="tab" href="#new" role="tab"
+                                           aria-expanded="true">جدیدترین</a>
                                     </li>
                                     <li>
                                         <a data-toggle="tab" href="#most-seller" role="tab"
@@ -152,18 +172,23 @@
                                                 <div
                                                     class="product-seller-details product-seller-details-item-grid">
                                                         <span class="product-main-seller"><span
-                                                                class="product-seller-details-label">فروشنده:
-                                                            </span>{{ $pro->user->full_name }}</span>
+                                                                class="product-seller-details-label">{{ __('Seller') }}:
+                                                            </span>{{ $pro->user->full_name ?: '---' }}</span>
                                                     <span class="product-seller-details-badge-container"></span>
                                                 </div>
                                                 <a class="product-box-img" href="#">
-                                                    <img src="{{ $pro->get_image() }}" alt="">
+                                                    <img src="{{ $pro->get_image() }}"
+                                                         alt="@if($lang == 'fa') {{ $pro->title ?: '---' }} @else {{ $pro->en_title ?: '---' }} @endif">
                                                 </a>
                                                 <div class="product-box-content">
                                                     <div class="product-box-content-row">
                                                         <div class="product-box-title">
                                                             <a href="#">
-                                                                {{ $pro->title }}
+                                                                @if($lang == 'fa')
+                                                                    {{ $pro->title ?: '---' }}
+                                                                @else
+                                                                    {{ $pro->en_title ?: '---' }}
+                                                                @endif
                                                             </a>
                                                         </div>
                                                     </div>
@@ -171,7 +196,7 @@
                                                         <div class="price">
                                                             <div class="price-value">
                                                                 <div class="price-value-wrapper">
-                                                                    59,۰۰۰ <span
+                                                                    {{ number_format($pro->price) ?: '---' }} <span
                                                                         class="price-currency">تومان</span>
                                                                 </div>
                                                             </div>
@@ -186,38 +211,32 @@
                             </div>
                         </div>
 
-                        {{ $products->links() }}
-
                     </div>
-
-
+                    <div class="pager default text-center">
+                        <ul class="pager-items">
+                            <li>
+                                <a class="pager-item is-active" href="#">۱</a>
+                            </li>
+                            <li>
+                                <a class="pager-item" href="#">۲</a>
+                            </li>
+                            <li>
+                                <a class="pager-item" href="#">۳</a>
+                            </li>
+                            <li>
+                                <a class="pager-item" href="#">۴</a>
+                            </li>
+                            <li>
+                                <a class="pager-item" href="#">۵</a>
+                            </li>
+                            <line class="pager-items--partition"></line>
+                            <li>
+                                <a class="pager-next"></a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </main>
-
-@push('StackScript')
-    <script>
-        function FilterByQuantity(){
-            console.log('ssssssssss')
-            console.log($('#only_available_items_checkbox').prop('checked'))
-            var show_only_has_quantity_filter = $('#only_available_items_checkbox').prop('checked');
-            @this.call('filter_quantity', show_only_has_quantity_filter);
-        }
-    </script>
-
-    <script type="text/javascript">
-        document.addEventListener('DOMContentLoaded', function () {
-
-        @this.on('triggerCheckQuantity', () => {
-            console.log('ssssssssss')
-            console.log($('#only_available_items_checkbox').prop('checked'))
-            // @this.call('filter_quantity')
-                // success response
-
-        });
-        })
-    </script>
-@endpush
-

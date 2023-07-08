@@ -15,10 +15,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::get('/ddddd', function () {
-    $lang = app()->getLocale();
-    return view('test', compact('lang'));
-});
+Route::middleware(['web', 'setlocale'])
+    ->prefix('{locale}')
+    ->where(['locale' => '[a-zA-Z]{2}'])
+    ->group(function () {
+        Route::get('/ddddd', function () {
+            $lang = app()->getLocale();
+            return view('test', compact('lang'));
+        });
+    });
 
 Route::get('/', function () {
     $lang = session()->get('current_lang');

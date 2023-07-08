@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace Modules\Product\Http\Livewire\Pages\Front;
 
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -8,9 +8,13 @@ use Modules\Product\Entities\Brand;
 use Modules\Product\Entities\Category;
 use Modules\Product\Entities\Product;
 
-class TestList extends Component
+class ProductsPage extends Component
 {
     use WithPagination;
+
+    public $pagination;
+    public $website_title = '';
+    public $lang;
 
     public $categories_filter = [];
     public $brands_filter = [];
@@ -21,6 +25,13 @@ class TestList extends Component
 
     protected $paginationTheme = 'bootstrap';
 
+    public function mount()
+    {
+        $this->search = request('q');
+        $this->lang = app()->getLocale();
+        $this->pagination = env('PAGINATION', 10);
+    }
+
     public function updated($propertyName)
     {
         if (in_array($propertyName, ['search', 'pagination']))
@@ -28,7 +39,6 @@ class TestList extends Component
             $this->resetPage();
         }
     }
-
 
     public function filter_quantity($show_only_has_quantity_filter)
     {
@@ -55,15 +65,14 @@ class TestList extends Component
     public function render()
     {
         $this->products = Product::ActiveProducts()->Search($this->search)->latest();
-
         $this->Filter();
 
         $data = [
-            'products' => $this->products->paginate(2),
+            'products' => $this->products->paginate($this->pagination),
             'categories' => Category::all(),
             'brands' => Brand::all(),
         ];
 
-        return view('livewire.test-list', $data);
+        return view('product::livewire.pages.front.products-page', $data);
     }
 }
