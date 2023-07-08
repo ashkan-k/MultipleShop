@@ -13,7 +13,7 @@
                             <li>
                                     <span>
                                         @if(isset($search))
-                                            {{ __('Search') }} $search
+                                            {{ __('Search') }} {{ $search }}
                                         @else
                                             @if($lang == 'fa')
                                                 {{ $category->title ?: '---' }}
@@ -129,27 +129,23 @@
                                 <ul class="listing-sort nav nav-tabs justify-content-center" role="tablist"
                                     data-label="مرتب‌سازی بر اساس :">
                                     <li>
-                                        <a class="active" data-toggle="tab" href="#related" role="tab"
-                                           aria-expanded="false">مرتبط‌ترین</a>
-                                    </li>
-                                    <li>
-                                        <a data-toggle="tab" href="#most-view" role="tab"
+                                        <a wire:click="ChangeOrderBy('view_count')" class="{{ $order_by == 'view_count' ? 'active' : '' }}" data-toggle="tab" href="#most-view" role="tab"
                                            aria-expanded="false">پربازدیدترین</a>
                                     </li>
                                     <li>
-                                        <a data-toggle="tab" href="#new" role="tab"
+                                        <a wire:click="ChangeOrderBy('created_at')" class="{{ $order_by == 'created_at' ? 'active' : '' }}" data-toggle="tab" href="#new" role="tab"
                                            aria-expanded="true">جدیدترین</a>
                                     </li>
                                     <li>
-                                        <a data-toggle="tab" href="#most-seller" role="tab"
+                                        <a wire:click="ChangeOrderBy('order_count')" class="{{ $order_by == 'order_count' ? 'active' : '' }}" data-toggle="tab" href="#most-seller" role="tab"
                                            aria-expanded="false">پرفروش‌ترین‌</a>
                                     </li>
                                     <li>
-                                        <a data-toggle="tab" href="#down-price" role="tab"
+                                        <a wire:click="ChangeOrderBy('price_ask')" class="{{ $order_by == 'price_ask' ? 'active' : '' }}" data-toggle="tab" href="#down-price" role="tab"
                                            aria-expanded="false">ارزان‌ترین</a>
                                     </li>
                                     <li>
-                                        <a data-toggle="tab" href="#top-price" role="tab"
+                                        <a wire:click="ChangeOrderBy('price')" class="{{ $order_by == 'price' ? 'active' : '' }}" data-toggle="tab" href="#top-price" role="tab"
                                            aria-expanded="false">گران‌ترین</a>
                                     </li>
                                 </ul>
