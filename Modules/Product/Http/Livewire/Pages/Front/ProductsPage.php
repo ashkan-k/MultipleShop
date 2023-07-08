@@ -21,6 +21,9 @@ class ProductsPage extends Component
     public $search = '';
     public $show_only_has_quantity_filter = false;
 
+    public $category_search = '';
+    public $brand_search = '';
+
     protected $products;
 
     protected $paginationTheme = 'bootstrap';
@@ -45,6 +48,18 @@ class ProductsPage extends Component
         $this->show_only_has_quantity_filter = $show_only_has_quantity_filter;
     }
 
+    public function GetCategories()
+    {
+        return Category::Search($this->category_search)->get();
+    }
+
+    public function GetBrands()
+    {
+        return Brand::Search($this->brand_search)->get();
+    }
+
+    //
+
     private function Filter()
     {
         if ($this->categories_filter){
@@ -60,8 +75,6 @@ class ProductsPage extends Component
         }
     }
 
-    //
-
     public function render()
     {
         $this->products = Product::ActiveProducts()->Search($this->search)->latest();
@@ -69,8 +82,8 @@ class ProductsPage extends Component
 
         $data = [
             'products' => $this->products->paginate($this->pagination),
-            'categories' => Category::all(),
-            'brands' => Brand::all(),
+            'categories' => $this->GetCategories(),
+            'brands' => $this->GetBrands(),
         ];
 
         return view('product::livewire.pages.front.products-page', $data);
