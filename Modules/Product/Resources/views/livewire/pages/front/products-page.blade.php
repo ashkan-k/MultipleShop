@@ -38,40 +38,44 @@
                     </div>
                 </div>
                 <div class="box">
-                    <div>
-                        <div class="box-header">
-                            <div class="box-toggle" data-toggle="collapse" href="#collapseExample1" role="button"
-                                 aria-expanded="true" aria-controls="collapseExample1">
-                                {{ __('Categorize the results') }}
-                                <i class="now-ui-icons arrows-1_minimal-down"></i>
-                            </div>
-                        </div>
-                        <div class="box-content">
-                            <div class="collapse show" id="collapseExample1">
-                                <div class="ui-input ui-input--quick-search">
-                                    <input type="text" class="ui-input-field ui-input-field--cleanable"
-                                           ng-model="search_categories" wire:model.debounce.300ms="category_search"
-                                           placeholder="{{ __('Write the name of the desired category...') }}">
-                                    <span class="ui-input-cleaner"></span>
-                                </div>
 
-                                <div class="filter-option">
-
-                                    @foreach($categories as $cat)
-                                        <div class="checkbox">
-                                            <input id="checkbox_{{ $cat->id }}" value="{{ $cat->id }}"
-                                                   wire:model.debounce.1000ms="categories_filter.{{ $cat->id }}"
-                                                   type="checkbox">
-                                            <label for="checkbox_{{ $cat->id }}">
-                                                @if($lang == 'fa') {{ $cat->title }} @else {{ $cat->en_title }} @endif
-                                            </label>
-                                        </div>
-                                    @endforeach
-
+                    @foreach($filters as $fi)
+                        <div>
+                            <div class="box-header">
+                                <div class="box-toggle" data-toggle="collapse" href="#collapseExample_{{ $fi->id }}" role="button"
+                                     aria-expanded="true" aria-controls="collapseExample1">
+                                    {{ $fi->title }}
+                                    <i class="now-ui-icons arrows-1_minimal-down"></i>
                                 </div>
                             </div>
+                            <div class="box-content">
+                                <div class="collapse" id="collapseExample_{{ $fi->id }}">
+                                    <div class="ui-input ui-input--quick-search">
+                                        <input type="text" class="ui-input-field ui-input-field--cleanable"
+                                               ng-model="search_categories" wire:model.debounce.300ms="category_search"
+                                               placeholder="{{ __('Write the name of the desired category...') }}">
+                                        <span class="ui-input-cleaner"></span>
+                                    </div>
+
+                                    <div class="filter-option">
+
+                                        @foreach(explode('،', $fi->filter_items) as $fil_item)
+                                            <div class="checkbox">
+                                                <input id="checkbox_{{ $fil_item }}" value="{{ $fil_item }}"
+                                                       wire:model.debounce.1000ms="categories_filter.{{ $fil_item }}"
+                                                       type="checkbox">
+                                                <label for="checkbox_{{ $fil_item }}">
+                                                    {{ $fil_item }}
+                                                </label>
+                                            </div>
+                                        @endforeach
+
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
+                    @endforeach
+
                 </div>
 
                 <div class="box" wire:ignore>
@@ -210,3 +214,10 @@
         </div>
     </div>
 </main>
+
+<script>
+    function FilterByQuantity(){
+        var show_only_has_quantity_filter = $('#only_available_items_checkbox').prop('checked');
+        @this.call('FilterByQuantity', show_only_has_quantity_filter);
+    }
+</script>

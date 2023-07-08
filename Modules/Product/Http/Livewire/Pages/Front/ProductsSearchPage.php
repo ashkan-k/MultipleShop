@@ -55,7 +55,7 @@ class ProductsSearchPage extends Component
 
     //
 
-    public function FilterQuantity($show_only_has_quantity_filter)
+    public function FilterByQuantity($show_only_has_quantity_filter)
     {
         $this->show_only_has_quantity_filter = $show_only_has_quantity_filter;
     }

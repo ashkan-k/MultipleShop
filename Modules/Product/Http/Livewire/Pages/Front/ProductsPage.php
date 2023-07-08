@@ -51,7 +51,7 @@ class ProductsPage extends Component
 
     //
 
-    public function FilterQuantity($show_only_has_quantity_filter)
+    public function FilterByQuantity($show_only_has_quantity_filter)
     {
         $this->show_only_has_quantity_filter = $show_only_has_quantity_filter;
     }
@@ -92,15 +92,12 @@ class ProductsPage extends Component
         $this->products = $this->object->products()->ActiveProducts()
             ->with(['user'])->Search($this->search);
 
-        $filters = $this->object->features()->with(['products'])->get();
-        dd($filters);
-
         $this->Filter();
         $this->OrderByItems();
 
         $data = [
             'products' => $this->products->paginate($this->pagination),
-            'categories' => $this->GetCategories(),
+            'filters' => $this->object->features()->get(),
         ];
 
         return view('product::livewire.pages.front.products-page', $data);
