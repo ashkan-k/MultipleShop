@@ -83,6 +83,11 @@ class Category extends Model
         return $this->is_special ? 'danger' : 'success';
     }
 
+    public function get_slug($lang)
+    {
+        return $lang == 'fa' ? $this->slug : $this->en_slug;
+    }
+
     protected static function newFactory()
     {
         return \Modules\Product\Database\factories\CategoryFactory::new();

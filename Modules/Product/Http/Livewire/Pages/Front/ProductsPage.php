@@ -4,11 +4,11 @@ namespace Modules\Product\Http\Livewire\Pages\Front;
 
 use Livewire\Component;
 use Livewire\WithPagination;
-use Modules\Product\Entities\Brand;
 use Modules\Product\Entities\Category;
+use Modules\Product\Entities\Feature;
 use Modules\Product\Entities\Product;
 
-class ProductsSearchPage extends Component
+class ProductsPage extends Component
 {
     use WithPagination;
 
@@ -26,6 +26,7 @@ class ProductsSearchPage extends Component
     public $brand_search = '';
 
     protected $products;
+    public $object;
 
     protected $paginationTheme = 'bootstrap';
 
@@ -46,11 +47,6 @@ class ProductsSearchPage extends Component
     public function GetCategories()
     {
         return Category::Search($this->category_search)->get();
-    }
-
-    public function GetBrands()
-    {
-        return Brand::Search($this->brand_search)->get();
     }
 
     //
@@ -93,7 +89,11 @@ class ProductsSearchPage extends Component
 
     public function render()
     {
-        $this->products = Product::ActiveProducts()->with(['user'])->Search($this->search);
+        $this->products = $this->object->products()->ActiveProducts()
+            ->with(['user'])->Search($this->search);
+
+        $filters = $this->object->features()->with(['products'])->get();
+        dd($filters);
 
         $this->Filter();
         $this->OrderByItems();
@@ -101,9 +101,8 @@ class ProductsSearchPage extends Component
         $data = [
             'products' => $this->products->paginate($this->pagination),
             'categories' => $this->GetCategories(),
-            'brands' => $this->GetBrands(),
         ];
 
-        return view('product::livewire.pages.front.products-search-page', $data);
+        return view('product::livewire.pages.front.products-page', $data);
     }
 }

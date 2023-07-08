@@ -115,7 +115,7 @@
                                                                 @foreach($child_2->children as $child_3)
 
                                                                     <li>
-                                                                        <a href="#">@if($lang == 'fa'){{ $child_3->title ?: '---' }}@else{{ $child_3->en_title ?: '---' }}@endif</a>
+                                                                        <a href="{{ route('category.products', $child_3->get_slug($lang)) }}">@if($lang == 'fa'){{ $child_3->title ?: '---' }}@else{{ $child_3->en_title ?: '---' }}@endif</a>
                                                                     </li>
 
                                                                 @endforeach
@@ -126,7 +126,7 @@
                                                     @else
 
                                                         <li>
-                                                            <a href="#">@if($lang == 'fa'){{ $child_2->title ?: '---' }}@else{{ $child_2->en_title ?: '---' }}@endif</a>
+                                                            <a href="{{ route('category.products', $child_2->get_slug($lang)) }}">@if($lang == 'fa'){{ $child_2->title ?: '---' }}@else{{ $child_2->en_title ?: '---' }}@endif</a>
                                                         </li>
 
                                                     @endif
@@ -139,7 +139,7 @@
                                     @else
 
                                         <li>
-                                            <a href="#">@if($lang == 'fa'){{ $child_1->title ?: '---' }}@else{{ $child_1->en_title ?: '---' }}@endif</a>
+                                            <a href="{{ route('category.products', $child_1->get_slug($lang)) }}">@if($lang == 'fa'){{ $child_1->title ?: '---' }}@else{{ $child_1->en_title ?: '---' }}@endif</a>
                                         </li>
 
                                     @endif
@@ -152,7 +152,7 @@
                     @else
 
                         <li>
-                            <a href="#">@if($lang == 'fa'){{ $main_cat->title ?: '---' }}@else{{ $main_cat->en_title ?: '---' }}@endif</a>
+                            <a href="{{ route('category.products', $main_cat->get_slug($lang)) }}">@if($lang == 'fa'){{ $main_cat->title ?: '---' }}@else{{ $main_cat->en_title ?: '---' }}@endif</a>
                         </li>
 
                     @endif
@@ -282,7 +282,7 @@
 
                                                                         <li class="list-item">
                                                                             <a class="nav-link"
-                                                                               href="#">@if($lang == 'fa'){{ $child_3->title ?: '---' }}@else{{ $child_3->en_title ?: '---' }}@endif</a>
+                                                                               href="{{ route('category.products', $child_3->get_slug($lang)) }}">@if($lang == 'fa'){{ $child_3->title ?: '---' }}@else{{ $child_3->en_title ?: '---' }}@endif</a>
                                                                         </li>
 
                                                                     @endforeach
@@ -294,7 +294,7 @@
 
                                                             <li class="list-item">
                                                                 <a class="nav-link"
-                                                                   href="#">@if($lang == 'fa'){{ $child_2->title ?: '---' }}@else{{ $child_2->en_title ?: '---' }}@endif</a>
+                                                                   href="{{ route('category.products', $child_2->get_slug($lang)) }}">@if($lang == 'fa'){{ $child_2->title ?: '---' }}@else{{ $child_2->en_title ?: '---' }}@endif</a>
                                                             </li>
 
                                                         @endif
@@ -309,7 +309,7 @@
                                             <li class="list-item list-item-has-children">
                                                 <i class="now-ui-icons arrows-1_minimal-left"></i><a
                                                     class="main-list-item nav-link"
-                                                    href="#">@if($lang == 'fa'){{ $child_1->title ?: '---' }}@else{{ $child_1->en_title ?: '---' }}@endif</a>
+                                                    href="{{ route('category.products', $child_1->get_slug($lang)) }}">@if($lang == 'fa'){{ $child_1->title ?: '---' }}@else{{ $child_1->en_title ?: '---' }}@endif</a>
                                             </li>
 
                                         @endif
@@ -324,7 +324,7 @@
                         @else
                             <li class="list-item">
                                 <a class="nav-link"
-                                   href="#">@if($lang == 'fa'){{ $main_cat->title ?: '---' }}@else{{ $main_cat->en_title ?: '---' }}@endif</a>
+                                   href="{{ route('category.products', $main_cat->get_slug($lang)) }}">@if($lang == 'fa'){{ $main_cat->title ?: '---' }}@else{{ $main_cat->en_title ?: '---' }}@endif</a>
                             </li>
                         @endif
 

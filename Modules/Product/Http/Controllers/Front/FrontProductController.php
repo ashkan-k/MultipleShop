@@ -21,6 +21,11 @@ class FrontProductController extends Controller
 
     private $relations = ['user', 'category'];
 
+    public function products($lang, Category $category)
+    {
+        return view('product::front.products', compact('category'));
+    }
+
     public function search()
     {
         return view('product::front.products-search');
