@@ -447,67 +447,7 @@
                                             </h2>
                                             <div class="comments-area default">
                                                 <ol class="comment-list">
-                                                    <!-- #comment-## -->
-                                                    <li>
-                                                        <div class="comment-body">
-                                                            <div class="row">
-                                                                <div class="col-md-3 col-sm-12">
-                                                                    <div
-                                                                        class="message-light message-light--purchased">
-                                                                        خریدار این محصول
-                                                                    </div>
-                                                                    <ul class="comments-user-shopping">
-                                                                        <li>
-                                                                            <div class="cell">رنگ خریداری
-                                                                                شده:
-                                                                            </div>
-                                                                            <div class="cell color-cell">
-                                                                                        <span
-                                                                                            class="shopping-color-value"
-                                                                                            style="background-color: #FFFFFF; border: 1px solid rgba(0, 0, 0, 0.25)"></span>سفید
-                                                                            </div>
-                                                                        </li>
-                                                                        <li>
-                                                                            <div class="cell">خریداری شده
-                                                                                از:
-                                                                            </div>
-                                                                            <div class="cell seller-cell">
-                                                                                        <span
-                                                                                            class="o-text-blue">دیجی‌کالا</span>
-                                                                            </div>
-                                                                        </li>
-                                                                    </ul>
-                                                                    <div
-                                                                        class="message-light message-light--opinion-positive">
-                                                                        خرید این محصول را توصیه می‌کنم
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-9 col-sm-12 comment-content">
-                                                                    <div class="comment-title">
-                                                                        لباسشویی سامسونگ
-                                                                    </div>
-                                                                    <div class="comment-author">
-                                                                        توسط مجید سجادی فرد در تاریخ ۵ مهر ۱۳۹۵
-                                                                    </div>
 
-                                                                    <p>لورم ایپسوم متن ساختگی</p>
-
-                                                                    <div class="footer">
-                                                                        <div class="comments-likes">
-                                                                            آیا این نظر برایتان مفید بود؟
-                                                                            <button class="btn-like"
-                                                                                    data-counter="۱۱">بله
-                                                                            </button>
-                                                                            <button class="btn-like"
-                                                                                    data-counter="۶">خیر
-                                                                            </button>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </li>
-                                                    <!-- #comment-## -->
                                                     <li>
                                                         <div class="comment-body">
                                                             <div class="row">
@@ -611,186 +551,7 @@
                                                             </div>
                                                         </div>
                                                     </li>
-                                                    <!-- #comment-## -->
-                                                    <li>
-                                                        <div class="comment-body">
-                                                            <div class="row">
-                                                                <div class="col-md-3 col-sm-12">
-                                                                    <div
-                                                                        class="message-light message-light--purchased">
-                                                                        خریدار این محصول
-                                                                    </div>
-                                                                    <ul class="comments-user-shopping">
-                                                                        <li>
-                                                                            <div class="cell">رنگ خریداری
-                                                                                شده:
-                                                                            </div>
-                                                                            <div class="cell color-cell">
-                                                                                        <span
-                                                                                            class="shopping-color-value"
-                                                                                            style="background-color: #FFFFFF; border: 1px solid rgba(0, 0, 0, 0.25)"></span>سفید
-                                                                            </div>
-                                                                        </li>
-                                                                        <li>
-                                                                            <div class="cell">خریداری شده
-                                                                                از:
-                                                                            </div>
-                                                                            <div class="cell seller-cell">
-                                                                                        <span
-                                                                                            class="o-text-blue">دیجی‌کالا</span>
-                                                                            </div>
-                                                                        </li>
-                                                                    </ul>
-                                                                    <div
-                                                                        class="message-light message-light--opinion-positive">
-                                                                        خرید این محصول را توصیه می‌کنم
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-9 col-sm-12 comment-content">
-                                                                    <div class="comment-title">
-                                                                        لباسشویی سامسونگ
-                                                                    </div>
-                                                                    <div class="comment-author">
-                                                                        توسط مجید سجادی فرد در تاریخ ۵ مهر ۱۳۹۵
-                                                                    </div>
 
-                                                                    <p>لورم ایپسوم متن ساختگی</p>
-
-                                                                    <div class="footer">
-                                                                        <div class="comments-likes">
-                                                                            آیا این نظر برایتان مفید بود؟
-                                                                            <button class="btn-like"
-                                                                                    data-counter="۱۱">بله
-                                                                            </button>
-                                                                            <button class="btn-like"
-                                                                                    data-counter="۶">خیر
-                                                                            </button>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </li>
-                                                    <!-- #comment-## -->
-                                                    <li>
-                                                        <div class="comment-body">
-                                                            <div class="row">
-                                                                <div class="col-md-3 col-sm-12">
-                                                                    <div
-                                                                        class="message-light message-light--purchased">
-                                                                        خریدار این محصول
-                                                                    </div>
-                                                                    <ul class="comments-user-shopping">
-                                                                        <li>
-                                                                            <div class="cell">رنگ خریداری
-                                                                                شده:
-                                                                            </div>
-                                                                            <div class="cell color-cell">
-                                                                                        <span
-                                                                                            class="shopping-color-value"
-                                                                                            style="background-color: #FFFFFF; border: 1px solid rgba(0, 0, 0, 0.25)"></span>سفید
-                                                                            </div>
-                                                                        </li>
-                                                                        <li>
-                                                                            <div class="cell">خریداری شده
-                                                                                از:
-                                                                            </div>
-                                                                            <div class="cell seller-cell">
-                                                                                        <span
-                                                                                            class="o-text-blue">دیجی‌کالا</span>
-                                                                            </div>
-                                                                        </li>
-                                                                    </ul>
-                                                                    <div
-                                                                        class="message-light message-light--opinion-positive">
-                                                                        خرید این محصول را توصیه می‌کنم
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-9 col-sm-12 comment-content">
-                                                                    <div class="comment-title">
-                                                                        لباسشویی سامسونگ
-                                                                    </div>
-                                                                    <div class="comment-author">
-                                                                        توسط مجید سجادی فرد در تاریخ ۵ مهر ۱۳۹۵
-                                                                    </div>
-
-                                                                    <p>لورم ایپسوم متن ساختگی</p>
-
-                                                                    <div class="footer">
-                                                                        <div class="comments-likes">
-                                                                            آیا این نظر برایتان مفید بود؟
-                                                                            <button class="btn-like"
-                                                                                    data-counter="۱۱">بله
-                                                                            </button>
-                                                                            <button class="btn-like"
-                                                                                    data-counter="۶">خیر
-                                                                            </button>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </li>
-                                                    <!-- #comment-## -->
-                                                    <li>
-                                                        <div class="comment-body">
-                                                            <div class="row">
-                                                                <div class="col-md-3 col-sm-12">
-                                                                    <div
-                                                                        class="message-light message-light--purchased">
-                                                                        خریدار این محصول
-                                                                    </div>
-                                                                    <ul class="comments-user-shopping">
-                                                                        <li>
-                                                                            <div class="cell">رنگ خریداری
-                                                                                شده:
-                                                                            </div>
-                                                                            <div class="cell color-cell">
-                                                                                        <span
-                                                                                            class="shopping-color-value"
-                                                                                            style="background-color: #FFFFFF; border: 1px solid rgba(0, 0, 0, 0.25)"></span>سفید
-                                                                            </div>
-                                                                        </li>
-                                                                        <li>
-                                                                            <div class="cell">خریداری شده
-                                                                                از:
-                                                                            </div>
-                                                                            <div class="cell seller-cell">
-                                                                                        <span
-                                                                                            class="o-text-blue">دیجی‌کالا</span>
-                                                                            </div>
-                                                                        </li>
-                                                                    </ul>
-                                                                    <div
-                                                                        class="message-light message-light--opinion-positive">
-                                                                        خرید این محصول را توصیه می‌کنم
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-9 col-sm-12 comment-content">
-                                                                    <div class="comment-title">
-                                                                        لباسشویی سامسونگ
-                                                                    </div>
-                                                                    <div class="comment-author">
-                                                                        توسط مجید سجادی فرد در تاریخ ۵ مهر ۱۳۹۵
-                                                                    </div>
-
-                                                                    <p>لورم ایپسوم متن ساختگی</p>
-
-                                                                    <div class="footer">
-                                                                        <div class="comments-likes">
-                                                                            آیا این نظر برایتان مفید بود؟
-                                                                            <button class="btn-like"
-                                                                                    data-counter="۱۱">بله
-                                                                            </button>
-                                                                            <button class="btn-like"
-                                                                                    data-counter="۶">خیر
-                                                                            </button>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </li>
                                                 </ol>
                                             </div>
                                         </article>
@@ -827,101 +588,36 @@
                             <h3 class="card-title">
                                 <span>همچنین ممکن است دوست داشته باشید ...</span>
                             </h3>
-                            <a href="#" class="view-all">مشاهده همه</a>
+                            <a href="{{ route('products_list') }}" class="view-all">مشاهده همه</a>
                         </header>
                         <div class="product-carousel owl-carousel owl-theme">
-                            <div class="item">
-                                <a href="#">
-                                    <img src="/front/assets/img/amazing-slider/8eb96c-200x200.jpg"
-                                         class="img-fluid" alt="">
-                                </a>
-                                <h2 class="post-title">
-                                    <a href="#">اسپیکر ایستاده دارای رقص نور ارتفا 110cm INSPIRON 3168 -AC B</a>
-                                </h2>
-                                <div class="price">
-                                    <div class="text-center">
-                                        <del><span>4,299,000<span>تومان</span></span></del>
+
+                            @foreach($may_like_products as $may_like_pro)
+                                <div class="item">
+                                    <a href="{{ route('product_detail', $may_like_pro->get_slug($lang)) }}">
+                                        <img src="{{ $may_like_pro->get_image() }}"
+                                             class="img-fluid" alt="{{ $may_like_pro->get_title($lang) }}">
+                                    </a>
+                                    <h2 class="post-title">
+                                        <a href="{{ route('product_detail', $may_like_pro->get_slug($lang)) }}">{{ $may_like_pro->get_title($lang) }}</a>
+                                    </h2>
+                                    <div class="price">
+                                        @if($may_like_pro->discount_price)
+                                            <div class="text-center">
+                                                <del>
+                                                    <span>{{ number_format($may_like_pro->discount_price) }}<span>تومان</span></span>
+                                                </del>
+                                            </div>
+                                        @endif
+                                        <div class="text-center">
+                                            <ins>
+                                                <span>{{ number_format($may_like_pro->price) }}<span>تومان</span></span>
+                                            </ins>
+                                        </div>
                                     </div>
-                                    <div class="text-center">
-                                        <ins><span>4,180,000<span>تومان</span></span></ins>
-                                    </div>
                                 </div>
-                            </div>
-                            <div class="item">
-                                <a href="#">
-                                    <img src="/front/assets/img/amazing-slider/59fc05-200x200.jpg"
-                                         class="img-fluid" alt="">
-                                </a>
-                                <h2 class="post-title">
-                                    <a href="#">یخچال ساید بای ساید 2023 مدل 5471</a>
-                                </h2>
-                                <div class="price">
-                                    <del><span>69,890,000<span>تومان</span></span></del>
-                                    <ins><span>45,580,000<span>تومان</span></span></ins>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <a href="#">
-                                    <img src="/front/assets/img/amazing-slider/60eb20-200x200.jpg"
-                                         class="img-fluid" alt="">
-                                </a>
-                                <h2 class="post-title">
-                                    <a href="#">usb ADATAM مدل Latitude 5580</a>
-                                </h2>
-                                <div class="price">
-                                    <del><span>4,799,000<span>تومان</span></span></del>
-                                    <ins><span>4,699,000<span>تومان</span></span></ins>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <a href="#">
-                                    <img src="/front/assets/img/amazing-slider/4ff777-200x200.jpg"
-                                         class="img-fluid" alt="">
-                                </a>
-                                <h2 class="post-title">
-                                    <a href="#">اسپیکر power- با دو بلنگو مجزاINSPIRON 15-3567 - I</a>
-                                </h2>
-                                <div class="price">
-                                    <span>2,780,000<span>تومان</span></span>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <a href="#">
-                                    <img src="/front/assets/img/amazing-slider/35a2b8-200x200.jpg"
-                                         class="img-fluid" alt="">
-                                </a>
-                                <h2 class="post-title">
-                                    <a href="#">ساعت هوشمند شیائومی - صفحه گرد</a>
-                                </h2>
-                                <div class="price">
-                                    <del><span>8,999,000<span>تومان</span></span></del>
-                                    <ins><span>8,899,000<span>تومان</span></span></ins>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <a href="#">
-                                    <img src="/front/assets/img/amazing-slider/36855a-200x200.jpg"
-                                         class="img-fluid" alt="">
-                                </a>
-                                <h2 class="post-title">
-                                    <a href="#">تبسنج دستی مدل 2022 Inspiron 15-5570 </a>
-                                </h2>
-                                <div class="price">
-                                    <span>4,279,000<span>تومان</span></span>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <a href="#">
-                                    <img src="/front/assets/img/amazing-slider/c8297f-200x200.jpg"
-                                         class="img-fluid" alt="">
-                                </a>
-                                <h2 class="post-title">
-                                    <a href="#">air pod شیائومی XPS 15-9560</a>
-                                </h2>
-                                <div class="price">
-                                    <span>450,000<span>تومان</span></span>
-                                </div>
-                            </div>
+                            @endforeach
+
                         </div>
                     </div>
                 </div>
@@ -936,101 +632,28 @@
                             <h3 class="card-title">
                                 <span>محصولات مرتبط</span>
                             </h3>
-                            <a href="#" class="view-all">مشاهده همه</a>
+                            <a href="{{ route('products_list') }}" class="view-all">مشاهده همه</a>
                         </header>
                         <div class="product-carousel owl-carousel owl-theme">
-                            <div class="item">
-                                <a href="#">
-                                    <img src="/front/assets/img/amazing-slider/60eb20-200x200.jpg"
-                                         class="img-fluid" alt="">
-                                </a>
-                                <h2 class="post-title">
-                                    <a href="#">usb ADATAM مدل Latitude 5580</a>
-                                </h2>
-                                <div class="price">
-                                    <del><span>4,799,000<span>تومان</span></span></del>
-                                    <ins><span>4,699,000<span>تومان</span></span></ins>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <a href="#">
-                                    <img src="/front/assets/img/amazing-slider/59fc05-200x200.jpg"
-                                         class="img-fluid" alt="">
-                                </a>
-                                <h2 class="post-title">
-                                    <a href="#">یخچال ساید بای ساید 2023 مدل 5471</a>
-                                </h2>
-                                <div class="price">
-                                    <del><span>69,890,000<span>تومان</span></span></del>
-                                    <ins><span>45,580,000<span>تومان</span></span></ins>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <a href="#">
-                                    <img src="/front/assets/img/amazing-slider/4ff777-200x200.jpg"
-                                         class="img-fluid" alt="">
-                                </a>
-                                <h2 class="post-title">
-                                    <a href="#">اسپیکر power- با دو بلنگو مجزاINSPIRON 15-3567 - I</a>
-                                </h2>
-                                <div class="price">
-                                    <span>2,780,000<span>تومان</span></span>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <a href="#">
-                                    <img src="/front/assets/img/amazing-slider/36855a-200x200.jpg"
-                                         class="img-fluid" alt="">
-                                </a>
-                                <h2 class="post-title">
-                                    <a href="#">تبسنج دستی مدل 2022 Inspiron 15-5570 </a>
-                                </h2>
-                                <div class="price">
-                                    <span>4,279,000<span>تومان</span></span>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <a href="#">
-                                    <img src="/front/assets/img/amazing-slider/8eb96c-200x200.jpg"
-                                         class="img-fluid" alt="">
-                                </a>
-                                <h2 class="post-title">
-                                    <a href="#">اسپیکر ایستاده دارای رقص نور ارتفا 110cm INSPIRON 3168 -AC B</a>
-                                </h2>
-                                <div class="price">
-                                    <div class="text-center">
-                                        <del><span>4,299,000<span>تومان</span></span></del>
-                                    </div>
-                                    <div class="text-center">
-                                        <ins><span>4,180,000<span>تومان</span></span></ins>
+
+                            @foreach($related_products as $related_pro)
+                                <div class="item">
+                                    <a href="{{ route('product_detail', $related_pro->get_slug($lang)) }}">
+                                        <img src="{{ $related_pro->get_image() }}"
+                                             class="img-fluid" alt="{{ $related_pro->get_title($lang) }}">
+                                    </a>
+                                    <h2 class="post-title">
+                                        <a href="{{ route('product_detail', $related_pro->get_slug($lang)) }}">{{ $related_pro->get_title($lang) }}</a>
+                                    </h2>
+                                    <div class="price">
+                                        @if($related_pro->discount_price)
+                                            <del><span>{{ number_format($related_pro->discount_price) }}<span>تومان</span></span></del>
+                                        @endif
+
+                                        <ins><span>{{ number_format($related_pro->price) }}<span>تومان</span></span></ins>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="item">
-                                <a href="#">
-                                    <img src="/front/assets/img/amazing-slider/35a2b8-200x200.jpg"
-                                         class="img-fluid" alt="">
-                                </a>
-                                <h2 class="post-title">
-                                    <a href="#">ساعت هوشمند شیائومی - صفحه گرد</a>
-                                </h2>
-                                <div class="price">
-                                    <del><span>8,999,000<span>تومان</span></span></del>
-                                    <ins><span>8,899,000<span>تومان</span></span></ins>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <a href="#">
-                                    <img src="/front/assets/img/amazing-slider/c8297f-200x200.jpg"
-                                         class="img-fluid" alt="">
-                                </a>
-                                <h2 class="post-title">
-                                    <a href="#">air pod شیائومی XPS 15-9560</a>
-                                </h2>
-                                <div class="price">
-                                    <span>450,000<span>تومان</span></span>
-                                </div>
-                            </div>
+                            @endforeach
 
                         </div>
                     </div>

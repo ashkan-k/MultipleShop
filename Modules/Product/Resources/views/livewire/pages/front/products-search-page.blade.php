@@ -15,11 +15,7 @@
                                         @if(isset($search))
                                             {{ __('Search') }} {{ $search }}
                                         @else
-                                            @if($lang == 'fa')
-                                                {{ $category->title ?: '---' }}
-                                            @else
-                                                {{ $category->en_title ?: '---' }}
-                                            @endif
+                                            {{ __('Products') }}
                                         @endif
                                     </span>
                             </li>

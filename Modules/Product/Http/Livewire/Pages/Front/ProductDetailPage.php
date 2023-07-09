@@ -6,6 +6,7 @@ use Livewire\Component;
 use Livewire\WithPagination;
 use Modules\Comment\Entities\Comment;
 use Modules\Product\Entities\Color;
+use Modules\Product\Entities\Product;
 
 class ProductDetailPage extends Component
 {
@@ -37,6 +38,8 @@ class ProductDetailPage extends Component
             'comments' => $this->object->comments()->where('status', 'approved')->with(['user', 'product']),
             'top_features' => $this->object->product_features()->whereIn('place', ['up', 'both'])->with('feature')->get(),
             'bottom_features' => $this->object->product_features()->whereIn('place', ['down', 'both'])->with('feature')->get(),
+            'may_like_products' => Product::ActiveProducts()->where('brand_id', $this->object->brand_id)->get(),
+            'related_products' => Product::ActiveProducts()->where('category_id', $this->object->category_id)->get(),
         ];
 
         return view('product::livewire.pages.front.product-detail-page', $data);
