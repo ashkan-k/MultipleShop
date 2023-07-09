@@ -42,14 +42,16 @@
                     @foreach($filters as $fi)
                         <div>
                             <div class="box-header">
-                                <div class="box-toggle" data-toggle="collapse" href="#collapseExample_{{ $fi->id }}" role="button"
+                                <div class="box-toggle" data-toggle="collapse" href="#collapseExample_{{ $fi->id }}"
+                                     role="button"
                                      aria-expanded="true" aria-controls="collapseExample1">
                                     {{ $fi->title }}
                                     <i class="now-ui-icons arrows-1_minimal-down"></i>
                                 </div>
                             </div>
                             <div class="box-content">
-                                <div class="collapse {{ $is_first_page_visit ? '' : 'show' }}" id="collapseExample_{{ $fi->id }}">
+                                <div class="collapse {{ $is_first_page_visit ? '' : 'show' }}"
+                                     id="collapseExample_{{ $fi->id }}">
                                     <div class="ui-input ui-input--quick-search">
                                         <input type="text" class="ui-input-field ui-input-field--cleanable"
                                                ng-model="search_categories" wire:model.debounce.300ms="category_search"
@@ -60,15 +62,29 @@
                                     <div class="filter-option">
 
                                         @foreach(explode('،', $fi->filter_items) as $fil_item)
-                                            <div class="checkbox">
-                                                <input id="checkbox_{{ $fil_item }}" value="{{ $fil_item }}"
-{{--                                                       wire:click="$emit('triggerDelete' , '{{ $fil_item }}')"--}}
-                                                       wire:model.debounce.1000ms="selected_filters.{{ $fi->filter_type }}"
-                                                       type="checkbox">
-                                                <label for="checkbox_{{ $fil_item }}">
-                                                    {{ $fil_item }}
-                                                </label>
-                                            </div>
+                                            @if($fi->filter_type == 'checkbox')
+                                                <div class="checkbox">
+                                                    <input id="checkbox_{{ $fil_item }}" value="{{ $fil_item }}"
+                                                           {{--                                                       wire:click="$emit('triggerDelete' , '{{ $fil_item }}')"--}}
+                                                           wire:model.debounce.1000ms="selected_filters.{{ $fi->id }}_{{ $fi->filter_type }}.{{ $fil_item }}"
+                                                           type="checkbox">
+                                                    <label for="checkbox_{{ $fil_item }}">
+                                                        {{ $fil_item }}
+                                                    </label>
+                                                </div>
+                                            @else
+                                                <div class="">
+                                                    <input id="checkbox_{{ $fil_item }}" value="{{ $fil_item }}"
+                                                           name="{{ $fi->title }}_{{ $fi->id }}"
+                                                           wire:model.debounce.1000ms="selected_filters.{{ $fi->id }}_{{ $fi->filter_type }}.{{ $fil_item }}"
+                                                           type="radio">
+                                                    <label for="checkbox_{{ $fil_item }}">
+                                                        {{ $fil_item }}
+                                                    </label>
+                                                </div>
+                                            @endif
+
+
                                         @endforeach
 
                                     </div>
@@ -217,20 +233,20 @@
 </main>
 
 <script>
-    function FilterByQuantity(){
+    function FilterByQuantity() {
         var show_only_has_quantity_filter = $('#only_available_items_checkbox').prop('checked');
-        @this.call('FilterByQuantity', show_only_has_quantity_filter);
+    @this.call('FilterByQuantity', show_only_has_quantity_filter);
     }
 </script>
 
 @push('StackScript')
-<script type="text/javascript">
-    document.addEventListener('DOMContentLoaded', function () {
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function () {
 
-    @this.on('triggerDelete', orderId => {
-        console.log(orderId)
-         @this.call('sss', orderId);
-    });
-    })
-</script>
+        @this.on('triggerDelete', orderId => {
+            console.log(orderId)
+        @this.call('sss', orderId);
+        });
+        })
+    </script>
 @endpush

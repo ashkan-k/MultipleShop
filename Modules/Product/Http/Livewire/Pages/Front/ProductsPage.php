@@ -66,14 +66,24 @@ class ProductsPage extends Component
     private function Filter()
     {
         if ($this->selected_filters) {
-            foreach ($this->selected_filters as $key => $filter){
-                if ($key == 'checkbox'){
-                    $this->products = $this->products->whereHas('product_features', function ($query) use ($filter){
-                        return $query->where('value', $filter);
+
+            foreach ($this->selected_filters as $key => $filter) {
+                $feature_id = explode('_', $key)[0];
+                $feature_type = explode('_', $key)[1];
+
+                $filter = array_values($filter);
+
+                if ($feature_type == 'checkbox') {
+                    $filter = array_filter($filter, function ($item) {
+                        return $item !== false;
                     });
-                }else{
-                    $this->products = $this->products->whereHas('product_features', function ($query) use ($filter){
-                        return $query->where('value', $filter);
+
+                    $this->products = $this->products->whereHas('product_features', function ($query) use ($filter, $feature_id) {
+                        return $query->whereIn('value', $filter)->where('feature_id', $feature_id);
+                    });
+                } else {
+                    $this->products = $this->products->whereHas('product_features', function ($query) use ($filter, $feature_id) {
+                        return $query->where('value', $filter[0])->where('feature_id', $feature_id);
                     });
                 }
 
@@ -101,7 +111,7 @@ class ProductsPage extends Component
     public function sss($item_id)
     {
         $this->products = $this->object->products()->ActiveProducts()
-            ->with(['user', 'ssss'])->whereHas('ssss', function ($query) use ($item_id){
+            ->with(['user', 'ssss'])->whereHas('ssss', function ($query) use ($item_id) {
                 return $query->where('value', $item_id);
             })->Search($this->search);
 
