@@ -66,11 +66,24 @@ class ProductsPage extends Component
     private function Filter()
     {
         if ($this->selected_filters) {
-            $product_features_ids = ProductFeature::whereHas('product', function ($query) {
-                return $query->where('category_id', $this->object->id);
-            })->whereIn('value', $this->selected_filters)->pluck('product_id')->toArray();
+            foreach ($this->selected_filters as $key => $filter){
+                if ($key == 'checkbox'){
+                    $this->products = $this->products->whereHas('product_features', function ($query) use ($filter){
+                        return $query->where('value', $filter);
+                    });
+                }else{
+                    $this->products = $this->products->whereHas('product_features', function ($query) use ($filter){
+                        return $query->where('value', $filter);
+                    });
+                }
 
-            $this->products = Product::whereIn('id', $product_features_ids);
+            }
+
+//            $product_features_ids = ProductFeature::whereHas('product', function ($query) {
+//                return $query->where('category_id', $this->object->id);
+//            })->whereIn('value', $this->selected_filters)->pluck('product_id')->toArray();
+//
+//            $this->products = Product::whereIn('id', $product_features_ids);
         }
     }
 
@@ -85,10 +98,22 @@ class ProductsPage extends Component
         }
     }
 
+    public function sss($item_id)
+    {
+        $this->products = $this->object->products()->ActiveProducts()
+            ->with(['user', 'ssss'])->whereHas('ssss', function ($query) use ($item_id){
+                return $query->where('value', $item_id);
+            })->Search($this->search);
+
+        dd($this->products->get());
+    }
+
     public function render()
     {
         $this->products = $this->object->products()->ActiveProducts()
-            ->with(['user'])->Search($this->search);
+            ->with(['user', 'product_features'])->Search($this->search);
+
+//        dd($this->products->get());
 
         $this->Filter();
         $this->OrderByItems();

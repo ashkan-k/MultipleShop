@@ -62,7 +62,8 @@
                                         @foreach(explode('،', $fi->filter_items) as $fil_item)
                                             <div class="checkbox">
                                                 <input id="checkbox_{{ $fil_item }}" value="{{ $fil_item }}"
-                                                       wire:model.debounce.1000ms="selected_filters"
+{{--                                                       wire:click="$emit('triggerDelete' , '{{ $fil_item }}')"--}}
+                                                       wire:model.debounce.1000ms="selected_filters.{{ $fi->filter_type }}"
                                                        type="checkbox">
                                                 <label for="checkbox_{{ $fil_item }}">
                                                     {{ $fil_item }}
@@ -221,3 +222,15 @@
         @this.call('FilterByQuantity', show_only_has_quantity_filter);
     }
 </script>
+
+@push('StackScript')
+<script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function () {
+
+    @this.on('triggerDelete', orderId => {
+        console.log(orderId)
+         @this.call('sss', orderId);
+    });
+    })
+</script>
+@endpush
