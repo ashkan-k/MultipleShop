@@ -62,7 +62,7 @@
                                                wire:model.debounce.1000ms="categories_filter.{{ $cat->id }}"
                                                type="checkbox">
                                         <label for="checkbox_{{ $cat->id }}">
-                                            @if($lang == 'fa') {{ $cat->title }} @else {{ $cat->en_title }} @endif
+                                            {{ $cat->get_title($lang) }}
                                         </label>
                                     </div>
                                 @endforeach
@@ -168,19 +168,15 @@
                                                             </span>{{ $pro->user->full_name ?: '---' }}</span>
                                                     <span class="product-seller-details-badge-container"></span>
                                                 </div>
-                                                <a class="product-box-img" href="#">
+                                                <a class="product-box-img" href="{{ route('product_detail', $pro->get_slug($lang)) }}">
                                                     <img src="{{ $pro->get_image() }}"
-                                                         alt="@if($lang == 'fa') {{ $pro->title ?: '---' }} @else {{ $pro->en_title ?: '---' }} @endif">
+                                                         alt="{{ $pro->get_title($lang) }}">
                                                 </a>
                                                 <div class="product-box-content">
                                                     <div class="product-box-content-row">
                                                         <div class="product-box-title">
-                                                            <a href="#">
-                                                                @if($lang == 'fa')
-                                                                    {{ $pro->title ?: '---' }}
-                                                                @else
-                                                                    {{ $pro->en_title ?: '---' }}
-                                                                @endif
+                                                            <a href="{{ route('product_detail', $pro->get_slug($lang)) }}">
+                                                                {{ \Illuminate\Support\Str::limit($pro->get_title($lang), 32) }}
                                                             </a>
                                                         </div>
                                                     </div>

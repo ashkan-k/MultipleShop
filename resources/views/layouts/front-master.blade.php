@@ -182,11 +182,12 @@
                     <div class="search-area default">
                         <form action="{{ route('search') }}" class="search">
                             <input type="text" id="gsearchsimple" name="q" value="{{ request('q') }}"
+                                   autocomplete="off"
                                    placeholder="{{ __('Search for the name of the product, brand or category you want...') }}">
                             <ul class="list-group search-box-list">
                                 <li ng-repeat="item in search_history track by $index" ng-if="item"
                                     class="list-group-item contsearch">
-                                    <a href="?search=[[ item ]]" class="gsearch">
+                                    <a href="?q=[[ item ]]" class="gsearch">
                                         <i class="fa fa-clock-o"></i>
                                         [[ item ]]
                                     </a>
@@ -571,20 +572,21 @@
     app.controller('myCtrl', function ($scope, $http) {
         $scope.search_history = [];
 
-        $scope.SaveSearchHistory = function (){
-            @if(request('search'))
+        $scope.SaveAndGetSearchHistory = function (){
             var searchHistory = (localStorage.searchHistory) ? JSON.parse(localStorage.searchHistory) : [];
-            searchHistory.push('{{ request('q') }}');
-            searchHistory = [...new Set(searchHistory)];
-            localStorage.searchHistory = JSON.stringify(searchHistory);
+
+            @if(request('q'))
+                searchHistory.push('{{ request('q') }}');
+                searchHistory = [...new Set(searchHistory)];
+                localStorage.searchHistory = JSON.stringify(searchHistory);
+            @endif
 
             console.log(searchHistory)
-            $scope.search_history = searchHistory;
-            @endif
+            $scope.search_history = searchHistory.reverse();
         }
 
         $scope.init = function () {
-            $scope.SaveSearchHistory();
+            $scope.SaveAndGetSearchHistory();
         }
     });
 </script>

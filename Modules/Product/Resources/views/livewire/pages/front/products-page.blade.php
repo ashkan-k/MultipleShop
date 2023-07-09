@@ -12,11 +12,7 @@
                             </li>
                             <li>
                                     <span>
-                                       @if($lang == 'fa')
-                                            {{ $object->title ?: '---' }}
-                                        @else
-                                            {{ $object->en_title ?: '---' }}
-                                        @endif
+                                       {{ $object->get_title($lang) }}
                                     </span>
                             </li>
                         </ul>
@@ -170,17 +166,13 @@
                                                 <a class="product-box-img"
                                                    href="{{ route('product_detail', $pro->get_slug($lang)) }}">
                                                     <img src="{{ $pro->get_image() }}"
-                                                         alt="@if($lang == 'fa') {{ $pro->title ?: '---' }} @else {{ $pro->en_title ?: '---' }} @endif">
+                                                         alt="{{ $pro->get_title($lang) }}">
                                                 </a>
                                                 <div class="product-box-content">
                                                     <div class="product-box-content-row">
                                                         <div class="product-box-title">
                                                             <a href="{{ route('product_detail', $pro->get_slug($lang)) }}">
-                                                                @if($lang == 'fa')
-                                                                    {{ $pro->title ?: '---' }}
-                                                                @else
-                                                                    {{ $pro->en_title ?: '---' }}
-                                                                @endif
+                                                                {{ \Illuminate\Support\Str::limit($pro->get_title($lang), 32) }}
                                                             </a>
                                                         </div>
                                                     </div>

@@ -163,7 +163,7 @@
                                     </li>
                                     <li>
                                         <span>دسته‌بندی</span> :
-                                        <a href="#" class="btn-link-border">
+                                        <a href="{{ route('category.products', $object->category->get_slug($lang)) }}" class="btn-link-border">
                                             {{ $object->category ? $object->category->get_title($lang) : '---' }}
                                         </a>
                                     </li>
