@@ -6,19 +6,41 @@
                     <div class="breadcrumb-section default">
                         <ul class="breadcrumb-list">
                             <li>
-                                <a href="#"><span>فروشگاه اینترنتی جی تی کالا</span></a>
+                                <a href="/"> <span>{{ __('Online Shop') }} {{ $website_title }}</span></a>
                             </li>
+
+                            @if(isset($object->category->parent->parent->parent))
+                                <li>
+                                    <a href="{{ route('category.products', $object->category->parent->parent->parent->get_slug($lang)) }}">
+                                        <span>{{ $object->category->parent->parent->parent->get_title($lang) }}</span>
+                                    </a>
+                                </li>
+                            @endif
+
+                            @if(isset($object->category->parent->parent))
+                                <li>
+                                    <a href="{{ route('category.products', $object->category->parent->parent->get_slug($lang)) }}">
+                                        <span>{{ $object->category->parent->parent->get_title($lang) }}</span>
+                                    </a>
+                                </li>
+                            @endif
+
+                            @if(isset($object->category->parent))
+                                <li>
+                                    <a href="{{ route('category.products', $object->category->parent->get_slug($lang)) }}">
+                                        <span>{{ $object->category->parent->get_title($lang) }}</span>
+                                    </a>
+                                </li>
+                            @endif
+
                             <li>
-                                <a href="#"><span>کالای دیجیتال</span></a>
+                                <a href="{{ route('category.products', $object->category->get_slug($lang)) }}">
+                                    <span>{{ $object->category->get_title($lang) }}</span>
+                                </a>
                             </li>
+
                             <li>
-                                <a href="#"><span>موبایل</span></a>
-                            </li>
-                            <li>
-                                <a href="#"><span>گوشی موبایل</span></a>
-                            </li>
-                            <li>
-                                <span>گوشی موبایل اپل مدل iPhone X ظرفیت 256 گیگابایت</span>
+                                <span>{{ $object->get_title($lang) }}</span>
                             </li>
                         </ul>
                     </div>
@@ -163,7 +185,8 @@
                                     </li>
                                     <li>
                                         <span>دسته‌بندی</span> :
-                                        <a href="{{ route('category.products', $object->category->get_slug($lang)) }}" class="btn-link-border">
+                                        <a href="{{ route('category.products', $object->category->get_slug($lang)) }}"
+                                           class="btn-link-border">
                                             {{ $object->category ? $object->category->get_title($lang) : '---' }}
                                         </a>
                                     </li>
@@ -254,11 +277,11 @@
                                         <i class="now-ui-icons ui-2_chat-round"></i> نظرات کاربران
                                     </a>
                                 </li>
-{{--                                <li class="box-tabs-tab">--}}
-{{--                                    <a data-toggle="tab" href="#questions" role="tab" aria-expanded="false">--}}
-{{--                                        <i class="now-ui-icons travel_info"></i> پرسش و پاسخ--}}
-{{--                                    </a>--}}
-{{--                                </li>--}}
+                                {{--                                <li class="box-tabs-tab">--}}
+                                {{--                                    <a data-toggle="tab" href="#questions" role="tab" aria-expanded="false">--}}
+                                {{--                                        <i class="now-ui-icons travel_info"></i> پرسش و پاسخ--}}
+                                {{--                                    </a>--}}
+                                {{--                                </li>--}}
                             </ul>
 
 
@@ -632,7 +655,8 @@
                             <h3 class="card-title">
                                 <span>محصولات مرتبط</span>
                             </h3>
-                            <a href="{{ route('category.products', $object->category->get_slug($lang)) }}" class="view-all">مشاهده همه</a>
+                            <a href="{{ route('category.products', $object->category->get_slug($lang)) }}"
+                               class="view-all">مشاهده همه</a>
                         </header>
                         <div class="product-carousel owl-carousel owl-theme">
 
