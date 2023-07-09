@@ -50,8 +50,9 @@
                                 </div>
                             </div>
                             <div class="box-content">
-                                <div class="collapse @if(isset($selected_filters["{$fi->id}_{$fi->filter_type}"]) || isset($items_search[$fi->id])) show @endif"
-                                     id="collapseExample_{{ $fi->id }}">
+                                <div
+                                    class="collapse @if(isset($selected_filters["{$fi->id}_{$fi->filter_type}"]) || isset($items_search[$fi->id])) show @endif"
+                                    id="collapseExample_{{ $fi->id }}">
                                     <div class="ui-input ui-input--quick-search">
                                         <input type="text" class="ui-input-field ui-input-field--cleanable"
                                                wire:model.debounce.300ms="items_search.{{ $fi->id }}"
@@ -166,14 +167,15 @@
                                                             </span>{{ $pro->user->full_name ?: '---' }}</span>
                                                     <span class="product-seller-details-badge-container"></span>
                                                 </div>
-                                                <a class="product-box-img" href="#">
+                                                <a class="product-box-img"
+                                                   href="{{ route('product_detail', $pro->get_slug($lang)) }}">
                                                     <img src="{{ $pro->get_image() }}"
                                                          alt="@if($lang == 'fa') {{ $pro->title ?: '---' }} @else {{ $pro->en_title ?: '---' }} @endif">
                                                 </a>
                                                 <div class="product-box-content">
                                                     <div class="product-box-content-row">
                                                         <div class="product-box-title">
-                                                            <a href="#">
+                                                            <a href="{{ route('product_detail', $pro->get_slug($lang)) }}">
                                                                 @if($lang == 'fa')
                                                                     {{ $pro->title ?: '---' }}
                                                                 @else
@@ -211,21 +213,9 @@
     </div>
 </main>
 
-<script>
-    function FilterByQuantity() {
-        var show_only_has_quantity_filter = $('#only_available_items_checkbox').prop('checked');
-        @this.call('FilterByQuantity', show_only_has_quantity_filter);
-    }
-</script>
+@section('scripts')
+
+@endsection
 
 @push('StackScript')
-    <script type="text/javascript">
-        document.addEventListener('DOMContentLoaded', function () {
-
-        @this.on('triggerAddNewRadioItem', (feature_id, feature_type, filter) => {
-            console.log(@this.selected_filters)
-            @this.call('AddNewRadioFilterItem', feature_id, feature_type, filter);
-        });
-        })
-    </script>
 @endpush

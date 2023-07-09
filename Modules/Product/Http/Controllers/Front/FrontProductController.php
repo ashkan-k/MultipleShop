@@ -26,6 +26,12 @@ class FrontProductController extends Controller
         return view('product::front.products', compact('category'));
     }
 
+    public function product_detail($lang, $slug)
+    {
+        $product = Product::FindBySlug($lang, $slug);
+        return view('product::front.product-detail', compact('product'));
+    }
+
     public function search()
     {
         return view('product::front.products-search');

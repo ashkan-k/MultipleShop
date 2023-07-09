@@ -128,6 +128,11 @@ class Product extends Model
         return 'danger';
     }
 
+    public function get_slug($lang)
+    {
+        return $lang == 'fa' ? $this->slug : $this->en_slug;
+    }
+
     protected static function newFactory()
     {
         return \Modules\Product\Database\factories\ProductFactory::new();
@@ -136,6 +141,14 @@ class Product extends Model
     public function scopeActiveProducts($query)
     {
         return $query->where('is_active', 1);
+    }
+
+    public function scopeFindBySlug($query, $lang, $slug)
+    {
+        if ($lang == 'fa'){
+            return $query->where('slug', $slug)->firstOrFail();
+        }
+        return $query->where('en_slug', $slug)->firstOrFail();
     }
 
     //
