@@ -7,6 +7,7 @@ use Livewire\WithPagination;
 use Modules\Product\Entities\Category;
 use Modules\Product\Entities\Feature;
 use Modules\Product\Entities\Product;
+use Modules\Product\Entities\ProductFeature;
 
 class ProductsPage extends Component
 {
@@ -16,14 +17,13 @@ class ProductsPage extends Component
     public $website_title = '';
     public $lang;
 
-    public $categories_filter = [];
-    public $brands_filter = [];
+    public $selected_filters = [];
     public $search = '';
     public $order_by = 'view_count';
     public $show_only_has_quantity_filter = false;
+    public $is_first_page_visit = true;
 
     public $category_search = '';
-    public $brand_search = '';
 
     protected $products;
     public $object;
@@ -42,6 +42,8 @@ class ProductsPage extends Component
         if (in_array($propertyName, ['search', 'pagination'])) {
             $this->resetPage();
         }
+
+        $this->is_first_page_visit = false;
     }
 
     public function GetCategories()
@@ -63,16 +65,12 @@ class ProductsPage extends Component
 
     private function Filter()
     {
-        if ($this->categories_filter) {
-            $this->products->whereIn('category_id', $this->categories_filter);
-        }
+        if ($this->selected_filters) {
+            $product_features_ids = ProductFeature::whereHas('product', function ($query) {
+                return $query->where('category_id', $this->object->id);
+            })->whereIn('value', $this->selected_filters)->pluck('product_id')->toArray();
 
-        if ($this->brands_filter) {
-            $this->products->whereIn('brand_id', $this->brands_filter);
-        }
-
-        if ($this->show_only_has_quantity_filter) {
-            $this->products = $this->products->where('quantity', '>', 0);
+            $this->products = Product::whereIn('id', $product_features_ids);
         }
     }
 

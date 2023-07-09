@@ -170,6 +170,11 @@ class Product extends Model
         return $this->belongsToMany(Feature::class, 'product_features');
     }
 
+    public function feature_values()
+    {
+        return ProductFeature::where('product_id', $this->id)->pluck('value')->toArray();
+    }
+
     public function galleries()
     {
         return $this->hasMany(Gallery::class);

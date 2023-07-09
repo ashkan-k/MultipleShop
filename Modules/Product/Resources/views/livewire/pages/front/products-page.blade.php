@@ -49,7 +49,7 @@
                                 </div>
                             </div>
                             <div class="box-content">
-                                <div class="collapse" id="collapseExample_{{ $fi->id }}">
+                                <div class="collapse {{ $is_first_page_visit ? '' : 'show' }}" id="collapseExample_{{ $fi->id }}">
                                     <div class="ui-input ui-input--quick-search">
                                         <input type="text" class="ui-input-field ui-input-field--cleanable"
                                                ng-model="search_categories" wire:model.debounce.300ms="category_search"
@@ -62,7 +62,7 @@
                                         @foreach(explode('،', $fi->filter_items) as $fil_item)
                                             <div class="checkbox">
                                                 <input id="checkbox_{{ $fil_item }}" value="{{ $fil_item }}"
-                                                       wire:model.debounce.1000ms="categories_filter.{{ $fil_item }}"
+                                                       wire:model.debounce.1000ms="selected_filters"
                                                        type="checkbox">
                                                 <label for="checkbox_{{ $fil_item }}">
                                                     {{ $fil_item }}
