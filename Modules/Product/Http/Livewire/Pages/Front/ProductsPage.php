@@ -28,8 +28,6 @@ class ProductsPage extends Component
     protected $products;
     public $object;
 
-    protected $paginationTheme = 'bootstrap';
-
     public function mount()
     {
         $this->search = request('q');
