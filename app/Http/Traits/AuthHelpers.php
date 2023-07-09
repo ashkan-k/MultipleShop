@@ -5,6 +5,7 @@ namespace App\Http\Traits;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Validation\ValidationException;
+use Modules\Auth\Entities\ActivationCode;
 use Modules\Sms\Helpers\sms_helper;
 use Modules\Sms\Jobs\SendSmsJob;
 
@@ -23,7 +24,7 @@ trait AuthHelpers
     {
         $code = $this->CreateNewCode($user);
         $message = sprintf(sms_helper::$SMS_PATTERNS['verify_user'], $code->code);
-        dispatch(new SendSmsJob($user->phone, $message));
+        dispatch(new SendSmsJob($user->email, $message));
     }
 
     private function check_code_sent($user)
@@ -61,19 +62,19 @@ trait AuthHelpers
     {
         $this->remove_helper_sessions();
         session()->put('remember_me', $remember_me);
-        session()->put('user_phone', $user->phone);
+        session()->put('user_email', $user->email);
     }
 
     private function remove_helper_sessions()
     {
-        session()->remove('login_phone');
+        session()->remove('login_email');
         session()->remove('remember_me');
     }
 
     public function CheckPhoneEmailExistsInUpdate($request, $instance)
     {
-        if (User::wherePhone($request->phone)->WhereNot('id', $instance->id)->exists()) {
-            throw ValidationException::withMessages(['phone' => 'این شماره موبایل قبلا ثبت شده است.']);
+        if (User::wherePhone($request->email)->WhereNot('id', $instance->id)->exists()) {
+            throw ValidationException::withMessages(['email' => 'این شماره موبایل قبلا ثبت شده است.']);
         }
 
         if (User::whereEmail($request->email)->WhereNot('id', $instance->id)->exists()) {

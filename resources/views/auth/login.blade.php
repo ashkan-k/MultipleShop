@@ -134,7 +134,7 @@
                                                     @enderror
                                                 </div>
                                                 <div class="form-account-title">{{ __('Password') }}
-                                                    <a href=""
+                                                    <a href="{{ route('reset_password') }}"
                                                        class="btn-link-border form-account-link">{{ __('Forgot your password?') }}</a>
                                                 </div>
                                                 <div class="form-account-row">

@@ -15,5 +15,6 @@
     "Sms": true,
     "Poster": true,
     "Index": true,
+    "Auth": true,
     "Guide": true
 }
