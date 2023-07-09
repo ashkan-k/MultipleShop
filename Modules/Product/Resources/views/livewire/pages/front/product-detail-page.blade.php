@@ -254,11 +254,11 @@
                                         <i class="now-ui-icons ui-2_chat-round"></i> نظرات کاربران
                                     </a>
                                 </li>
-                                <li class="box-tabs-tab">
-                                    <a data-toggle="tab" href="#questions" role="tab" aria-expanded="false">
-                                        <i class="now-ui-icons travel_info"></i> پرسش و پاسخ
-                                    </a>
-                                </li>
+{{--                                <li class="box-tabs-tab">--}}
+{{--                                    <a data-toggle="tab" href="#questions" role="tab" aria-expanded="false">--}}
+{{--                                        <i class="now-ui-icons travel_info"></i> پرسش و پاسخ--}}
+{{--                                    </a>--}}
+{{--                                </li>--}}
                             </ul>
 
 
@@ -599,7 +599,7 @@
                                              class="img-fluid" alt="{{ $may_like_pro->get_title($lang) }}">
                                     </a>
                                     <h2 class="post-title">
-                                        <a href="{{ route('product_detail', $may_like_pro->get_slug($lang)) }}">{{ $may_like_pro->get_title($lang) }}</a>
+                                        <a href="{{ route('product_detail', $may_like_pro->get_slug($lang)) }}">{{ \Illuminate\Support\Str::limit($may_like_pro->get_title($lang), 32) }}</a>
                                     </h2>
                                     <div class="price">
                                         @if($may_like_pro->discount_price)
@@ -632,7 +632,7 @@
                             <h3 class="card-title">
                                 <span>محصولات مرتبط</span>
                             </h3>
-                            <a href="{{ route('products_list') }}" class="view-all">مشاهده همه</a>
+                            <a href="{{ route('category.products', $object->category->get_slug($lang)) }}" class="view-all">مشاهده همه</a>
                         </header>
                         <div class="product-carousel owl-carousel owl-theme">
 
@@ -643,14 +643,17 @@
                                              class="img-fluid" alt="{{ $related_pro->get_title($lang) }}">
                                     </a>
                                     <h2 class="post-title">
-                                        <a href="{{ route('product_detail', $related_pro->get_slug($lang)) }}">{{ $related_pro->get_title($lang) }}</a>
+                                        <a href="{{ route('product_detail', $related_pro->get_slug($lang)) }}">{{ \Illuminate\Support\Str::limit($related_pro->get_title($lang), 32) }}</a>
                                     </h2>
                                     <div class="price">
                                         @if($related_pro->discount_price)
-                                            <del><span>{{ number_format($related_pro->discount_price) }}<span>تومان</span></span></del>
+                                            <del>
+                                                <span>{{ number_format($related_pro->discount_price) }}<span>تومان</span></span>
+                                            </del>
                                         @endif
 
-                                        <ins><span>{{ number_format($related_pro->price) }}<span>تومان</span></span></ins>
+                                        <ins><span>{{ number_format($related_pro->price) }}<span>تومان</span></span>
+                                        </ins>
                                     </div>
                                 </div>
                             @endforeach
