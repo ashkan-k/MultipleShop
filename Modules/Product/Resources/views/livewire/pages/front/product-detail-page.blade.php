@@ -219,7 +219,7 @@
                                     </div>
                                 @else
                                     <div class="parent-btn">
-                                        <a  class="dk-btn dk-btn-info" style="cursor: not-allowed" disabled>
+                                        <a class="dk-btn dk-btn-info" style="cursor: not-allowed" disabled>
                                             ناموجود
                                             <i class="now-ui-icons shopping_cart-simple"></i>
                                         </a>
@@ -296,89 +296,26 @@
                                         <article>
                                             <h2 class="param-title">
                                                 مشخصات فنی
-                                                <span>Apple iPhone X 256GB Mobile Phone</span>
+                                                <span>{{ $object->get_title($lang) }}</span>
                                             </h2>
                                             <section>
-
-
                                                 <h3 class="params-title">مشخصات کلی</h3>
                                                 <ul class="params-list">
-                                                    <li>
-                                                        <div class="params-list-key">
-                                                            <span class="block">ابعاد</span>
-                                                        </div>
-                                                        <div class="params-list-value">
+
+                                                    @foreach($bottom_features as $bottom_f)
+                                                        <li>
+                                                            <div class="params-list-key">
+                                                                <span
+                                                                    class="block">{{ $bottom_f->feature->title ?: '---' }}</span>
+                                                            </div>
+                                                            <div class="params-list-value">
                                                                     <span class="block">
-                                                                        7.7 × 70.9 × 143.6 میلی‌متر
+                                                                        {{ $bottom_f->value ?: '---' }}
                                                                     </span>
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <div class="params-list-key">
-                                                            <span class="block">توضیحات سیم کارت</span>
-                                                        </div>
-                                                        <div class="params-list-value">
-                                                                    <span class="block">
-                                                                        سایز نانو (8.8 × 12.3 میلی‌متر)
-                                                                    </span>
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <div class="params-list-key">
-                                                            <span class="block">وزن</span>
-                                                        </div>
-                                                        <div class="params-list-value">
-                                                                    <span class="block">
-                                                                        174 گرم
-                                                                    </span>
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <div class="params-list-key">
-                                                            <span class="block">ویژگی‌های خاص</span>
-                                                        </div>
-                                                        <div class="params-list-value">
-                                                                    <span class="block">
-                                                                        مقاوم در برابر آب , مناسب عکاسی , مناسب عکاسی
-                                                                        سلفی , مناسب بازی , مجهز به حس‌گر تشخیص چهره
-                                                                    </span>
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <div class="params-list-key">
-                                                            <span class="block">تعداد سیم کارت</span>
-                                                        </div>
-                                                        <div class="params-list-value">
-                                                                    <span class="block">
-                                                                        تک سیم کارت
-                                                                    </span>
-                                                        </div>
-                                                    </li>
-                                                </ul>
-                                            </section>
-                                            <section>
-                                                <h3 class="params-title">پردازنده</h3>
-                                                <ul class="params-list">
-                                                    <li>
-                                                        <div class="params-list-key">
-                                                            <span class="block">تراشه</span>
-                                                        </div>
-                                                        <div class="params-list-value">
-                                                                    <span class="block">
-                                                                        Apple A11 Bionic Chipset
-                                                                    </span>
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <div class="params-list-key">
-                                                            <span class="block">نوع پردازنده</span>
-                                                        </div>
-                                                        <div class="params-list-value">
-                                                                    <span class="block">
-                                                                        64 بیت
-                                                                    </span>
-                                                        </div>
-                                                    </li>
+                                                            </div>
+                                                        </li>
+                                                    @endforeach
+
                                                 </ul>
                                             </section>
                                         </article>
@@ -389,136 +326,115 @@
 
                                             <div class="row comments-add-col--content">
                                                 <div class="col-md-6 col-sm-12">
-                                                    <form class="px-5" onsubmit="return false">
-                                                        <div class="row">
-                                                            <div class="col-12">
-                                                                <div class="form-account-title">عنوان نظر شما (اجباری)
+
+                                                    @auth
+                                                        <form class="px-5" onsubmit="return false">
+                                                            <div class="row">
+                                                                <div class="col-12">
+                                                                    <div class="form-account-title">عنوان نظر شما
+                                                                        (اجباری)
+                                                                    </div>
+                                                                    <div class="form-account-row">
+                                                                        <input class="input-field text-right"
+                                                                               type="text"
+                                                                               placeholder="عنوان نظر خود را بنویسید">
+                                                                    </div>
                                                                 </div>
-                                                                <div class="form-account-row">
-                                                                    <input class="input-field text-right" type="text"
-                                                                           placeholder="عنوان نظر خود را بنویسید">
+                                                                <div class="col-md-6 col-sm-12 tag-input-st">
+                                                                    <div class="form-account-title">نقاط قوت
+                                                                        <span class="cl-circle-title cl-primary"></span>
+                                                                    </div>
+                                                                    <div class="form-account-row ps-relative">
+                                                                        <input name="strengths-points"
+                                                                               type="text" id="strengths-points-input"
+                                                                               data-addui='tags'
+                                                                               data-enter='true'>
+                                                                        <button id="add-strengths-point"
+                                                                                class="add-points">
+                                                                            +
+                                                                        </button>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                            <div class="col-md-6 col-sm-12 tag-input-st">
-                                                                <div class="form-account-title">نقاط قوت
-                                                                    <span class="cl-circle-title cl-primary"></span>
+                                                                <div
+                                                                    class="col-md-6 col-sm-12 tag-input-st tag-input-weak">
+                                                                    <div class="form-account-title">نقاط ضعف
+                                                                        <span class="cl-circle-title cl-red"></span>
+                                                                    </div>
+                                                                    <div class="form-account-row ps-relative">
+                                                                        <input name="weak-points" type="text"
+                                                                               id="weak-points-input" data-addui='tags'
+                                                                               data-enter='true'>
+                                                                        <button id="add-weak-point" class="add-points">+
+                                                                        </button>
+                                                                    </div>
                                                                 </div>
-                                                                <div class="form-account-row ps-relative">
-                                                                    <input name="strengths-points"
-                                                                           type="text" id="strengths-points-input"
-                                                                           data-addui='tags'
-                                                                           data-enter='true'>
-                                                                    <button id="add-strengths-point" class="add-points">
-                                                                        +
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-6 col-sm-12 tag-input-st tag-input-weak">
-                                                                <div class="form-account-title">نقاط ضعف
-                                                                    <span class="cl-circle-title cl-red"></span>
-                                                                </div>
-                                                                <div class="form-account-row ps-relative">
-                                                                    <input name="weak-points" type="text"
-                                                                           id="weak-points-input" data-addui='tags'
-                                                                           data-enter='true'>
-                                                                    <button id="add-weak-point" class="add-points">+
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-12 mt-5">
-                                                                <div class="form-account-title">متن نظر شما (اجباری)
-                                                                </div>
-                                                                <div class="form-account-row">
+                                                                <div class="col-12 mt-5">
+                                                                    <div class="form-account-title">متن نظر شما (اجباری)
+                                                                    </div>
+                                                                    <div class="form-account-row">
                                                     <textarea class="input-field text-right" rows="5"
                                                               placeholder="متن خود را بنویسید"></textarea>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-12 mt-2 mb-2 px-0">
-                                                                <div class="product-offer-question shopping-page">
-                                                                    <div class="headline">
-                                                                        <span>آیا خرید این محصول را به دوستانتان پیشنهاد می کنید؟</span>
-                                                                    </div>
-                                                                    <div class="checkout-shipment">
-                                                                        <div class="radio">
-                                                                            <input type="radio" name="radio1"
-                                                                                   id="radio1" value="option1">
-                                                                            <label for="radio1">
-                                                                                پیشنهاد می کنم
-                                                                            </label>
-                                                                        </div>
-
-                                                                        <div class="radio">
-                                                                            <input type="radio" name="radio1"
-                                                                                   id="radio2" value="option2">
-                                                                            <label for="radio2">
-                                                                                خیر،پیشنهاد نمی کنم
-                                                                            </label>
-                                                                        </div>
-
-                                                                        <div class="radio">
-                                                                            <input type="radio" name="radio1"
-                                                                                   id="radio3" value="option3">
-                                                                            <label for="radio3">
-                                                                                نظری ندارم
-                                                                            </label>
-                                                                        </div>
                                                                     </div>
                                                                 </div>
+                                                                <div class="col-12 mt-2 mb-2 px-0">
+                                                                    <div class="product-offer-question shopping-page">
+                                                                        <div class="headline">
+                                                                            <span>آیا خرید این محصول را به دوستانتان پیشنهاد می کنید؟</span>
+                                                                        </div>
+                                                                        <div class="checkout-shipment">
+                                                                            <div class="radio">
+                                                                                <input type="radio" name="radio1"
+                                                                                       id="radio1" value="option1">
+                                                                                <label for="radio1">
+                                                                                    پیشنهاد می کنم
+                                                                                </label>
+                                                                            </div>
+
+                                                                            <div class="radio">
+                                                                                <input type="radio" name="radio1"
+                                                                                       id="radio2" value="option2">
+                                                                                <label for="radio2">
+                                                                                    خیر،پیشنهاد نمی کنم
+                                                                                </label>
+                                                                            </div>
+
+                                                                            <div class="radio">
+                                                                                <input type="radio" name="radio1"
+                                                                                       id="radio3" value="option3">
+                                                                                <label for="radio3">
+                                                                                    نظری ندارم
+                                                                                </label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-12 px-0">
+                                                                    <button class="btn btn-primary btn-no-icon">
+                                                                        ثبت نظر
+                                                                    </button>
+                                                                    <p>با “ثبت نظر” موافقت خود را با <a
+                                                                            href="/page/comments-rules/"
+                                                                            class="btn-link-spoiler" target="_blank">قوانین
+                                                                            انتشار محتوا</a> در دیجی‌کالا اعلام می‌کنم.
+                                                                    </p>
+                                                                </div>
                                                             </div>
-                                                            <div class="col-12 px-0">
-                                                                <button class="btn btn-primary btn-no-icon">
-                                                                    ثبت نظر
-                                                                </button>
-                                                                <p>با “ثبت نظر” موافقت خود را با <a
-                                                                        href="/page/comments-rules/"
-                                                                        class="btn-link-spoiler" target="_blank">قوانین
-                                                                        انتشار محتوا</a> در دیجی‌کالا اعلام می‌کنم.</p>
-                                                            </div>
+                                                        </form>
+                                                    @else
+                                                        <div class="pl-5 text-center">
+                                                            <h3>برای ثبت
+                                                                نظر ابتدا
+                                                                <a class="text-info" href="{{ route('login') }}">
+                                                                    وارد </a> شوید</h3>
                                                         </div>
-                                                    </form>
+                                                    @endauth
+
                                                 </div>
                                                 <div class="col-md-6 col-sm-12">
                                                     <div class="pl-5">
-                                                        <h3>دیگران را با نوشتن نظرات خود، برای انتخاب این محصول راهنمایی
-                                                            کنید.</h3>
+                                                        <h3>{{ $settings['comment_terms_title'] }}</h3>
                                                         <div>
-                                                            <p>لطفا پیش از ارسال نظر، خلاصه قوانین زیر را مطالعه
-                                                                کنید:</p>
-                                                            <p>فارسی بنویسید و از کیبورد فارسی استفاده کنید. بهتر است از
-                                                                فضای خالی (Space)
-                                                                بیش‌از‌حدِ معمول، شکلک یا ایموجی استفاده نکنید و از
-                                                                کشیدن حروف یا کلمات با
-                                                                صفحه‌کلید بپرهیزید.</p>
-                                                            <p>نظرات خود را براساس تجربه و استفاده‌ی عملی و با دقت به
-                                                                نکات فنی ارسال کنید؛
-                                                                بدون
-                                                                تعصب به محصول خاص، مزایا و معایب را بازگو کنید و بهتر
-                                                                است از ارسال نظرات
-                                                                چندکلمه‌‌ای خودداری کنید.</p>
-                                                            <p>بهتر است در نظرات خود از تمرکز روی عناصر متغیر مثل قیمت،
-                                                                پرهیز کنید.</p>
-                                                            <p>به کاربران و سایر اشخاص احترام بگذارید. پیام‌هایی که شامل
-                                                                محتوای توهین‌آمیز و
-                                                                کلمات نامناسب باشند، حذف می‌شوند.</p>
-                                                            <p>از ارسال لینک‌های سایت‌های دیگر و ارایه‌ی اطلاعات شخصی
-                                                                خودتان مثل شماره تماس،
-                                                                ایمیل و آی‌دی شبکه‌های اجتماعی پرهیز کنید.</p>
-                                                            <p>با توجه به ساختار بخش نظرات، از پرسیدن سوال یا درخواست
-                                                                راهنمایی در این بخش
-                                                                خودداری کرده و سوالات خود را در بخش «پرسش و پاسخ» مطرح
-                                                                کنید.</p>
-                                                            <p>هرگونه نقد و نظر در خصوص سایت دیجی‌کالا، خدمات و درخواست
-                                                                کالا را با ایمیل
-                                                                <a href="mailto:info@digikala.com">
-                                                                    info@digikala.com
-                                                                </a>
-                                                                یا با شماره‌ی
-
-                                                                <a href="tel: +982161930000">
-                                                                    ۶۱۹۳۰۰۰۰ - ۰۲۱
-                                                                </a>
-                                                                در میان بگذارید و از نوشتن آن‌ها در بخش نظرات خودداری
-                                                                کنید.</p>
+                                                            {!! $settings['comment_terms_text'] !!}
                                                         </div>
                                                     </div>
 
@@ -527,7 +443,7 @@
 
                                             <h2 class="param-title mt-5">
                                                 نظرات کاربران
-                                                <span>۱۲۳ نظر</span>
+                                                <span>{{ $comments->count() }} نظر</span>
                                             </h2>
                                             <div class="comments-area default">
                                                 <ol class="comment-list">
