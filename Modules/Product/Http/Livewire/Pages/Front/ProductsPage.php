@@ -23,7 +23,7 @@ class ProductsPage extends Component
     public $show_only_has_quantity_filter = false;
     public $is_first_page_visit = true;
 
-    public $category_search = '';
+    public $items_search = '';
 
     protected $products;
     public $object;
@@ -44,11 +44,6 @@ class ProductsPage extends Component
         }
 
         $this->is_first_page_visit = false;
-    }
-
-    public function GetCategories()
-    {
-        return Category::Search($this->category_search)->get();
     }
 
     //
@@ -109,6 +104,21 @@ class ProductsPage extends Component
         } else {
             $this->products = $this->products->orderByDesc($this->order_by);
         }
+    }
+
+    public function GetFeatureItems($feature)
+    {
+        $items_array = explode('،', $feature->filter_items);
+        if ($this->items_search){
+           return array_filter(explode('،', $feature->filter_items), function($v) use ($feature, $items_array){
+                try {
+                    return str_contains($v, $this->items_search[$feature->id]);
+                }catch (\Exception $exception){
+                    return $items_array;
+                }
+            });
+        }
+        return $items_array;
     }
 
     public function render()

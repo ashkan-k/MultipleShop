@@ -50,22 +50,21 @@
                                 </div>
                             </div>
                             <div class="box-content">
-                                <div class="collapse @if(isset($selected_filters["{$fi->id}_{$fi->filter_type}"])) show @endif"
+                                <div class="collapse @if(isset($selected_filters["{$fi->id}_{$fi->filter_type}"]) || isset($items_search[$fi->id])) show @endif"
                                      id="collapseExample_{{ $fi->id }}">
                                     <div class="ui-input ui-input--quick-search">
                                         <input type="text" class="ui-input-field ui-input-field--cleanable"
-                                               ng-model="search_categories" wire:model.debounce.300ms="category_search"
-                                               placeholder="{{ __('Write the name of the desired category...') }}">
+                                               wire:model.debounce.300ms="items_search.{{ $fi->id }}"
+                                               placeholder="{{ __('Write the name of the desired item...') }}">
                                         <span class="ui-input-cleaner"></span>
                                     </div>
 
                                     <div class="filter-option">
 
-                                        @foreach(explode('،', $fi->filter_items) as $fil_item)
+                                        @foreach($this->GetFeatureItems($fi) as $fil_item)
                                             @if($fi->filter_type == 'checkbox')
                                                 <div class="checkbox">
                                                     <input id="checkbox_{{ $fil_item }}" value="{{ $fil_item }}"
-
                                                            wire:model.debounce.1000ms="selected_filters.{{ $fi->id }}_{{ $fi->filter_type }}.{{ $fil_item }}"
                                                            type="checkbox">
                                                     <label for="checkbox_{{ $fil_item }}">
@@ -77,7 +76,6 @@
                                                     <input id="checkbox_{{ $fil_item }}" value="{{ $fil_item }}"
                                                            name="{{ $fi->title }}_{{ $fi->id }}"
                                                            wire:click="$emit('triggerAddNewRadioItem' , {{ $fi->id }}, '{{ $fi->filter_type }}', '{{ $fil_item }}')"
-{{--                                                           wire:model.debounce.1000ms="selected_filters.{{ $fi->id }}_{{ $fi->filter_type }}.{{ $fil_item }}"--}}
                                                            type="radio">
                                                     <label for="checkbox_{{ $fil_item }}">
                                                         {{ $fil_item }}
