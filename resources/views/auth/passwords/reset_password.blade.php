@@ -10,7 +10,7 @@
                     <div class="account-box">
 
                         @if (session()->has('message'))
-                            <div class="mt-3 mb-3 text-success">
+                            <div class="mt-3 mr-5 ml-5 text-success" style="margin-bottom: 0 !important;">
                                 <span>{{ session('message') }}</span>
                             </div>
                         @endif

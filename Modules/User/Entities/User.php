@@ -10,6 +10,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Sanctum\HasApiTokens;
+use Modules\Auth\Entities\ActivationCode;
 use Modules\Blog\Entities\Blog;
 use Modules\Cart\Entities\Cart;
 use Modules\Comment\Entities\Comment;
@@ -237,5 +238,10 @@ class User extends Authenticatable
     public function orders()
     {
         return $this->hasMany(Order::class);
+    }
+
+    public function activation_codes()
+    {
+        return $this->hasMany(ActivationCode::class);
     }
 }

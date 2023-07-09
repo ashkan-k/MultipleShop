@@ -590,7 +590,9 @@
 
 @livewireScripts
 
-@include('dashboard.section.components.sweet_alert')
+@if(!in_array(\Illuminate\Support\Facades\Route::currentRouteName(), ['reset_password', 'reset_password_store', 'reset_password_confirm', 'reset_password_confirm_store', 'reset_password_set', 'reset_password_set_store']))
+    @include('dashboard.section.components.sweet_alert')
+@endif
 @yield('scripts')
 
 @stack('StackScript')
