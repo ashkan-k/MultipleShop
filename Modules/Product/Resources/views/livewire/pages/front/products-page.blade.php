@@ -50,7 +50,7 @@
                                 </div>
                             </div>
                             <div class="box-content">
-                                <div class="collapse {{ $is_first_page_visit ? '' : 'show' }}"
+                                <div class="collapse @if(isset($selected_filters["{$fi->id}_{$fi->filter_type}"])) show @endif"
                                      id="collapseExample_{{ $fi->id }}">
                                     <div class="ui-input ui-input--quick-search">
                                         <input type="text" class="ui-input-field ui-input-field--cleanable"
@@ -65,7 +65,7 @@
                                             @if($fi->filter_type == 'checkbox')
                                                 <div class="checkbox">
                                                     <input id="checkbox_{{ $fil_item }}" value="{{ $fil_item }}"
-                                                           {{--                                                       wire:click="$emit('triggerDelete' , '{{ $fil_item }}')"--}}
+
                                                            wire:model.debounce.1000ms="selected_filters.{{ $fi->id }}_{{ $fi->filter_type }}.{{ $fil_item }}"
                                                            type="checkbox">
                                                     <label for="checkbox_{{ $fil_item }}">
@@ -76,7 +76,8 @@
                                                 <div class="">
                                                     <input id="checkbox_{{ $fil_item }}" value="{{ $fil_item }}"
                                                            name="{{ $fi->title }}_{{ $fi->id }}"
-                                                           wire:model.debounce.1000ms="selected_filters.{{ $fi->id }}_{{ $fi->filter_type }}.{{ $fil_item }}"
+                                                           wire:click="$emit('triggerAddNewRadioItem' , {{ $fi->id }}, '{{ $fi->filter_type }}', '{{ $fil_item }}')"
+{{--                                                           wire:model.debounce.1000ms="selected_filters.{{ $fi->id }}_{{ $fi->filter_type }}.{{ $fil_item }}"--}}
                                                            type="radio">
                                                     <label for="checkbox_{{ $fil_item }}">
                                                         {{ $fil_item }}
@@ -235,7 +236,7 @@
 <script>
     function FilterByQuantity() {
         var show_only_has_quantity_filter = $('#only_available_items_checkbox').prop('checked');
-    @this.call('FilterByQuantity', show_only_has_quantity_filter);
+        @this.call('FilterByQuantity', show_only_has_quantity_filter);
     }
 </script>
 
@@ -243,9 +244,9 @@
     <script type="text/javascript">
         document.addEventListener('DOMContentLoaded', function () {
 
-        @this.on('triggerDelete', orderId => {
-            console.log(orderId)
-        @this.call('sss', orderId);
+        @this.on('triggerAddNewRadioItem', (feature_id, feature_type, filter) => {
+            console.log(@this.selected_filters)
+            @this.call('AddNewRadioFilterItem', feature_id, feature_type, filter);
         });
         })
     </script>

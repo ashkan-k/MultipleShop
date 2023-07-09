@@ -63,10 +63,15 @@ class ProductsPage extends Component
         $this->order_by = $new_order;
     }
 
+    public function AddNewRadioFilterItem($feature_id, $feature_type, $filter)
+    {
+        $this->selected_filters["{$feature_id}_{$feature_type}"] = [];
+        $this->selected_filters["{$feature_id}_{$feature_type}"][$filter] = $filter;
+    }
+
     private function Filter()
     {
         if ($this->selected_filters) {
-
             foreach ($this->selected_filters as $key => $filter) {
                 $feature_id = explode('_', $key)[0];
                 $feature_type = explode('_', $key)[1];
@@ -88,12 +93,10 @@ class ProductsPage extends Component
                 }
 
             }
+        }
 
-//            $product_features_ids = ProductFeature::whereHas('product', function ($query) {
-//                return $query->where('category_id', $this->object->id);
-//            })->whereIn('value', $this->selected_filters)->pluck('product_id')->toArray();
-//
-//            $this->products = Product::whereIn('id', $product_features_ids);
+        if ($this->show_only_has_quantity_filter) {
+            $this->products = $this->products->where('quantity', '>', 0);
         }
     }
 
@@ -108,22 +111,10 @@ class ProductsPage extends Component
         }
     }
 
-    public function sss($item_id)
-    {
-        $this->products = $this->object->products()->ActiveProducts()
-            ->with(['user', 'ssss'])->whereHas('ssss', function ($query) use ($item_id) {
-                return $query->where('value', $item_id);
-            })->Search($this->search);
-
-        dd($this->products->get());
-    }
-
     public function render()
     {
         $this->products = $this->object->products()->ActiveProducts()
             ->with(['user', 'product_features'])->Search($this->search);
-
-//        dd($this->products->get());
 
         $this->Filter();
         $this->OrderByItems();
