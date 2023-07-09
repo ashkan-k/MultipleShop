@@ -137,19 +137,15 @@ class Product extends Model
             return 0;
         }
 
-        $today = Verta::now();
+        $today = Verta::parse(\verta())->setTime(0, 0, 0, 0);
         $start_date = Verta::parse($this->discount_start_date);
         $end_date = Verta::parse($this->discount_end_date);
-
-        dd($today, $start_date);
-
-        dd(!$today->gte($start_date));
 
         if (!$today->gte($start_date) || !$today->lte($end_date)) {
             return 0;
         }
 
-        $discount_percent = ($this->discount_price * 100) / $this->price;
+        $discount_percent = round(($this->discount_price * 100) / $this->price);
         return $discount_percent;
     }
 
