@@ -90,6 +90,8 @@
     "Register In": "ثبت نام در",
     "Enter your password": "رمز عبور خود را وارد نمایید",
     "Enter your password again": "رمز عبور خود را وارد نمایید",
+    "Resend": "دریافت مجدد کد تایید",
+    "Receive confirmation code again (:attribute seconds)": "دریافت مجدد کد تایید (:attribute ثانیه)",
     "Enter your confirmation password": "تایید رمز عبور خود را وارد نمایید",
     "If you have already registered with email, you do not need to register again with email.": "اگر قبلا با ایمیل ثبت\u200Cنام کرده\u200Cاید، نیاز به ثبت\u200Cنام مجدد با ایمیل ندارید.",
     "Please confirm access to your account by entering the authentication code provided by your authenticator application.": "لطفاً با وارد کردن کد احراز هویت ارائه شده توسط برنامه تایید اعتبار، دسترسی به حساب خود را تأیید کنید.",

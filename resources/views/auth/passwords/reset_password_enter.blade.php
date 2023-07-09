@@ -50,7 +50,7 @@
                                     <div class="parent-btn">
                                         <button type="submit" class="dk-btn dk-btn-info">
                                             {{ __('Save') }}
-                                            <i class="now-ui-icons arrows-1_refresh-69"></i>
+                                            <i class="fa fa-sign-in"></i>
                                         </button>
                                     </div>
                                 </div>
