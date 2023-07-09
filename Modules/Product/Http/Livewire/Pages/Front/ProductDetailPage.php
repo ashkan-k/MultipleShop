@@ -4,6 +4,8 @@ namespace Modules\Product\Http\Livewire\Pages\Front;
 
 use Livewire\Component;
 use Livewire\WithPagination;
+use Modules\Comment\Entities\Comment;
+use Modules\Product\Entities\Color;
 
 class ProductDetailPage extends Component
 {
@@ -31,8 +33,10 @@ class ProductDetailPage extends Component
     public function render()
     {
         $data = [
-//            'products' => $this->products->paginate($this->pagination),
-//            'filters' => $this->object->features()->get(),
+            'colors' => Color::limit(3)->get(),
+            'comments' => $this->object->comments()->with(['user', 'product']),
+            'top_features' => $this->object->product_features()->whereIn('place', ['up', 'both'])->with('feature')->get(),
+            'bottom_features' => $this->object->product_features()->whereIn('place', ['down', 'both'])->with('feature')->get(),
         ];
 
         return view('product::livewire.pages.front.product-detail-page', $data);

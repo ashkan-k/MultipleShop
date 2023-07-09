@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Str;
 use Modules\Cart\Entities\Cart;
+use Modules\Comment\Entities\Comment;
 use Modules\Order\Entities\Order;
 use Modules\User\Entities\User;
 
@@ -128,6 +129,11 @@ class Product extends Model
         return 'danger';
     }
 
+    public function get_title($lang)
+    {
+        return $lang == 'fa' ? $this->title : $this->en_title;
+    }
+
     public function get_slug($lang)
     {
         return $lang == 'fa' ? $this->slug : $this->en_slug;
@@ -206,5 +212,10 @@ class Product extends Model
     public function orders()
     {
         return $this->hasMany(Order::class);
+    }
+
+    public function comments()
+    {
+        return $this->morphMany(Comment::class , 'commentable');
     }
 }

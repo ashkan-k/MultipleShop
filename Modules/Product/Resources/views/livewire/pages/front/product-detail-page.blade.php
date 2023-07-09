@@ -4,7 +4,7 @@
             <div class="col-12">
                 <div class="style-breadcrumb">
                     <div class="breadcrumb-section default">
-                        <ul class="breadcrumb-list" >
+                        <ul class="breadcrumb-list">
                             <li>
                                 <a href="#"><span>فروشگاه اینترنتی جی تی کالا</span></a>
                             </li>
@@ -31,44 +31,24 @@
                     <div class="row">
                         <div class="col-lg-4 col-md-6 col-sm-12">
                             <div class="product-gallery default">
-                                <img class="zoom-img" id="img-product-zoom" src="/front/assets/img/product/1335154.jpg"
-                                     data-zoom-image="/front/assets/img/product/13351544.jpg" width="411" />
+                                <img class="zoom-img" id="img-product-zoom" src="{{ $object->get_image() }}"
+                                     alt="{{ $object->get_title($lang) }}"
+                                     data-zoom-image="{{ $object->get_image() }}" width="411"/>
 
                                 <div id="gallery_01f" style="width:500px;float:left;">
                                     <ul class="gallery-items owl-carousel owl-theme" id="gallery-slider">
-                                        <li class="item">
-                                            <a href="#" class="elevatezoom-gallery active" data-update=""
-                                               data-image="assets/img/product/2114766.jpg"
-                                               data-zoom-image="assets/img/product/2114766.jpg">
-                                                <img src="/front/assets/img/product/2114766.jpg" width="100" /></a>
-                                        </li>
-                                        <li class="item">
-                                            <a href="tester" class="elevatezoom-gallery"
-                                               data-image="assets/img/product/1335154.jpg"
-                                               data-zoom-image="assets/img/product/1335154.jpg">
-                                                <img src="/front/assets/img/product/1335154.jpg" width="100" />
-                                            </a>
-                                        </li>
-                                        <li class="item">
-                                            <a href="#" class="elevatezoom-gallery"
-                                               data-image="assets/img/product/3694075.jpg"
-                                               data-zoom-image="assets/img/product/3694075.jpg"><img
-                                                    src="/front/assets/img/product/3694075.jpg" width="100" /></a>
-                                        </li>
-                                        <li class="item">
-                                            <a href="tester" class="elevatezoom-gallery"
-                                               data-image="assets/img/product/1335154.jpg"
-                                               data-zoom-image="assets/img/product/1335154.jpg">
-                                                <img src="/front/assets/img/product/1335154.jpg" width="100" />
-                                            </a>
-                                        </li>
-                                        <li class="item">
-                                            <a href="tester" class="elevatezoom-gallery"
-                                               data-image="assets/img/product/110197298.jpg"
-                                               data-zoom-image="assets/img/product/110197298.jpg"
-                                               class="slide-content"><img
-                                                    src="/front/assets/img/product/110197298.jpg" height="68" /></a>
-                                        </li>
+
+                                        @foreach($object->galleries()->get() as $gallery)
+                                            <li class="item">
+                                                <a href="#"
+                                                   class="elevatezoom-gallery {{ $loop->index == 0 ? 'active' : ''  }}"
+                                                   data-update=""
+                                                   data-image="{{ $gallery->get_image() }}"
+                                                   data-zoom-image="{{ $gallery->get_image() }}">
+                                                    <img src="{{ $gallery->get_image() }}" width="100"/></a>
+                                            </li>
+                                        @endforeach
+
                                     </ul>
                                 </div>
                             </div>
@@ -90,7 +70,8 @@
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <button type="button" class="close" data-dismiss="modal"
-                                                    aria-hidden="true">&times;</button>
+                                                    aria-hidden="true">&times;
+                                            </button>
                                             <h4 class="modal-title" id="myModalLabel">اشتراک گذاری</h4>
                                         </div>
                                         <div class="modal-body">
@@ -150,40 +131,24 @@
                         <div class="col-lg-4 col-md-6 col-sm-12">
                             <div class="product-title default">
                                 <h1>
-                                    گوشی موبایل اپل مدل iPhone X ظرفیت 256 گیگابایت
-                                    <span>Apple iPhone X 256GB Mobile Phone</span>
+                                    {{ $object->get_title($lang) }}
+                                    <span>{{ $object->en_title ?: '---' }}</span>
                                 </h1>
                             </div>
                             <div class="product-guaranteed default">
-                                بیش از ۱۸۰ نفر از خریداران این محصول را پیشنهاد داده‌اند
+                                بیش از {{ $comments->where('suggest_score', 'suggest')->count() }} نفر از خریداران این
+                                محصول را پیشنهاد داده‌اند
                             </div>
                             <div class="product-params default">
                                 <ul data-title="ویژگی‌های محصول">
-                                    <li>
-                                        <span>حافظه داخلی: </span>
-                                        <span> 256 گیگابایت </span>
-                                    </li>
-                                    <li>
-                                        <span>شبکه های ارتباطی: </span>
-                                        <span> 2G,3G,4G </span>
-                                    </li>
-                                    <li>
-                                        <span>رزولوشن عکس: </span>
-                                        <span> 12.0 مگاپیکسل</span>
-                                    </li>
-                                    <li>
-                                        <span>تعداد سیم کارت: </span>
-                                        <span> تک </span>
-                                    </li>
-                                    <li>
-                                        <span>ویژگی‌های خاص: </span>
-                                        <span> مقاوم در برابر آب
-                                                    مناسب عکاسی
-                                                    مناسب عکاسی سلفی
-                                                    مناسب بازی
-                                                    مجهز به حس‌گر تشخیص چهره
-                                                </span>
-                                    </li>
+
+                                    @foreach($top_features as $top_f)
+                                        <li>
+                                            <span>{{ $top_f->feature->title ?: '---' }}: </span>
+                                            <span> {{ $top_f->value ?: '---' }} </span>
+                                        </li>
+                                    @endforeach
+
                                 </ul>
                             </div>
                         </div>
@@ -193,31 +158,28 @@
                                 <ul>
                                     <li>
                                         <span>برند</span> :
-                                        <span class="product-brand-title">متفرقه</span>
+                                        <span
+                                            class="product-brand-title">{{ $object->brand ? $object->brand->title : '---' }}</span>
                                     </li>
                                     <li>
                                         <span>دسته‌بندی</span> :
                                         <a href="#" class="btn-link-border">
-                                            ساعت هوشمند
+                                            {{ $object->category ? $object->category->get_title($lang) : '---' }}
                                         </a>
                                     </li>
                                 </ul>
                             </div>
                             <div class="product-variants default">
                                 <span>انتخاب رنگ: </span>
-                                <div class="radio">
-                                    <input type="radio" name="radio1" id="radio1" value="option1">
-                                    <label for="radio1">
-                                        خاکستری
-                                    </label>
-                                </div>
 
-                                <div class="radio">
-                                    <input type="radio" name="radio1" id="radio2" value="option2" checked="">
-                                    <label for="radio2">
-                                        نقره ای
-                                    </label>
-                                </div>
+                                @foreach($colors as $color)
+                                    <div class="radio">
+                                        <input type="radio" name="color" id="id_color_{{ $color->id }}" value="{{ $color->id }}">
+                                        <label for="id_color_{{ $color->id }}">
+                                            {{ $color->title ?: '---' }}
+                                        </label>
+                                    </div>
+                                @endforeach
 
                             </div>
                             <div class="product-guarantee default">
@@ -228,12 +190,12 @@
                                 <p>
                                     <i class="now-ui-icons shopping_shop"></i>
                                     <span>فروشنده:‌</span>
-                                    <a href="#" class="btn-link-border">ناسا</a>
+                                    <a href="#" class="btn-link-border">{{ $object->user ? $object->user->full_name() : '---' }}</a>
                                 </p>
                             </div>
                             <div class="price-product defualt">
                                 <div class="price-value">
-                                    <span> ۱۵,۳۹۰,۰۰۰ </span>
+                                    <span> {{ number_format($object->price) }} </span>
                                 </div>
                                 <span class="price-currency">تومان</span>
 
@@ -290,7 +252,8 @@
                             <div class="card-body default radius-bottom">
                                 <!-- Tab panes -->
                                 <div class="tab-content">
-                                    <div class="tab-pane fade show active" id="desc" role="tabpanel" aria-expanded="true">
+                                    <div class="tab-pane fade show active" id="desc" role="tabpanel"
+                                         aria-expanded="true">
                                         <article>
                                             <h2 class="param-title">
                                                 نقد و بررسی تخصصی
@@ -392,9 +355,19 @@
                                                             <img src="/front/assets/img/4082.png"
                                                                  alt="">
                                                             <p>
-                                                                آیفون ۱۳ پرو با صفحه‌نمایش ۱۲۰ هرتزی و شارژدهی عالی و دوربین کارآمدتر از گذشته، یکی از کامل‌ترین گوشی‌های بازار است. با بررسی آیفون ۱۳ پرو مکس همراه زومیت باشید.
+                                                                آیفون ۱۳ پرو با صفحه‌نمایش ۱۲۰ هرتزی و شارژدهی عالی و
+                                                                دوربین کارآمدتر از گذشته، یکی از کامل‌ترین گوشی‌های
+                                                                بازار است. با بررسی آیفون ۱۳ پرو مکس همراه زومیت باشید.
 
-                                                                اگر تغییرات ظاهری را کنار بگذاریم، اپل در سال‌های اخیر، بیشتر از هرچیز دیگری، بر بهبود صفحه‌نمایش، تراشه و دوربین آیفون تمرکز داشت. امسال باتری نیز به جمع موارد پراهمیت اضافه شده و نقش دوربین پررنگ‌تر از همیشه است؛ به‌قدری پررنگ که اپل ادعا می‌کند با آیفون ۱۳ پرو، «هالیوود را به جیب خود بیاورید». سال گذشته آیفون ۱۲ پرو و آیفون ۱۲ پرو مکس، گوشی‌های کم‌نقصی بودند و پرچم‌داران گران‌قیمت اندروید به چالش کشیدند، حال باید دید که آیفون‌های جدید چه عملکردی به‌نمایش می‌گذارند.
+                                                                اگر تغییرات ظاهری را کنار بگذاریم، اپل در سال‌های اخیر،
+                                                                بیشتر از هرچیز دیگری، بر بهبود صفحه‌نمایش، تراشه و
+                                                                دوربین آیفون تمرکز داشت. امسال باتری نیز به جمع موارد
+                                                                پراهمیت اضافه شده و نقش دوربین پررنگ‌تر از همیشه است؛
+                                                                به‌قدری پررنگ که اپل ادعا می‌کند با آیفون ۱۳ پرو،
+                                                                «هالیوود را به جیب خود بیاورید». سال گذشته آیفون ۱۲ پرو
+                                                                و آیفون ۱۲ پرو مکس، گوشی‌های کم‌نقصی بودند و پرچم‌داران
+                                                                گران‌قیمت اندروید به چالش کشیدند، حال باید دید که
+                                                                آیفون‌های جدید چه عملکردی به‌نمایش می‌گذارند.
                                                             </p>
 
                                                         </div>
@@ -414,7 +387,6 @@
                                                 <span>Apple iPhone X 256GB Mobile Phone</span>
                                             </h2>
                                             <section>
-
 
 
                                                 <h3 class="params-title">مشخصات کلی</h3>
@@ -508,7 +480,8 @@
                                                     <form class="px-5" onsubmit="return false">
                                                         <div class="row">
                                                             <div class="col-12">
-                                                                <div class="form-account-title">عنوان نظر شما (اجباری)</div>
+                                                                <div class="form-account-title">عنوان نظر شما (اجباری)
+                                                                </div>
                                                                 <div class="form-account-row">
                                                                     <input class="input-field text-right" type="text"
                                                                            placeholder="عنوان نظر خود را بنویسید">
@@ -520,9 +493,12 @@
                                                                 </div>
                                                                 <div class="form-account-row ps-relative">
                                                                     <input name="strengths-points"
-                                                                           type="text" id="strengths-points-input" data-addui='tags'
+                                                                           type="text" id="strengths-points-input"
+                                                                           data-addui='tags'
                                                                            data-enter='true'>
-                                                                    <button id="add-strengths-point" class="add-points">+</button>
+                                                                    <button id="add-strengths-point" class="add-points">
+                                                                        +
+                                                                    </button>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6 col-sm-12 tag-input-st tag-input-weak">
@@ -530,13 +506,16 @@
                                                                     <span class="cl-circle-title cl-red"></span>
                                                                 </div>
                                                                 <div class="form-account-row ps-relative">
-                                                                    <input name="weak-points" type="text" id="weak-points-input" data-addui='tags'
+                                                                    <input name="weak-points" type="text"
+                                                                           id="weak-points-input" data-addui='tags'
                                                                            data-enter='true'>
-                                                                    <button id="add-weak-point" class="add-points">+</button>
+                                                                    <button id="add-weak-point" class="add-points">+
+                                                                    </button>
                                                                 </div>
                                                             </div>
                                                             <div class="col-12 mt-5">
-                                                                <div class="form-account-title">متن نظر شما (اجباری)</div>
+                                                                <div class="form-account-title">متن نظر شما (اجباری)
+                                                                </div>
                                                                 <div class="form-account-row">
                                                     <textarea class="input-field text-right" rows="5"
                                                               placeholder="متن خود را بنویسید"></textarea>
@@ -549,21 +528,24 @@
                                                                     </div>
                                                                     <div class="checkout-shipment">
                                                                         <div class="radio">
-                                                                            <input type="radio" name="radio1" id="radio1" value="option1">
+                                                                            <input type="radio" name="radio1"
+                                                                                   id="radio1" value="option1">
                                                                             <label for="radio1">
                                                                                 پیشنهاد می کنم
                                                                             </label>
                                                                         </div>
 
                                                                         <div class="radio">
-                                                                            <input type="radio" name="radio1" id="radio2" value="option2">
+                                                                            <input type="radio" name="radio1"
+                                                                                   id="radio2" value="option2">
                                                                             <label for="radio2">
                                                                                 خیر،پیشنهاد نمی کنم
                                                                             </label>
                                                                         </div>
 
                                                                         <div class="radio">
-                                                                            <input type="radio" name="radio1" id="radio3" value="option3">
+                                                                            <input type="radio" name="radio1"
+                                                                                   id="radio3" value="option3">
                                                                             <label for="radio3">
                                                                                 نظری ندارم
                                                                             </label>
@@ -575,8 +557,9 @@
                                                                 <button class="btn btn-primary btn-no-icon">
                                                                     ثبت نظر
                                                                 </button>
-                                                                <p>با “ثبت نظر” موافقت خود را با <a href="/page/comments-rules/"
-                                                                                                    class="btn-link-spoiler" target="_blank">قوانین
+                                                                <p>با “ثبت نظر” موافقت خود را با <a
+                                                                        href="/page/comments-rules/"
+                                                                        class="btn-link-spoiler" target="_blank">قوانین
                                                                         انتشار محتوا</a> در دیجی‌کالا اعلام می‌کنم.</p>
                                                             </div>
                                                         </div>
@@ -584,24 +567,36 @@
                                                 </div>
                                                 <div class="col-md-6 col-sm-12">
                                                     <div class="pl-5">
-                                                        <h3>دیگران را با نوشتن نظرات خود، برای انتخاب این محصول راهنمایی کنید.</h3>
+                                                        <h3>دیگران را با نوشتن نظرات خود، برای انتخاب این محصول راهنمایی
+                                                            کنید.</h3>
                                                         <div>
-                                                            <p>لطفا پیش از ارسال نظر، خلاصه قوانین زیر را مطالعه کنید:</p>
-                                                            <p>فارسی بنویسید و از کیبورد فارسی استفاده کنید. بهتر است از فضای خالی (Space)
-                                                                بیش‌از‌حدِ معمول، شکلک یا ایموجی استفاده نکنید و از کشیدن حروف یا کلمات با
+                                                            <p>لطفا پیش از ارسال نظر، خلاصه قوانین زیر را مطالعه
+                                                                کنید:</p>
+                                                            <p>فارسی بنویسید و از کیبورد فارسی استفاده کنید. بهتر است از
+                                                                فضای خالی (Space)
+                                                                بیش‌از‌حدِ معمول، شکلک یا ایموجی استفاده نکنید و از
+                                                                کشیدن حروف یا کلمات با
                                                                 صفحه‌کلید بپرهیزید.</p>
-                                                            <p>نظرات خود را براساس تجربه و استفاده‌ی عملی و با دقت به نکات فنی ارسال کنید؛
+                                                            <p>نظرات خود را براساس تجربه و استفاده‌ی عملی و با دقت به
+                                                                نکات فنی ارسال کنید؛
                                                                 بدون
-                                                                تعصب به محصول خاص، مزایا و معایب را بازگو کنید و بهتر است از ارسال نظرات
+                                                                تعصب به محصول خاص، مزایا و معایب را بازگو کنید و بهتر
+                                                                است از ارسال نظرات
                                                                 چندکلمه‌‌ای خودداری کنید.</p>
-                                                            <p>بهتر است در نظرات خود از تمرکز روی عناصر متغیر مثل قیمت، پرهیز کنید.</p>
-                                                            <p>به کاربران و سایر اشخاص احترام بگذارید. پیام‌هایی که شامل محتوای توهین‌آمیز و
+                                                            <p>بهتر است در نظرات خود از تمرکز روی عناصر متغیر مثل قیمت،
+                                                                پرهیز کنید.</p>
+                                                            <p>به کاربران و سایر اشخاص احترام بگذارید. پیام‌هایی که شامل
+                                                                محتوای توهین‌آمیز و
                                                                 کلمات نامناسب باشند، حذف می‌شوند.</p>
-                                                            <p>از ارسال لینک‌های سایت‌های دیگر و ارایه‌ی اطلاعات شخصی خودتان مثل شماره تماس،
+                                                            <p>از ارسال لینک‌های سایت‌های دیگر و ارایه‌ی اطلاعات شخصی
+                                                                خودتان مثل شماره تماس،
                                                                 ایمیل و آی‌دی شبکه‌های اجتماعی پرهیز کنید.</p>
-                                                            <p>با توجه به ساختار بخش نظرات، از پرسیدن سوال یا درخواست راهنمایی در این بخش
-                                                                خودداری کرده و سوالات خود را در بخش «پرسش و پاسخ» مطرح کنید.</p>
-                                                            <p>هرگونه نقد و نظر در خصوص سایت دیجی‌کالا، خدمات و درخواست کالا را با ایمیل
+                                                            <p>با توجه به ساختار بخش نظرات، از پرسیدن سوال یا درخواست
+                                                                راهنمایی در این بخش
+                                                                خودداری کرده و سوالات خود را در بخش «پرسش و پاسخ» مطرح
+                                                                کنید.</p>
+                                                            <p>هرگونه نقد و نظر در خصوص سایت دیجی‌کالا، خدمات و درخواست
+                                                                کالا را با ایمیل
                                                                 <a href="mailto:info@digikala.com">
                                                                     info@digikala.com
                                                                 </a>
@@ -610,7 +605,8 @@
                                                                 <a href="tel: +982161930000">
                                                                     ۶۱۹۳۰۰۰۰ - ۰۲۱
                                                                 </a>
-                                                                در میان بگذارید و از نوشتن آن‌ها در بخش نظرات خودداری کنید.</p>
+                                                                در میان بگذارید و از نوشتن آن‌ها در بخش نظرات خودداری
+                                                                کنید.</p>
                                                         </div>
                                                     </div>
 
@@ -630,11 +626,13 @@
                                                                 <div class="col-md-3 col-sm-12">
                                                                     <div
                                                                         class="message-light message-light--purchased">
-                                                                        خریدار این محصول</div>
+                                                                        خریدار این محصول
+                                                                    </div>
                                                                     <ul class="comments-user-shopping">
                                                                         <li>
                                                                             <div class="cell">رنگ خریداری
-                                                                                شده:</div>
+                                                                                شده:
+                                                                            </div>
                                                                             <div class="cell color-cell">
                                                                                         <span
                                                                                             class="shopping-color-value"
@@ -643,7 +641,8 @@
                                                                         </li>
                                                                         <li>
                                                                             <div class="cell">خریداری شده
-                                                                                از:</div>
+                                                                                از:
+                                                                            </div>
                                                                             <div class="cell seller-cell">
                                                                                         <span
                                                                                             class="o-text-blue">دیجی‌کالا</span>
@@ -652,7 +651,8 @@
                                                                     </ul>
                                                                     <div
                                                                         class="message-light message-light--opinion-positive">
-                                                                        خرید این محصول را توصیه می‌کنم</div>
+                                                                        خرید این محصول را توصیه می‌کنم
+                                                                    </div>
                                                                 </div>
                                                                 <div class="col-md-9 col-sm-12 comment-content">
                                                                     <div class="comment-title">
@@ -686,11 +686,13 @@
                                                                 <div class="col-md-3 col-sm-12">
                                                                     <div
                                                                         class="message-light message-light--purchased">
-                                                                        خریدار این محصول</div>
+                                                                        خریدار این محصول
+                                                                    </div>
                                                                     <ul class="comments-user-shopping">
                                                                         <li>
                                                                             <div class="cell">رنگ خریداری
-                                                                                شده:</div>
+                                                                                شده:
+                                                                            </div>
                                                                             <div class="cell color-cell">
                                                                                         <span
                                                                                             class="shopping-color-value"
@@ -699,7 +701,8 @@
                                                                         </li>
                                                                         <li>
                                                                             <div class="cell">خریداری شده
-                                                                                از:</div>
+                                                                                از:
+                                                                            </div>
                                                                             <div class="cell seller-cell">
                                                                                         <span
                                                                                             class="o-text-blue">دیجی‌کالا</span>
@@ -708,7 +711,8 @@
                                                                     </ul>
                                                                     <div
                                                                         class="message-light message-light--opinion-positive">
-                                                                        خرید این محصول را توصیه می‌کنم</div>
+                                                                        خرید این محصول را توصیه می‌کنم
+                                                                    </div>
                                                                 </div>
                                                                 <div class="col-md-9 col-sm-12 comment-content">
                                                                     <div class="comment-title">
@@ -727,7 +731,8 @@
                                                                                     </li>
                                                                                     <li>باتری باظرفیت بالا</li>
                                                                                     <li>حسگر اثرانگشت زیر قاب
-                                                                                        جلویی</li>
+                                                                                        جلویی
+                                                                                    </li>
                                                                                 </ul>
                                                                             </div>
                                                                         </div>
@@ -785,11 +790,13 @@
                                                                 <div class="col-md-3 col-sm-12">
                                                                     <div
                                                                         class="message-light message-light--purchased">
-                                                                        خریدار این محصول</div>
+                                                                        خریدار این محصول
+                                                                    </div>
                                                                     <ul class="comments-user-shopping">
                                                                         <li>
                                                                             <div class="cell">رنگ خریداری
-                                                                                شده:</div>
+                                                                                شده:
+                                                                            </div>
                                                                             <div class="cell color-cell">
                                                                                         <span
                                                                                             class="shopping-color-value"
@@ -798,7 +805,8 @@
                                                                         </li>
                                                                         <li>
                                                                             <div class="cell">خریداری شده
-                                                                                از:</div>
+                                                                                از:
+                                                                            </div>
                                                                             <div class="cell seller-cell">
                                                                                         <span
                                                                                             class="o-text-blue">دیجی‌کالا</span>
@@ -807,7 +815,8 @@
                                                                     </ul>
                                                                     <div
                                                                         class="message-light message-light--opinion-positive">
-                                                                        خرید این محصول را توصیه می‌کنم</div>
+                                                                        خرید این محصول را توصیه می‌کنم
+                                                                    </div>
                                                                 </div>
                                                                 <div class="col-md-9 col-sm-12 comment-content">
                                                                     <div class="comment-title">
@@ -841,11 +850,13 @@
                                                                 <div class="col-md-3 col-sm-12">
                                                                     <div
                                                                         class="message-light message-light--purchased">
-                                                                        خریدار این محصول</div>
+                                                                        خریدار این محصول
+                                                                    </div>
                                                                     <ul class="comments-user-shopping">
                                                                         <li>
                                                                             <div class="cell">رنگ خریداری
-                                                                                شده:</div>
+                                                                                شده:
+                                                                            </div>
                                                                             <div class="cell color-cell">
                                                                                         <span
                                                                                             class="shopping-color-value"
@@ -854,7 +865,8 @@
                                                                         </li>
                                                                         <li>
                                                                             <div class="cell">خریداری شده
-                                                                                از:</div>
+                                                                                از:
+                                                                            </div>
                                                                             <div class="cell seller-cell">
                                                                                         <span
                                                                                             class="o-text-blue">دیجی‌کالا</span>
@@ -863,7 +875,8 @@
                                                                     </ul>
                                                                     <div
                                                                         class="message-light message-light--opinion-positive">
-                                                                        خرید این محصول را توصیه می‌کنم</div>
+                                                                        خرید این محصول را توصیه می‌کنم
+                                                                    </div>
                                                                 </div>
                                                                 <div class="col-md-9 col-sm-12 comment-content">
                                                                     <div class="comment-title">
@@ -897,11 +910,13 @@
                                                                 <div class="col-md-3 col-sm-12">
                                                                     <div
                                                                         class="message-light message-light--purchased">
-                                                                        خریدار این محصول</div>
+                                                                        خریدار این محصول
+                                                                    </div>
                                                                     <ul class="comments-user-shopping">
                                                                         <li>
                                                                             <div class="cell">رنگ خریداری
-                                                                                شده:</div>
+                                                                                شده:
+                                                                            </div>
                                                                             <div class="cell color-cell">
                                                                                         <span
                                                                                             class="shopping-color-value"
@@ -910,7 +925,8 @@
                                                                         </li>
                                                                         <li>
                                                                             <div class="cell">خریداری شده
-                                                                                از:</div>
+                                                                                از:
+                                                                            </div>
                                                                             <div class="cell seller-cell">
                                                                                         <span
                                                                                             class="o-text-blue">دیجی‌کالا</span>
@@ -919,7 +935,8 @@
                                                                     </ul>
                                                                     <div
                                                                         class="message-light message-light--opinion-positive">
-                                                                        خرید این محصول را توصیه می‌کنم</div>
+                                                                        خرید این محصول را توصیه می‌کنم
+                                                                    </div>
                                                                 </div>
                                                                 <div class="col-md-9 col-sm-12 comment-content">
                                                                     <div class="comment-title">
@@ -1008,7 +1025,7 @@
                                          class="img-fluid" alt="">
                                 </a>
                                 <h2 class="post-title">
-                                    <a href="#">یخچال ساید بای ساید 2023 مدل  5471</a>
+                                    <a href="#">یخچال ساید بای ساید 2023 مدل 5471</a>
                                 </h2>
                                 <div class="price">
                                     <del><span>69,890,000<span>تومان</span></span></del>
@@ -1059,7 +1076,7 @@
                                          class="img-fluid" alt="">
                                 </a>
                                 <h2 class="post-title">
-                                    <a href="#">تبسنج دستی مدل 2022 Inspiron 15-5570  </a>
+                                    <a href="#">تبسنج دستی مدل 2022 Inspiron 15-5570 </a>
                                 </h2>
                                 <div class="price">
                                     <span>4,279,000<span>تومان</span></span>
@@ -1113,7 +1130,7 @@
                                          class="img-fluid" alt="">
                                 </a>
                                 <h2 class="post-title">
-                                    <a href="#">یخچال ساید بای ساید 2023 مدل  5471</a>
+                                    <a href="#">یخچال ساید بای ساید 2023 مدل 5471</a>
                                 </h2>
                                 <div class="price">
                                     <del><span>69,890,000<span>تومان</span></span></del>
@@ -1138,7 +1155,7 @@
                                          class="img-fluid" alt="">
                                 </a>
                                 <h2 class="post-title">
-                                    <a href="#">تبسنج دستی مدل 2022 Inspiron 15-5570  </a>
+                                    <a href="#">تبسنج دستی مدل 2022 Inspiron 15-5570 </a>
                                 </h2>
                                 <div class="price">
                                     <span>4,279,000<span>تومان</span></span>
