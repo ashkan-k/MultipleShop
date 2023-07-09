@@ -174,7 +174,8 @@
 
                                 @foreach($colors as $color)
                                     <div class="radio">
-                                        <input type="radio" name="color" id="id_color_{{ $color->id }}" value="{{ $color->id }}">
+                                        <input type="radio" name="color" id="id_color_{{ $color->id }}"
+                                               value="{{ $color->id }}">
                                         <label for="id_color_{{ $color->id }}">
                                             {{ $color->title ?: '---' }}
                                         </label>
@@ -190,7 +191,8 @@
                                 <p>
                                     <i class="now-ui-icons shopping_shop"></i>
                                     <span>فروشنده:‌</span>
-                                    <a href="#" class="btn-link-border">{{ $object->user ? $object->user->full_name() : '---' }}</a>
+                                    <a href="#"
+                                       class="btn-link-border">{{ $object->user ? $object->user->full_name() : '---' }}</a>
                                 </p>
                             </div>
                             <div class="price-product defualt">
@@ -201,7 +203,7 @@
 
                                 <div class="price-discount" data-title="تخفیف">
                                             <span>
-                                                ۰
+                                                {{ $object->calculate_discount_percent() ?: '0' }}
                                             </span>
                                     <span>%</span>
                                 </div>

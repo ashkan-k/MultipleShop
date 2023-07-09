@@ -3,8 +3,10 @@
 namespace Modules\Product\Entities;
 
 use App\Http\Traits\Searchable;
+use Hekmatinasser\Verta\Verta;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
 use Modules\Cart\Entities\Cart;
 use Modules\Comment\Entities\Comment;
@@ -38,7 +40,7 @@ class Product extends Model
         'brand_id',
     ];
 
-    protected $search_fields  = [
+    protected $search_fields = [
         'title',
         'en_title',
         'en_slug',
@@ -73,21 +75,21 @@ class Product extends Model
 
     public function save(array $options = [])
     {
-        if (!$this->slug){
+        if (!$this->slug) {
             $this->slug = $this->title;
         }
         $this->slug = Slugify($this->slug);
 
-        if (!$this->en_slug){
+        if (!$this->en_slug) {
             $this->en_slug = $this->en_title;
         }
         $this->en_slug = Slugify($this->en_slug);
 
         try {
-            $saved =  parent::save($options);
-        }catch (\Exception $exception){
+            $saved = parent::save($options);
+        } catch (\Exception $exception) {
             $this->slug = Str::random(20);
-            $saved =  parent::save($options);
+            $saved = parent::save($options);
         }
         return $saved;
     }
@@ -129,6 +131,28 @@ class Product extends Model
         return 'danger';
     }
 
+    public function calculate_discount_percent()
+    {
+        if (!$this->discount_price) {
+            return 0;
+        }
+
+        $today = Verta::now();
+        $start_date = Verta::parse($this->discount_start_date);
+        $end_date = Verta::parse($this->discount_end_date);
+
+        dd($today, $start_date);
+
+        dd(!$today->gte($start_date));
+
+        if (!$today->gte($start_date) || !$today->lte($end_date)) {
+            return 0;
+        }
+
+        $discount_percent = ($this->discount_price * 100) / $this->price;
+        return $discount_percent;
+    }
+
     public function get_title($lang)
     {
         return $lang == 'fa' ? $this->title : $this->en_title;
@@ -151,7 +175,7 @@ class Product extends Model
 
     public function scopeFindBySlug($query, $lang, $slug)
     {
-        if ($lang == 'fa'){
+        if ($lang == 'fa') {
             return $query->where('slug', $slug)->firstOrFail();
         }
         return $query->where('en_slug', $slug)->firstOrFail();
@@ -216,6 +240,6 @@ class Product extends Model
 
     public function comments()
     {
-        return $this->morphMany(Comment::class , 'commentable');
+        return $this->morphMany(Comment::class, 'commentable');
     }
 }
