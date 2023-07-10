@@ -185,10 +185,12 @@
                             </div>
                             <div class="product-guaranteed default">
                                 @if($lang == 'fa')
-                                    بیش از {{ $comments->where('suggest_score', 'suggest')->count() }} نفر از خریداران این
+                                    بیش از {{ $comments->where('suggest_score', 'suggest')->count() }} نفر از خریداران
+                                    این
                                     محصول را پیشنهاد داده‌اند
                                 @else
-                                    More than {{ $comments->where('suggest_score', 'suggest')->count() }} buyers have recommended this product
+                                    More than {{ $comments->where('suggest_score', 'suggest')->count() }} buyers have
+                                    recommended this product
                                 @endif
                             </div>
                             <div class="product-params default">
@@ -455,7 +457,8 @@
                                                         <form class="px-5" wire:submit.prevent="SubmitNewComment()">
                                                             <div class="row">
                                                                 <div class="col-12">
-                                                                    <div class="form-account-title">{{ __('The title of your comment') }}
+                                                                    <div
+                                                                        class="form-account-title">{{ __('The title of your comment') }}
                                                                         ({{ __('Required') }})
                                                                     </div>
                                                                     <div class="form-account-row">
@@ -471,7 +474,8 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-6 col-sm-12 tag-input-st">
-                                                                    <div class="form-account-title">{{ __('Positive Points') }}
+                                                                    <div
+                                                                        class="form-account-title">{{ __('Positive Points') }}
                                                                         <span class="cl-circle-title cl-primary"></span>
                                                                     </div>
                                                                     <div class="form-account-row ps-relative">
@@ -489,7 +493,8 @@
                                                                 </div>
                                                                 <div
                                                                     class="col-md-6 col-sm-12 tag-input-st tag-input-weak">
-                                                                    <div class="form-account-title">{{ __('Negative Points') }}
+                                                                    <div
+                                                                        class="form-account-title">{{ __('Negative Points') }}
                                                                         <span class="cl-circle-title cl-red"></span>
                                                                     </div>
                                                                     <div class="form-account-row ps-relative">
@@ -503,20 +508,22 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-12 mt-5">
-                                                                    <div class="form-account-title">متن نظر شما (اجباری)
+                                                                    <div
+                                                                        class="form-account-title">{{ __('The text of your comment') }}
+                                                                        ({{ __('Required') }})
                                                                     </div>
                                                                     <div class="form-account-row">
                                                                          <textarea class="input-field text-right"
                                                                                    rows="5"
                                                                                    wire:model.defer="body"
                                                                                    required name="body"
-                                                                                   placeholder="متن خود را بنویسید"></textarea>
+                                                                                   placeholder="{{ __('Write your text') }}"></textarea>
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-12 mt-2 mb-2 px-0">
                                                                     <div class="product-offer-question shopping-page">
                                                                         <div class="headline">
-                                                                            <span>آیا خرید این محصول را به دوستانتان پیشنهاد می کنید؟</span>
+                                                                            <span>{{ __('Do you recommend buying this product to your friends?') }}</span>
                                                                         </div>
                                                                         <div class="checkout-shipment">
                                                                             <div class="radio">
@@ -524,7 +531,7 @@
                                                                                        wire:model.defer="suggest_score"
                                                                                        id="radio1" value="suggest">
                                                                                 <label for="radio1">
-                                                                                    پیشنهاد می کنم
+                                                                                    {{ __('I recommend') }}
                                                                                 </label>
                                                                             </div>
 
@@ -533,7 +540,7 @@
                                                                                        wire:model.defer="suggest_score"
                                                                                        id="radio2" value="not_suggest">
                                                                                 <label for="radio2">
-                                                                                    خیر،پیشنهاد نمی کنم
+                                                                                    {{ __('No, I do not recommend it') }}
                                                                                 </label>
                                                                             </div>
 
@@ -542,7 +549,7 @@
                                                                                        wire:model.defer="suggest_score"
                                                                                        id="radio3" value="no_idea">
                                                                                 <label for="radio3">
-                                                                                    نظری ندارم
+                                                                                    {{ __('No idea') }}
                                                                                 </label>
                                                                             </div>
                                                                         </div>
@@ -551,23 +558,42 @@
                                                                 <div class="col-12 px-0">
                                                                     <button type="submit"
                                                                             class="btn btn-primary btn-no-icon">
-                                                                        ثبت نظر
+                                                                        {{ __('Submit Comment') }}
                                                                     </button>
-                                                                    <p>با “ثبت نظر” موافقت خود را با <a
-                                                                            href="/page/comments-rules/"
-                                                                            class="btn-link-spoiler" target="_blank">قوانین
-                                                                            انتشار محتوا</a> در دیجی‌کالا اعلام می‌کنم.
-                                                                    </p>
+                                                                    @if($lang == 'fa')
+                                                                        <p>با “ثبت نظر” موافقت خود را با <a
+                                                                                href="/page/comments-rules/"
+                                                                                class="btn-link-spoiler"
+                                                                                target="_blank">قوانین
+                                                                                انتشار محتوا</a> در {{ $website_title }}
+                                                                            اعلام
+                                                                            می‌کنم.
+                                                                        </p>
+                                                                    @else
+                                                                        <p>
+                                                                            By "registering a comment" I declare my
+                                                                            agreement with <a
+                                                                                href="/page/comments-rules/"
+                                                                                class="btn-link-spoiler"
+                                                                                target="_blank">the content publishing
+                                                                                rules</a> in {{ $website_title }}
+                                                                        </p>
+                                                                    @endif
                                                                 </div>
                                                             </div>
                                                         </form>
                                                     @else
                                                         <div class="pl-5 text-center">
-                                                            <h3>برای ثبت
-                                                                نظر ابتدا
-                                                                <a class="text-info"
-                                                                   href="{{ route('login', ['locale' => $lang]) }}">
-                                                                    وارد </a> شوید</h3>
+                                                            @if($lang == 'fa')
+                                                                <h3>برای ثبت
+                                                                    نظر ابتدا
+                                                                    <a class="text-info"
+                                                                       href="{{ route('login', ['locale' => $lang]) }}">
+                                                                        وارد </a> شوید</h3>
+                                                            @else
+                                                                <h3><a class="text-info"
+                                                                       href="{{ route('login', ['locale' => $lang]) }}">Log in</a> first to post a comment</h3>
+                                                            @endif
                                                         </div>
                                                     @endauth
 
@@ -584,8 +610,8 @@
                                             </div>
 
                                             <h2 class="param-title mt-5">
-                                                نظرات کاربران
-                                                <span>{{ $comments->count() }} نظر</span>
+                                                {{ __('User Comments') }}
+                                                <span>{{ $comments->count() }} {{ __('Comments') }}</span>
                                             </h2>
                                             <div class="comments-area default">
                                                 <ol class="comment-list" style="width: 100% !important;">
@@ -599,12 +625,11 @@
                                                                     <div class="col-md-3 col-sm-12">
                                                                         <div
                                                                             class="message-light message-light--purchased">
-                                                                            خریدار این محصول
+                                                                            {{ __('The buyer of this product') }}
                                                                         </div>
                                                                         <ul class="comments-user-shopping">
                                                                             <li>
-                                                                                <div class="cell">رنگ خریداری
-                                                                                    شده:
+                                                                                <div class="cell">{{ __('Color purchased:') }}
                                                                                 </div>
                                                                                 <div class="cell color-cell">
                                                                                     <span class="shopping-color-value"
@@ -612,8 +637,8 @@
                                                                                 </div>
                                                                             </li>
                                                                             <li>
-                                                                                <div class="cell">خریداری شده
-                                                                                    از:
+                                                                                <div class="cell">
+                                                                                    {{ __('Purchased from:') }}
                                                                                 </div>
                                                                                 <div class="cell seller-cell">
                                                                                     <span
@@ -624,12 +649,12 @@
                                                                         @if($comment->suggest_score == 'suggest')
                                                                             <div
                                                                                 class="message-light message-light--opinion-positive">
-                                                                                خرید این محصول را توصیه می‌کنم
+                                                                                {{ __('I recommend buying this product') }}
                                                                             </div>
                                                                         @elseif($comment->suggest_score == 'not_suggest')
                                                                             <div
                                                                                 class="message-light">
-                                                                                خرید این محصول را توصیه نمی‌کنم
+                                                                                {{ __('I do not recommend buying this product') }}
                                                                             </div>
                                                                         @endif
                                                                     </div>
@@ -638,9 +663,13 @@
                                                                             {{ $object->get_title($lang) ?: '---' }}
                                                                         </div>
                                                                         <div class="comment-author">
-                                                                            توسط {{ $comment->user->full_name() ?: '---' }}
-                                                                            در
-                                                                            تاریخ {{ \Hekmatinasser\Verta\Verta:: instance($comment->created_at)->format('%B %d، %Y') }}
+                                                                            @if($lang == 'fa')
+                                                                                توسط {{ $comment->user->full_name() ?: '---' }}
+                                                                                در
+                                                                                تاریخ {{ \Hekmatinasser\Verta\Verta:: instance($comment->created_at)->format('%B %d، %Y') }}
+                                                                            @else
+                                                                                by {{ $comment->user->full_name() ?: '---' }} on {{ \Hekmatinasser\Verta\Verta:: instance($comment->created_at)->format('%B %d، %Y') }}
+                                                                            @endif
                                                                         </div>
                                                                         <div class="row">
 
@@ -648,7 +677,7 @@
                                                                                 <div class="col-md-4 col-sm-6 col-12">
                                                                                     <div
                                                                                         class="content-expert-evaluation-positive">
-                                                                                        <span>نقاط قوت</span>
+                                                                                        <span>{{ __('Positive Points') }}</span>
                                                                                         <ul>
 
                                                                                             @foreach(explode('،', $comment->positive_points) as $pos_p)
@@ -664,7 +693,7 @@
                                                                                 <div class="col-md-4 col-sm-6 col-12">
                                                                                     <div
                                                                                         class="content-expert-evaluation-negative">
-                                                                                        <span>نقاط ضعف</span>
+                                                                                        <span>{{ __('Negative Points') }}</span>
                                                                                         <ul>
 
                                                                                             @foreach(explode('،', $comment->negative_points) as $neg_p)
@@ -809,7 +838,8 @@
                                             </del>
                                         @endif
 
-                                        <ins><span>{{ number_format($related_pro->price) }}<span>{{ __('Toman') }}</span></span>
+                                        <ins>
+                                            <span>{{ number_format($related_pro->price) }}<span>{{ __('Toman') }}</span></span>
                                         </ins>
                                     </div>
                                 </div>

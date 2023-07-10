@@ -205,7 +205,20 @@
     "The title of your comment": "عنوان نظر شما",
     "Required": "اجباری",
     "Write the title of your comment": "عنوان نظر خود را بنویسید",
+    "Write your text": "متن خود را بنویسید",
+    "The text of your comment": "متن نظر شما",
     "Positive Points": "نقاط قوت",
     "Negative Points": "نقاط ضعف",
-    "Separate with commas (,).": "با ویرگول (،) جدا کنید."
+    "Separate with commas (,).": "با ویرگول (،) جدا کنید.",
+    "Do you recommend buying this product to your friends?": "آیا خرید این محصول را به دوستانتان پیشنهاد می کنید؟",
+    "I recommend": "پیشنهاد می کنم",
+    "No, I do not recommend it": "خیر،پیشنهاد نمی کنم",
+    "No idea": "نظری ندارم",
+    "Submit Comment": "ثبت نظر",
+    "Comments": "نظر",
+    "The buyer of this product": "خریدار این محصول",
+    "Color purchased:": "رنگ خریداری شده:",
+    "Purchased from:": "خریداری شده از:",
+    "I recommend buying this product": "خرید این محصول را توصیه می\u200Cکنم:",
+    "I do not recommend buying this product": "خرید این محصول را توصیه نمی\u200Cکنم"
 }
