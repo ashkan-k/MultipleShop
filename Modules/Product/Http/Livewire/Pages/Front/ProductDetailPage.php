@@ -90,8 +90,13 @@ class ProductDetailPage extends Component
     {
         if ($type == 'add'){
 
-            if ($this->cart_count < 1){
-                $this->dispatchBrowserEvent('addToCartError');
+            if ($this->cart_count < 1 ){
+                $this->dispatchBrowserEvent('addToCartError', ['message' => 'تعداد سفارش باید حداقل یک باشد!']);
+                return;
+            }
+            if ($this->cart_count > $this->object->quantity){
+                $this->dispatchBrowserEvent('addToCartError', ['message' => 'تعداد سفارش بیش از تعداد موجود است!']);
+                return;
             }
 
             auth()->user()->carts()->create([
@@ -103,10 +108,9 @@ class ProductDetailPage extends Component
 
         }else{
 
-            $user_cart = auth()->user()->carts()->where('product_id', $this->object->id)->first();
-            if ($user_cart){
-                $this->object->increment('quantity', $user_cart->cart_count);
-                $user_cart->delete();
+            if ($this->user_cart){
+                $this->object->increment('quantity', $this->user_cart->count);
+                $this->user_cart->delete();
             }
 
         }
@@ -132,6 +136,10 @@ class ProductDetailPage extends Component
             'may_like_products' => Product::ActiveProducts()->where('brand_id', $this->object->brand_id)->get(),
             'related_products' => Product::ActiveProducts()->where('category_id', $this->object->category_id)->get(),
         ];
+
+        if (auth()->check()){
+            $this->user_cart = auth()->user()->carts()->where('product_id', $this->object->id)->first();
+        }
 
         return view('product::livewire.pages.front.product-detail-page', $data);
     }

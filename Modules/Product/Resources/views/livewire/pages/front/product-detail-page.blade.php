@@ -88,6 +88,7 @@
                                 </div>
                             </div>
                             <ul class="gallery-options">
+
                                 @auth
                                     @if($wish_lists->where('user_id' , auth()->user()->id)->isEmpty())
                                         <li>
@@ -98,12 +99,11 @@
                                     @else
                                         <li>
                                             <button wire:click="AddRemoveWishList('remove')" class="add-favorites"><i
-                                                    style="color: red !important;" class="fa fa-heart"></i></button>
+                                                    style="color: #f44336 !important;" class="fa fa-heart"></i></button>
                                             <span class="tooltip-option">حذف از علاقمندی</span>
                                         </li>
                                     @endif
                                 @endauth
-
 
                                 <li>
                                     <button data-toggle="modal" data-target="#myModal"><i
@@ -261,14 +261,15 @@
                                 </div>
                             </div>
 
-                            @if($object->quantity > 0)
+                            @if($object->quantity > 0 && !isset($user_cart))
                                 <div class="product-variants default mt-5 mb-0">
 
                                     <div class="radio">
                                         <span>تعداد: </span>
                                         <input type="number" style="width: 100px" name="color_id"
                                                wire:model.defer="cart_count"
-                                               min="1" class="input-field text-center mr-2"
+                                               min="1" max="{{ $object->quantity }}"
+                                               class="input-field text-center mr-2"
                                                value="1">
                                     </div>
 
@@ -277,21 +278,62 @@
 
                             <div class="product-add default">
 
-                                @if($object->quantity > 0)
-                                    <div class="parent-btn">
-                                        <a wire:click="AddToCart()" class="dk-btn dk-btn-info">
-                                            افزودن به سبد خرید
-                                            <i class="now-ui-icons shopping_cart-simple"></i>
-                                        </a>
-                                    </div>
+                                @auth
+                                    @if(isset($user_cart))
+
+                                        <div class="parent-btn">
+                                            <a wire:click="AddRemoveCart('remove')" class="dk-btn dk-btn-info">
+                                                حذف از سبد خرید
+                                                <i class="now-ui-icons shopping_cart-simple"></i>
+                                            </a>
+                                        </div>
+
+                                    @else
+
+                                        @if($object->quantity > 0)
+
+                                            <div class="parent-btn">
+                                                <a wire:click="AddRemoveCart('add')" class="dk-btn dk-btn-info">
+                                                    افزودن به سبد خرید
+                                                    <i class="now-ui-icons shopping_cart-simple"></i>
+                                                </a>
+                                            </div>
+
+                                        @else
+
+                                            <div class="parent-btn">
+                                                <a class="dk-btn dk-btn-info" style="cursor: not-allowed" disabled>
+                                                    ناموجود
+                                                    <i class="now-ui-icons shopping_cart-simple"></i>
+                                                </a>
+                                            </div>
+
+                                        @endif
+
+                                    @endif
                                 @else
-                                    <div class="parent-btn">
-                                        <a class="dk-btn dk-btn-info" style="cursor: not-allowed" disabled>
-                                            ناموجود
-                                            <i class="now-ui-icons shopping_cart-simple"></i>
-                                        </a>
-                                    </div>
-                                @endif
+
+                                    @if($object->quantity > 0)
+
+                                        <div class="parent-btn">
+                                            <a href="{{ route('login') }}" class="dk-btn dk-btn-info">
+                                                افزودن به سبد خرید
+                                                <i class="now-ui-icons shopping_cart-simple"></i>
+                                            </a>
+                                        </div>
+
+                                    @else
+
+                                        <div class="parent-btn">
+                                            <a class="dk-btn dk-btn-info" style="cursor: not-allowed" disabled>
+                                                ناموجود
+                                                <i class="now-ui-icons shopping_cart-simple"></i>
+                                            </a>
+                                        </div>
+
+                                    @endif
+
+                                @endauth
 
                             </div>
                         </div>
@@ -807,7 +849,7 @@
         });
 
         window.addEventListener('addToCartError', event => {
-            showToast('تعداد سفارش باید حداقل یک باشد!', 'error');
+            showToast(event['detail']['message'], 'error');
         });
     </script>
 
