@@ -531,8 +531,8 @@
                                             <div class="comments-area default">
                                                 <ol class="comment-list" style="width: 100% !important;">
 
-                                                    @foreach($object->comments()->where('status', 'approved')->with(['user'])->get() as $comment)
-                                                        <?php $ordered_color = auth()->user()->orders()->where('product_id', $comment->product_id)->first() ?>
+                                                    @foreach($object->comments()->where('status', 'approved')->get() as $comment)
+                                                        <?php $ordered_color = $comment->user->orders()->where('product_id', $comment->product_id)->first() ?>
 
                                                         <li>
                                                             <div class="comment-body">
