@@ -49,11 +49,7 @@
 
                                         </div>
                                         <a>
-                                            @if($lang == 'fa')
-                                                {{ $special_cat->title ?: '---' }}
-                                            @else
-                                                {{ $special_cat->en_title ?: '---' }}
-                                            @endif
+                                            {{ $special_cat->get_title($lang) ?: '---' }}
                                         </a>
                                         @if($settings['show_special_categories_products_count'])
                                             <p class="color-kala">{{ number_format($special_cat->products_count) }}
@@ -82,21 +78,27 @@
 
                                             @foreach($special_products as $special_pr)
                                                 <div class="item vip_car_box_product">
-                                                    <a href="single-product.html">
+                                                    <a href="{{ route('product_detail', $special_pr->get_slug($lang)) }}">
                                                         <img src="{{ $special_pr->get_image() }}"
                                                              class="img-fluid"
-                                                             alt="@if($lang == 'fa'){{ $special_pr->title }}@else{{ $special_pr->en_title }}@endif">
+                                                             alt="{{ $special_pr->get_title($lang) ?: '---' }}">
                                                     </a>
                                                     <h2 class="post-title">
-                                                        <a href="single-product.html">@if($lang == 'fa'){{ $special_pr->title }}@else{{ $special_pr->en_title }}@endif</a>
+                                                        <a href="{{ route('product_detail', $special_pr->get_slug($lang)) }}">{{ $special_pr->get_title($lang) ?: '---' }}</a>
                                                     </h2>
                                                     <div class="price">
-                                                        <del>
-                                                            <span>{{ number_format($special_pr->discount_price) }}<span>تومان</span></span>
-                                                        </del>
-                                                        <ins>
-                                                            <span>{{ number_format($special_pr->price) }}<span>تومان</span></span>
-                                                        </ins>
+                                                        @if($special_pr->calculate_discount_percent() > 0)
+                                                            <del>
+                                                                <span>{{ number_format($special_pr->price) }}<span>تومان</span></span>
+                                                            </del>
+                                                            <ins>
+                                                                <span>{{ number_format($special_pr->discount_price) }}<span>تومان</span></span>
+                                                            </ins>
+                                                        @else
+                                                            <ins>
+                                                                <span>{{ number_format($special_pr->price) }}<span>تومان</span></span>
+                                                            </ins>
+                                                        @endif
                                                     </div>
                                                 </div>
                                             @endforeach
@@ -137,31 +139,39 @@
                                 <h3 class="card-title">
                                     <span>{{ __('Latest Products') }}</span>
                                 </h3>
-                                <a href="#" class="view-all">{{ __('View All') }}</a>
+                                <a href="{{ route('products_list') }}" class="view-all">{{ __('View All') }}</a>
                             </header>
                             <div class="product-carousel owl-carousel owl-theme">
 
                                 @foreach($latest_products as $latest_pro)
                                     <div class="item">
-                                        <a href="single-product.html">
+                                        <a href="{{ route('product_detail', $latest_pro->get_slug($lang)) }}">
                                             <img src="{{ $latest_pro->get_image() }}"
                                                  class="img-fluid"
-                                                 alt="@if($lang == 'fa'){{ $latest_pro->title }}@else{{ $latest_pro->en_title }}@endif">
+                                                 alt="{{ $latest_pro->get_title($lang) ?: '---' }}">
                                         </a>
                                         <h2 class="post-title">
-                                            <a href="single-product.html">@if($lang == 'fa'){{ $latest_pro->title }}@else{{ $latest_pro->en_title }}@endif</a>
+                                            <a href="{{ route('product_detail', $latest_pro->get_slug($lang)) }}">{{ $latest_pro->get_title($lang) ?: '---' }}</a>
                                         </h2>
                                         <div class="price">
-                                            <div class="text-center">
-                                                <del>
-                                                    <span>{{ number_format($latest_pro->price) }}<span>تومان</span></span>
-                                                </del>
-                                            </div>
-                                            <div class="text-center">
-                                                <ins>
-                                                    <span>{{ number_format($latest_pro->discount_price) }}<span>تومان</span></span>
-                                                </ins>
-                                            </div>
+                                            @if($latest_pro->calculate_discount_percent() > 0)
+                                                <div class="text-center">
+                                                    <del>
+                                                        <span>{{ number_format($latest_pro->price) }}<span>تومان</span></span>
+                                                    </del>
+                                                </div>
+                                                <div class="text-center">
+                                                    <ins>
+                                                        <span>{{ number_format($latest_pro->discount_price) }}<span>تومان</span></span>
+                                                    </ins>
+                                                </div>
+                                            @else
+                                                <div class="text-center">
+                                                    <ins>
+                                                        <span>{{ number_format($latest_pro->price) }}<span>تومان</span></span>
+                                                    </ins>
+                                                </div>
+                                            @endif
                                         </div>
                                     </div>
                                 @endforeach
@@ -205,19 +215,29 @@
 
                                 @foreach($most_favorite_products as $most_favorite_pro)
                                     <div class="item">
-                                        <a href="single-product.html">
+                                        <a href="{{ route('product_detail', $most_favorite_pro->get_slug($lang)) }}">
                                             <img src="{{ $most_favorite_pro->get_image() }}"
                                                  class="img-fluid"
-                                                 alt="@if($lang == 'fa'){{ $most_favorite_pro->title }}@else{{ $most_favorite_pro->en_title }}@endif">
+                                                 alt="{{ $most_favorite_pro->get_title($lang) ?: '---' }}">
                                         </a>
                                         <h2 class="post-title">
-                                            <a href="single-product.html">@if($lang == 'fa'){{ $most_favorite_pro->title }}@else{{ $most_favorite_pro->en_title }}@endif</a>
+                                            <a href="{{ route('product_detail', $most_favorite_pro->get_slug($lang)) }}">{{ $most_favorite_pro->get_title($lang) ?: '---' }}</a>
                                         </h2>
                                         <div class="price">
-                                            <del><span>{{ number_format($most_favorite_pro->price) }}<span>تومان</span></span>
-                                            </del>
-                                            <ins><span>{{ number_format($most_favorite_pro->discount_price) }}<span>تومان</span></span>
-                                            </ins>
+
+                                            @if($most_favorite_pro->calculate_discount_percent() > 0)
+                                                <del>
+                                                    <span>{{ number_format($most_favorite_pro->price) }}<span>تومان</span></span>
+                                                </del>
+                                                <ins><span>{{ number_format($most_favorite_pro->discount_price) }}<span>تومان</span></span>
+                                                </ins>
+                                            @else
+                                                <ins>
+                                                    <span>{{ number_format($most_favorite_pro->price) }}<span>تومان</span></span>
+                                                </ins>
+                                            @endif
+
+
                                         </div>
                                     </div>
                                 @endforeach
@@ -261,21 +281,29 @@
 
                                 @foreach($cheapest_products as $cheapest_pro)
                                     <div class="item">
-                                        <a href="single-product.html">
+                                        <a href="{{ route('product_detail', $cheapest_pro->get_slug($lang)) }}">
                                             <img src="{{ $cheapest_pro->get_image() }}"
                                                  class="img-fluid"
-                                                 alt="@if($lang == 'fa'){{ $cheapest_pro->title }}@else{{ $cheapest_pro->en_title }}@endif">
+                                                 alt="{{ $cheapest_pro->get_title($lang) ?: '---' }}">
                                         </a>
                                         <h2 class="post-title">
-                                            <a href="single-product.html">@if($lang == 'fa'){{ $cheapest_pro->title }}@else{{ $cheapest_pro->en_title }}@endif</a>
+                                            <a href="{{ route('product_detail', $cheapest_pro->get_slug($lang)) }}">{{ $cheapest_pro->get_title($lang) ?: '---' }}</a>
                                         </h2>
                                         <div class="price">
-                                            <del>
-                                                <span>{{ number_format($cheapest_pro->price) }}<span>تومان</span></span>
-                                            </del>
-                                            <ins>
-                                                <span>{{ number_format($cheapest_pro->discount_price) }}<span>تومان</span></span>
-                                            </ins>
+
+                                            @if($cheapest_pro->calculate_discount_percent() > 0)
+                                                <del>
+                                                    <span>{{ number_format($cheapest_pro->price) }}<span>تومان</span></span>
+                                                </del>
+                                                <ins>
+                                                    <span>{{ number_format($cheapest_pro->discount_price) }}<span>تومان</span></span>
+                                                </ins>
+                                            @else
+                                                <ins>
+                                                    <span>{{ number_format($cheapest_pro->price) }}<span>تومان</span></span>
+                                                </ins>
+                                            @endif
+
                                         </div>
                                     </div>
                                 @endforeach
@@ -328,11 +356,7 @@
                     <div class="col-12">
                         <header class="mt-3">
                             <h5>
-                                @if($lang == 'fa')
-                                    <span>{{ __('The best') }} {{ $best_category->title }}</span>
-                                @else
-                                    <span>{{ __('The best') }} {{ $best_category->en_title }}</span>
-                                @endif
+                                <span>{{ __('The best') }} {{ $best_category->get_title($lang) ?: '---' }}</span>
                             </h5>
                         </header>
                         <div class="row">
@@ -344,13 +368,13 @@
                                             <div class="row">
                                                 <div class="col-4">
                                                     <img src="{{ $prod->get_image() }}"
-                                                         alt="@if($lang == 'fa'){{ $prod->title }}@else{{ $prod->en_title }}@endif"
+                                                         alt="{{ $prod->get_title($lang) ?: '---' }}"
                                                          class="img-fluid">
                                                 </div>
                                                 <div class="col-8">
                                                     <div class="mt-4 pl-0">
-                                                        <a href="single-product.html" class="color-title ">
-                                                            @if($lang == 'fa'){{ $prod->title }}@else{{ $prod->en_title }}@endif
+                                                        <a href="{{ route('product_detail', $prod->get_slug($lang)) }}" class="color-title ">
+                                                            {{ $prod->get_title($lang) ?: '---' }}
                                                         </a>
                                                         <p class="mt-3">
                                                             <span class="float-right font_12">{{ number_format($prod->price) }} تومان</span>
