@@ -5,6 +5,7 @@ namespace Modules\Product\Http\Livewire\Pages\Front;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Modules\Comment\Entities\Comment;
+use Modules\Comment\Http\Requests\CommentRequest;
 use Modules\Product\Entities\Color;
 use Modules\Product\Entities\Product;
 
@@ -14,12 +15,43 @@ class ProductDetailPage extends Component
 
     public $website_title = '';
     public $lang;
+    public $current_tab = 'review';
 
     public $object;
 
-    public function mount()
+    public $title;
+    public $body;
+    public $negative_points;
+    public $positive_points;
+    public $suggest_score;
+
+    protected function rules()
     {
-        $this->lang = app()->getLocale();
+        return (new CommentRequest())->rules();
+    }
+
+    public function SubmitNewComment()
+    {
+        $data = $this->validate();
+
+        $data['commentable_id'] = $this->object->id;
+        $data['commentable_type'] = get_class($this->object);
+
+        auth()->user()->comments()->create($data);
+
+        $this->title = $this->body = $this->negative_points = $this->positive_points = $this->suggest_score = null;
+
+        $this->dispatchBrowserEvent('newCommentSubmited');
+    }
+
+    public function ChangeTab($new_tab)
+    {
+        $this->current_tab = $new_tab;
+    }
+
+    public function dehydrate()
+    {
+        $this->dispatchBrowserEvent('initSomething');
     }
 
     public function updated($propertyName)

@@ -14,7 +14,11 @@ class CommentRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'title' => 'required|string|max:50',
+            'body' => 'required|string|max:300',
+            'negative_points' => 'nullable|string|max:300',
+            'positive_points' => 'nullable|string|max:300',
+            'suggest_score' => 'nullable|in:suggest,not_suggest,no_idea',
         ];
     }
 

@@ -111,6 +111,14 @@ class Category extends Model
         return $icons;
     }
 
+    public function scopeFindBySlug($query, $lang, $slug)
+    {
+        if ($lang == 'fa') {
+            return $query->where('slug', $slug)->firstOrFail();
+        }
+        return $query->where('en_slug', $slug)->firstOrFail();
+    }
+
     //
 
     public function parent()

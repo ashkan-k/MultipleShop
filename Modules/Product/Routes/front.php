@@ -14,7 +14,7 @@
 use Illuminate\Support\Facades\Route;
 use Modules\Product\Http\Controllers\Front\FrontProductController;
 
-Route::get('products/{category:slug}', [FrontProductController::class, 'products'])->name('category.products');
+Route::get('products/{slug}', [FrontProductController::class, 'products'])->name('category.products');
 Route::get('product/{slug}', [FrontProductController::class, 'product_detail'])->name('product_detail');
 Route::get('search', [FrontProductController::class, 'search'])->name('search');
 Route::get('products', [FrontProductController::class, 'search'])->name('products_list');

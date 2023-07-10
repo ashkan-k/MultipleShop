@@ -15,7 +15,7 @@ class Comment extends Model
     use Searchable;
 
     protected $fillable = [
-        "title", "body", "like_count", "center_id",
+        "title", "body", "like_count",
         "user_id", "status", "commentable_type",
         "negative_points", "positive_points", "suggest_score",
         "commentable_id"

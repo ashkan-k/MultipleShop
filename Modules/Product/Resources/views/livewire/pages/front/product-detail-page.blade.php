@@ -1,4 +1,5 @@
 <main class="single-product default">
+
     <div class="container">
         <div class="row">
             <div class="col-12">
@@ -11,7 +12,10 @@
 
                             @if(isset($object->category->parent->parent->parent))
                                 <li>
-                                    <a href="{{ route('category.products', $object->category->parent->parent->parent->get_slug($lang)) }}">
+                                    <a href="{{ route('category.products', [
+             'locale' => $lang,
+             'slug' => $object->category->parent->parent->parent->get_slug($lang)
+]) }}">
                                         <span>{{ $object->category->parent->parent->parent->get_title($lang) }}</span>
                                     </a>
                                 </li>
@@ -19,7 +23,10 @@
 
                             @if(isset($object->category->parent->parent))
                                 <li>
-                                    <a href="{{ route('category.products', $object->category->parent->parent->get_slug($lang)) }}">
+                                    <a href="{{ route('category.products', [
+            'locale' => $lang,
+            'slug' => $object->category->parent->parent->get_slug($lang)
+]) }}">
                                         <span>{{ $object->category->parent->parent->get_title($lang) }}</span>
                                     </a>
                                 </li>
@@ -27,14 +34,20 @@
 
                             @if(isset($object->category->parent))
                                 <li>
-                                    <a href="{{ route('category.products', $object->category->parent->get_slug($lang)) }}">
+                                    <a href="{{ route('category.products', [
+                'locale' => $lang,
+                'slug' => $object->category->parent->get_slug($lang)
+]) }}">
                                         <span>{{ $object->category->parent->get_title($lang) }}</span>
                                     </a>
                                 </li>
                             @endif
 
                             <li>
-                                <a href="{{ route('category.products', $object->category->get_slug($lang)) }}">
+                                <a href="{{ route('category.products', [
+                'locale' => $lang,
+                'slug' => $object->category->get_slug($lang)
+]) }}">
                                     <span>{{ $object->category->get_title($lang) }}</span>
                                 </a>
                             </li>
@@ -185,7 +198,10 @@
                                     </li>
                                     <li>
                                         <span>دسته‌بندی</span> :
-                                        <a href="{{ route('category.products', $object->category->get_slug($lang)) }}"
+                                        <a href="{{ route('category.products', [
+                    'locale' => $lang,
+                    'slug' => $object->category->get_slug($lang)
+]) }}"
                                            class="btn-link-border">
                                             {{ $object->category ? $object->category->get_title($lang) : '---' }}
                                         </a>
@@ -262,18 +278,29 @@
                         <div class="box-tabs default">
                             <ul class="nav" role="tablist">
                                 <li class="box-tabs-tab">
-                                    <a class="active" data-toggle="tab" href="#desc" role="tab"
+                                    <a class="active" data-toggle="tab"
+                                       href="#desc" role="tab" id="tab_review"
+                                       {{--                                       wire:click="ChangeTab('review')"--}}
+                                       onclick="ChangeTab('review')"
                                        aria-expanded="true">
                                         <i class="now-ui-icons education_glasses"></i> نقد و بررسی
                                     </a>
                                 </li>
                                 <li class="box-tabs-tab">
-                                    <a data-toggle="tab" href="#params" role="tab" aria-expanded="false">
+                                    <a class="" data-toggle="tab"
+                                       href="#params" id="tab_specifications"
+                                       {{--                                       wire:click="ChangeTab('specifications')"--}}
+                                       onclick="ChangeTab('specifications')"
+                                       role="tab" aria-expanded="false">
                                         <i class="now-ui-icons design_bullet-list-67"></i> مشخصات
                                     </a>
                                 </li>
                                 <li class="box-tabs-tab">
-                                    <a data-toggle="tab" href="#comments" role="tab" aria-expanded="false">
+                                    <a class="" data-toggle="tab" id="tab_comments"
+                                       href="#comments"
+                                       {{--                                       wire:click="ChangeTab('comments')"--}}
+                                       onclick="ChangeTab('comments')"
+                                       role="tab" aria-expanded="false">
                                         <i class="now-ui-icons ui-2_chat-round"></i> نظرات کاربران
                                     </a>
                                 </li>
@@ -343,6 +370,8 @@
                                             </section>
                                         </article>
                                     </div>
+
+
                                     <div class="tab-pane fade" id="comments" role="tabpanel"
                                          aria-expanded="false">
                                         <article>
@@ -351,7 +380,7 @@
                                                 <div class="col-md-6 col-sm-12">
 
                                                     @auth
-                                                        <form class="px-5" onsubmit="return false">
+                                                        <form class="px-5" wire:submit.prevent="SubmitNewComment()">
                                                             <div class="row">
                                                                 <div class="col-12">
                                                                     <div class="form-account-title">عنوان نظر شما
@@ -359,8 +388,14 @@
                                                                     </div>
                                                                     <div class="form-account-row">
                                                                         <input class="input-field text-right"
-                                                                               type="text"
+                                                                               wire:model.defer="title"
+                                                                               type="text" name="title" required
                                                                                placeholder="عنوان نظر خود را بنویسید">
+
+                                                                        @error('title')
+                                                                        <span
+                                                                            class="text-danger text-wrap">{{ $message }}</span>
+                                                                        @enderror
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-6 col-sm-12 tag-input-st">
@@ -368,7 +403,9 @@
                                                                         <span class="cl-circle-title cl-primary"></span>
                                                                     </div>
                                                                     <div class="form-account-row ps-relative">
-                                                                        <input name="strengths-points"
+                                                                        <input name="positive_points"
+                                                                               placeholder="با ویرگول (،) از یک دیگر جدا کنید."
+                                                                               wire:model.defer="positive_points"
                                                                                type="text" id="strengths-points-input"
                                                                                data-addui='tags'
                                                                                data-enter='true'>
@@ -384,7 +421,9 @@
                                                                         <span class="cl-circle-title cl-red"></span>
                                                                     </div>
                                                                     <div class="form-account-row ps-relative">
-                                                                        <input name="weak-points" type="text"
+                                                                        <input name="negative_points" type="text"
+                                                                               placeholder="با ویرگول (،) از یک دیگر جدا کنید."
+                                                                               wire:model.defer="negative_points"
                                                                                id="weak-points-input" data-addui='tags'
                                                                                data-enter='true'>
                                                                         <button id="add-weak-point" class="add-points">+
@@ -395,8 +434,11 @@
                                                                     <div class="form-account-title">متن نظر شما (اجباری)
                                                                     </div>
                                                                     <div class="form-account-row">
-                                                    <textarea class="input-field text-right" rows="5"
-                                                              placeholder="متن خود را بنویسید"></textarea>
+                                                                         <textarea class="input-field text-right"
+                                                                                   rows="5"
+                                                                                   wire:model.defer="body"
+                                                                                   required name="body"
+                                                                                   placeholder="متن خود را بنویسید"></textarea>
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-12 mt-2 mb-2 px-0">
@@ -406,24 +448,27 @@
                                                                         </div>
                                                                         <div class="checkout-shipment">
                                                                             <div class="radio">
-                                                                                <input type="radio" name="radio1"
-                                                                                       id="radio1" value="option1">
+                                                                                <input type="radio" name="suggest_score"
+                                                                                       wire:model.defer="suggest_score"
+                                                                                       id="radio1" value="suggest">
                                                                                 <label for="radio1">
                                                                                     پیشنهاد می کنم
                                                                                 </label>
                                                                             </div>
 
                                                                             <div class="radio">
-                                                                                <input type="radio" name="radio1"
-                                                                                       id="radio2" value="option2">
+                                                                                <input type="radio" name="suggest_score"
+                                                                                       wire:model.defer="suggest_score"
+                                                                                       id="radio2" value="not_suggest">
                                                                                 <label for="radio2">
                                                                                     خیر،پیشنهاد نمی کنم
                                                                                 </label>
                                                                             </div>
 
                                                                             <div class="radio">
-                                                                                <input type="radio" name="radio1"
-                                                                                       id="radio3" value="option3">
+                                                                                <input type="radio" name="suggest_score"
+                                                                                       wire:model.defer="suggest_score"
+                                                                                       id="radio3" value="no_idea">
                                                                                 <label for="radio3">
                                                                                     نظری ندارم
                                                                                 </label>
@@ -432,7 +477,8 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-12 px-0">
-                                                                    <button class="btn btn-primary btn-no-icon">
+                                                                    <button type="submit"
+                                                                            class="btn btn-primary btn-no-icon">
                                                                         ثبت نظر
                                                                     </button>
                                                                     <p>با “ثبت نظر” موافقت خود را با <a
@@ -447,7 +493,8 @@
                                                         <div class="pl-5 text-center">
                                                             <h3>برای ثبت
                                                                 نظر ابتدا
-                                                                <a class="text-info" href="{{ route('login') }}">
+                                                                <a class="text-info"
+                                                                   href="{{ route('login', ['locale' => $lang]) }}">
                                                                     وارد </a> شوید</h3>
                                                         </div>
                                                     @endauth
@@ -505,6 +552,7 @@
                                                                         خرید این محصول را توصیه می‌کنم
                                                                     </div>
                                                                 </div>
+
                                                                 <div class="col-md-9 col-sm-12 comment-content">
                                                                     <div class="comment-title">
                                                                         لباسشویی سامسونگ
@@ -579,20 +627,6 @@
                                             </div>
                                         </article>
                                     </div>
-                                    <div class="tab-pane fade form-comment" id="questions" role="tabpanel"
-                                         aria-expanded="false">
-                                        <article>
-                                            <h2 class="param-title">
-                                                افزودن نظر
-                                                <span>نظر خود را در مورد محصول مطرح نمایید</span>
-                                            </h2>
-                                            <form action="" class="comment">
-                                                        <textarea class="form-control" placeholder="نظر"
-                                                                  rows="5"></textarea>
-                                                <button class="btn btn-default">ارسال نظر</button>
-                                            </form>
-                                        </article>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -611,18 +645,24 @@
                             <h3 class="card-title">
                                 <span>همچنین ممکن است دوست داشته باشید ...</span>
                             </h3>
-                            <a href="{{ route('products_list') }}" class="view-all">مشاهده همه</a>
+                            <a href="{{ route('products_list', ['locale' => $lang]) }}" class="view-all">مشاهده همه</a>
                         </header>
                         <div class="product-carousel owl-carousel owl-theme">
 
                             @foreach($may_like_products as $may_like_pro)
                                 <div class="item">
-                                    <a href="{{ route('product_detail', $may_like_pro->get_slug($lang)) }}">
+                                    <a href="{{ route('product_detail', [
+                        'locale' => $lang,
+                        'slug' => $may_like_pro->get_slug($lang)
+]) }}">
                                         <img src="{{ $may_like_pro->get_image() }}"
                                              class="img-fluid" alt="{{ $may_like_pro->get_title($lang) }}">
                                     </a>
                                     <h2 class="post-title">
-                                        <a href="{{ route('product_detail', $may_like_pro->get_slug($lang)) }}">{{ \Illuminate\Support\Str::limit($may_like_pro->get_title($lang), 32) }}</a>
+                                        <a href="{{ route('product_detail', [
+                'locale' => $lang,
+                'slug' => $may_like_pro->get_slug($lang)
+]) }}">{{ \Illuminate\Support\Str::limit($may_like_pro->get_title($lang), 32) }}</a>
                                     </h2>
                                     <div class="price">
                                         @if($may_like_pro->discount_price)
@@ -655,19 +695,28 @@
                             <h3 class="card-title">
                                 <span>محصولات مرتبط</span>
                             </h3>
-                            <a href="{{ route('category.products', $object->category->get_slug($lang)) }}"
+                            <a href="{{ route('category.products', [
+                'locale' => $lang,
+                'slug' => $object->category->get_slug($lang)
+]) }}"
                                class="view-all">مشاهده همه</a>
                         </header>
                         <div class="product-carousel owl-carousel owl-theme">
 
                             @foreach($related_products as $related_pro)
                                 <div class="item">
-                                    <a href="{{ route('product_detail', $related_pro->get_slug($lang)) }}">
+                                    <a href="{{ route('product_detail', [
+                        'locale' => $lang,
+                        'slug' => $related_pro->get_slug($lang)
+]) }}">
                                         <img src="{{ $related_pro->get_image() }}"
                                              class="img-fluid" alt="{{ $related_pro->get_title($lang) }}">
                                     </a>
                                     <h2 class="post-title">
-                                        <a href="{{ route('product_detail', $related_pro->get_slug($lang)) }}">{{ \Illuminate\Support\Str::limit($related_pro->get_title($lang), 32) }}</a>
+                                        <a href="{{ route('product_detail', [
+        'locale' => $lang,
+        'slug' => $related_pro->get_slug($lang)
+]) }}">{{ \Illuminate\Support\Str::limit($related_pro->get_title($lang), 32) }}</a>
                                     </h2>
                                     <div class="price">
                                         @if($related_pro->discount_price)
@@ -691,3 +740,29 @@
     </div>
 
 </main>
+
+@section('scripts')
+
+@endsection
+
+@push('StackScript')
+    <script>
+        current_tab = 'review';
+
+        function ChangeTab(new_tab) {
+            current_tab = new_tab;
+        }
+
+        window.addEventListener('initSomething', event => {
+            $('#tab_' + current_tab).trigger("click");
+        })
+
+    </script>
+
+    <script type="text/javascript">
+        window.addEventListener('newCommentSubmited', event => {
+            showToast('کاربر عزیز نظر شما با موفقیت ثبت شد و پس تایید مدیر در سایت قرار میگیرد.', 'success');
+        });
+    </script>
+@endpush
+

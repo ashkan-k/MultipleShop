@@ -10,6 +10,7 @@
         'titlePage' => 'دسته بندی ها',
         'website_title' => $website_title,
         'object' => $product,
+        'lang' => $lang,
 
     ])
 @endsection
