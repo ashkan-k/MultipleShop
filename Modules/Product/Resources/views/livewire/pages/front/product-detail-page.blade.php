@@ -261,22 +261,25 @@
                                 </div>
                             </div>
 
-                            <div class="product-variants default mt-5 mb-0">
+                            @if($object->quantity > 0)
+                                <div class="product-variants default mt-5 mb-0">
 
-                                <div class="radio">
-                                    <span>تعداد: </span>
-                                    <input type="number" style="width: 100px" name="color_id"
-                                           min="1" class="input-field text-center mr-2"
-                                           value="1">
+                                    <div class="radio">
+                                        <span>تعداد: </span>
+                                        <input type="number" style="width: 100px" name="color_id"
+                                               wire:model.defer="cart_count"
+                                               min="1" class="input-field text-center mr-2"
+                                               value="1">
+                                    </div>
+
                                 </div>
-
-                            </div>
+                            @endif
 
                             <div class="product-add default">
 
                                 @if($object->quantity > 0)
                                     <div class="parent-btn">
-                                        <a href="#" class="dk-btn dk-btn-info">
+                                        <a wire:click="AddToCart()" class="dk-btn dk-btn-info">
                                             افزودن به سبد خرید
                                             <i class="now-ui-icons shopping_cart-simple"></i>
                                         </a>
@@ -632,25 +635,25 @@
                                                                         </div>
                                                                         <p>{{ $comment->body ?: '---' }}</p>
 
-{{--                                                                        <div class="footer" id="id_comments_section">--}}
-{{--                                                                            @auth--}}
-{{--                                                                                <div class="comments-likes">--}}
-{{--                                                                                    آیا این نظر برایتان مفید بود؟--}}
-{{--                                                                                    <button class="btn-like"--}}
-{{--                                                                                            type="button"--}}
-{{--                                                                                            wire:click.prevent="SubmitCommentPoint({{ $comment->id }}, 'positive')"--}}
-{{--                                                                                            data-counter="{{ $comment->comment_points()->where('type', 'positive')->count() }}">--}}
-{{--                                                                                        بله--}}
-{{--                                                                                    </button>--}}
-{{--                                                                                    <button class="btn-like"--}}
-{{--                                                                                            type="button"--}}
-{{--                                                                                            wire:click.prevent="SubmitCommentPoint({{ $comment->id }}, 'negative')"--}}
-{{--                                                                                            data-counter="{{ $comment->comment_points()->where('type', 'negative')->count() }}">--}}
-{{--                                                                                        خیر--}}
-{{--                                                                                    </button>--}}
-{{--                                                                                </div>--}}
-{{--                                                                            @endauth--}}
-{{--                                                                        </div>--}}
+                                                                        {{--                                                                        <div class="footer" id="id_comments_section">--}}
+                                                                        {{--                                                                            @auth--}}
+                                                                        {{--                                                                                <div class="comments-likes">--}}
+                                                                        {{--                                                                                    آیا این نظر برایتان مفید بود؟--}}
+                                                                        {{--                                                                                    <button class="btn-like"--}}
+                                                                        {{--                                                                                            type="button"--}}
+                                                                        {{--                                                                                            wire:click.prevent="SubmitCommentPoint({{ $comment->id }}, 'positive')"--}}
+                                                                        {{--                                                                                            data-counter="{{ $comment->comment_points()->where('type', 'positive')->count() }}">--}}
+                                                                        {{--                                                                                        بله--}}
+                                                                        {{--                                                                                    </button>--}}
+                                                                        {{--                                                                                    <button class="btn-like"--}}
+                                                                        {{--                                                                                            type="button"--}}
+                                                                        {{--                                                                                            wire:click.prevent="SubmitCommentPoint({{ $comment->id }}, 'negative')"--}}
+                                                                        {{--                                                                                            data-counter="{{ $comment->comment_points()->where('type', 'negative')->count() }}">--}}
+                                                                        {{--                                                                                        خیر--}}
+                                                                        {{--                                                                                    </button>--}}
+                                                                        {{--                                                                                </div>--}}
+                                                                        {{--                                                                            @endauth--}}
+                                                                        {{--                                                                        </div>--}}
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -802,36 +805,40 @@
         window.addEventListener('newCommentSubmited', event => {
             showToast('کاربر عزیز نظر شما با موفقیت ثبت شد و پس تایید مدیر در سایت قرار میگیرد.', 'success');
         });
+
+        window.addEventListener('addToCartError', event => {
+            showToast('تعداد سفارش باید حداقل یک باشد!', 'error');
+        });
     </script>
 
-{{--    <script>--}}
-{{--        app.controller('myCtrl', function ($scope, $http) {--}}
-{{--            $scope.positive_points = 0;--}}
-{{--            $scope.negative_points = 0;--}}
+    {{--    <script>--}}
+    {{--        app.controller('myCtrl', function ($scope, $http) {--}}
+    {{--            $scope.positive_points = 0;--}}
+    {{--            $scope.negative_points = 0;--}}
 
-{{--            $scope.GetCommentPoints = function (comment_id, type){--}}
-{{--                $scope.is_submited = true;--}}
+    {{--            $scope.GetCommentPoints = function (comment_id, type){--}}
+    {{--                $scope.is_submited = true;--}}
 
-{{--                var url = `/api/comments/points/get/${comment_id}/${type}`;--}}
+    {{--                var url = `/api/comments/points/get/${comment_id}/${type}`;--}}
 
-{{--                $http.get(url).then(res => {--}}
-{{--                    $scope.is_submited = false;--}}
+    {{--                $http.get(url).then(res => {--}}
+    {{--                    $scope.is_submited = false;--}}
 
-{{--                    if (type == 'positive'){--}}
-{{--                        $scope.positive_points = res['data']['data'];--}}
-{{--                    }else {--}}
-{{--                        $scope.negative_points = res['data']['data'];--}}
-{{--                    }--}}
-{{--                }).catch(err => {--}}
-{{--                    $scope.is_submited = false;--}}
-{{--                    showToast('خطایی رخ داد.', 'error');--}}
-{{--                });--}}
-{{--            }--}}
+    {{--                    if (type == 'positive'){--}}
+    {{--                        $scope.positive_points = res['data']['data'];--}}
+    {{--                    }else {--}}
+    {{--                        $scope.negative_points = res['data']['data'];--}}
+    {{--                    }--}}
+    {{--                }).catch(err => {--}}
+    {{--                    $scope.is_submited = false;--}}
+    {{--                    showToast('خطایی رخ داد.', 'error');--}}
+    {{--                });--}}
+    {{--            }--}}
 
-{{--            $scope.SubmitCommentPoint = function (){--}}
+    {{--            $scope.SubmitCommentPoint = function (){--}}
 
-{{--            }--}}
-{{--        })--}}
-{{--    </script>--}}
+    {{--            }--}}
+    {{--        })--}}
+    {{--    </script>--}}
 @endpush
 

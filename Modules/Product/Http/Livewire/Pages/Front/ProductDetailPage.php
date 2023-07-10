@@ -18,6 +18,7 @@ class ProductDetailPage extends Component
     public $current_tab = 'review';
 
     public $object;
+    public $cart_count = 1;
 
     public $title;
     public $body;
@@ -83,6 +84,20 @@ class ProductDetailPage extends Component
             'comment_id' => $comment->id,
             'type' => $type,
         ]);
+    }
+
+    public function AddToCart()
+    {
+        if ($this->cart_count < 1){
+            $this->dispatchBrowserEvent('addToCartError');
+        }
+
+        auth()->user()->carts()->create([
+            'product_id' => $this->object->id,
+            'count' => $this->cart_count,
+        ]);
+
+        $this->object->decrement('quantity', $this->cart_count);
     }
 
     //
