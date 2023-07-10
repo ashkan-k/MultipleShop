@@ -6,28 +6,35 @@ use App\Http\Traits\Searchable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Size extends Model
+class ProductSize extends Model
 {
     use HasFactory;
     use Searchable;
 
     protected $fillable = [
-        'title',
+        'product_id',
+        'size_id',
     ];
 
     protected $search_fields  = [
-        'title',
+        'product.title',
+        'size.title',
     ];
 
     protected static function newFactory()
     {
-        return \Modules\Product\Database\factories\SizeFactory::new();
+        return \Modules\Product\Database\factories\ProductFeatureFactory::new();
     }
 
     //
 
-    public function products()
+    public function product()
     {
-        return $this->belongsToMany(Product::class, 'product_sizes');
+        return $this->belongsTo(Product::class);
+    }
+
+    public function size()
+    {
+        return $this->belongsTo(Size::class);
     }
 }
