@@ -86,18 +86,31 @@ class ProductDetailPage extends Component
         ]);
     }
 
-    public function AddToCart()
+    public function AddRemoveCart($type)
     {
-        if ($this->cart_count < 1){
-            $this->dispatchBrowserEvent('addToCartError');
+        if ($type == 'add'){
+
+            if ($this->cart_count < 1){
+                $this->dispatchBrowserEvent('addToCartError');
+            }
+
+            auth()->user()->carts()->create([
+                'product_id' => $this->object->id,
+                'count' => $this->cart_count,
+            ]);
+
+            $this->object->decrement('quantity', $this->cart_count);
+
+        }else{
+
+            $user_cart = auth()->user()->carts()->where('product_id', $this->object->id)->first();
+            if ($user_cart){
+                $this->object->increment('quantity', $user_cart->cart_count);
+                $user_cart->delete();
+            }
+
         }
 
-        auth()->user()->carts()->create([
-            'product_id' => $this->object->id,
-            'count' => $this->cart_count,
-        ]);
-
-        $this->object->decrement('quantity', $this->cart_count);
     }
 
     //
