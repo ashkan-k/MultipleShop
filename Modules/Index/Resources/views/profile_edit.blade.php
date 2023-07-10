@@ -122,12 +122,12 @@
                                         </div>
 
                                         <div class="col-sm-12 col-md-6">
-                                            <div class="form-account-title">تکرار رمز عبور</div>
+                                            <div class="form-account-title">{{ __('Password Confirmation') }}</div>
                                             <div class="form-account-row">
                                                 <input name="password_confirmation"
                                                        value="{{ old('password_confirmation') }}"
                                                        class="input-field" type="text"
-                                                       placeholder=" تکرار رمز عبور خود را وارد نمایید">
+                                                       placeholder="{{ __('Enter your Password Confirmation') }}">
                                                 @error('password_confirmation')
                                                 <span
                                                     class="text-danger text-wrap">{{ $message }}</span>
@@ -138,9 +138,9 @@
                                     </div>
 
                                     <div class="col-12 text-center">
-                                        <button type="submit" class="btn btn-default btn-lg">ذخیره</button>
+                                        <button type="submit" class="btn btn-default btn-lg">{{ __('Save') }}</button>
                                         <button onclick="window.location.href = '{{ url()->previous() }}'" type="button"
-                                                class="btn btn-default btn-lg">انصراف
+                                                class="btn btn-default btn-lg">{{ __('Cancel') }}
                                         </button>
                                     </div>
                                 </form>
