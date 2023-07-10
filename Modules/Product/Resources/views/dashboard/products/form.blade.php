@@ -212,7 +212,8 @@
                                             <span class="required">توضیحات</span>
                                         </label>
 
-                                        <textarea type="text" id="id_description" class="form-control form-control-solid"
+                                        <textarea type="text" id="id_description"
+                                                  class="form-control form-control-solid"
                                                   placeholder="توضیحات را وارد کنید" name="description" rows="12"
                                                   required>@if(old('description')){{ old('description') }}@elseif(isset($object->description)){{ $object->description }}@endif</textarea>
 
@@ -322,14 +323,15 @@
                                             <span>رنگ</span>
                                         </label>
 
-                                        <select id="id_color_id" name="color_id"
+                                        <select id="id_color_id" name="color_id[]"
                                                 data-kt-select2="true" multiple
                                                 class="form-control form-control-solid">
                                             <option value="">بدون رنگ</option>
                                             @foreach($colors as $color)
 
                                                 <option
-                                                    @if(isset($object->color_id) && $object->color_id == $color->id) selected
+                                                    @if(isset($object) && in_array($color->id, $object->colors_pluck_id())) selected
+                                                    @elseif(old('color_id') && in_array($color->id, old('color_id'))) selected
                                                     @endif value="{{ $color->id }}">{{ $color->title }}
                                                 </option>
 
@@ -352,14 +354,15 @@
                                             <span>سایز</span>
                                         </label>
 
-                                        <select id="id_size_id" name="size_id"
+                                        <select id="id_size_id" name="size_id[]"
                                                 data-kt-select2="true" multiple
                                                 class="form-control form-control-solid">
                                             <option value="">بدون سایز</option>
                                             @foreach($sizes as $size)
 
                                                 <option
-                                                    @if(isset($object->size_id) && $object->size_id == $size->id) selected
+                                                    @if(isset($object) && in_array($size->id, $object->sizes_pluck_id())) selected
+                                                    @elseif(old('size_id') && in_array($size->id, old('size_id'))) selected
                                                     @endif value="{{ $size->id }}">{{ $size->title }}
                                                 </option>
 
@@ -382,7 +385,8 @@
                                             <span>قیمت تخفیفی (تومان)</span>
                                         </label>
 
-                                        <input type="number" id="id_discount_price" class="form-control form-control-solid"
+                                        <input type="number" id="id_discount_price"
+                                               class="form-control form-control-solid"
                                                value="@if(old('discount_price')){{ old('discount_price') }}@elseif(isset($object->discount_price)){{ $object->discount_price }}@endif"
                                                placeholder="قیمت تخفیفی را وارد کنید" name="discount_price"/>
 
@@ -402,7 +406,8 @@
                                             <span>تاریخ شروع تخفیف</span>
                                         </label>
 
-                                        <input type="text" id="id_discount_start_date" class="form-control form-control-solid"
+                                        <input type="text" id="id_discount_start_date"
+                                               class="form-control form-control-solid"
                                                value="@if(old('discount_start_date')){{ old('discount_start_date') }}@elseif(isset($object->discount_start_date)){{ $object->discount_start_date }}@endif"
                                                placeholder="تاریخ شروع تخفیف را وارد کنید" name="discount_start_date"/>
 
@@ -422,7 +427,8 @@
                                             <span>تاریخ پایان تخفیف</span>
                                         </label>
 
-                                        <input type="text" id="id_discount_end_date" class="form-control form-control-solid"
+                                        <input type="text" id="id_discount_end_date"
+                                               class="form-control form-control-solid"
                                                value="@if(old('discount_end_date')){{ old('discount_end_date') }}@elseif(isset($object->discount_end_date)){{ $object->discount_end_date }}@endif"
                                                placeholder="تاریخ پایان تخفیف را وارد کنید" name="discount_end_date"/>
 
@@ -550,7 +556,7 @@
     </script>
 
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             $('#id_discount_start_date').val(toEnglishDigits($('#id_discount_start_date').val()))
             $('#id_discount_end_date').val(toEnglishDigits($('#id_discount_end_date').val()))
 

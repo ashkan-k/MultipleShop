@@ -36,8 +36,8 @@ class Product extends Model
         'is_special',
         'user_id',
         'category_id',
-        'color_id',
-        'size_id',
+//        'color_id',
+//        'size_id',
         'brand_id',
     ];
 
@@ -215,9 +215,19 @@ class Product extends Model
         return $this->belongsToMany(Color::class, 'product_colors');
     }
 
+    public function colors_pluck_id()
+    {
+        return $this->belongsToMany(Color::class, 'product_colors')->pluck('color_id')->toArray();
+    }
+
     public function sizes()
     {
         return $this->belongsToMany(Size::class, 'product_sizes');
+    }
+
+    public function sizes_pluck_id()
+    {
+        return $this->belongsToMany(Size::class, 'product_sizes')->pluck('size_id')->toArray();
     }
 
     public function product_features()
