@@ -226,7 +226,7 @@
 
                                 @foreach($colors as $color)
                                     <div class="radio">
-                                        <input type="radio" name="color" id="id_color_{{ $color->id }}"
+                                        <input type="radio" name="color_id" id="id_color_{{ $color->id }}"
                                                value="{{ $color->id }}">
                                         <label for="id_color_{{ $color->id }}">
                                             {{ $color->title ?: '---' }}
