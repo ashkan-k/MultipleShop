@@ -55,7 +55,10 @@ class ProductController extends Controller
     {
         $image = $this->UploadFile($request, 'image', 'product_images', $request->title);
 
-        Product::create(array_merge($request->validated(), ['image' => $image]));
+        $product = Product::create(array_merge($request->validated(), ['image' => $image]));
+        $product->colors()->sync($request->color_id);
+        $product->sizes()->sync($request->size_id);
+
         return $this->SuccessRedirect('آیتم مورد نظر با موفقیت ثبت شد.', 'products.index');
     }
 
@@ -79,6 +82,9 @@ class ProductController extends Controller
         $data['is_special'] = $request->has('is_special') ?? false;
 
         $product->update(array_merge($data, ['image' => $image]));
+        $product->colors()->sync($request->color_id);
+        $product->sizes()->sync($request->size_id);
+
         return $this->SuccessRedirect('آیتم مورد نظر با موفقیت ویرایش شد.', 'products.index');
     }
 

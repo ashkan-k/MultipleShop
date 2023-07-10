@@ -323,7 +323,7 @@
                                         </label>
 
                                         <select id="id_color_id" name="color_id"
-                                                data-kt-select2="true"
+                                                data-kt-select2="true" multiple
                                                 class="form-control form-control-solid">
                                             <option value="">بدون رنگ</option>
                                             @foreach($colors as $color)
@@ -353,7 +353,7 @@
                                         </label>
 
                                         <select id="id_size_id" name="size_id"
-                                                data-kt-select2="true"
+                                                data-kt-select2="true" multiple
                                                 class="form-control form-control-solid">
                                             <option value="">بدون سایز</option>
                                             @foreach($sizes as $size)
@@ -545,6 +545,8 @@
 @section('Scripts')
     <script>
         CKEDITOR.replace('id_description');
+        $('#id_color_id').select2();
+        $('#id_size_id').select2();
     </script>
 
     <script>
