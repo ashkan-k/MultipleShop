@@ -18,6 +18,7 @@ return new class extends Migration
             $table->integer('count')->default(1);
             $table->foreignId('user_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('product_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('color_id')->nullable()->constrained()->onUpdate('cascade')->onDelete('cascade');
 
             $table->timestamps();
         });

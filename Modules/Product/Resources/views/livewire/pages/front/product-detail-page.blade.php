@@ -227,6 +227,7 @@
                                 @foreach($colors as $color)
                                     <div class="radio">
                                         <input type="radio" name="color_id" id="id_color_{{ $color->id }}"
+                                               wire:model.defer="cart_color"
                                                value="{{ $color->id }}">
                                         <label for="id_color_{{ $color->id }}">
                                             {{ $color->title ?: '---' }}

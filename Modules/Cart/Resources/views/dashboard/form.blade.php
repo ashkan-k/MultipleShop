@@ -125,6 +125,36 @@
                                     </div>
 
                                     <div class="d-flex flex-column mb-8 fv-row">
+                                        <label for="id_product_id"
+                                               class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                            <span class="required">رنگ</span>
+                                        </label>
+
+                                        <select id="id_product_id" name="product_id"
+                                                data-kt-select2="true"
+                                                class="form-control form-control-solid">
+                                            <option value="" disabled>رنگ را انتخاب کنید</option>
+                                            @foreach($colors as $color)
+
+                                                <option
+                                                    @if(isset($object->color_id) && $object->color_id == $color->id) selected
+                                                    @endif value="{{ $color->id }}">{{ $color->title }}
+                                                </option>
+
+                                            @endforeach
+                                        </select>
+
+                                        @error('color_id')
+                                        <div class="fv-plugins-message-container invalid-feedback">
+                                            <div data-field="meta_title" data-validator="notEmpty">
+                                                {{ $message }}
+                                            </div>
+                                        </div>
+                                        @enderror
+
+                                    </div>
+
+                                    <div class="d-flex flex-column mb-8 fv-row">
                                         <label for="id_count"
                                                class="d-flex align-items-center fs-6 fw-semibold mb-2">
                                             <span class="required">تعداد</span>

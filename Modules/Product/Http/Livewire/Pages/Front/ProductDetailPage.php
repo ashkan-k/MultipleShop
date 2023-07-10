@@ -19,6 +19,7 @@ class ProductDetailPage extends Component
 
     public $object;
     public $cart_count = 1;
+    public $cart_color;
 
     public $title;
     public $body;

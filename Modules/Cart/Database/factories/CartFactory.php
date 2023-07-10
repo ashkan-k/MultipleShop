@@ -3,6 +3,7 @@
 namespace Modules\Cart\Database\factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Modules\Product\Entities\Color;
 use Modules\Product\Entities\Product;
 use Modules\User\Entities\User;
 
@@ -25,6 +26,7 @@ class CartFactory extends Factory
         return [
             'user_id' => User::factory(),
             'product_id' => Product::factory(),
+            'color_id' => Color::factory(),
             'count' => $this->faker->randomNumber(),
         ];
     }

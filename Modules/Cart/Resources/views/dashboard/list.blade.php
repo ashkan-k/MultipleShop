@@ -119,6 +119,7 @@
                                 </th>
                                 <th>کاربر</th>
                                 <th>محصول</th>
+                                <th>رنگ</th>
                                 <th>تعداد</th>
                                 <th>عملیات</th>
                             </tr>
@@ -139,6 +140,8 @@
                                     <td>{{ $item->user ? $item->user->full_name() : '---'}}</td>
 
                                     <td>{{ $item->product ? $item->product->title : '---'}}</td>
+
+                                    <td>{{ $item->color ? $item->color->title : '---'}}</td>
 
                                     <td>{{ $item->count ? : '---' }}</td>
 

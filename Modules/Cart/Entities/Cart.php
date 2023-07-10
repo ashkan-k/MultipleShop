@@ -5,6 +5,7 @@ namespace Modules\Cart\Entities;
 use App\Http\Traits\Searchable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Modules\Product\Entities\Color;
 use Modules\Product\Entities\Product;
 use Modules\User\Entities\User;
 
@@ -17,6 +18,7 @@ class Cart extends Model
         'count',
         'user_id',
         'product_id',
+        'color_id',
     ];
 
     protected $search_fields  = [
@@ -25,6 +27,7 @@ class Cart extends Model
         'user.last_name',
         'user.username',
         'product.title',
+        'color.title',
     ];
 
     protected $filter_fields = [
@@ -47,5 +50,10 @@ class Cart extends Model
     public function product()
     {
         return $this->belongsTo(Product::class);
+    }
+
+    public function color()
+    {
+        return $this->belongsTo(Color::class);
     }
 }

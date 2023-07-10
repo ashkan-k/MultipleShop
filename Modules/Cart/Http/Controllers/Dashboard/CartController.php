@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Cart\Entities\Cart;
 use Modules\Cart\Http\Requests\CartRequest;
+use Modules\Product\Entities\Color;
 use Modules\Product\Entities\Product;
 use Modules\User\Entities\User;
 
@@ -39,7 +40,8 @@ class CartController extends Controller
     {
         $users = User::all();
         $products = Product::all();
-        return view('cart::dashboard.form', compact('users', 'products'));
+        $colors = Color::all();
+        return view('cart::dashboard.form', compact('users', 'products', 'colors'));
     }
 
     public function store(CartRequest $request)
@@ -52,7 +54,8 @@ class CartController extends Controller
     {
         $users = User::all();
         $products = Product::all();
-        return view('cart::dashboard.form', compact('users', 'products'))->with('object', $cart);
+        $colors = Color::all();
+        return view('cart::dashboard.form', compact('users', 'products', 'colors'))->with('object', $cart);
     }
 
     public function update(CartRequest $request, Cart $cart)
