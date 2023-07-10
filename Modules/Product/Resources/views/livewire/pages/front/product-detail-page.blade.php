@@ -91,12 +91,14 @@
                                 @auth
                                     @if($wish_lists->where('user_id' , auth()->user()->id)->isEmpty())
                                         <li>
-                                            <button wire:click="AddRemoveWishList('add')" class="add-favorites"><i class="fa fa-heart"></i></button>
+                                            <button wire:click="AddRemoveWishList('add')" class="add-favorites"><i
+                                                    class="fa fa-heart"></i></button>
                                             <span class="tooltip-option">افزودن به علاقمندی</span>
                                         </li>
                                     @else
                                         <li>
-                                            <button wire:click="AddRemoveWishList('remove')" class="add-favorites"><i style="color: red !important;" class="fa fa-heart"></i></button>
+                                            <button wire:click="AddRemoveWishList('remove')" class="add-favorites"><i
+                                                    style="color: red !important;" class="fa fa-heart"></i></button>
                                             <span class="tooltip-option">حذف از علاقمندی</span>
                                         </li>
                                     @endif
@@ -529,110 +531,99 @@
                                             <div class="comments-area default">
                                                 <ol class="comment-list">
 
-                                                    <li>
-                                                        <div class="comment-body">
-                                                            <div class="row">
-                                                                <div class="col-md-3 col-sm-12">
-                                                                    <div
-                                                                        class="message-light message-light--purchased">
-                                                                        خریدار این محصول
-                                                                    </div>
-                                                                    <ul class="comments-user-shopping">
-                                                                        <li>
-                                                                            <div class="cell">رنگ خریداری
-                                                                                شده:
-                                                                            </div>
-                                                                            <div class="cell color-cell">
+                                                    @foreach($object->comments()->where('status', 'approved')->with(['user', 'product'])->get() as $comment)
+                                                        <li>
+                                                            <div class="comment-body">
+                                                                <div class="row">
+                                                                    <div class="col-md-3 col-sm-12">
+                                                                        <div
+                                                                            class="message-light message-light--purchased">
+                                                                            خریدار این محصول
+                                                                        </div>
+                                                                        <ul class="comments-user-shopping">
+                                                                            <li>
+                                                                                <div class="cell">رنگ خریداری
+                                                                                    شده:
+                                                                                </div>
+
+                                                                                <?php $ordered_color = auth()->user()->orders()->where('product_id', $comment->product_id)->first() ?>
+
+                                                                                <div class="cell color-cell">
                                                                                         <span
                                                                                             class="shopping-color-value"
-                                                                                            style="background-color: #FFFFFF; border: 1px solid rgba(0, 0, 0, 0.25)"></span>سفید
-                                                                            </div>
-                                                                        </li>
-                                                                        <li>
-                                                                            <div class="cell">خریداری شده
-                                                                                از:
-                                                                            </div>
-                                                                            <div class="cell seller-cell">
+                                                                                            style="background-color: #FFFFFF; border: 1px solid rgba(0, 0, 0, 0.25)"></span>{{ $ordered_color ? $ordered_color->color->title : '---' }}
+                                                                                </div>
+                                                                            </li>
+                                                                            <li>
+                                                                                <div class="cell">خریداری شده
+                                                                                    از:
+                                                                                </div>
+                                                                                <div class="cell seller-cell">
                                                                                         <span
-                                                                                            class="o-text-blue">دیجی‌کالا</span>
-                                                                            </div>
-                                                                        </li>
-                                                                    </ul>
-                                                                    <div
-                                                                        class="message-light message-light--opinion-positive">
-                                                                        خرید این محصول را توصیه می‌کنم
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="col-md-9 col-sm-12 comment-content">
-                                                                    <div class="comment-title">
-                                                                        لباسشویی سامسونگ
-                                                                    </div>
-                                                                    <div class="comment-author">
-                                                                        توسط مجید سجادی فرد در تاریخ ۵ مهر ۱۳۹۵
-                                                                    </div>
-                                                                    <div class="row">
-                                                                        <div class="col-md-4 col-sm-6 col-12">
+                                                                                            class="o-text-blue">{{ $product->user->full_name ?: '---' }}</span>
+                                                                                </div>
+                                                                            </li>
+                                                                        </ul>
+                                                                        @if($comment->suggest_score == 'suggest')
                                                                             <div
-                                                                                class="content-expert-evaluation-positive">
-                                                                                <span>نقاط قوت</span>
-                                                                                <ul>
-                                                                                    <li>دوربین‌های 4گانه پرقدرت
-                                                                                    </li>
-                                                                                    <li>باتری باظرفیت بالا</li>
-                                                                                    <li>حسگر اثرانگشت زیر قاب
-                                                                                        جلویی
-                                                                                    </li>
-                                                                                </ul>
+                                                                                class="message-light message-light--opinion-positive">
+                                                                                خرید این محصول را توصیه می‌کنم
+                                                                            </div>
+                                                                        @endif
+                                                                    </div>
+
+                                                                    <div class="col-md-9 col-sm-12 comment-content">
+                                                                        <div class="comment-title">
+                                                                            {{ $product->get_title($lang) ?: '---' }}
+                                                                        </div>
+                                                                        <div class="comment-author">
+                                                                            توسط {{ $comment->user->full_name() ?: '---' }} در تاریخ ۵ مهر ۱۳۹۵
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            <div class="col-md-4 col-sm-6 col-12">
+                                                                                <div
+                                                                                    class="content-expert-evaluation-positive">
+                                                                                    <span>نقاط قوت</span>
+                                                                                    <ul>
+                                                                                        <li>دوربین‌های 4گانه پرقدرت
+                                                                                        </li>
+                                                                                        <li>باتری باظرفیت بالا</li>
+                                                                                        <li>حسگر اثرانگشت زیر قاب
+                                                                                            جلویی
+                                                                                        </li>
+                                                                                    </ul>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-4 col-sm-6 col-12">
+                                                                                <div
+                                                                                    class="content-expert-evaluation-negative">
+                                                                                    <span>نقاط ضعف</span>
+                                                                                    <ul>
+                                                                                        <li>نرم‌افزار دوربین</li>
+                                                                                        <li>نبودن Nano SD در بازار
+                                                                                        </li>
+                                                                                    </ul>
+                                                                                </div>
                                                                             </div>
                                                                         </div>
-                                                                        <div class="col-md-4 col-sm-6 col-12">
-                                                                            <div
-                                                                                class="content-expert-evaluation-negative">
-                                                                                <span>نقاط ضعف</span>
-                                                                                <ul>
-                                                                                    <li>نرم‌افزار دوربین</li>
-                                                                                    <li>نبودن Nano SD در بازار
-                                                                                    </li>
-                                                                                </ul>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <p>
-                                                                        بعد از چندین هفته بررسی تصمیم به خرید
-                                                                        این مدل از ماشین لباسشویی گرفتم ولی
-                                                                        متاسفانه نتونست انتظارات منو برآورده کنه
-                                                                        .
-                                                                        دو تا ایراد داره یکی اینکه حدودا تا 20
-                                                                        دقیقه اول شستشو یه صدایی شبیه به صدای
-                                                                        پمپ تخلیه همش به گوش میاد که رو مخه یکی
-                                                                        هم با اینکه خشک کنش تا 1400 دور در دقیقه
-                                                                        میچرخه، ولی اون طوری که دوستان تعریف
-                                                                        میکردن لباسها رو خشک نمیکنه .ضمنا برای
-                                                                        این صدایی که گفتم زنگ زدم نمایندگی اومدن
-                                                                        دیدن، وتعمیرکار گفتش که این صدا طبیعیه و
-                                                                        تا چند دقیقه اول شستشو عادیه.بدجوری خورد
-                                                                        تو ذوقم. اگه بیشتر پول میذاشتم میتونستم
-                                                                        یه مدل میان رده از مارکهای بوش یا آ ا گ
-                                                                        میخریدم که خیلی بهتر از جنس مونتاژی کره
-                                                                        ای هستش.
-                                                                    </p>
+                                                                        <p>{{ $comment->body ?: '---' }}</p>
 
-                                                                    <div class="footer">
-                                                                        <div class="comments-likes">
-                                                                            آیا این نظر برایتان مفید بود؟
-                                                                            <button class="btn-like"
-                                                                                    data-counter="۱۱">بله
-                                                                            </button>
-                                                                            <button class="btn-like"
-                                                                                    data-counter="۶">خیر
-                                                                            </button>
+                                                                        <div class="footer">
+                                                                            <div class="comments-likes">
+                                                                                آیا این نظر برایتان مفید بود؟
+                                                                                <button class="btn-like"
+                                                                                        data-counter="۱۱">بله
+                                                                                </button>
+                                                                                <button class="btn-like"
+                                                                                        data-counter="۶">خیر
+                                                                                </button>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                    </li>
+                                                        </li>
+                                                    @endforeach
 
                                                 </ol>
                                             </div>
