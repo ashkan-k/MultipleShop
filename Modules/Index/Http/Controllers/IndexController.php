@@ -37,6 +37,11 @@ class IndexController extends Controller
         $center_posters = Poster::where('location', 'center')->get();
         $bottom_posters = Poster::where('location', 'bottom')->get();
 
-        return view('index::index', compact('sliders', 'special_categories', 'special_products', 'top_posters','center_posters', 'bottom_posters', 'latest_products', 'most_favorite_products', 'cheapest_products', 'blogs', 'best_category'));
+        return view('index::index', compact('sliders', 'special_categories', 'special_products', 'top_posters', 'center_posters', 'bottom_posters', 'latest_products', 'most_favorite_products', 'cheapest_products', 'blogs', 'best_category'));
+    }
+
+    public function profile()
+    {
+        return view('index::profile');
     }
 }

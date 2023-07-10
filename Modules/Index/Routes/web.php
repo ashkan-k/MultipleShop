@@ -15,3 +15,4 @@ use Illuminate\Support\Facades\Route;
 use Modules\Index\Http\Controllers\IndexController;
 
 Route::get('/', [IndexController::class, 'index'])->name('index');
+Route::get('profile', [IndexController::class, 'profile'])->name('user_profile')->middleware('auth');

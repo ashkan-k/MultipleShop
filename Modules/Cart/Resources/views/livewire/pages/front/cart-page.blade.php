@@ -41,28 +41,28 @@
                             <table class="table">
                                 <tbody>
 
-                                @foreach($objects as $item)
-                                    <tr class="checkout-item">
-                                        <td>
-                                            <img src="{{ $item->product ? $item->product->get_image() : '---' }}"
-                                                 style="width: 100px !important; height: 100px !important;"
-                                                 alt="{{ $item->product ? $item->product->get_title($lang) : '---' }}">
-                                            <button wire:click="RemoveFromCart({{ $item->id }})" class="checkout-btn-remove"></button>
-                                        </td>
-                                        <td>
-                                            <h3 class="checkout-title">
-                                                {{ $item->product ? $item->product->get_title($lang) : '---' }}
-                                            </h3>
-                                        </td>
-                                        <td>{{ $item->count ?: '---' }} {{ __('Count') }}</td>
+                                    @foreach($objects as $item)
+                                        <tr class="checkout-item">
+                                            <td>
+                                                <img src="{{ $item->product ? $item->product->get_image() : '---' }}"
+                                                     style="width: 100px !important; height: 100px !important;"
+                                                     alt="{{ $item->product ? $item->product->get_title($lang) : '---' }}">
+                                                <button wire:click="RemoveFromCart({{ $item->id }})" class="checkout-btn-remove"></button>
+                                            </td>
+                                            <td>
+                                                <h3 class="checkout-title">
+                                                    {{ $item->product ? $item->product->get_title($lang) : '---' }}
+                                                </h3>
+                                            </td>
+                                            <td>{{ $item->count ?: '---' }} {{ __('Count') }}</td>
 
-                                        @if($item->product && $item->product->calculate_discount_percent() > 0)
-                                            <td>{{ number_format($item->product->discount_price * $item->count) }} {{ __('Toman') }}</td>
-                                        @else
-                                            <td>{{ number_format($item->product->price * $item->count) }} {{ __('Toman') }}</td>
-                                        @endif
-                                    </tr>
-                                @endforeach
+                                            @if($item->product && $item->product->calculate_discount_percent() > 0)
+                                                <td>{{ number_format($item->product->discount_price * $item->count) }} {{ __('Toman') }}</td>
+                                            @else
+                                                <td>{{ number_format($item->product->price * $item->count) }} {{ __('Toman') }}</td>
+                                            @endif
+                                        </tr>
+                                    @endforeach
 
                                 </tbody>
                             </table>
