@@ -102,10 +102,13 @@ class ProductDetailPage extends Component
 
             auth()->user()->carts()->create([
                 'product_id' => $this->object->id,
+                'color_id' => $this->cart_color,
                 'count' => $this->cart_count,
             ]);
 
             $this->object->decrement('quantity', $this->cart_count);
+            $this->cart_count = 1;
+            $this->cart_color = null;
 
         }else{
 
