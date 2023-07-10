@@ -42,6 +42,8 @@ class IndexController extends Controller
 
     public function profile()
     {
-        return view('index::profile');
+        $user = auth()->user();
+        $wishlists = auth()->user()->wish_lists()->get();
+        return view('index::profile', compact('user', 'wishlists'));
     }
 }

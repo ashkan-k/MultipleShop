@@ -20,41 +20,42 @@
                                         <div class="col-sm-12 col-md-6">
                                             <p>
                                                 <span class="title">نام و نام خانوادگی :</span>
-                                                <span>نام کاربر</span>
+                                                <span>{{ $user->first_name . ' ' . $user->last_name }}</span>
                                             </p>
                                         </div>
                                         <div class="col-sm-12 col-md-6">
                                             <p>
                                                 <span class="title">پست الکترونیک :</span>
-                                                <span>info@gmail.com</span>
+                                                <span>{{ $user->email ?: '---' }}</span>
                                             </p>
                                         </div>
                                         <div class="col-sm-12 col-md-6">
                                             <p>
                                                 <span class="title">شماره تلفن همراه:</span>
-                                                <span>-</span>
+                                                <span>{{ $user->phone ?: '---' }}</span>
                                             </p>
                                         </div>
                                         <div class="col-sm-12 col-md-6">
                                             <p>
-                                                <span class="title">کد ملی :</span>
-                                                <span>-</span>
+                                                <span class="title">نام کاربری :</span>
+                                                <span>{{ $user->username ?: '---' }}</span>
                                             </p>
                                         </div>
                                         <div class="col-sm-12 col-md-6">
                                             <p>
-                                                <span class="title">دریافت خبرنامه :</span>
-                                                <span>بله</span>
+                                                <span class="title">کد پستی :</span>
+                                                <span>{{ $user->postal_code ?: '---' }}</span>
                                             </p>
                                         </div>
                                         <div class="col-sm-12 col-md-6">
                                             <p>
-                                                <span class="title">شماره کارت :</span>
-                                                <span>-</span>
+                                                <span class="title">آدرس :</span>
+                                                <span>{{ $user->address ?: '---' }}</span>
                                             </p>
                                         </div>
                                         <div class="col-12 text-center">
-                                            <a href="profile-additional-info.html" class="btn-link-border form-account-link">
+                                            <a href="profile-additional-info.html"
+                                               class="btn-link-border form-account-link">
                                                 ویرایش اطلاعات شخصی
                                             </a>
                                         </div>
@@ -68,41 +69,35 @@
                                 <div class="content-section default">
                                     <div class="row">
                                         <div class="col-12">
-                                            <div class="profile-recent-fav-row">
-                                                <a href="#" class="profile-recent-fav-col profile-recent-fav-col-thumb">
-                                                    <img src="/front/assets/img/cart/4560621.jpg"></a>
-                                                <div class="profile-recent-fav-col profile-recent-fav-col-title">
-                                                    <a href="#">
-                                                        <h4 class="profile-recent-fav-name">
-                                                            گوشی موبایل اپل مدل iPhone XR دو سیم کارت ظرفیت 256 گیگابایت
-                                                        </h4>
-                                                    </a>
-                                                    <div class="profile-recent-fav-price">ناموجود</div>
+
+                                            @foreach($wishlists as $wish)
+                                                <div class="profile-recent-fav-row">
+                                                    <a href="#"
+                                                       class="profile-recent-fav-col profile-recent-fav-col-thumb">
+                                                        <img
+                                                            src="{{ $wish->product ? $wish->product->get_image() : '---' }}"></a>
+                                                    <div class="profile-recent-fav-col profile-recent-fav-col-title">
+                                                        <a href="#">
+                                                            <h4 class="profile-recent-fav-name">
+                                                                {{ $wish->product ? $wish->product->get_title($lang) : '---' }}
+                                                            </h4>
+                                                        </a>
+                                                        @if(($wish->product && $wish->product->quantity > 0) || in_array($wish->product_id, $user->carts_product_pluck_id()))
+                                                            <div class="profile-recent-fav-price text-success">موجود</div>
+                                                        @else
+                                                            <div class="profile-recent-fav-price">ناموجود</div>
+                                                        @endif
+                                                    </div>
+                                                    <div class="profile-recent-fav-col profile-recent-fav-col-actions">
+                                                        <button class="btn-action btn-action-remove">
+                                                            <i class="fa fa-trash"></i>
+                                                        </button>
+                                                    </div>
                                                 </div>
-                                                <div class="profile-recent-fav-col profile-recent-fav-col-actions">
-                                                    <button class="btn-action btn-action-remove">
-                                                        <i class="fa fa-trash"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <div class="profile-recent-fav-row">
-                                                <a href="#" class="profile-recent-fav-col profile-recent-fav-col-thumb">
-                                                    <img src="/front/assets/img/cart/3794614.jpg"></a>
-                                                <div class="profile-recent-fav-col profile-recent-fav-col-title">
-                                                    <a href="#">
-                                                        <h4 class="profile-recent-fav-name">
-                                                            گوشی موبایل اپل مدل iPhone XR دو سیم کارت ظرفیت 256 گیگابایت
-                                                        </h4>
-                                                    </a>
-                                                    <div class="profile-recent-fav-price">ناموجود</div>
-                                                </div>
-                                                <div class="profile-recent-fav-col profile-recent-fav-col-actions">
-                                                    <button class="btn-action btn-action-remove">
-                                                        <i class="fa fa-trash"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
+                                            @endforeach
+
                                         </div>
+
                                         <div class="col-12 text-center">
                                             <a href="#" class="btn-link-border form-account-link">
                                                 مشاهده و ویرایش لیست مورد علاقه

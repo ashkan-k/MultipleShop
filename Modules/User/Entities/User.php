@@ -222,6 +222,11 @@ class User extends Authenticatable
         return $this->hasMany(Cart::class);
     }
 
+    public function carts_product_pluck_id()
+    {
+        return $this->hasMany(Cart::class)->pluck('product_id')->toArray();
+    }
+
     public function payments()
     {
         return $this->hasMany(Payment::class);

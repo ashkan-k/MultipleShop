@@ -2,7 +2,7 @@
     <div class="profile-box mt-3">
         <div class="profile-box-header">
             <div class="profile-box-avatar">
-                <img src="{{ auth()->user()->full_name() }}" alt="{{ auth()->user()->get_avatar() }}">
+                <img src="{{ auth()->user()->get_avatar() }}" alt="{{ auth()->user()->full_name() }}">
             </div>
             <button data-toggle="modal" data-target="#myModal" class="profile-box-btn-edit">
                 <i class="fa fa-pencil"></i>
@@ -99,7 +99,7 @@
         <div class="profile-menu-header">حساب کاربری شما</div>
         <ul class="profile-menu-items">
             <li>
-                <a href="profile.html" class="active">
+                <a href="{{ route('user_profile') }}" class="@if(\Illuminate\Support\Facades\Route::currentRouteName() == 'user_profile') active @endif">
                     <i class="now-ui-icons users_single-02"></i>
                     پروفایل
                 </a>
