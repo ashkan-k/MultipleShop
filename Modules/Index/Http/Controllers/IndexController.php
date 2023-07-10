@@ -45,4 +45,10 @@ class IndexController extends Controller
         $user = auth()->user();
         return view('index::profile', compact('user'));
     }
+
+    public function profile_edit()
+    {
+        $user = auth()->user();
+        return view('index::profile_edit', compact('user'));
+    }
 }

@@ -4,9 +4,9 @@
             <div class="profile-box-avatar">
                 <img src="{{ auth()->user()->get_avatar() }}" alt="{{ auth()->user()->full_name() }}">
             </div>
-            <button data-toggle="modal" data-target="#myModal" class="profile-box-btn-edit">
-                <i class="fa fa-pencil"></i>
-            </button>
+{{--            <button data-toggle="modal" data-target="#myModal" class="profile-box-btn-edit">--}}
+{{--                <i class="fa fa-pencil"></i>--}}
+{{--            </button>--}}
             <!-- Modal Core -->
             <div class="modal-share modal-width-custom modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog">

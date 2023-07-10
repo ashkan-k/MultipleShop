@@ -50,7 +50,7 @@
                                             </p>
                                         </div>
                                         <div class="col-12 text-center">
-                                            <a href="profile-additional-info.html"
+                                            <a href="{{ route('user_profile_edit', ['locale' => $lang]) }}"
                                                class="btn-link-border form-account-link">
                                                 ویرایش اطلاعات شخصی
                                             </a>
