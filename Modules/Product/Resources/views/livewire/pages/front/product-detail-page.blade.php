@@ -567,6 +567,11 @@
                                                                                 class="message-light message-light--opinion-positive">
                                                                                 خرید این محصول را توصیه می‌کنم
                                                                             </div>
+                                                                        @elseif($comment->suggest_score == 'not_suggest')
+                                                                            <div
+                                                                                class="message-light">
+                                                                                خرید این محصول را توصیه نمی‌کنم
+                                                                            </div>
                                                                         @endif
                                                                     </div>
                                                                     <div class="col-md-9 col-sm-12 comment-content">
@@ -575,34 +580,43 @@
                                                                         </div>
                                                                         <div class="comment-author">
                                                                             توسط {{ $comment->user->full_name() ?: '---' }}
-                                                                            در تاریخ ۵ مهر ۱۳۹۵
+                                                                            در
+                                                                            تاریخ {{ \Hekmatinasser\Verta\Verta:: instance($comment->created_at)->format('%B %d، %Y') }}
                                                                         </div>
                                                                         <div class="row">
-                                                                            <div class="col-md-4 col-sm-6 col-12">
-                                                                                <div
-                                                                                    class="content-expert-evaluation-positive">
-                                                                                    <span>نقاط قوت</span>
-                                                                                    <ul>
-                                                                                        <li>دوربین‌های 4گانه پرقدرت
-                                                                                        </li>
-                                                                                        <li>باتری باظرفیت بالا</li>
-                                                                                        <li>حسگر اثرانگشت زیر قاب
-                                                                                            جلویی
-                                                                                        </li>
-                                                                                    </ul>
+
+                                                                            @if($comment->positive_points)
+                                                                                <div class="col-md-4 col-sm-6 col-12">
+                                                                                    <div
+                                                                                        class="content-expert-evaluation-positive">
+                                                                                        <span>نقاط قوت</span>
+                                                                                        <ul>
+
+                                                                                            @foreach(explode('،', $comment->positive_points) as $pos_p)
+                                                                                                <li>{{ $pos_p }}</li>
+                                                                                            @endforeach
+
+                                                                                        </ul>
+                                                                                    </div>
                                                                                 </div>
-                                                                            </div>
-                                                                            <div class="col-md-4 col-sm-6 col-12">
-                                                                                <div
-                                                                                    class="content-expert-evaluation-negative">
-                                                                                    <span>نقاط ضعف</span>
-                                                                                    <ul>
-                                                                                        <li>نرم‌افزار دوربین</li>
-                                                                                        <li>نبودن Nano SD در بازار
-                                                                                        </li>
-                                                                                    </ul>
+                                                                            @endif
+
+                                                                            @if($comment->negative_points)
+                                                                                <div class="col-md-4 col-sm-6 col-12">
+                                                                                    <div
+                                                                                        class="content-expert-evaluation-negative">
+                                                                                        <span>نقاط ضعف</span>
+                                                                                        <ul>
+
+                                                                                            @foreach(explode('،', $comment->negative_points) as $neg_p)
+                                                                                                <li>{{ $neg_p }}</li>
+                                                                                            @endforeach
+
+                                                                                        </ul>
+                                                                                    </div>
                                                                                 </div>
-                                                                            </div>
+                                                                            @endif
+
                                                                         </div>
                                                                         <p>{{ $comment->body ?: '---' }}</p>
 
