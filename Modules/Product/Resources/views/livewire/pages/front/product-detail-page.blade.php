@@ -529,9 +529,11 @@
                                                 <span>{{ $comments->count() }} نظر</span>
                                             </h2>
                                             <div class="comments-area default">
-                                                <ol class="comment-list">
+                                                <ol class="comment-list" style="width: 100% !important;">
 
-                                                    @foreach($object->comments()->where('status', 'approved')->with(['user', 'product'])->get() as $comment)
+                                                    @foreach($object->comments()->where('status', 'approved')->with(['user'])->get() as $comment)
+                                                        <?php $ordered_color = auth()->user()->orders()->where('product_id', $comment->product_id)->first() ?>
+
                                                         <li>
                                                             <div class="comment-body">
                                                                 <div class="row">
@@ -545,13 +547,9 @@
                                                                                 <div class="cell">رنگ خریداری
                                                                                     شده:
                                                                                 </div>
-
-                                                                                <?php $ordered_color = auth()->user()->orders()->where('product_id', $comment->product_id)->first() ?>
-
                                                                                 <div class="cell color-cell">
-                                                                                        <span
-                                                                                            class="shopping-color-value"
-                                                                                            style="background-color: #FFFFFF; border: 1px solid rgba(0, 0, 0, 0.25)"></span>{{ $ordered_color ? $ordered_color->color->title : '---' }}
+                                                                                    <span class="shopping-color-value"
+                                                                                          style="background-color: #FFFFFF; border: 1px solid rgba(0, 0, 0, 0.25)"></span>{{ $ordered_color ? $ordered_color->color->title : '---' }}
                                                                                 </div>
                                                                             </li>
                                                                             <li>
@@ -559,8 +557,8 @@
                                                                                     از:
                                                                                 </div>
                                                                                 <div class="cell seller-cell">
-                                                                                        <span
-                                                                                            class="o-text-blue">{{ $product->user->full_name ?: '---' }}</span>
+                                                                                    <span
+                                                                                        class="o-text-blue">{{ $object->user->full_name ?: '---' }}</span>
                                                                                 </div>
                                                                             </li>
                                                                         </ul>
@@ -571,13 +569,13 @@
                                                                             </div>
                                                                         @endif
                                                                     </div>
-
                                                                     <div class="col-md-9 col-sm-12 comment-content">
                                                                         <div class="comment-title">
-                                                                            {{ $product->get_title($lang) ?: '---' }}
+                                                                            {{ $object->get_title($lang) ?: '---' }}
                                                                         </div>
                                                                         <div class="comment-author">
-                                                                            توسط {{ $comment->user->full_name() ?: '---' }} در تاریخ ۵ مهر ۱۳۹۵
+                                                                            توسط {{ $comment->user->full_name() ?: '---' }}
+                                                                            در تاریخ ۵ مهر ۱۳۹۵
                                                                         </div>
                                                                         <div class="row">
                                                                             <div class="col-md-4 col-sm-6 col-12">
@@ -623,9 +621,12 @@
                                                                 </div>
                                                             </div>
                                                         </li>
+
                                                     @endforeach
 
                                                 </ol>
+
+
                                             </div>
                                         </article>
                                     </div>
