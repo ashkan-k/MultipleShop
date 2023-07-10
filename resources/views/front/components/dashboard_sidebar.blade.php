@@ -55,7 +55,7 @@
                 تغییر رمز
             </a>
 
-            <form action="{{ route('logout') }}" id="id_frm_logout" style="display: none" method="post">
+            <form action="{{ route('logout', ['locale' => $lang]) }}" id="id_frm_logout" style="display: none" method="post">
 
             </form>
 
@@ -72,7 +72,7 @@
                 حساب کاربری شما
             </button>
             <div class="dropdown-menu dropdown-menu-right text-right">
-                <a href="{{ route('user_profile') }}" class="dropdown-item @if(\Illuminate\Support\Facades\Route::currentRouteName() == 'user_profile') active-menu @endif">
+                <a href="{{ route('user_profile', ['locale' => $lang]) }}" class="dropdown-item @if(\Illuminate\Support\Facades\Route::currentRouteName() == 'user_profile') active-menu @endif">
                     <i class="now-ui-icons users_single-02"></i>
                     پروفایل
                 </a>
@@ -99,7 +99,7 @@
         <div class="profile-menu-header">حساب کاربری شما</div>
         <ul class="profile-menu-items">
             <li>
-                <a href="{{ route('user_profile') }}" class="@if(\Illuminate\Support\Facades\Route::currentRouteName() == 'user_profile') active @endif">
+                <a href="{{ route('user_profile', ['locale' => $lang]) }}" class="@if(\Illuminate\Support\Facades\Route::currentRouteName() == 'user_profile') active @endif">
                     <i class="now-ui-icons users_single-02"></i>
                     پروفایل
                 </a>
