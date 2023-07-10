@@ -27,6 +27,23 @@ class ProductDetailPage extends Component
     public $positive_points;
     public $suggest_score;
 
+    public function ChangeTab($new_tab)
+    {
+        $this->current_tab = $new_tab;
+    }
+
+    public function dehydrate()
+    {
+        $this->dispatchBrowserEvent('initSomething');
+    }
+
+    public function updated($propertyName)
+    {
+        if (in_array($propertyName, ['search', 'pagination'])) {
+            $this->resetPage();
+        }
+    }
+
     protected function rules()
     {
         return (new CommentRequest())->rules();
@@ -45,23 +62,6 @@ class ProductDetailPage extends Component
         $this->title = $this->body = $this->negative_points = $this->positive_points = $this->suggest_score = null;
 
         $this->dispatchBrowserEvent('newCommentSubmited');
-    }
-
-    public function ChangeTab($new_tab)
-    {
-        $this->current_tab = $new_tab;
-    }
-
-    public function dehydrate()
-    {
-        $this->dispatchBrowserEvent('initSomething');
-    }
-
-    public function updated($propertyName)
-    {
-        if (in_array($propertyName, ['search', 'pagination'])) {
-            $this->resetPage();
-        }
     }
 
     public function AddRemoveWishList($operate)
@@ -90,13 +90,13 @@ class ProductDetailPage extends Component
 
     public function AddRemoveCart($type)
     {
-        if ($type == 'add'){
+        if ($type == 'add') {
 
-            if ($this->cart_count < 1 ){
+            if ($this->cart_count < 1) {
                 $this->dispatchBrowserEvent('addToCartError', ['message' => __('The number of orders must be at least one!')]);
                 return;
             }
-            if ($this->cart_count > $this->object->quantity){
+            if ($this->cart_count > $this->object->quantity) {
                 $this->dispatchBrowserEvent('addToCartError', ['message' => __('The order quantity is more than the available quantity!')]);
                 return;
             }
@@ -111,9 +111,9 @@ class ProductDetailPage extends Component
             $this->cart_count = 1;
             $this->cart_color = null;
 
-        }else{
+        } else {
 
-            if ($this->user_cart){
+            if ($this->user_cart) {
                 $this->object->increment('quantity', $this->user_cart->count);
                 $this->user_cart->delete();
             }
@@ -142,7 +142,7 @@ class ProductDetailPage extends Component
             'related_products' => Product::ActiveProducts()->where('category_id', $this->object->category_id)->get(),
         ];
 
-        if (auth()->check()){
+        if (auth()->check()) {
             $this->user_cart = auth()->user()->carts()->where('product_id', $this->object->id)->first();
         }
 
