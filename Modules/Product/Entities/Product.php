@@ -210,6 +210,11 @@ class Product extends Model
         return $this->belongsToMany(Feature::class, 'product_features');
     }
 
+    public function colors()
+    {
+        return $this->belongsToMany(Color::class, 'product_colors');
+    }
+
     public function product_features()
     {
         return $this->hasMany(ProductFeature::class);

@@ -91,7 +91,11 @@ class ProductDetailPage extends Component
     {
         $data = [
             'colors' => Color::limit(3)->get(),
-            'comments' => $this->object->comments()->where('status', 'approved')->with(['user']),
+            'comments' => $this->object->comments()->where('status', 'approved')->withCount(array('comment_points as positive_comments_point' => function ($query) {
+                $query->where('type', 'positive');
+            }))->withCount(array('comment_points as negative_comments_point' => function ($query) {
+                $query->where('type', 'negative');
+            }))->with(['user']),
             'wish_lists' => $this->object->wish_lists()->get(),
             'top_features' => $this->object->product_features()->whereIn('place', ['up', 'both'])->with('feature')->get(),
             'bottom_features' => $this->object->product_features()->whereIn('place', ['down', 'both'])->with('feature')->get(),

@@ -6,28 +6,35 @@ use App\Http\Traits\Searchable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Color extends Model
+class ProductColor extends Model
 {
     use HasFactory;
     use Searchable;
 
     protected $fillable = [
-        'title',
+        'product_id',
+        'color_id',
     ];
 
     protected $search_fields  = [
-        'title',
+        'product.title',
+        'color.title',
     ];
 
     protected static function newFactory()
     {
-        return \Modules\Product\Database\factories\ColorFactory::new();
+        return \Modules\Product\Database\factories\ProductFeatureFactory::new();
     }
 
     //
 
-    public function products()
+    public function product()
     {
-        return $this->belongsToMany(Product::class, 'product_colors');
+        return $this->belongsTo(Product::class);
+    }
+
+    public function color()
+    {
+        return $this->belongsTo(Color::class);
     }
 }
