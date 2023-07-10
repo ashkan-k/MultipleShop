@@ -14,6 +14,7 @@ use Modules\Auth\Entities\ActivationCode;
 use Modules\Blog\Entities\Blog;
 use Modules\Cart\Entities\Cart;
 use Modules\Comment\Entities\Comment;
+use Modules\Comment\Entities\CommentPoint;
 use Modules\Coupon\Entities\Coupon;
 use Modules\Order\Entities\Order;
 use Modules\Payment\Entities\Payment;
@@ -249,5 +250,10 @@ class User extends Authenticatable
     public function wish_lists()
     {
         return $this->hasMany(WishList::class);
+    }
+
+    public function comment_points()
+    {
+        return $this->hasMany(CommentPoint::class);
     }
 }

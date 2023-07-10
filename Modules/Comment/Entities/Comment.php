@@ -84,6 +84,11 @@ class Comment extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function comment_points()
+    {
+        return $this->hasMany(CommentPoint::class);
+    }
+
     //Polymorphic
     public function commentable()
     {

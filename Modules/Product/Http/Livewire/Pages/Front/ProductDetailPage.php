@@ -76,6 +76,15 @@ class ProductDetailPage extends Component
         $this->dispatchBrowserEvent('wishlistStatusUpdated', ['type' => $operate]);
     }
 
+    public function SubmitCommentPoint(Comment $comment, $type)
+    {
+        auth()->user()->comment_points()->where('comment_id', $comment->id)->delete();
+        auth()->user()->comment_points()->create([
+            'comment_id' => $comment->id,
+            'type' => $type,
+        ]);
+    }
+
     //
 
     public function render()

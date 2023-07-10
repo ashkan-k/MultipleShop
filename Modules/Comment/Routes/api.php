@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Modules\Comment\Http\Controllers\Api\ApiCommentController;
 use Modules\Comment\Http\Controllers\Dashboard\CommentController;
 
 /*
@@ -16,3 +17,5 @@ use Modules\Comment\Http\Controllers\Dashboard\CommentController;
 */
 
 Route::post('status/change/{comment}', [CommentController::class, 'change_status']);
+Route::post('points/get/{comment}/{type}', [ApiCommentController::class, 'get_submit_points'])->name('get_submit_points');
+Route::post('points/submit/{comment}', [ApiCommentController::class, 'submit_point'])->name('submit_comment_point');

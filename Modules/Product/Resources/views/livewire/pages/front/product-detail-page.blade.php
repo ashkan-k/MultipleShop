@@ -620,17 +620,25 @@
                                                                         </div>
                                                                         <p>{{ $comment->body ?: '---' }}</p>
 
-                                                                        <div class="footer">
-                                                                            <div class="comments-likes">
-                                                                                آیا این نظر برایتان مفید بود؟
-                                                                                <button class="btn-like"
-                                                                                        data-counter="۱۱">بله
-                                                                                </button>
-                                                                                <button class="btn-like"
-                                                                                        data-counter="۶">خیر
-                                                                                </button>
-                                                                            </div>
-                                                                        </div>
+{{--                                                                        <div class="footer" id="id_comments_section">--}}
+{{--                                                                            @auth--}}
+{{--                                                                                <div class="comments-likes">--}}
+{{--                                                                                    آیا این نظر برایتان مفید بود؟--}}
+{{--                                                                                    <button class="btn-like"--}}
+{{--                                                                                            type="button"--}}
+{{--                                                                                            wire:click.prevent="SubmitCommentPoint({{ $comment->id }}, 'positive')"--}}
+{{--                                                                                            data-counter="{{ $comment->comment_points()->where('type', 'positive')->count() }}">--}}
+{{--                                                                                        بله--}}
+{{--                                                                                    </button>--}}
+{{--                                                                                    <button class="btn-like"--}}
+{{--                                                                                            type="button"--}}
+{{--                                                                                            wire:click.prevent="SubmitCommentPoint({{ $comment->id }}, 'negative')"--}}
+{{--                                                                                            data-counter="{{ $comment->comment_points()->where('type', 'negative')->count() }}">--}}
+{{--                                                                                        خیر--}}
+{{--                                                                                    </button>--}}
+{{--                                                                                </div>--}}
+{{--                                                                            @endauth--}}
+{{--                                                                        </div>--}}
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -756,10 +764,12 @@
         </div>
     </div>
 
+    <a id="aaaaaaaa" href="#id_comments_section"></a>
+
 </main>
 
 @section('scripts')
-
+    <script src="https://cdn.jsdelivr.net/npm/jquery.scrollto@2.1.3/jquery.scrollTo.min.js"></script>
 @endsection
 
 @push('StackScript')
@@ -781,5 +791,35 @@
             showToast('کاربر عزیز نظر شما با موفقیت ثبت شد و پس تایید مدیر در سایت قرار میگیرد.', 'success');
         });
     </script>
+
+{{--    <script>--}}
+{{--        app.controller('myCtrl', function ($scope, $http) {--}}
+{{--            $scope.positive_points = 0;--}}
+{{--            $scope.negative_points = 0;--}}
+
+{{--            $scope.GetCommentPoints = function (comment_id, type){--}}
+{{--                $scope.is_submited = true;--}}
+
+{{--                var url = `/api/comments/points/get/${comment_id}/${type}`;--}}
+
+{{--                $http.get(url).then(res => {--}}
+{{--                    $scope.is_submited = false;--}}
+
+{{--                    if (type == 'positive'){--}}
+{{--                        $scope.positive_points = res['data']['data'];--}}
+{{--                    }else {--}}
+{{--                        $scope.negative_points = res['data']['data'];--}}
+{{--                    }--}}
+{{--                }).catch(err => {--}}
+{{--                    $scope.is_submited = false;--}}
+{{--                    showToast('خطایی رخ داد.', 'error');--}}
+{{--                });--}}
+{{--            }--}}
+
+{{--            $scope.SubmitCommentPoint = function (){--}}
+
+{{--            }--}}
+{{--        })--}}
+{{--    </script>--}}
 @endpush
 
