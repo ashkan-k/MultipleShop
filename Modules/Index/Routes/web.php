@@ -17,3 +17,4 @@ use Modules\Index\Http\Controllers\IndexController;
 Route::get('/', [IndexController::class, 'index'])->name('index');
 Route::get('profile', [IndexController::class, 'profile'])->name('user_profile')->middleware('auth');
 Route::get('profile/edit', [IndexController::class, 'profile_edit'])->name('user_profile_edit')->middleware('auth');
+Route::post('profile/edit', [IndexController::class, 'profile_edit'])->name('user_profile_edit_submit')->middleware('auth');

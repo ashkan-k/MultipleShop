@@ -2,10 +2,13 @@
 
 namespace Modules\Index\Http\Controllers;
 
+use App\Http\Traits\Responses;
+use App\Http\Traits\Uploader;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Blog\Entities\Blog;
+use Modules\Dashboard\Http\Requests\ProfileRequest;
 use Modules\Poster\Entities\Poster;
 use Modules\Product\Entities\Category;
 use Modules\Product\Entities\Product;
@@ -13,6 +16,8 @@ use Modules\Slider\Entities\Slider;
 
 class IndexController extends Controller
 {
+    use Responses, Uploader;
+
     public function index()
     {
         $sliders = Slider::all();
@@ -46,9 +51,27 @@ class IndexController extends Controller
         return view('index::profile', compact('user'));
     }
 
-    public function profile_edit()
+    public function profile_edit(ProfileRequest $request)
     {
         $user = auth()->user();
+
+        if (\request()->method() == 'POST') {
+            $avatar = $this->UploadFile($request, 'avatar', 'avatars', $user->email, $user->avatar);
+
+            $data = $request->validated();
+
+            $password = $data['password'];
+            unset($data['password']);
+
+            $user->update(array_merge($data, ['avatar' => $avatar]));
+            if ($password) {
+                $user->set_password($password);
+                auth()->login($user);
+            }
+            return $this->SuccessRedirect(__('Your profile information has been successfully edited.'), $request->get('next', 'user_profile_edit'));
+
+        }
+
         return view('index::profile_edit', compact('user'));
     }
 }

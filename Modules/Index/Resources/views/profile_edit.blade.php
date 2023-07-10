@@ -12,76 +12,136 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="col-12">
-                                <h1 class="title-tab-content">ویرایش اطلاعات شخصی</h1>
+                                <h1 class="title-tab-content">{{ __('Edit personal information') }}</h1>
                             </div>
                             <div class="content-section default">
                                 <div class="row">
                                     <div class="col-12">
-                                        <h1 class="title-tab-content">حساب شخصی</h1>
+                                        <h1 class="title-tab-content">{{ __('Personal Account') }}</h1>
                                     </div>
                                 </div>
-                                <form class="form-account">
+                                <form action="{{ route('user_profile_edit_submit') }}" method="post"
+                                      class="form-account">
+                                    @csrf
+
                                     <div class="row">
                                         <div class="col-sm-12 col-md-6">
-                                            <div class="form-account-title">نام</div>
+                                            <div class="form-account-title">{{ __('First Name') }}</div>
                                             <div class="form-account-row">
-                                                <input class="input-field text-right" type="text" placeholder="نام خود را وارد نمایید">
+                                                <input name="first_name"
+                                                       value="@if(old('first_name')){{ old('first_name') }}@elseif(isset($user->first_name)){{ $user->first_name }}@endif"
+                                                       class="input-field text-right" type="text"
+                                                       placeholder="{{ __('Enter your name') }}">
+                                                @error('title')
+                                                <span
+                                                    class="text-danger text-wrap">{{ $message }}</span>
+                                                @enderror
                                             </div>
                                         </div>
+
                                         <div class="col-sm-12 col-md-6">
-                                            <div class="form-account-title">نام خانوادگی</div>
+                                            <div class="form-account-title">{{ __('Last Name') }}</div>
                                             <div class="form-account-row">
-                                                <input class="input-field text-right" type="text" placeholder="نام خانوادگی خود را وارد نمایید">
+                                                <input name="last_name"
+                                                       value="@if(old('last_name')){{ old('last_name') }}@elseif(isset($user->last_name)){{ $user->last_name }}@endif"
+                                                       class="input-field text-right" type="text"
+                                                       placeholder="{{ __('Enter your last name') }}">
+                                                @error('last_name')
+                                                <span
+                                                    class="text-danger text-wrap">{{ $message }}</span>
+                                                @enderror
                                             </div>
                                         </div>
+
                                         <div class="col-sm-12 col-md-6">
-                                            <div class="form-account-title">کد ملی</div>
+                                            <div class="form-account-title">{{ __('Email') }}</div>
                                             <div class="form-account-row">
-                                                <input class="input-field" type="text" placeholder="کد ملی خود را وارد نمایید">
-                                            </div>
-                                            <div class="form-account-agree">
-                                                <label class="checkbox-form checkbox-primary">
-                                                    <input type="checkbox">
-                                                    <span class="checkbox-check"></span>
-                                                </label>
-                                                <label for="agree">
-                                                    تبعه خارجی فاقد کد ملی هستم
-                                                </label>
+                                                <input name="email" required
+                                                       value="@if(old('email')){{ old('email') }}@elseif(isset($user->email)){{ $user->email }}@endif"
+                                                       class="input-field" type="email"
+                                                       placeholder="{{ __('Enter your email') }}">
+                                                @error('email')
+                                                <span
+                                                    class="text-danger text-wrap">{{ $message }}</span>
+                                                @enderror
                                             </div>
                                         </div>
+
                                         <div class="col-sm-12 col-md-6">
-                                            <div class="form-account-title">شماره موبایل</div>
+                                            <div class="form-account-title">{{ __('Phone') }}</div>
                                             <div class="form-account-row">
-                                                <input class="input-field" type="text" placeholder="شماره موبایل خود را وارد نمایید">
+                                                <input name="phone"
+                                                       value="@if(old('phone')){{ old('phone') }}@elseif(isset($user->phone)){{ $user->phone }}@endif"
+                                                       class="input-field" type="text"
+                                                       placeholder="{{ __('Enter your phone') }}">
+                                                @error('phone')
+                                                <span
+                                                    class="text-danger text-wrap">{{ $message }}</span>
+                                                @enderror
                                             </div>
                                         </div>
+
                                         <div class="col-sm-12 col-md-6">
-                                            <div class="form-account-title">شماره کارت</div>
+                                            <div class="form-account-title">{{ __('Username') }}</div>
                                             <div class="form-account-row">
-                                                <input class="input-field" type="text" placeholder=" شماره کارت خود را وارد نمایید">
+                                                <input name="username"
+                                                       value="@if(old('username')){{ old('username') }}@elseif(isset($user->username)){{ $user->username }}@endif"
+                                                       class="input-field" type="text"
+                                                       placeholder="{{ __('Enter your username') }}">
+                                                @error('username')
+                                                <span
+                                                    class="text-danger text-wrap">{{ $message }}</span>
+                                                @enderror
                                             </div>
                                         </div>
+
+                                        <div class="col-sm-12 col-md-12">
+                                            <div class="form-account-title">{{ __('Address') }}</div>
+                                            <div class="form-account-row">
+                                                <textarea name="address" rows="10" class="input-field" required
+                                                          placeholder="{{ __('Enter your address') }}">@if(old('address')){{ old('address') }}@elseif(isset($user->address)){{ $user->address }}@endif</textarea>
+                                                @error('address')
+                                                <span
+                                                    class="text-danger text-wrap">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+
                                         <div class="col-sm-12 col-md-6">
-                                            <div class="form-account-title">آدرس ایمیل</div>
+                                            <div class="form-account-title">{{ __('Password') }}</div>
                                             <div class="form-account-row">
-                                                <input class="input-field" type="email" placeholder=" آدرس ایمیل خود را وارد نمایید">
+                                                <input name="password"
+                                                       value="{{ old('password') }}"
+                                                       class="input-field" type="text"
+                                                       placeholder="{{ __('Enter your password') }}">
+                                                @error('password')
+                                                <span
+                                                    class="text-danger text-wrap">{{ $message }}</span>
+                                                @enderror
                                             </div>
                                         </div>
+
+                                        <div class="col-sm-12 col-md-6">
+                                            <div class="form-account-title">تکرار رمز عبور</div>
+                                            <div class="form-account-row">
+                                                <input name="password_confirmation"
+                                                       value="{{ old('password_confirmation') }}"
+                                                       class="input-field" type="text"
+                                                       placeholder=" تکرار رمز عبور خود را وارد نمایید">
+                                                @error('password_confirmation')
+                                                <span
+                                                    class="text-danger text-wrap">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+
                                     </div>
-                                    <div class="col-12 no-padding">
-                                        <div class="form-account-agree">
-                                            <label class="checkbox-form checkbox-primary">
-                                                <input type="checkbox" id="agree-newspaper">
-                                                <span class="checkbox-check"></span>
-                                            </label>
-                                            <label for="agree-newspaper">
-                                                اشتراک در خبرنامه جی تی کالا
-                                            </label>
-                                        </div>
-                                    </div>
+
                                     <div class="col-12 text-center">
-                                        <button class="btn btn-default btn-lg">ذخیره</button>
-                                        <button class="btn btn-default btn-lg">انصراف</button>
+                                        <button type="submit" class="btn btn-default btn-lg">ذخیره</button>
+                                        <button onclick="window.location.href = '{{ url()->previous() }}'" type="button"
+                                                class="btn btn-default btn-lg">انصراف
+                                        </button>
                                     </div>
                                 </form>
                             </div>

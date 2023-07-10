@@ -99,7 +99,7 @@
         <div class="profile-menu-header">حساب کاربری شما</div>
         <ul class="profile-menu-items">
             <li>
-                <a href="{{ route('user_profile', ['locale' => $lang]) }}" class="@if(\Illuminate\Support\Facades\Route::currentRouteName() == 'user_profile') active @endif">
+                <a href="{{ route('user_profile', ['locale' => $lang]) }}" class="@if(str_starts_with(\Illuminate\Support\Facades\Route::currentRouteName(), 'user_profile')) active @endif">
                     <i class="now-ui-icons users_single-02"></i>
                     پروفایل
                 </a>
