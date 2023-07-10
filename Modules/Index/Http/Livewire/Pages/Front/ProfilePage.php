@@ -21,6 +21,7 @@ class ProfilePage extends Component
     {
         $data = [
             'wishlists' => $this->object->wish_lists()->get(),
+            'latest_orders' => $this->object->orders()->latest()->limit(5)->get(),
         ];
         return view('index::livewire.pages.front.profile-page', $data);
     }

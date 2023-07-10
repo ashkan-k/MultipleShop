@@ -50,9 +50,9 @@
         </div>
         <div class="profile-box-username">{{ auth()->user()->full_name() }}</div>
         <div class="profile-box-tabs">
-            <a href="password-change.html" class="profile-box-tab profile-box-tab-access">
+            <a href="{{ route('user_profile_edit', ['locale' => $lang]) }}" class="profile-box-tab profile-box-tab-access">
                 <i class="now-ui-icons ui-1_lock-circle-open"></i>
-                تغییر رمز
+                {{ __('Change Password') }}
             </a>
 
             <form action="{{ route('logout', ['locale' => $lang]) }}" id="id_frm_logout" style="display: none" method="post">
@@ -61,7 +61,7 @@
 
             <a onclick="$('#id_frm_logout').submit()" style="cursor:pointer;" class="profile-box-tab profile-box-tab--sign-out">
                 <i class="now-ui-icons media-1_button-power"></i>
-                خروج از حساب
+                {{ __('Logout Account') }}
             </a>
         </div>
     </div>
@@ -69,63 +69,63 @@
         <div class="btn-group">
             <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fa fa-navicon"></i>
-                حساب کاربری شما
+                {{ __('Your account') }}
             </button>
             <div class="dropdown-menu dropdown-menu-right text-right">
                 <a href="{{ route('user_profile', ['locale' => $lang]) }}" class="dropdown-item @if(\Illuminate\Support\Facades\Route::currentRouteName() == 'user_profile') active-menu @endif">
                     <i class="now-ui-icons users_single-02"></i>
-                    پروفایل
+                    {{ __('Profile') }}
                 </a>
                 <a href="profile-orders.html" class="dropdown-item">
                     <i class="now-ui-icons shopping_basket"></i>
-                    همه سفارش ها
+                    {{ __('All orders') }}
                 </a>
-                <a href="profile-orders-return.html" class="dropdown-item">
-                    <i class="now-ui-icons files_single-copy-04"></i>
-                    درخواست مرجوعی
-                </a>
+{{--                <a href="profile-orders-return.html" class="dropdown-item">--}}
+{{--                    <i class="now-ui-icons files_single-copy-04"></i>--}}
+{{--                    درخواست مرجوعی--}}
+{{--                </a>--}}
                 <a href="profile-favorites.html" class="dropdown-item">
                     <i class="now-ui-icons ui-2_favourite-28"></i>
-                    لیست علاقمندی ها
+                    {{ __('List of favorites') }}
                 </a>
-                <a href="profile-personal-info.html" class="dropdown-item">
+                <a href="{{ route('user_profile_edit', ['locale' => $lang]) }}" class="dropdown-item @if(\Illuminate\Support\Facades\Route::currentRouteName() == 'user_profile_edit') active-menu @endif">
                     <i class="now-ui-icons business_badge"></i>
-                    اطلاعات شخصی
+                    {{ __('Personal Information') }}
                 </a>
             </div>
         </div>
     </div>
     <div class="profile-menu hidden-md">
-        <div class="profile-menu-header">حساب کاربری شما</div>
+        <div class="profile-menu-header">{{ __('Your account') }}</div>
         <ul class="profile-menu-items">
             <li>
-                <a href="{{ route('user_profile', ['locale' => $lang]) }}" class="@if(str_starts_with(\Illuminate\Support\Facades\Route::currentRouteName(), 'user_profile')) active @endif">
+                <a href="{{ route('user_profile', ['locale' => $lang]) }}" class="@if(\Illuminate\Support\Facades\Route::currentRouteName() == 'user_profile') active @endif">
                     <i class="now-ui-icons users_single-02"></i>
-                    پروفایل
+                    {{ __('Profile') }}
                 </a>
             </li>
             <li>
                 <a href="profile-orders.html">
                     <i class="now-ui-icons shopping_basket"></i>
-                    همه سفارش ها
+                    {{ __('All orders') }}
                 </a>
             </li>
-            <li>
-                <a href="profile-orders-return.html">
-                    <i class="now-ui-icons files_single-copy-04"></i>
-                    درخواست مرجوعی
-                </a>
-            </li>
+{{--            <li>--}}
+{{--                <a href="profile-orders-return.html">--}}
+{{--                    <i class="now-ui-icons files_single-copy-04"></i>--}}
+{{--                    درخواست مرجوعی--}}
+{{--                </a>--}}
+{{--            </li>--}}
             <li>
                 <a href="profile-favorites.html">
                     <i class="now-ui-icons ui-2_favourite-28"></i>
-                    لیست علاقمندی ها
+                    {{ __('List of favorites') }}
                 </a>
             </li>
             <li>
-                <a href="profile-personal-info.html">
+                <a href="{{ route('user_profile_edit', ['locale' => $lang]) }}" class="@if(\Illuminate\Support\Facades\Route::currentRouteName() == 'user_profile_edit') active @endif">
                     <i class="now-ui-icons business_badge"></i>
-                    اطلاعات شخصی
+                    {{ __('Personal Information') }}
                 </a>
             </li>
         </ul>

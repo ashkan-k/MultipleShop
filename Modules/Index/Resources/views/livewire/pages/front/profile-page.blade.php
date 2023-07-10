@@ -9,50 +9,50 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="col-12">
-                                    <h1 class="title-tab-content">اطلاعات شخصی</h1>
+                                    <h1 class="title-tab-content">{{ __('Personal Information') }}</h1>
                                 </div>
                                 <div class="content-section default">
                                     <div class="row">
                                         <div class="col-sm-12 col-md-6">
                                             <p>
-                                                <span class="title">نام و نام خانوادگی :</span>
+                                                <span class="title">{{ __('Full Name') }} :</span>
                                                 <span>{{ $object->first_name . ' ' . $object->last_name }}</span>
                                             </p>
                                         </div>
                                         <div class="col-sm-12 col-md-6">
                                             <p>
-                                                <span class="title">پست الکترونیک :</span>
+                                                <span class="title">{{ __('Email') }} :</span>
                                                 <span>{{ $object->email ?: '---' }}</span>
                                             </p>
                                         </div>
                                         <div class="col-sm-12 col-md-6">
                                             <p>
-                                                <span class="title">شماره تلفن همراه:</span>
+                                                <span class="title">{{ __('Phone') }}:</span>
                                                 <span>{{ $object->phone ?: '---' }}</span>
                                             </p>
                                         </div>
                                         <div class="col-sm-12 col-md-6">
                                             <p>
-                                                <span class="title">نام کاربری :</span>
+                                                <span class="title">{{ __('Username') }} :</span>
                                                 <span>{{ $object->username ?: '---' }}</span>
                                             </p>
                                         </div>
                                         <div class="col-sm-12 col-md-6">
                                             <p>
-                                                <span class="title">کد پستی :</span>
+                                                <span class="title">{{ __('Postal Code') }} :</span>
                                                 <span>{{ $object->postal_code ?: '---' }}</span>
                                             </p>
                                         </div>
                                         <div class="col-sm-12 col-md-6">
                                             <p>
-                                                <span class="title">آدرس :</span>
+                                                <span class="title">{{ __('Address') }} :</span>
                                                 <span>{{ $object->address ?: '---' }}</span>
                                             </p>
                                         </div>
                                         <div class="col-12 text-center">
                                             <a href="{{ route('user_profile_edit', ['locale' => $lang]) }}"
                                                class="btn-link-border form-account-link">
-                                                ویرایش اطلاعات شخصی
+                                                {{ __('Edit personal information') }}
                                             </a>
                                         </div>
                                     </div>
@@ -60,7 +60,7 @@
                             </div>
                             <div class="col-lg-12">
                                 <div class="col-12">
-                                    <h1 class="title-tab-content">لیست آخرین علاقمندی ها</h1>
+                                    <h1 class="title-tab-content">{{ __('List of recent favorites') }}</h1>
                                 </div>
                                 <div class="content-section default">
                                     <div class="row">
@@ -79,14 +79,17 @@
                                                             </h4>
                                                         </a>
                                                         @if(($wish->product && $wish->product->quantity > 0) || in_array($wish->product_id, $object->carts_product_pluck_id()))
-                                                            <div class="profile-recent-fav-price text-success">موجود
+                                                            <div
+                                                                class="profile-recent-fav-price text-success">{{ __('Available') }}
                                                             </div>
                                                         @else
-                                                            <div class="profile-recent-fav-price">ناموجود</div>
+                                                            <div
+                                                                class="profile-recent-fav-price">{{ __('Unavailable') }}</div>
                                                         @endif
                                                     </div>
                                                     <div class="profile-recent-fav-col profile-recent-fav-col-actions">
-                                                        <button wire:click="RemoveFromWishlist({{ $wish->id }})" class="btn-action btn-action-remove">
+                                                        <button wire:click="RemoveFromWishlist({{ $wish->id }})"
+                                                                class="btn-action btn-action-remove">
                                                             <i class="fa fa-trash"></i>
                                                         </button>
                                                     </div>
@@ -95,25 +98,65 @@
 
                                         </div>
 
-                                        <div class="col-12 text-center">
-                                            <a href="#" class="btn-link-border form-account-link">
-                                                مشاهده و ویرایش لیست مورد علاقه
-                                            </a>
-                                        </div>
+                                        @if(count($latest_orders))
+                                            <div class="col-lg-12">
+                                                <div class="content-section default">
+                                                    <div class="table-responsive">
+                                                        <table class="table table-order">
+                                                            <thead class="thead-light">
+                                                            <tr>
+                                                                <th scope="col">#</th>
+                                                                <th scope="col">محصول</th>
+                                                                <th scope="col">تعداد</th>
+                                                                <th scope="col">شماره سفارش</th>
+                                                                <th scope="col">تاریخ ثبت سفارش</th>
+                                                                <th scope="col">مبلغ کل</th>
+                                                                <th scope="col">عملیات پرداخت</th>
+                                                                <th scope="col">وضعیت</th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+
+                                                            @foreach($latest_orders as $order)
+                                                                <tr>
+                                                                    <td>{{ $order->id }}</td>
+                                                                    <td>{{ $order->product ? $order->product->title : '---' }}</td>
+                                                                    <td>{{ $order->count }}</td>
+                                                                    <td class="order-code">DKC-59888888</td>
+                                                                    <td>{{ \Hekmatinasser\Verta\Verta:: instance($order->created_at)->format('%B %d، %Y') }}</td>
+                                                                    <td>{{ $order->payment ? $order->payment->amount : '---' }} {{ __('Toman') }}</td>
+                                                                    <td class="text-{{ $order->payment->status ? 'success' : 'danger' }}">{{ $order->payment->status ? 'موفق' : 'ناموفق' }}</td>
+                                                                    <td class="text-{{ $order->get_status_class() }}">{{ $order->get_status() }}</td>
+                                                                </tr>
+                                                            @endforeach
+
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @else
+                                            <div class="col-12 text-center">
+                                                <a href="#" class="btn-link-border form-account-link">
+                                                    {{ __('View and edit the list of favorites') }}
+                                                </a>
+                                            </div>
+                                        @endif
+
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-12">
-                                <h1 class="title-tab-content">آخرین سفارش ها</h1>
+                                <h1 class="title-tab-content">{{ __('Latest orders') }}</h1>
                             </div>
                             <div class="col-12 text-center">
                                 <div class="content-section pt-5 pb-5">
                                     <div class="icon-empty">
                                         <i class="now-ui-icons travel_info"></i>
                                     </div>
-                                    <h1 class="text-empty">موردی برای نمایش وجود ندارد!</h1>
+                                    <h1 class="text-empty">{{ __('There are no items to display!') }}</h1>
                                 </div>
                             </div>
                         </div>
