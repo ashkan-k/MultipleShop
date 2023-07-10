@@ -68,12 +68,12 @@
 
                                             @foreach($wishlists as $wish)
                                                 <div class="profile-recent-fav-row">
-                                                    <a href="#"
+                                                    <a href="{{ route('product_detail', ['slug' => $wish->product ? $wish->product->get_slug($lang) : '---', 'locale' => $lang]) }}"
                                                        class="profile-recent-fav-col profile-recent-fav-col-thumb">
                                                         <img
                                                             src="{{ $wish->product ? $wish->product->get_image() : '---' }}"></a>
                                                     <div class="profile-recent-fav-col profile-recent-fav-col-title">
-                                                        <a href="#">
+                                                        <a href="{{ route('product_detail', ['slug' => $wish->product ? $wish->product->get_slug($lang) : '---', 'locale' => $lang]) }}">
                                                             <h4 class="profile-recent-fav-name">
                                                                 {{ $wish->product ? $wish->product->get_title($lang) : '---' }}
                                                             </h4>
@@ -98,50 +98,11 @@
 
                                         </div>
 
-                                        @if(count($latest_orders))
-                                            <div class="col-lg-12">
-                                                <div class="content-section default">
-                                                    <div class="table-responsive">
-                                                        <table class="table table-order">
-                                                            <thead class="thead-light">
-                                                            <tr>
-                                                                <th scope="col">#</th>
-                                                                <th scope="col">محصول</th>
-                                                                <th scope="col">تعداد</th>
-                                                                <th scope="col">شماره سفارش</th>
-                                                                <th scope="col">تاریخ ثبت سفارش</th>
-                                                                <th scope="col">مبلغ کل</th>
-                                                                <th scope="col">عملیات پرداخت</th>
-                                                                <th scope="col">وضعیت</th>
-                                                            </tr>
-                                                            </thead>
-                                                            <tbody>
-
-                                                            @foreach($latest_orders as $order)
-                                                                <tr>
-                                                                    <td>{{ $order->id }}</td>
-                                                                    <td>{{ $order->product ? $order->product->title : '---' }}</td>
-                                                                    <td>{{ $order->count }}</td>
-                                                                    <td class="order-code">DKC-59888888</td>
-                                                                    <td>{{ \Hekmatinasser\Verta\Verta:: instance($order->created_at)->format('%B %d، %Y') }}</td>
-                                                                    <td>{{ $order->payment ? $order->payment->amount : '---' }} {{ __('Toman') }}</td>
-                                                                    <td class="text-{{ $order->payment->status ? 'success' : 'danger' }}">{{ $order->payment->status ? 'موفق' : 'ناموفق' }}</td>
-                                                                    <td class="text-{{ $order->get_status_class() }}">{{ $order->get_status() }}</td>
-                                                                </tr>
-                                                            @endforeach
-
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        @else
-                                            <div class="col-12 text-center">
-                                                <a href="#" class="btn-link-border form-account-link">
-                                                    {{ __('View and edit the list of favorites') }}
-                                                </a>
-                                            </div>
-                                        @endif
+                                        <div class="col-12 text-center">
+                                            <a href="#" class="btn-link-border form-account-link">
+                                                {{ __('View and edit the list of favorites') }}
+                                            </a>
+                                        </div>
 
                                     </div>
                                 </div>
@@ -151,14 +112,61 @@
                             <div class="col-12">
                                 <h1 class="title-tab-content">{{ __('Latest orders') }}</h1>
                             </div>
-                            <div class="col-12 text-center">
-                                <div class="content-section pt-5 pb-5">
-                                    <div class="icon-empty">
-                                        <i class="now-ui-icons travel_info"></i>
+
+                            @if(count($latest_orders))
+                                <div class="col-lg-12">
+                                    <div class="content-section default">
+                                        <div class="table-responsive">
+                                            <table class="table table-order">
+                                                <thead class="thead-light">
+                                                <tr>
+                                                    <th scope="col">#</th>
+                                                    <th scope="col">{{ __('Product') }}</th>
+                                                    <th scope="col">{{ __('Count') }}</th>
+                                                    <th scope="col">{{ __('Order number') }}</th>
+                                                    <th scope="col">{{ __('Order date') }}</th>
+                                                    <th scope="col">{{ __('Total Amount') }}</th>
+                                                    <th scope="col">{{ __('Payment Operation') }}</th>
+                                                    <th scope="col">{{ __('Status') }}</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+
+                                                @foreach($latest_orders as $order)
+                                                    <tr>
+                                                        <td>{{ $loop->iteration }}</td>
+                                                        <td>{{ $order->product ? $order->product->title : '---' }}</td>
+                                                        <td>{{ $order->count }}</td>
+                                                        <td class="order-code">DKC-59888888</td>
+                                                        <td>
+                                                            @if($lang == 'fa')
+                                                                {{ \Hekmatinasser\Verta\Verta:: instance($order->created_at)->format('%B %d، %Y') }}
+                                                            @else
+                                                                {{ \Hekmatinasser\Verta\Verta:: instance($order->created_at)->toCarbon()->isoFormat('MMMM Do YYYY') }}
+                                                            @endif
+                                                        </td>
+                                                        <td>{{ $order->payment ? $order->payment->amount : '---' }} {{ __('Toman') }}</td>
+                                                        <td class="text-{{ $order->payment->status ? 'success' : 'danger' }}">{{ $order->payment->status ? 'موفق' : 'ناموفق' }}</td>
+                                                        <td class="text-{{ $order->get_status_class() }}">{{ $order->get_status() }}</td>
+                                                    </tr>
+                                                @endforeach
+
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
-                                    <h1 class="text-empty">{{ __('There are no items to display!') }}</h1>
                                 </div>
-                            </div>
+                            @else
+                                <div class="col-12 text-center">
+                                    <div class="content-section pt-5 pb-5">
+                                        <div class="icon-empty">
+                                            <i class="now-ui-icons travel_info"></i>
+                                        </div>
+                                        <h1 class="text-empty">{{ __('There are no items to display!') }}</h1>
+                                    </div>
+                                </div>
+                            @endif
+
                         </div>
                     </div>
 
