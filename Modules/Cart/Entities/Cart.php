@@ -35,6 +35,15 @@ class Cart extends Model
         'product_id',
     ];
 
+    protected $appends = [
+      'total_price'
+    ];
+
+    public function getTotalPriceAttribute()
+    {
+        return $this->product ? $this->product->price * $this->count : 0;
+    }
+
     protected static function newFactory()
     {
         return \Modules\Cart\Database\factories\CartFactory::new();
