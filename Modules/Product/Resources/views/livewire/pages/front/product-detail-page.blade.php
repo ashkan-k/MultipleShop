@@ -13,9 +13,9 @@
                             @if(isset($object->category->parent->parent->parent))
                                 <li>
                                     <a href="{{ route('category.products', [
-             'locale' => $lang,
-             'slug' => $object->category->parent->parent->parent->get_slug($lang)
-]) }}">
+                                                         'locale' => $lang,
+                                                         'slug' => $object->category->parent->parent->parent->get_slug($lang)
+                                            ]) }}">
                                         <span>{{ $object->category->parent->parent->parent->get_title($lang) }}</span>
                                     </a>
                                 </li>
@@ -24,9 +24,9 @@
                             @if(isset($object->category->parent->parent))
                                 <li>
                                     <a href="{{ route('category.products', [
-            'locale' => $lang,
-            'slug' => $object->category->parent->parent->get_slug($lang)
-]) }}">
+                                                    'locale' => $lang,
+                                                    'slug' => $object->category->parent->parent->get_slug($lang)
+                                        ]) }}">
                                         <span>{{ $object->category->parent->parent->get_title($lang) }}</span>
                                     </a>
                                 </li>
@@ -35,9 +35,9 @@
                             @if(isset($object->category->parent))
                                 <li>
                                     <a href="{{ route('category.products', [
-                'locale' => $lang,
-                'slug' => $object->category->parent->get_slug($lang)
-]) }}">
+                                                            'locale' => $lang,
+                                                            'slug' => $object->category->parent->get_slug($lang)
+                                            ]) }}">
                                         <span>{{ $object->category->parent->get_title($lang) }}</span>
                                     </a>
                                 </li>
@@ -45,9 +45,9 @@
 
                             <li>
                                 <a href="{{ route('category.products', [
-                'locale' => $lang,
-                'slug' => $object->category->get_slug($lang)
-]) }}">
+                                                    'locale' => $lang,
+                                                    'slug' => $object->category->get_slug($lang)
+                                    ]) }}">
                                     <span>{{ $object->category->get_title($lang) }}</span>
                                 </a>
                             </li>
@@ -94,13 +94,13 @@
                                         <li>
                                             <button wire:click="AddRemoveWishList('add')" class="add-favorites"><i
                                                     class="fa fa-heart"></i></button>
-                                            <span class="tooltip-option">افزودن به علاقمندی</span>
+                                            <span class="tooltip-option">{{ __('Add to favorites') }}</span>
                                         </li>
                                     @else
                                         <li>
                                             <button wire:click="AddRemoveWishList('remove')" class="add-favorites"><i
                                                     style="color: #f44336 !important;" class="fa fa-heart"></i></button>
-                                            <span class="tooltip-option">حذف از علاقمندی</span>
+                                            <span class="tooltip-option">{{ __('Remove from favorites') }}</span>
                                         </li>
                                     @endif
                                 @endauth
@@ -108,7 +108,7 @@
                                 <li>
                                     <button data-toggle="modal" data-target="#myModal"><i
                                             class="fa fa-share-alt"></i></button>
-                                    <span class="tooltip-option">اشتراک گذاری</span>
+                                    <span class="tooltip-option">{{ __('Share') }}</span>
                                 </li>
                             </ul>
                             <!-- Modal Core -->
@@ -184,11 +184,15 @@
                                 </h1>
                             </div>
                             <div class="product-guaranteed default">
-                                بیش از {{ $comments->where('suggest_score', 'suggest')->count() }} نفر از خریداران این
-                                محصول را پیشنهاد داده‌اند
+                                @if($lang == 'fa')
+                                    بیش از {{ $comments->where('suggest_score', 'suggest')->count() }} نفر از خریداران این
+                                    محصول را پیشنهاد داده‌اند
+                                @else
+                                    More than {{ $comments->where('suggest_score', 'suggest')->count() }} buyers have recommended this product
+                                @endif
                             </div>
                             <div class="product-params default">
-                                <ul data-title="ویژگی‌های محصول">
+                                <ul data-title="{{ __('Product features') }}">
 
                                     @foreach($top_features as $top_f)
                                         <li>
@@ -205,7 +209,7 @@
                             <div class="product-directory default">
                                 <ul>
                                     <li>
-                                        <span>برند</span> :
+                                        <span>{{ __('Brand') }}</span> :
                                         <span
                                             class="product-brand-title">{{ $object->brand ? $object->brand->title : '---' }}</span>
                                     </li>
@@ -222,7 +226,7 @@
                                 </ul>
                             </div>
                             <div class="product-variants default">
-                                <span>انتخاب رنگ: </span>
+                                <span>{{ __('Color Selection') }}: </span>
 
                                 @foreach($colors as $color)
                                     <div class="radio">
@@ -238,12 +242,12 @@
                             </div>
                             <div class="product-guarantee default">
                                 <i class="fa fa-check-circle"></i>
-                                <p class="product-guarantee-text">گارانتی اصالت و سلامت فیزیکی کالا</p>
+                                <p class="product-guarantee-text">{{ __('Guarantee of authenticity and physical health of goods') }}</p>
                             </div>
                             <div class="product-delivery-seller default">
                                 <p>
                                     <i class="now-ui-icons shopping_shop"></i>
-                                    <span>فروشنده:‌</span>
+                                    <span>{{ __('Seller') }}:‌</span>
                                     <a href="#"
                                        class="btn-link-border">{{ $object->user ? $object->user->full_name() : '---' }}</a>
                                 </p>
@@ -252,9 +256,9 @@
                                 <div class="price-value">
                                     <span> {{ number_format($object->price) }} </span>
                                 </div>
-                                <span class="price-currency">تومان</span>
+                                <span class="price-currency">{{ __('Toman') }}</span>
 
-                                <div class="price-discount" data-title="تخفیف">
+                                <div class="price-discount" data-title="{{ __('Discount') }}">
                                             <span>
                                                 {{ $object->calculate_discount_percent() ?: '0' }}
                                             </span>
@@ -266,7 +270,7 @@
                                 <div class="product-variants default mt-5 mb-0">
 
                                     <div class="radio">
-                                        <span>تعداد: </span>
+                                        <span>{{ __('Count') }}: </span>
                                         <input type="number" style="width: 100px" name="color_id"
                                                wire:model.defer="cart_count"
                                                min="1" max="{{ $object->quantity }}"
@@ -284,7 +288,7 @@
 
                                         <div class="parent-btn">
                                             <a wire:click="AddRemoveCart('remove')" class="dk-btn dk-btn-info">
-                                                حذف از سبد خرید
+                                                {{ __('Remove from cart') }}
                                                 <i class="now-ui-icons shopping_cart-simple"></i>
                                             </a>
                                         </div>
@@ -295,7 +299,7 @@
 
                                             <div class="parent-btn">
                                                 <a wire:click="AddRemoveCart('add')" class="dk-btn dk-btn-info">
-                                                    افزودن به سبد خرید
+                                                    {{ __('Add to cart') }}
                                                     <i class="now-ui-icons shopping_cart-simple"></i>
                                                 </a>
                                             </div>
@@ -304,7 +308,7 @@
 
                                             <div class="parent-btn">
                                                 <a class="dk-btn dk-btn-info" style="cursor: not-allowed" disabled>
-                                                    ناموجود
+                                                    {{ __('Unavailable') }}
                                                     <i class="now-ui-icons shopping_cart-simple"></i>
                                                 </a>
                                             </div>
@@ -318,7 +322,7 @@
 
                                         <div class="parent-btn">
                                             <a href="{{ route('login') }}" class="dk-btn dk-btn-info">
-                                                افزودن به سبد خرید
+                                                {{ __('Add to cart') }}
                                                 <i class="now-ui-icons shopping_cart-simple"></i>
                                             </a>
                                         </div>
@@ -327,7 +331,7 @@
 
                                         <div class="parent-btn">
                                             <a class="dk-btn dk-btn-info" style="cursor: not-allowed" disabled>
-                                                ناموجود
+                                                {{ __('Unavailable') }}
                                                 <i class="now-ui-icons shopping_cart-simple"></i>
                                             </a>
                                         </div>
@@ -351,28 +355,25 @@
                                 <li class="box-tabs-tab">
                                     <a class="active" data-toggle="tab"
                                        href="#desc" role="tab" id="tab_review"
-                                       {{--                                       wire:click="ChangeTab('review')"--}}
                                        onclick="ChangeTab('review')"
                                        aria-expanded="true">
-                                        <i class="now-ui-icons education_glasses"></i> نقد و بررسی
+                                        <i class="now-ui-icons education_glasses"></i>{{ __('Review') }}
                                     </a>
                                 </li>
                                 <li class="box-tabs-tab">
                                     <a class="" data-toggle="tab"
                                        href="#params" id="tab_specifications"
-                                       {{--                                       wire:click="ChangeTab('specifications')"--}}
                                        onclick="ChangeTab('specifications')"
                                        role="tab" aria-expanded="false">
-                                        <i class="now-ui-icons design_bullet-list-67"></i> مشخصات
+                                        <i class="now-ui-icons design_bullet-list-67"></i>{{ __('Specifications') }}
                                     </a>
                                 </li>
                                 <li class="box-tabs-tab">
                                     <a class="" data-toggle="tab" id="tab_comments"
                                        href="#comments"
-                                       {{--                                       wire:click="ChangeTab('comments')"--}}
                                        onclick="ChangeTab('comments')"
                                        role="tab" aria-expanded="false">
-                                        <i class="now-ui-icons ui-2_chat-round"></i> نظرات کاربران
+                                        <i class="now-ui-icons ui-2_chat-round"></i>{{ __('User Comments') }}
                                     </a>
                                 </li>
                                 {{--                                <li class="box-tabs-tab">--}}
@@ -390,7 +391,7 @@
                                          aria-expanded="true">
                                         <article>
                                             <h2 class="param-title">
-                                                نقد و بررسی تخصصی
+                                                {{ __('Expert review') }}
                                                 <span>{{ $object->get_title($lang) }}</span>
                                             </h2>
                                             <div class="parent-expert default">
@@ -399,10 +400,10 @@
                                                 </div>
                                                 <div class="sum-more">
                                                             <span class="show-more btn-link-border">
-                                                                نمایش بیشتر
+                                                                {{ __('Show more') }}
                                                             </span>
                                                     <span class="show-less btn-link-border">
-                                                                بستن
+                                                                {{ __('Show less') }}
                                                             </span>
                                                 </div>
                                                 <div class="shadow-box"></div>
@@ -416,11 +417,11 @@
                                          aria-expanded="false">
                                         <article>
                                             <h2 class="param-title">
-                                                مشخصات فنی
+                                                {{ __('Technical Specifications') }}
                                                 <span>{{ $object->get_title($lang) }}</span>
                                             </h2>
                                             <section>
-                                                <h3 class="params-title">مشخصات کلی</h3>
+                                                <h3 class="params-title">{{ __('General Specifications') }}</h3>
                                                 <ul class="params-list">
 
                                                     @foreach($bottom_features as $bottom_f)
@@ -454,14 +455,14 @@
                                                         <form class="px-5" wire:submit.prevent="SubmitNewComment()">
                                                             <div class="row">
                                                                 <div class="col-12">
-                                                                    <div class="form-account-title">عنوان نظر شما
-                                                                        (اجباری)
+                                                                    <div class="form-account-title">{{ __('The title of your comment') }}
+                                                                        ({{ __('Required') }})
                                                                     </div>
                                                                     <div class="form-account-row">
                                                                         <input class="input-field text-right"
                                                                                wire:model.defer="title"
                                                                                type="text" name="title" required
-                                                                               placeholder="عنوان نظر خود را بنویسید">
+                                                                               placeholder="{{ __('Write the title of your comment') }}">
 
                                                                         @error('title')
                                                                         <span
@@ -470,12 +471,12 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-6 col-sm-12 tag-input-st">
-                                                                    <div class="form-account-title">نقاط قوت
+                                                                    <div class="form-account-title">{{ __('Positive Points') }}
                                                                         <span class="cl-circle-title cl-primary"></span>
                                                                     </div>
                                                                     <div class="form-account-row ps-relative">
                                                                         <input name="positive_points"
-                                                                               placeholder="با ویرگول (،) جدا کنید."
+                                                                               placeholder="{{ __('Separate with commas (,).') }}"
                                                                                wire:model.defer="positive_points"
                                                                                type="text" id="strengths-points-input"
                                                                                data-addui='tags'
@@ -488,12 +489,12 @@
                                                                 </div>
                                                                 <div
                                                                     class="col-md-6 col-sm-12 tag-input-st tag-input-weak">
-                                                                    <div class="form-account-title">نقاط ضعف
+                                                                    <div class="form-account-title">{{ __('Negative Points') }}
                                                                         <span class="cl-circle-title cl-red"></span>
                                                                     </div>
                                                                     <div class="form-account-row ps-relative">
                                                                         <input name="negative_points" type="text"
-                                                                               placeholder="با ویرگول (،) جدا کنید."
+                                                                               placeholder="{{ __('Separate with commas (,).') }}"
                                                                                wire:model.defer="negative_points"
                                                                                id="weak-points-input" data-addui='tags'
                                                                                data-enter='true'>
@@ -751,13 +752,13 @@
                                         @if($may_like_pro->discount_price)
                                             <div class="text-center">
                                                 <del>
-                                                    <span>{{ number_format($may_like_pro->discount_price) }}<span>تومان</span></span>
+                                                    <span>{{ number_format($may_like_pro->discount_price) }}<span>{{ __('Toman') }}</span></span>
                                                 </del>
                                             </div>
                                         @endif
                                         <div class="text-center">
                                             <ins>
-                                                <span>{{ number_format($may_like_pro->price) }}<span>تومان</span></span>
+                                                <span>{{ number_format($may_like_pro->price) }}<span>{{ __('Toman') }}</span></span>
                                             </ins>
                                         </div>
                                     </div>
@@ -804,11 +805,11 @@
                                     <div class="price">
                                         @if($related_pro->discount_price)
                                             <del>
-                                                <span>{{ number_format($related_pro->discount_price) }}<span>تومان</span></span>
+                                                <span>{{ number_format($related_pro->discount_price) }}<span>{{ __('Toman') }}</span></span>
                                             </del>
                                         @endif
 
-                                        <ins><span>{{ number_format($related_pro->price) }}<span>تومان</span></span>
+                                        <ins><span>{{ number_format($related_pro->price) }}<span>{{ __('Toman') }}</span></span>
                                         </ins>
                                     </div>
                                 </div>
