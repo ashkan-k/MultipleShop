@@ -13,6 +13,7 @@ class EnumHelpers
     static $TicketStatusEnum = ['waiting', 'answered', 'close'];
     static $CommentStatusEnum = ['pending', 'approved', 'reject'];
     static $CommentSeggestToFriendEnum = ['suggest', 'not_suggest', 'no_idea'];
+    static $CommentUserPointEnum = ['positive', 'negative'];
     static $PaymentTypeEnum = ['online', 'cash'];
     static $OrderStatusEnum = ['sending', 'posted', 'delivered'];
     static $PosterLocationEnum = ['top', 'center', 'bottom'];

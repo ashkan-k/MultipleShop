@@ -22,7 +22,7 @@ return new class extends Migration
             $table->text('positive_points')->nullable();
             $table->integer('like_count')->nullable()->default(0);
             $table->enum('status', EnumHelpers::$CommentStatusEnum)->default('pending');
-            $table->enum('suggest_score', EnumHelpers::$CommentSeggestToFriendEnum)->default('no_idea');
+            $table->enum('suggest_score', EnumHelpers::$CommentSeggestToFriendEnum)->nullable();
 
             $table->unsignedBigInteger('commentable_id');
             $table->string('commentable_type');
