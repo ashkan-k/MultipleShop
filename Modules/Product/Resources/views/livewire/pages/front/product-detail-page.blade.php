@@ -892,7 +892,7 @@
 
     <script type="text/javascript">
         window.addEventListener('newCommentSubmited', event => {
-            showToast('کاربر عزیز نظر شما با موفقیت ثبت شد و پس تایید مدیر در سایت قرار میگیرد.', 'success');
+            showToast('{{ __('Dear user, your comment has been registered successfully, and after the approval of the administrator, it will be placed on the site.') }}', 'success');
         });
 
         window.addEventListener('addToCartError', event => {

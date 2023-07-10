@@ -38,6 +38,7 @@ class ProductDetailPage extends Component
 
         $data['commentable_id'] = $this->object->id;
         $data['commentable_type'] = get_class($this->object);
+        $data['suggest_score'] = $data['suggest_score'] ?: 'no_idea';
 
         auth()->user()->comments()->create($data);
 

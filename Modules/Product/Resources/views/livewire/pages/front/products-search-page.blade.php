@@ -123,7 +123,7 @@
                         <div class="col-12">
                             <div class="listing-header default">
                                 <ul class="listing-sort nav nav-tabs justify-content-center" role="tablist"
-                                    data-label="{{ __('Order by') }}">
+                                    data-label="{{ __('Order by :') }}">
                                     <li>
                                         <a wire:click="ChangeOrderBy('view_count')"
                                            class="{{ $order_by == 'view_count' ? 'active' : '' }}" data-toggle="tab"
