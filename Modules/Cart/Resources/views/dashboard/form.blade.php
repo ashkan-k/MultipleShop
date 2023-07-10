@@ -130,10 +130,10 @@
                                             <span class="required">رنگ</span>
                                         </label>
 
-                                        <select id="id_product_id" name="product_id"
+                                        <select id="id_color_id" name="color_id"
                                                 data-kt-select2="true"
                                                 class="form-control form-control-solid">
-                                            <option value="" disabled>رنگ را انتخاب کنید</option>
+                                            <option value="">بدون رنگ</option>
                                             @foreach($colors as $color)
 
                                                 <option

@@ -16,6 +16,7 @@ class CartRequest extends FormRequest
         return [
             'user_id' => 'required|exists:users,id',
             'product_id' => 'required|exists:products,id',
+            'color_id' => 'nullable|exists:colors,id',
             'count' => 'required|numeric',
         ];
     }
