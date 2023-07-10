@@ -260,6 +260,18 @@
                                     <span>%</span>
                                 </div>
                             </div>
+
+                            <div class="product-variants default mt-5 mb-0">
+
+                                <div class="radio">
+                                    <span>تعداد: </span>
+                                    <input type="number" style="width: 100px" name="color_id"
+                                           min="1" class="input-field text-center mr-2"
+                                           value="1">
+                                </div>
+
+                            </div>
+
                             <div class="product-add default">
 
                                 @if($object->quantity > 0)
