@@ -88,10 +88,21 @@
                                 </div>
                             </div>
                             <ul class="gallery-options">
-                                <li>
-                                    <button class="add-favorites"><i class="fa fa-heart"></i></button>
-                                    <span class="tooltip-option">افزودن به علاقمندی</span>
-                                </li>
+                                @auth
+                                    @if($wish_lists->where('user_id' , auth()->user()->id)->isEmpty())
+                                        <li>
+                                            <button wire:click="AddRemoveWishList('add')" class="add-favorites"><i class="fa fa-heart"></i></button>
+                                            <span class="tooltip-option">افزودن به علاقمندی</span>
+                                        </li>
+                                    @else
+                                        <li>
+                                            <button wire:click="AddRemoveWishList('remove')" class="add-favorites"><i style="color: red !important;" class="fa fa-heart"></i></button>
+                                            <span class="tooltip-option">حذف از علاقمندی</span>
+                                        </li>
+                                    @endif
+                                @endauth
+
+
                                 <li>
                                     <button data-toggle="modal" data-target="#myModal"><i
                                             class="fa fa-share-alt"></i></button>
@@ -404,7 +415,7 @@
                                                                     </div>
                                                                     <div class="form-account-row ps-relative">
                                                                         <input name="positive_points"
-                                                                               placeholder="با ویرگول (،) از یک دیگر جدا کنید."
+                                                                               placeholder="با ویرگول (،) جدا کنید."
                                                                                wire:model.defer="positive_points"
                                                                                type="text" id="strengths-points-input"
                                                                                data-addui='tags'
@@ -422,7 +433,7 @@
                                                                     </div>
                                                                     <div class="form-account-row ps-relative">
                                                                         <input name="negative_points" type="text"
-                                                                               placeholder="با ویرگول (،) از یک دیگر جدا کنید."
+                                                                               placeholder="با ویرگول (،) جدا کنید."
                                                                                wire:model.defer="negative_points"
                                                                                id="weak-points-input" data-addui='tags'
                                                                                data-enter='true'>

@@ -20,6 +20,7 @@ use Modules\Payment\Entities\Payment;
 use Modules\Product\Entities\Product;
 use Modules\Ticket\Entities\Ticket;
 use Modules\Ticket\Entities\TicketAnswer;
+use Modules\Wishlist\Entities\Wishlist;
 
 class User extends Authenticatable
 {
@@ -243,5 +244,10 @@ class User extends Authenticatable
     public function activation_codes()
     {
         return $this->hasMany(ActivationCode::class);
+    }
+
+    public function wish_lists()
+    {
+        return $this->hasMany(WishList::class);
     }
 }

@@ -12,6 +12,7 @@ use Modules\Cart\Entities\Cart;
 use Modules\Comment\Entities\Comment;
 use Modules\Order\Entities\Order;
 use Modules\User\Entities\User;
+use Modules\Wishlist\Entities\Wishlist;
 
 class Product extends Model
 {
@@ -222,6 +223,11 @@ class Product extends Model
     public function galleries()
     {
         return $this->hasMany(Gallery::class);
+    }
+
+    public function wish_lists()
+    {
+        return $this->hasMany(WishList::class);
     }
 
     public function carts()

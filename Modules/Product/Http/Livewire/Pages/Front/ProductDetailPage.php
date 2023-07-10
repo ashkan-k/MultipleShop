@@ -61,6 +61,21 @@ class ProductDetailPage extends Component
         }
     }
 
+    public function AddRemoveWishList($operate)
+    {
+        if ($operate == 'add') {
+            auth()->user()->wish_lists()->create([
+                'product_id' => $this->object->id,
+            ]);
+        } else {
+            auth()->user()->wish_lists()
+                ->where('product_id', $this->object->id)
+                ->delete();
+        }
+
+        $this->dispatchBrowserEvent('wishlistStatusUpdated', ['type' => $operate]);
+    }
+
     //
 
     public function render()
@@ -68,6 +83,7 @@ class ProductDetailPage extends Component
         $data = [
             'colors' => Color::limit(3)->get(),
             'comments' => $this->object->comments()->where('status', 'approved')->with(['user', 'product']),
+            'wish_lists' => $this->object->wish_lists()->get(),
             'top_features' => $this->object->product_features()->whereIn('place', ['up', 'both'])->with('feature')->get(),
             'bottom_features' => $this->object->product_features()->whereIn('place', ['down', 'both'])->with('feature')->get(),
             'may_like_products' => Product::ActiveProducts()->where('brand_id', $this->object->brand_id)->get(),
