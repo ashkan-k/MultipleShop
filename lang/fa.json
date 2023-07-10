@@ -220,5 +220,7 @@
     "Color purchased:": "رنگ خریداری شده:",
     "Purchased from:": "خریداری شده از:",
     "I recommend buying this product": "خرید این محصول را توصیه می\u200Cکنم:",
-    "I do not recommend buying this product": "خرید این محصول را توصیه نمی\u200Cکنم"
+    "I do not recommend buying this product": "خرید این محصول را توصیه نمی\u200Cکنم",
+    "The number of orders must be at least one!": "تعداد سفارش باید حداقل یک باشد!",
+    "The order quantity is more than the available quantity!": "تعداد سفارش بیش از تعداد موجود است!"
 }

@@ -92,11 +92,11 @@ class ProductDetailPage extends Component
         if ($type == 'add'){
 
             if ($this->cart_count < 1 ){
-                $this->dispatchBrowserEvent('addToCartError', ['message' => 'تعداد سفارش باید حداقل یک باشد!']);
+                $this->dispatchBrowserEvent('addToCartError', ['message' => __('The number of orders must be at least one!')]);
                 return;
             }
             if ($this->cart_count > $this->object->quantity){
-                $this->dispatchBrowserEvent('addToCartError', ['message' => 'تعداد سفارش بیش از تعداد موجود است!']);
+                $this->dispatchBrowserEvent('addToCartError', ['message' => __('The order quantity is more than the available quantity!')]);
                 return;
             }
 
