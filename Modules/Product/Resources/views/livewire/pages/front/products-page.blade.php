@@ -108,36 +108,36 @@
                         <div class="col-12">
                             <div class="listing-header default">
                                 <ul class="listing-sort nav nav-tabs justify-content-center" role="tablist"
-                                    data-label="مرتب‌سازی بر اساس :">
+                                    data-label="{{ __('Order by') }}">
                                     <li>
                                         <a wire:click="ChangeOrderBy('view_count')"
                                            class="{{ $order_by == 'view_count' ? 'active' : '' }}" data-toggle="tab"
                                            href="#most-view" role="tab"
-                                           aria-expanded="false">پربازدیدترین</a>
+                                           aria-expanded="false">{{ __('Most Visited') }}</a>
                                     </li>
                                     <li>
                                         <a wire:click="ChangeOrderBy('created_at')"
                                            class="{{ $order_by == 'created_at' ? 'active' : '' }}" data-toggle="tab"
                                            href="#new" role="tab"
-                                           aria-expanded="true">جدیدترین</a>
+                                           aria-expanded="true">{{ __('The Newest') }}</a>
                                     </li>
                                     <li>
                                         <a wire:click="ChangeOrderBy('order_count')"
                                            class="{{ $order_by == 'order_count' ? 'active' : '' }}" data-toggle="tab"
                                            href="#most-seller" role="tab"
-                                           aria-expanded="false">پرفروش‌ترین‌</a>
+                                           aria-expanded="false">{{ __('Bestselling') }}</a>
                                     </li>
                                     <li>
                                         <a wire:click="ChangeOrderBy('price_ask')"
                                            class="{{ $order_by == 'price_ask' ? 'active' : '' }}" data-toggle="tab"
                                            href="#down-price" role="tab"
-                                           aria-expanded="false">ارزان‌ترین</a>
+                                           aria-expanded="false">{{ __('Cheapest') }}</a>
                                     </li>
                                     <li>
                                         <a wire:click="ChangeOrderBy('price')"
                                            class="{{ $order_by == 'price' ? 'active' : '' }}" data-toggle="tab"
                                            href="#top-price" role="tab"
-                                           aria-expanded="false">گران‌ترین</a>
+                                           aria-expanded="false">{{ __('The most expensive') }}</a>
                                     </li>
                                 </ul>
                             </div>
@@ -181,7 +181,7 @@
                                                             <div class="price-value">
                                                                 <div class="price-value-wrapper">
                                                                     {{ number_format($pro->price) ?: '---' }} <span
-                                                                        class="price-currency">تومان</span>
+                                                                        class="price-currency">{{ __('Toman') }}</span>
                                                                 </div>
                                                             </div>
                                                         </div>

@@ -36,6 +36,44 @@ class InitSettingsCommand extends Command
         'show_footer_help_links' => 1,
 
         # Comment Terms
+        'comment_terms_en_title' => 'Guide others to choose this product by writing your comments.',
+        'comment_terms_en_text' => '<p>Please read the summary of rules below before posting a comment
+                                                                 Do:</p>
+                                                             <p>Write Persian and use Persian keyboard. better than
+                                                                 empty space
+                                                                 Do not use emoticons or emojis more than usual
+                                                                 Draw letters or words with
+                                                                 Avoid the keyboard.</p>
+                                                             <p>Your comments based on experience and practical use and carefully
+                                                                 Submit technical tips;
+                                                                 Without
+                                                                 Recite product bias, pros and cons, and better
+                                                                 is from posting comments
+                                                                 Avoid multiple words.</p>
+                                                             <p>It is better to focus on variable elements such as price in your comments.
+                                                                 Avoid.</p>
+                                                             <p>Respect users and other people. Messages that include
+                                                                 Offensive content and
+                                                                 If the words are inappropriate, they will be deleted.</p>
+                                                             <p> From sending links to other sites and providing personal information
+                                                                 yourself like a contact number,
+                                                                 Avoid email and social network IDs.</p>
+                                                             <p>According to the structure of the comments section, from asking questions or requests
+                                                                 Guidance in this section
+                                                                 Refrain and ask your questions in the "Question and Answer" section
+                                                                 Do it.</p>
+                                                             <p>Any criticism and opinion regarding the Digikala site, services and requests
+                                                                 the goods by email
+                                                                 <a href="mailto:info@digikala.com">
+                                                                     info@digikala.com
+                                                                 </a>
+                                                                 or with the number
+
+                                                                 <a href="tel: +982161930000">
+                                                                     021-61930000
+                                                                 </a>
+                                                                 Share and refrain from writing them in the comments section
+                                                                 do.</p>',
         'comment_terms_title' => 'دیگران را با نوشتن نظرات خود، برای انتخاب این محصول راهنمایی کنید.',
         'comment_terms_text' => '<p>لطفا پیش از ارسال نظر، خلاصه قوانین زیر را مطالعه
                                                                 کنید:</p>

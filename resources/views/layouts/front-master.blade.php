@@ -8,7 +8,7 @@
           main_content
           name='viewport'/>
 
-    <title>@yield('title', 'فروشگاه')</title>
+    <title>@yield('title', __('Shop'))</title>
     <!--     Fonts and icons     -->
     <link rel="stylesheet" href="/front/assets/fonts/font-awesome/css/font-awesome.min.css"/>
     <!-- CSS Files -->

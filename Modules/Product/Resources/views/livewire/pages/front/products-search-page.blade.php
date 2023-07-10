@@ -123,26 +123,36 @@
                         <div class="col-12">
                             <div class="listing-header default">
                                 <ul class="listing-sort nav nav-tabs justify-content-center" role="tablist"
-                                    data-label="مرتب‌سازی بر اساس :">
+                                    data-label="{{ __('Order by') }}">
                                     <li>
-                                        <a wire:click="ChangeOrderBy('view_count')" class="{{ $order_by == 'view_count' ? 'active' : '' }}" data-toggle="tab" href="#most-view" role="tab"
-                                           aria-expanded="false">پربازدیدترین</a>
+                                        <a wire:click="ChangeOrderBy('view_count')"
+                                           class="{{ $order_by == 'view_count' ? 'active' : '' }}" data-toggle="tab"
+                                           href="#most-view" role="tab"
+                                           aria-expanded="false">{{ __('Most Visited') }}</a>
                                     </li>
                                     <li>
-                                        <a wire:click="ChangeOrderBy('created_at')" class="{{ $order_by == 'created_at' ? 'active' : '' }}" data-toggle="tab" href="#new" role="tab"
-                                           aria-expanded="true">جدیدترین</a>
+                                        <a wire:click="ChangeOrderBy('created_at')"
+                                           class="{{ $order_by == 'created_at' ? 'active' : '' }}" data-toggle="tab"
+                                           href="#new" role="tab"
+                                           aria-expanded="true">{{ __('The Newest') }}</a>
                                     </li>
                                     <li>
-                                        <a wire:click="ChangeOrderBy('order_count')" class="{{ $order_by == 'order_count' ? 'active' : '' }}" data-toggle="tab" href="#most-seller" role="tab"
-                                           aria-expanded="false">پرفروش‌ترین‌</a>
+                                        <a wire:click="ChangeOrderBy('order_count')"
+                                           class="{{ $order_by == 'order_count' ? 'active' : '' }}" data-toggle="tab"
+                                           href="#most-seller" role="tab"
+                                           aria-expanded="false">{{ __('Bestselling') }}</a>
                                     </li>
                                     <li>
-                                        <a wire:click="ChangeOrderBy('price_ask')" class="{{ $order_by == 'price_ask' ? 'active' : '' }}" data-toggle="tab" href="#down-price" role="tab"
-                                           aria-expanded="false">ارزان‌ترین</a>
+                                        <a wire:click="ChangeOrderBy('price_ask')"
+                                           class="{{ $order_by == 'price_ask' ? 'active' : '' }}" data-toggle="tab"
+                                           href="#down-price" role="tab"
+                                           aria-expanded="false">{{ __('Cheapest') }}</a>
                                     </li>
                                     <li>
-                                        <a wire:click="ChangeOrderBy('price')" class="{{ $order_by == 'price' ? 'active' : '' }}" data-toggle="tab" href="#top-price" role="tab"
-                                           aria-expanded="false">گران‌ترین</a>
+                                        <a wire:click="ChangeOrderBy('price')"
+                                           class="{{ $order_by == 'price' ? 'active' : '' }}" data-toggle="tab"
+                                           href="#top-price" role="tab"
+                                           aria-expanded="false">{{ __('The most expensive') }}</a>
                                     </li>
                                 </ul>
                             </div>
@@ -168,14 +178,20 @@
                                                             </span>{{ $pro->user->full_name ?: '---' }}</span>
                                                     <span class="product-seller-details-badge-container"></span>
                                                 </div>
-                                                <a class="product-box-img" href="{{ route('product_detail', $pro->get_slug($lang)) }}">
+                                                <a class="product-box-img" href="{{ route('product_detail', [
+                                                                                    'locale' => $lang,
+                                                                                    'slug' => $pro->get_slug($lang)
+                                                            ]) }}">
                                                     <img src="{{ $pro->get_image() }}"
                                                          alt="{{ $pro->get_title($lang) }}">
                                                 </a>
                                                 <div class="product-box-content">
                                                     <div class="product-box-content-row">
                                                         <div class="product-box-title">
-                                                            <a href="{{ route('product_detail', $pro->get_slug($lang)) }}">
+                                                            <a href="{{ route('product_detail', [
+                                                                                        'locale' => $lang,
+                                                                                        'slug' => $pro->get_slug($lang)
+                                                                ]) }}">
                                                                 {{ \Illuminate\Support\Str::limit($pro->get_title($lang), 32) }}
                                                             </a>
                                                         </div>
@@ -185,7 +201,7 @@
                                                             <div class="price-value">
                                                                 <div class="price-value-wrapper">
                                                                     {{ number_format($pro->price) ?: '---' }} <span
-                                                                        class="price-currency">تومان</span>
+                                                                        class="price-currency">{{ __('Toman') }}</span>
                                                                 </div>
                                                             </div>
                                                         </div>

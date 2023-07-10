@@ -216,7 +216,7 @@
                                             class="product-brand-title">{{ $object->brand ? $object->brand->title : '---' }}</span>
                                     </li>
                                     <li>
-                                        <span>دسته‌بندی</span> :
+                                        <span>{{ __('Category') }}</span> :
                                         <a href="{{ route('category.products', [
                     'locale' => $lang,
                     'slug' => $object->category->get_slug($lang)
@@ -592,7 +592,8 @@
                                                                         وارد </a> شوید</h3>
                                                             @else
                                                                 <h3><a class="text-info"
-                                                                       href="{{ route('login', ['locale' => $lang]) }}">Log in</a> first to post a comment</h3>
+                                                                       href="{{ route('login', ['locale' => $lang]) }}">Log
+                                                                        in</a> first to post a comment</h3>
                                                             @endif
                                                         </div>
                                                     @endauth
@@ -600,10 +601,21 @@
                                                 </div>
                                                 <div class="col-md-6 col-sm-12">
                                                     <div class="pl-5">
-                                                        <h3>{{ $settings['comment_terms_title'] }}</h3>
-                                                        <div>
-                                                            {!! $settings['comment_terms_text'] !!}
-                                                        </div>
+                                                        @if($lang == 'fa')
+                                                            <h3>{{ $settings['comment_terms_title'] }}</h3>
+                                                        @else
+                                                            <h3>{{ $settings['comment_terms_en_title'] }}</h3>
+                                                        @endif
+
+                                                        @if($lang == 'fa')
+                                                            <div>
+                                                                {!! $settings['comment_terms_text'] !!}
+                                                            </div>
+                                                        @else
+                                                            <div>
+                                                                {!! $settings['comment_terms_en_text'] !!}
+                                                            </div>
+                                                        @endif
                                                     </div>
 
                                                 </div>
@@ -629,7 +641,8 @@
                                                                         </div>
                                                                         <ul class="comments-user-shopping">
                                                                             <li>
-                                                                                <div class="cell">{{ __('Color purchased:') }}
+                                                                                <div
+                                                                                    class="cell">{{ __('Color purchased:') }}
                                                                                 </div>
                                                                                 <div class="cell color-cell">
                                                                                     <span class="shopping-color-value"
@@ -668,7 +681,8 @@
                                                                                 در
                                                                                 تاریخ {{ \Hekmatinasser\Verta\Verta:: instance($comment->created_at)->format('%B %d، %Y') }}
                                                                             @else
-                                                                                by {{ $comment->user->full_name() ?: '---' }} on {{ \Hekmatinasser\Verta\Verta:: instance($comment->created_at)->format('%B %d، %Y') }}
+                                                                                by {{ $comment->user->full_name() ?: '---' }}
+                                                                                on {{ \Hekmatinasser\Verta\Verta:: instance($comment->created_at)->toCarbon()->isoFormat('MMMM Do YYYY') }}
                                                                             @endif
                                                                         </div>
                                                                         <div class="row">
@@ -756,13 +770,14 @@
                     <div class="widget widget-product card">
                         <header class="card-header">
                             <h3 class="card-title">
-                                <span>همچنین ممکن است دوست داشته باشید ...</span>
+                                <span>{{ __('You may also like...') }}</span>
                             </h3>
-                            <a href="{{ route('products_list', ['locale' => $lang]) }}" class="view-all">مشاهده همه</a>
+                            <a href="{{ route('products_list', ['locale' => $lang]) }}" class="view-all">{{ __('View All') }}</a>
                         </header>
                         <div class="product-carousel owl-carousel owl-theme">
 
                             @foreach($may_like_products as $may_like_pro)
+
                                 <div class="item">
                                     <a href="{{ route('product_detail', [
                         'locale' => $lang,
@@ -806,13 +821,13 @@
                     <div class="widget widget-product card">
                         <header class="card-header">
                             <h3 class="card-title">
-                                <span>محصولات مرتبط</span>
+                                <span>{{ __('Related products') }}</span>
                             </h3>
                             <a href="{{ route('category.products', [
                 'locale' => $lang,
                 'slug' => $object->category->get_slug($lang)
 ]) }}"
-                               class="view-all">مشاهده همه</a>
+                               class="view-all">{{ __('View All') }}</a>
                         </header>
                         <div class="product-carousel owl-carousel owl-theme">
 

@@ -219,8 +219,18 @@
     "The buyer of this product": "خریدار این محصول",
     "Color purchased:": "رنگ خریداری شده:",
     "Purchased from:": "خریداری شده از:",
+    "Shop": "فروشگاه",
+    "Category": "دسته\u200Cبندی",
     "I recommend buying this product": "خرید این محصول را توصیه می\u200Cکنم:",
     "I do not recommend buying this product": "خرید این محصول را توصیه نمی\u200Cکنم",
     "The number of orders must be at least one!": "تعداد سفارش باید حداقل یک باشد!",
-    "The order quantity is more than the available quantity!": "تعداد سفارش بیش از تعداد موجود است!"
+    "The order quantity is more than the available quantity!": "تعداد سفارش بیش از تعداد موجود است!",
+    "You may also like...": "همچنین ممکن است دوست داشته باشید ...",
+    "Related products": "محصولات مرتبط",
+    "Order by :": "مرتب\u200Cسازی بر اساس :",
+    "Most Visited": "پربازدیدترین",
+    "The Newest": "جدیدترین",
+    "Cheapest": "ارزان\u200Cترین",
+    "The most expensive": "گران\u200Cترین",
+    "Bestselling": "پرفروش\u200Cترین\u200C"
 }

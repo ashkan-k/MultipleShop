@@ -90,7 +90,13 @@ class Category extends Model
 
     public function get_slug($lang)
     {
-        return $lang == 'fa' ? $this->slug : $this->en_slug;
+        $slug = $this->slug;
+
+        if ($lang != 'fa'){
+            $slug = $this->en_slug;
+        }
+
+        return $slug ?: '---';
     }
 
     protected static function newFactory()
