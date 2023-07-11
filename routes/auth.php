@@ -58,6 +58,11 @@ Route::middleware('auth')->group(function () {
 
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
                 ->name('logout');
+
+    Route::get('welcome', function (){
+        $next_url = request('next', '/');
+        return view('auth.welcome', compact('next_url'));
+    })->name('welcome');
 });
 
 // Custom Reset Password methods

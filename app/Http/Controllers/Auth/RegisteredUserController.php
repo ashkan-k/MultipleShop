@@ -57,6 +57,8 @@ class RegisteredUserController extends Controller
             $next_url = RouteServiceProvider::HOME;
         }
 
-        return redirect($next_url);
+        $welcome = route('welcome') . "?next={$next_url}";
+
+        return redirect($welcome);
     }
 }
