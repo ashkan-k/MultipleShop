@@ -74,7 +74,7 @@
 
             @include('auth.auth_js')
 
-            $scope.init = function () {
+                $scope.init = function () {
                 $scope.email = '{{ session('user_email') }}';
                 countDown();
             }

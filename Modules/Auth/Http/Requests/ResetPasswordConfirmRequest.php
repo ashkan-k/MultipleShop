@@ -11,8 +11,10 @@ class ResetPasswordConfirmRequest extends FormRequest
      *
      * @return array
      */
+
     public function rules()
     {
+//        $this->request->set('code', implode('', request('code')));
         return [
             'code' => 'required|digits:6'
         ];

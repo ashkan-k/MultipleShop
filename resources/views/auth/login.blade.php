@@ -80,6 +80,7 @@
                                                     @enderror
                                                 </div>
 
+                                                <div class="form-account-title mt-3" style="margin-bottom: 0 !important;">{{ __('Captcha') }}</div>
                                                 <div class="form-account-row">
                                                     <label class="input-label"></label>
                                                     <div class="captcha">
@@ -169,6 +170,7 @@
                                                     @enderror
                                                 </div>
 
+                                                <div class="form-account-title mt-3" style="margin-bottom: 0 !important;">{{ __('Captcha') }}</div>
                                                 <div class="form-account-row">
                                                     <label class="input-label"></label>
                                                     <div class="captcha">

@@ -278,6 +278,7 @@
     "Enter your Password Confirmation": "تکرار رمز عبور خود را وارد نمایید",
     "Enter the captcha code": "کد کپچا را وارد نمایید",
     "The captcha field is required.": "کد کپچا الزامی است.",
+    "Captcha": "کد کپچا",
     "Cancel": "انصراف",
     "validation.captcha": "ز اشتباه است.",
     "captcha": "کد کپچا",
