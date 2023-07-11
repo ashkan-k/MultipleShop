@@ -37,7 +37,7 @@
                                                     <td>{{ $loop->iteration }}</td>
                                                     <td>{{ $order->product ? $order->product->title : '---' }}</td>
                                                     <td>{{ $order->count }}</td>
-                                                    <td class="order-code">DKC-59888888</td>
+                                                    <td class="order-code">{{ $order->order_number ?: '---'  }}</td>
                                                     <td>
                                                         @if($lang == 'fa')
                                                             {{ \Hekmatinasser\Verta\Verta:: instance($order->created_at)->format('%B %d، %Y') }}

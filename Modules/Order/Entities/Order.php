@@ -2,6 +2,7 @@
 
 namespace Modules\Order\Entities;
 
+use App\Http\Traits\Helpers;
 use App\Http\Traits\Searchable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -15,6 +16,7 @@ class Order extends Model
 {
     use HasFactory;
     use Searchable;
+    use Helpers;
 
     protected $fillable = [
         'user_id', 'product_id', 'payment_id',
@@ -22,6 +24,7 @@ class Order extends Model
         'first_name', 'last_name', 'phone',
         'address', 'postal_code', 'payment_type',
         'status',
+        'order_number',
     ];
 
     protected $search_fields = [
@@ -37,6 +40,7 @@ class Order extends Model
         'phone',
         'address',
         'postal_code',
+        'order_number',
     ];
 
     protected $filter_fields = [
@@ -47,6 +51,14 @@ class Order extends Model
         'status',
         'payment_type',
     ];
+
+    public function save(array $options = [])
+    {
+        if (!$this->order_number) {
+            $this->order_number = $this->RandomNumber(8);
+        }
+        return parent::save($options);
+    }
 
     public function get_status()
     {

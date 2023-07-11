@@ -114,6 +114,7 @@
                                                data-kt-check-target="#kt_table_items .form-check-input"/>
                                     </div>
                                 </th>
+                                <th>شماره سفارش</th>
                                 <th>کاربر</th>
                                 <th>محصول</th>
                                 <th>سایز</th>
@@ -138,6 +139,8 @@
                                                    class="form-check-input">
                                         </div>
                                     </td>
+
+                                    <td>{{ $item->order_number ?: '---'  }}</td>
 
                                     <td>{{ $item->user ? $item->user->full_name() : '---'}}</td>
 

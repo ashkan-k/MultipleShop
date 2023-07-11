@@ -118,6 +118,7 @@
                                                data-kt-check-target="#kt_table_items .form-check-input"/>
                                     </div>
                                 </th>
+                                <th>کد محصول</th>
                                 <th>عنوان</th>
                                 <th>عنوان انگلیسی</th>
                                 <th>قیمت</th>
@@ -145,6 +146,8 @@
                                                    class="form-check-input">
                                         </div>
                                     </td>
+
+                                    <td>{{ $item->barcode ?: '---'  }}</td>
 
                                     <td>{{ $item->title ?: '---'  }}</td>
 

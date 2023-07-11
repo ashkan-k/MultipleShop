@@ -2,6 +2,7 @@
 
 namespace Modules\Product\Entities;
 
+use App\Http\Traits\Helpers;
 use App\Http\Traits\Searchable;
 use Hekmatinasser\Verta\Verta;
 use Illuminate\Database\Eloquent\Model;
@@ -18,6 +19,7 @@ class Product extends Model
 {
     use HasFactory;
     use Searchable;
+    use Helpers;
 
     protected $fillable = [
         'title',
@@ -39,6 +41,7 @@ class Product extends Model
 //        'color_id',
 //        'size_id',
         'brand_id',
+        'barcode',
     ];
 
     protected $search_fields = [
@@ -48,6 +51,7 @@ class Product extends Model
         'description',
         'price',
         'quantity',
+        'barcode',
         'user.first_name',
         'user.last_name',
         'user.username',
@@ -76,6 +80,10 @@ class Product extends Model
 
     public function save(array $options = [])
     {
+        if (!$this->barcode) {
+            $this->barcode = $this->RandomNumber(8);
+        }
+
         if (!$this->slug) {
             $this->slug = $this->title;
         }

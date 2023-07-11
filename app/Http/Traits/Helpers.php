@@ -57,4 +57,14 @@ trait Helpers
         $string = str_replace($english, $unicode, $string);
         return $string;
     }
+
+    public function RandomNumber($length) {
+        $result = '';
+
+        for($i = 0; $i < $length; $i++) {
+            $result .= mt_rand(0, 9);
+        }
+
+        return $result;
+    }
 }

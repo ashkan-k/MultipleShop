@@ -28,6 +28,8 @@ return new class extends Migration
             $table->string('price');
             $table->integer('quantity')->default(1);
 
+            $table->string('barcode')->nullable();
+
             $table->string('discount_price')->nullable();
             $table->string('discount_start_date')->nullable();
             $table->string('discount_end_date')->nullable();
