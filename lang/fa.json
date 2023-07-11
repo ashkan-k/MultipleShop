@@ -280,7 +280,7 @@
     "The captcha field is required.": "کد کپچا الزامی است.",
     "Captcha": "کد کپچا",
     "Cancel": "انصراف",
-    "validation.captcha": "ز اشتباه است.",
+    "validation.captcha": "کد کپچا اشتباه است.",
     "captcha": "کد کپچا",
     "Welcome": "خوش آمدید",
     "Your account has been successfully created": "حساب کاربری شما با موفقیت ساخته شد",
