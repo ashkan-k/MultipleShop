@@ -44,7 +44,7 @@
 {{--                    <i class="now-ui-icons files_single-copy-04"></i>--}}
 {{--                    درخواست مرجوعی--}}
 {{--                </a>--}}
-                <a href="profile-favorites.html" class="dropdown-item">
+                <a href="{{ route('wishlists', ['locale' => $lang]) }}" class="dropdown-item" @if(\Illuminate\Support\Facades\Route::currentRouteName() == 'wishlists') active-menu @endif>
                     <i class="now-ui-icons ui-2_favourite-28"></i>
                     {{ __('List of favorites') }}
                 </a>
@@ -77,7 +77,7 @@
 {{--                </a>--}}
 {{--            </li>--}}
             <li>
-                <a href="profile-favorites.html">
+                <a href="{{ route('wishlists', ['locale' => $lang]) }}" @if(\Illuminate\Support\Facades\Route::currentRouteName() == 'wishlists') active @endif>
                     <i class="now-ui-icons ui-2_favourite-28"></i>
                     {{ __('List of favorites') }}
                 </a>

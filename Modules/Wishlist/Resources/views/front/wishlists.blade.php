@@ -10,7 +10,5 @@
     'titlePage' => 'علاقه مندی های من',
     'website_title' => $website_title,
     'lang' => $lang,
-    'object' => $objects,
-
     ])
 @endsection

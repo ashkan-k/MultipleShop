@@ -17,7 +17,6 @@ class FrontWishlistController extends Controller
 
     public function wishlists()
     {
-        $objects = auth()->user()->wish_lists()->Search(request('search'))->with('product')->get();
-        return view('wishlist::front.wishlists', compact('objects'));
+        return view('wishlist::front.wishlists');
     }
 }
