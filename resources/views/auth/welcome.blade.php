@@ -36,7 +36,7 @@
                                         <div class="parent-btn">
                                             <a href="{{ route('user_profile_edit', ['locale' => $lang]) }}"
                                                class="dk-btn dk-btn-info">
-                                                تکمیل حساب کاربری
+                                                {{ __('Completing the user account') }}
                                                 <i class="now-ui-icons users_single-02"></i>
                                             </a>
                                         </div>

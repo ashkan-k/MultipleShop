@@ -24,8 +24,8 @@
                                 <div class="form-account-title">{{ __('6-digit verification code') }}</div>
                                 <div class="form-account-row">
                                     <label class="input-label"></label>
-                                    <input class="input-field" type="number" required
-                                           value="{{ old('code') }}" name="code"
+                                    <input class="input-field" type="text" required
+                                           value="{{ old('code') }}" name="code" minlength="6" maxlength="6"
                                            placeholder="{{ __('Enter your verification code') }}">
 
 
