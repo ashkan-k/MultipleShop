@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password;
+use Mews\Captcha\Captcha;
 use Modules\Auth\Http\Requests\ResetPasswordConfirmRequest;
 use Modules\Auth\Http\Requests\ResetPasswordRequest;
 use Modules\Auth\Http\Requests\ResetPasswordSetRequest;
@@ -34,5 +35,12 @@ class AuthController extends Controller
         $user = User::where('email', $request->email)->first();
         $this->SendCode($user);
         return $this->SuccessResponse('کد تایید باموفقیت برای شما پیامک شد.');
+    }
+
+    public function refresh_captcha()
+    {
+        return response()->json([
+            'captcha' => Captcha::img()
+        ]);
     }
 }
