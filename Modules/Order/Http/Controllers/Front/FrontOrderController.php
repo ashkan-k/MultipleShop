@@ -19,12 +19,6 @@ class FrontOrderController extends Controller
 
     public function orders()
     {
-        $objects = auth()->user()->orders()->Search(request('search'))->with($this->order_relations)->get();
-//            ->Filter(\request())
-//            ->with($this->order_relations)
-//            ->latest()
-//            ->paginate(\request('pagination', env('PAGINATION_NUMBER', 10)));
-
-        return view('order::front.orders', compact('objects'));
+        return view('order::front.orders');
     }
 }

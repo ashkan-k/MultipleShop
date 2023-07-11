@@ -202,17 +202,17 @@
                 </div>
                 <div class="col-md-4 col-sm-12 text-left">
                     @auth
-                        <button class="style-user-button">
+                        <button onclick="window.location.href='{{ route('user_profile') }}'" class="style-user-button">
                             <div class="bg-color user-style">
                                 <i class="fa fa-user style-icon-head"></i>
                             </div>
                         </button>
-                        <button class="style-user-button">
+                        <button onclick="window.location.href='{{ route('wishlists') }}'" class="style-user-button">
                             <div class="bg-color user-style">
                                 <i class="fa fa-heart-o style-icon-head"></i>
                             </div>
                         </button>
-                        <button class="style-user-button">
+                        <button onclick="window.location.href='{{ route('cart') }}'" class="style-user-button">
                             <div class="bg-color user-style">
                                 <i class="fa fa-shopping-basket style-icon-head"></i>
                             </div>
