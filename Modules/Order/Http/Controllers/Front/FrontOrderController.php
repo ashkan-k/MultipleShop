@@ -19,7 +19,7 @@ class FrontOrderController extends Controller
 
     public function orders()
     {
-        $objects = Order::Search(request('search'))->with($this->order_relations)->get();
+        $objects = auth()->user()->orders()->Search(request('search'))->with($this->order_relations)->get();
 //            ->Filter(\request())
 //            ->with($this->order_relations)
 //            ->latest()

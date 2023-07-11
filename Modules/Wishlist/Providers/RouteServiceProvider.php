@@ -51,6 +51,12 @@ class RouteServiceProvider extends ServiceProvider
             ->namespace($this->moduleNamespace)
             ->prefix('dashboard')
             ->group(module_path('Wishlist', '/Routes/web.php'));
+
+        Route::middleware(['web', 'setlocale'])
+            ->namespace($this->moduleNamespace)
+            ->prefix('{locale}')
+            ->where(['locale' => '[a-zA-Z]{2}'])
+            ->group(module_path('Wishlist', '/Routes/front.php'));
     }
 
     /**
