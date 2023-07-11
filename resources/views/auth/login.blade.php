@@ -5,7 +5,7 @@
 @section('content')
     <?php $website_title = $lang == 'fa' ? $settings['website_title'] : $settings['website_en_title'];  ?>
 
-    <div class="wrapper default mt-5">
+    <div class="wrapper default mt-5" ng-init="init()">
         <main class="cart-page default">
             <div class="container">
 
@@ -15,12 +15,12 @@
                             <div class="account-box">
                                 <ul class="nav nav-tabs justify-content-center mt-3">
                                     <div class="d-flex">
-                                        <li class="px-2" ng-click="ChangePage('register')">
+                                        <li id="id_register_button" class="px-2" ng-click="ChangePage('register')">
                                             <a class="[[ current_page == 'register' ? 'active show' : '' ]] btn-radius"
                                                data-toggle="tab" href="#register">{{ __('Register') }}</a>
                                         </li>
 
-                                        <li class="px-2" ng-click="ChangePage('login')">
+                                        <li id="id_login_button" class="px-2" ng-click="ChangePage('login')">
                                             <a data-toggle="tab"
                                                class="[[ current_page == 'login' ? 'active show' : '' ]] btn-radius"
                                                href="#login">{{ __('Login') }}</a>
@@ -39,7 +39,8 @@
                                                ng-click="ChangePage('login')">{{ __('Please Login') }}</a>
                                         </div>
                                         <div class="account-box-content">
-                                            <form class="form-account" method="post" action="{{ route('register') }}">
+                                            <form class="form-account" method="post"
+                                                  action="{{ route('register') }}?prev=register">
                                                 @csrf
 
                                                 <div class="form-account-title">{{ __('Email') }}</div>
@@ -50,7 +51,7 @@
                                                            placeholder="{{ __('Enter your email') }}">
 
                                                     @error('email')
-                                                        <span class="text-danger text-wrap">{{ $message }}</span>
+                                                    <span class="text-danger text-wrap">{{ $message }}</span>
                                                     @enderror
                                                 </div>
 
@@ -75,6 +76,26 @@
                                                            placeholder="{{ __('Enter your confirmation password') }}">
 
                                                     @error('password_confirmation')
+                                                    <span class="text-danger text-wrap">{{ $message }}</span>
+                                                    @enderror
+                                                </div>
+
+                                                <div class="form-account-row">
+                                                    <label class="input-label"></label>
+                                                    <div class="captcha">
+                                                        <span class="captcha-image">{!! captcha_img() !!}</span>
+                                                        <button type="button"
+                                                                style="background-color: #ef5661 !important;"
+                                                                class="btn btn-success rounded refresh_button"><i
+                                                                class="fa fa-refresh"></i></button>
+                                                    </div>
+                                                    <input id="captcha" type="text" required
+                                                           value="{{ old('captcha') }}"
+                                                           placeholder="{{ __('Enter the captcha code') }}"
+                                                           class="input-field @error('captcha') is-invalid @enderror"
+                                                           name="captcha">
+
+                                                    @error('captcha')
                                                     <span class="text-danger text-wrap">{{ $message }}</span>
                                                     @enderror
                                                 </div>
@@ -119,7 +140,8 @@
                                          class="tab-pane [[ current_page == 'login' ? 'show in active' : 'fade' ]]">
 
                                         <div class="account-box-content">
-                                            <form class="form-account" method="post" action="{{ route('login') }}">
+                                            <form class="form-account" method="post"
+                                                  action="{{ route('login') }}?prev=login">
                                                 @csrf
 
                                                 <div class="form-account-title">{{ __('Email') }}</div>
@@ -146,6 +168,27 @@
                                                     <span class="text-danger text-wrap">{{ $message }}</span>
                                                     @enderror
                                                 </div>
+
+                                                <div class="form-account-row">
+                                                    <label class="input-label"></label>
+                                                    <div class="captcha">
+                                                        <span class="captcha-image">{!! captcha_img() !!}</span>
+                                                        <button type="button"
+                                                                style="background-color: #ef5661 !important;"
+                                                                class="btn btn-success rounded refresh_button"><i
+                                                                class="fa fa-refresh"></i></button>
+                                                    </div>
+                                                    <input id="captcha" type="text" required
+                                                           value="{{ old('captcha') }}"
+                                                           placeholder="{{ __('Enter the captcha code') }}"
+                                                           class="input-field @error('captcha') is-invalid @enderror"
+                                                           name="captcha">
+
+                                                    @error('captcha')
+                                                    <span class="text-danger text-wrap">{{ $message }}</span>
+                                                    @enderror
+                                                </div>
+
                                                 <div class="form-account-row form-account-submit">
                                                     <div class="parent-btn">
                                                         <button type="submit" class="dk-btn dk-btn-info">
@@ -182,18 +225,45 @@
 
                 </div>
 
-
             </div>
         </main>
     </div>
 @endsection
 
 @section('scripts')
+    @include('front.components.captcha_js')
+
     <script>
         app.controller('myCtrl', function ($scope, $http) {
             $scope.current_page = 'register';
 
+            $scope.SaveAndGetSearchHistory = function () {
+                var searchHistory = (localStorage.searchHistory) ? JSON.parse(localStorage.searchHistory) : [];
+
+                @if(request('q'))
+                searchHistory.push('{{ request('q') }}');
+                searchHistory = [...new Set(searchHistory)];
+                localStorage.searchHistory = JSON.stringify(searchHistory);
+                @endif
+
+                console.log(searchHistory)
+                $scope.search_history = searchHistory.reverse();
+            }
+
+            $scope.init = function () {
+                $scope.SaveAndGetSearchHistory();
+
+                @if(!$errors->any() && !session()->has('message'))
+                localStorage.removeItem('current_auth_page')
+                @endif
+
+                if (localStorage.getItem('current_auth_page') == 'login') {
+                    $scope.ChangePage('login');
+                }
+            }
+
             $scope.ChangePage = function (new_page) {
+                localStorage.setItem('current_auth_page', new_page);
                 $scope.current_page = new_page;
             }
         });

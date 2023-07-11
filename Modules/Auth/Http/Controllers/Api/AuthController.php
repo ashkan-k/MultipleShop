@@ -40,7 +40,7 @@ class AuthController extends Controller
     public function refresh_captcha()
     {
         return response()->json([
-            'captcha' => Captcha::img()
+            'captcha' => captcha_img()
         ]);
     }
 }

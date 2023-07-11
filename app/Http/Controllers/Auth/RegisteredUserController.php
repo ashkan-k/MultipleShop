@@ -36,7 +36,8 @@ class RegisteredUserController extends Controller
         $request->validate([
             'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-        ]);
+            'captcha' => 'required|captcha',
+        ], ['captcha.required' => __('The captcha field is required.'),]);
 
         $user = User::create([
             'email' => $request->email,
