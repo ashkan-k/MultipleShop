@@ -50,6 +50,13 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return redirect(RouteServiceProvider::HOME);
+        $next_url = '/';
+        if (\request('next')){
+            $next_url = \request('next');
+        }elseif ($user->is_staff()){
+            $next_url = RouteServiceProvider::HOME;
+        }
+
+        return redirect($next_url);
     }
 }

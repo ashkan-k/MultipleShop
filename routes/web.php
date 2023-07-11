@@ -14,7 +14,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
 Route::middleware(['web', 'setlocale'])
     ->prefix('{locale}')
     ->where(['locale' => '[a-zA-Z]{2}'])

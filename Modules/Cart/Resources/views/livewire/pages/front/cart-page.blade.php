@@ -157,7 +157,7 @@
                 </div>
                 <div class="cart-empty-title">{{ __('Your shopping cart is empty!') }}</div>
                 <div class="parent-btn">
-                    <a href="{{ route('login') }}" class="dk-btn dk-btn-success">
+                    <a href="{{ route('login') }}?next=/{{ request()->path() }}" class="dk-btn dk-btn-success">
                         {{ __('Log in to your account') }}
                         <i class="fa fa-sign-in"></i>
                     </a>

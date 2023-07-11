@@ -323,7 +323,7 @@
                                     @if($object->quantity > 0)
 
                                         <div class="parent-btn">
-                                            <a href="{{ route('login') }}" class="dk-btn dk-btn-info">
+                                            <a href="{{ route('login') }}?next=/{{ request()->path() }}" class="dk-btn dk-btn-info">
                                                 {{ __('Add to cart') }}
                                                 <i class="now-ui-icons shopping_cart-simple"></i>
                                             </a>
@@ -588,11 +588,11 @@
                                                                 <h3>برای ثبت
                                                                     نظر ابتدا
                                                                     <a class="text-info"
-                                                                       href="{{ route('login', ['locale' => $lang]) }}">
+                                                                       href="{{ route('login', ['locale' => $lang]) }}?next=/{{ request()->path() }}">
                                                                         وارد </a> شوید</h3>
                                                             @else
                                                                 <h3><a class="text-info"
-                                                                       href="{{ route('login', ['locale' => $lang]) }}">Log
+                                                                       href="{{ route('login', ['locale' => $lang]) }}?next=/{{ request()->path() }}">Log
                                                                         in</a> first to post a comment</h3>
                                                             @endif
                                                         </div>

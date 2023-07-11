@@ -218,7 +218,7 @@
                             </div>
                         </button>
                     @else
-                        <button onclick="window.location.href='{{ route('login') }}'" class="style-user-button">
+                        <button onclick="window.location.href='{{ route('login') }}?next=/{{ request()->path() }}'" class="style-user-button">
                             <div class="bg-color user-style">
                                 <i class="fa fa-user style-icon-head"></i>
                             </div>
