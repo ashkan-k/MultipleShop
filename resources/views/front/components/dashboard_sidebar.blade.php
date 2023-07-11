@@ -7,46 +7,6 @@
 {{--            <button data-toggle="modal" data-target="#myModal" class="profile-box-btn-edit">--}}
 {{--                <i class="fa fa-pencil"></i>--}}
 {{--            </button>--}}
-            <!-- Modal Core -->
-            <div class="modal-share modal-width-custom modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h4 class="modal-title" id="myModalLabel">تغییر نمایه کاربری شما</h4>
-                        </div>
-                        <div class="modal-body">
-                            <ul class="profile-avatars default text-center">
-                                <li>
-                                    <img class="profile-avatars-item" src="assets/img/svg/user.svg"></img>
-                                </li>
-                                <li>
-                                    <img class="profile-avatars-item" src="assets/img/svg/avatar-1.svg"></img>
-                                </li>
-                                <li>
-                                    <img class="profile-avatars-item" src="assets/img/svg/avatar-2.svg"></img>
-                                </li>
-                                <li>
-                                    <img class="profile-avatars-item" src="assets/img/svg/avatar-3.svg"></img>
-                                </li>
-                                <li>
-                                    <img class="profile-avatars-item" src="assets/img/svg/avatar-4.svg"></img>
-                                </li>
-                                <li>
-                                    <img class="profile-avatars-item" src="assets/img/svg/avatar-5.svg"></img>
-                                </li>
-                                <li>
-                                    <img class="profile-avatars-item" src="assets/img/svg/avatar-6.svg"></img>
-                                </li>
-                                <li>
-                                    <img class="profile-avatars-item" src="assets/img/svg/avatar-7.svg"></img>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Modal Core -->
         </div>
         <div class="profile-box-username">{{ auth()->user()->full_name() }}</div>
         <div class="profile-box-tabs">
@@ -76,7 +36,7 @@
                     <i class="now-ui-icons users_single-02"></i>
                     {{ __('Profile') }}
                 </a>
-                <a href="profile-orders.html" class="dropdown-item">
+                <a href="{{ route('orders', ['locale' => $lang]) }}" class="dropdown-item @if(\Illuminate\Support\Facades\Route::currentRouteName() == 'orders') active-menu @endif">
                     <i class="now-ui-icons shopping_basket"></i>
                     {{ __('All orders') }}
                 </a>
@@ -105,7 +65,7 @@
                 </a>
             </li>
             <li>
-                <a href="profile-orders.html">
+                <a href="{{ route('orders', ['locale' => $lang]) }}" class="@if(\Illuminate\Support\Facades\Route::currentRouteName() == 'orders') active @endif">
                     <i class="now-ui-icons shopping_basket"></i>
                     {{ __('All orders') }}
                 </a>
