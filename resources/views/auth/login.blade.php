@@ -40,7 +40,7 @@
                                         </div>
                                         <div class="account-box-content">
                                             <form class="form-account" method="post"
-                                                  action="{{ route('register') }}?prev=register">
+                                                  action="{{ route('register') }}?next={{ url()->previous() }}">
                                                 @csrf
 
                                                 <div class="form-account-title">{{ __('Email') }}</div>
@@ -142,7 +142,7 @@
 
                                         <div class="account-box-content">
                                             <form class="form-account" method="post"
-                                                  action="{{ route('login') }}?prev=login">
+                                                  action="{{ route('login') }}?next={{ url()->previous() }}">
                                                 @csrf
 
                                                 <div class="form-account-title">{{ __('Email') }}</div>
