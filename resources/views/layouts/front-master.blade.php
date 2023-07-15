@@ -333,7 +333,7 @@
 
 
                     <li class="list-item amazing-item">
-                        <a class="nav-link" href="#" target="_blank">{{ __('The Amazing') }}</a>
+                        <a class="nav-link" href="#amazing-slider" target="_blank">{{ __('The Amazing') }}</a>
                     </li>
                 </ul>
             </div>

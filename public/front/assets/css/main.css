@@ -8063,4 +8063,14 @@ main.profile-user-page .table-order td.order-code {
     }
 }
 
+#amazing-slider .owl-carousel{
+    position:inherit !important;
+}
+#amazing-slider .widget-product .owl-carousel .owl-nav .owl-prev{
+    right: 20px !important;
+}
+#amazing-slider .widget-product .owl-carousel .owl-nav .owl-next{
+    left: 20px !important;
+}
+
 
