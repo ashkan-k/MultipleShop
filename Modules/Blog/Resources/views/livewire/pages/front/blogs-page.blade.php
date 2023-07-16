@@ -68,7 +68,7 @@
 
                     </div>
 
-                    {{ $objects->onEachSide(3)->links('front.components.front_pagination') }}
+                    {{ $objects->onEachSide(3)->links('front.components.front_without_ajax_pagination') }}
 
                 </div>
             </div>

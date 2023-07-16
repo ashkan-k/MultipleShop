@@ -8,8 +8,6 @@ use Modules\Blog\Entities\Blog;
 
 class BlogsPage extends Component
 {
-    use WithPagination;
-
     public $pagination;
     public $website_title = '';
     public $lang;
