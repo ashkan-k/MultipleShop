@@ -4,6 +4,8 @@ namespace Modules\Blog\Providers;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
+use Modules\Blog\Entities\Blog;
+use Modules\Blog\Observers\BlogObserver;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -24,6 +26,7 @@ class RouteServiceProvider extends ServiceProvider
     public function boot()
     {
         parent::boot();
+        Blog::observe(BlogObserver::class);
     }
 
     /**

@@ -7,6 +7,7 @@ use App\Http\Traits\Uploader;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Cache;
 use Modules\Blog\Entities\Blog;
 use Modules\Dashboard\Http\Requests\ProfileRequest;
 use Modules\Poster\Entities\Poster;
@@ -33,8 +34,10 @@ class IndexController extends Controller
             ->limit(10)->get();
         $cheapest_products = Product::ActiveProducts()
             ->orderBy('price')->limit(10)->get();
-
-        $blogs = Blog::latest()->get();
+        
+        if (!$blogs = GetCache('index_blogs')) {
+            $blogs = AddCache('index_blogs', Blog::latest()->get());
+        }
 
         $best_category = Category::where('is_best', 1)->with(['products'])->first();
 
