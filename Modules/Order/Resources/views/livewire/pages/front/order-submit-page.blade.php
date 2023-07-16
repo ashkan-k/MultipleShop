@@ -11,7 +11,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="{{ route('cart') }}">
+                                <a href="{{ route('cart', ['locale' => $lang]) }}">
                                     <span>{{ __('Cart') }}</span>
                                 </a>
                             </li>
@@ -44,19 +44,19 @@
                         <ul class="style-ul">
 
                             @foreach($categories as $category)
-                            <li>
-                                <div class="circle-inbox"></div>
-                                <a href="{{ route('category.products', $category->get_slug($lang)) }}">
-                                    <span style="color: #777">{{ $category->get_title($lang) }}</span>
-                                </a>
-                            </li>
+                                <li>
+                                    <div class="circle-inbox"></div>
+                                    <a href="{{ route('category.products', ['locale' => $lang, 'slug' => $category->get_slug($lang)]) }}">
+                                        <span style="color: #777">{{ $category->get_title($lang) }}</span>
+                                    </a>
+                                </li>
                             @endforeach
 
                         </ul>
                     </div>
                 </div>
             </div>
-            <div class="main-content col-12 col-md-9 order-1 order-md-2 mx-auto">
+            <div class="main-content col-12 col-md-9 order-1 order-md-2 mx-auto" wire:ignore>
                 <div class="mb-3">
                     <div class="row">
                         <div class="col-12">
@@ -71,17 +71,19 @@
 
                         <div class="col-12">
                             <div class="insert_off_box off-box he_0 he_a">
-                                <form method="post" action="">
+                                <form method="post" wire:submit="CheckCouponCode()">
 
                                     <div class="row">
                                         <div class="col-7">
 
                                             <input type="text" name="off-sale" class="form-control"
+                                                   wire:model.defer="coupon_code"
                                                    placeholder="{{ __('Enter the discount code') }}">
 
                                         </div>
                                         <div class="col-5">
-                                            <button type="submit" name="submit" class="send-color"> {{ __('Check') }}</button>
+                                            <button type="submit" name="submit"
+                                                    class="send-color"> {{ __('Check') }}</button>
                                         </div>
                                     </div>
                                 </form>
@@ -90,11 +92,11 @@
                     </div>
                     <div class="account-box checkout-page ">
                         <div class="account-box-content">
-                            <form method="post" class="form-account" action="{{ route('pay', ['lang' => $lang]) }}">
+                            <form method="post" class="form-account" action="{{ route('pay', ['locale' => $lang]) }}">
                                 @csrf
 
                                 <input type="hidden" name="user_id" value="{{ auth()->id() }}">
-
+                                <input type="hidden" name="coupon_id" id="id_coupon_id" value="">
 
                                 <div class="row">
                                     <div class="col-12">
@@ -191,3 +193,17 @@
         </div>
     </div>
 </main>
+
+@push('StackScript')
+    <script type="text/javascript">
+        window.addEventListener('couponCodeChecked', event => {
+            if (event['detail']['result']['error']) {
+                showToast(event['detail']['result']['error'], 'error');
+            }else {
+                console.log(event['detail']['result']);
+                $('#id_coupon_id').val(event['detail']['result']['id']);
+                showToast('{{ __('The discount code has been successfully registered.') }}', 'success');
+            }
+        });
+    </script>
+@endpush
