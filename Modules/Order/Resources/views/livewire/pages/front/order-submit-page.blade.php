@@ -92,7 +92,12 @@
                     </div>
                     <div class="account-box checkout-page ">
                         <div class="account-box-content">
-                            <form class="form-account">
+                            <form method="post" class="form-account" action="{{ route('pay', ['lang' => $lang]) }}">
+                                @csrf
+
+                                <input type="hidden" name="user_id" value="{{ auth()->id() }}">
+
+
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="checkout-title text-right">مشخصات شما</div>
@@ -101,30 +106,38 @@
                                         <div class="form-account-title">نام</div>
                                         <div class="form-account-row">
                                             <input class="input-field text-right" type="text"
+                                                   name="first_name" required
                                                    placeholder="نام خود را وارد نمایید">
+
+                                            @error('first_name')
+                                            <span class="text-danger text-wrap">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                     </div>
+
                                     <div class="col-md-6 col-sm-12">
                                         <div class="form-account-title">نام خانوادگی</div>
                                         <div class="form-account-row">
                                             <input class="input-field text-right" type="text"
+                                                   name="last_name" required
                                                    placeholder="نام خانوادگی خود را وارد نمایید">
+
+                                            @error('last_name')
+                                            <span class="text-danger text-wrap">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                     </div>
-                                    <div class="col-12">
-                                        <div class="form-account-title">کد ملی</div>
+
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="form-account-title">شماره موبایل</div>
                                         <div class="form-account-row">
                                             <input class="input-field" type="text"
-                                                   placeholder="کد ملی خود را وارد نمایید">
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="form-account-agree">
-                                            <label class="checkbox-form checkbox-primary">
-                                                <input type="checkbox" id="agree">
-                                                <span class="checkbox-check"></span>
-                                            </label>
-                                            <label for="agree">تبعه خارجی فاقد کد ملی هستم.</label>
+                                                   name="phone" required
+                                                   placeholder=" شماره موبایل خود را وارد نمایید">
+
+                                            @error('phone')
+                                            <span class="text-danger text-wrap">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                     </div>
                                 </div>
@@ -132,32 +145,30 @@
                                     <div class="col-12">
                                         <div class="checkout-title text-right">افزودن آدرس جدید</div>
                                     </div>
-                                    <div class="col-md-6 col-sm-12">
-                                        <div class="form-account-title">نام و نام خانوادگی تحویل گیرنده</div>
-                                        <div class="form-account-row">
-                                            <input class="input-field text-right" type="text"
-                                                   placeholder="نام تحویل گیرنده را وارد نمایید">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 col-sm-12">
-                                        <div class="form-account-title">شماره موبایل</div>
-                                        <div class="form-account-row">
-                                            <input class="input-field" type="text"
-                                                   placeholder=" شماره موبایل خود را وارد نمایید">
-                                        </div>
-                                    </div>
+
                                     <div class="col-12">
                                         <div class="form-account-title">آدرس پستی</div>
                                         <div class="form-account-row">
                                             <textarea class="input-field text-right" rows="5"
-                                                      placeholder=" شماره موبایل خود را وارد نمایید"></textarea>
+                                                      name="address" required
+                                                      placeholder=" آدرس پستی خود را وارد نمایید"></textarea>
+
+                                            @error('address')
+                                            <span class="text-danger text-wrap">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                     </div>
+
                                     <div class="col-md-6 col-sm-12">
                                         <div class="form-account-title">کد پستی</div>
                                         <div class="form-account-row">
                                             <input class="input-field" type="text"
+                                                   name="postal_code" required
                                                    placeholder=" شماره موبایل خود را وارد نمایید">
+
+                                            @error('postal_code')
+                                            <span class="text-danger text-wrap">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                     </div>
                                 </div>
@@ -165,7 +176,7 @@
                                     <div class="col-12">
                                         <div class="form-account-row text-left">
                                             <button class="btns btn-info">
-                                                ثبت و ارسال
+                                                ثبت و پرداخت
                                             </button>
                                         </div>
                                     </div>
