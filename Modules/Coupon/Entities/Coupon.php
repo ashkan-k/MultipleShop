@@ -67,6 +67,13 @@ class Coupon extends Model
         return ['error' => __('There is no such discount code!')];
     }
 
+    public function CalculateCouponAmount($price)
+    {
+        $percent_amount = ($price * $this->percent) / 100;
+        $new_price = $price - $percent_amount;
+        return round($new_price);
+    }
+
     //
 
     public function user()

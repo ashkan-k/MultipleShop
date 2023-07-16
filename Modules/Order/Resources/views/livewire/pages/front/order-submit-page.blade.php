@@ -80,6 +80,9 @@
                                                    wire:model.defer="coupon_code"
                                                    placeholder="{{ __('Enter the discount code') }}">
 
+                                            @error('coupon_code')
+                                            <span class="text-danger text-wrap">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                         <div class="col-5">
                                             <button type="submit" name="submit"
@@ -96,7 +99,7 @@
                                 @csrf
 
                                 <input type="hidden" name="user_id" value="{{ auth()->id() }}">
-                                <input type="hidden" name="coupon_id" id="id_coupon_id" value="">
+                                <input type="hidden" name="coupon_code" id="id_coupon_id" value="">
 
                                 <div class="row">
                                     <div class="col-12">
@@ -199,9 +202,9 @@
         window.addEventListener('couponCodeChecked', event => {
             if (event['detail']['result']['error']) {
                 showToast(event['detail']['result']['error'], 'error');
-            }else {
+            } else {
                 console.log(event['detail']['result']);
-                $('#id_coupon_id').val(event['detail']['result']['id']);
+                $('#id_coupon_id').val(event['detail']['result']['code']);
                 showToast('{{ __('The discount code has been successfully registered.') }}', 'success');
             }
         });

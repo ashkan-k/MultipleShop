@@ -16,7 +16,7 @@ class OrderRequest extends FormRequest
     {
         return [
             'user_id' => 'required|exists:users,id',
-            'coupon_id' => 'nullable|exists:coupons,id',
+            'coupon_code' => 'nullable|exists:coupons,code',
             'first_name' => 'required|string',
             'last_name' => 'required|string',
             'address' => 'required',

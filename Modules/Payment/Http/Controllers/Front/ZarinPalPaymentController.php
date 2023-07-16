@@ -4,6 +4,8 @@ namespace Modules\Payment\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
+use Modules\Coupon\Entities\Coupon;
 use Modules\Order\Entities\Order;
 use Modules\Order\Entities\OrderProduct;
 use Modules\Order\Http\Requests\OrderRequest;
@@ -15,6 +17,22 @@ use SoapClient;
 
 class ZarinPalPaymentController extends BaseGatewayController
 {
+    private function CheckUserCoupon($data)
+    {
+        if (isset($data['coupon_code'])) {
+            $coupon = Coupon::CheckCoupon($data['coupon_code'], $data['user_id']);
+            if (isset($coupon['error'])) {
+                throw ValidationException::withMessages(['coupon_code' => $coupon['error']])->status(400);
+            }
+
+            $data['amount'] = $coupon->CalculateCouponAmount($data['amount']);
+        }
+
+        return $data['amount'];
+    }
+
+    //
+
     public function pay($lang, OrderRequest $request)
     {
         $data = $request->validated();
@@ -23,8 +41,10 @@ class ZarinPalPaymentController extends BaseGatewayController
         // Get Current User Carts List
         $user_carts = auth()->user()->carts()->get();
 
-        // Calculate Amount
+        // Calculate Amount and Check Coupon
         $data['amount'] = $user_carts->sum('total_price');
+        $data['amount'] = $this->CheckUserCoupon($data);
+
         $order = auth()->user()->orders()->create($data);
 
         // Add User Products Info To OrderProduct Table(attach size_id, color_id ,...)
