@@ -51,7 +51,7 @@ class ZarinPalPaymentController extends BaseGatewayController
             echo 'success: ' . $payment->refID;
 //            return view('payment::front.success', compact('payment'));
         }
-        echo 'ERR: ' . $result[1]->Status;
+        echo 'ERR: ';
 //        return view('payment::front.fail');
     }
 }
