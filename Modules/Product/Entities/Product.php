@@ -163,6 +163,11 @@ class Product extends Model
         return $lang == 'fa' ? $this->title : $this->en_title;
     }
 
+    public function get_price()
+    {
+        return $this->calculate_discount_percent() ? $this->discount_price : $this->price;
+    }
+
     public function get_slug($lang)
     {
         $slug = $this->slug;

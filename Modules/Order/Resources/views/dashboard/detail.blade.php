@@ -112,6 +112,19 @@
                                                     </td>
                                                 </tr>
                                                 <tr>
+                                                    <td class="text-muted">وضعیت پرداخت</td>
+                                                    <td class="fw-bold text-end">
+                                                        <div
+                                                            class="badge badge-light-{{ $object->payment && $object->payment->status ? 'success' : 'danger' }} active_modal_buttons">
+                                                            @if($object->payment && $object->payment->status)
+                                                                پرداخت شده
+                                                            @else
+                                                                پرداخت نشده
+                                                            @endif
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
                                                     <td class="text-muted">وضعیت</td>
                                                     <td class="fw-bold text-end">
                                                         <div
@@ -124,6 +137,63 @@
                                         </div>
                                     </div>
                                     <!--end::کارت body-->
+                                </div>
+                            </div>
+
+                            <div class="row g-5 g-xl-10 mb-5 mb-xl-10 mt-1 mt-xl-3">
+                                <div class="col-xl-12">
+                                    <!--begin::Table widget 14-->
+                                    <div class="card card-flush h-md-100">
+
+                                        <div class="card-header">
+                                            <div class="card-title">
+                                                <h2>محصولات سفارش داده شده</h2>
+                                            </div>
+                                        </div>
+
+                                        <!--begin::Body-->
+                                        <div class="card-body pt-6">
+                                            <!--begin::Table container-->
+                                            <div class="table-responsive">
+                                                <!--begin::Table-->
+                                                <table class="table table-row-dashed align-middle gs-0 gy-3 my-0">
+                                                    <!--begin::Table head-->
+                                                    <thead>
+                                                    <tr class="fs-7 fw-bold text-gray-400 border-bottom-0">
+                                                        <th>نام محصول</th>
+                                                        <th>رنگ</th>
+                                                        <th>سایز</th>
+                                                        <th>تعداد</th>
+                                                        <th>قیمت محصول</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <!--end::Table head-->
+                                                    <!--begin::Table body-->
+                                                    <tbody>
+
+                                                    @foreach ($object->order_products()->with(['product', 'color', 'size'])->get() as $item)
+                                                        <tr>
+                                                            <td>{{ $item->product ? $item->product->title : '---'}}</td>
+
+                                                            <td>{{ $item->color ? $item->color->title : '---'}}</td>
+
+                                                            <td>{{ $item->size ? $item->size->title : '---'}}</td>
+
+                                                            <td>{{ $item->count ?: '---'  }}</td>
+
+                                                            <td>{{ $item->product ? number_format($item->product->get_price()) : '---'}} تومان</td>
+                                                        </tr>
+                                                    @endforeach
+
+                                                    </tbody>
+                                                    <!--end::Table body-->
+                                                </table>
+                                            </div>
+                                            <!--end::Table-->
+                                        </div>
+                                        <!--end: کارت Body-->
+                                    </div>
+                                    <!--end::Table widget 14-->
                                 </div>
                             </div>
                             <!--end::سفارشات-->
