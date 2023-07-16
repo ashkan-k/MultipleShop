@@ -6,6 +6,7 @@ use App\Http\Traits\Searchable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Str;
+use Modules\Comment\Entities\Comment;
 use Modules\User\Entities\User;
 
 class Blog extends Model
@@ -136,5 +137,10 @@ class Blog extends Model
     public function category()
     {
         return $this->belongsTo(BlogCategory::class);
+    }
+
+    public function comments()
+    {
+        return $this->morphMany(Comment::class, 'commentable');
     }
 }

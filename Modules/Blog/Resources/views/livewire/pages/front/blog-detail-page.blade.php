@@ -10,9 +10,10 @@
                                     <span>{{ __('Online Shop') }} {{ $website_title }}</span>
                                 </a>
                             </li>
-                            <li><span>{{ __('Blogs') }}</span></li>
+                            <li><a href="{{ route('blogs_list', ['locale' => $lang]) }}"><span>{{ __('Blogs') }}</span></a>
+                            </li>
                             <li>
-                                <a href="#"><span>{{ $object->category ? $object->category->title : '---' }}</span></a>
+                                <span>{{ $object->category ? $object->category->title : '---' }}</span>
                             </li>
                             <li>
                                 <span>{{ $object->get_title($lang) }}</span>
@@ -80,7 +81,7 @@
                             <strong class="bold heading" style="
     font-size: 18px;
     padding-right: 30px;
-">۶ دیدگاه</strong>
+">{{ $comments->count() }} {{ __('Comments') }}</strong>
                         </div>
                         <div class="module-title__sep" style="
     -webkit-flex-grow: 1;
@@ -93,151 +94,55 @@
 
                         <ol class="post-module__comments commentlist">
 
-                            <li class="comment even thread-even depth-1 single-comment _item _person"
-                                id="li-comment-312186">
-                                <div id="comment-312186" class="comment-body">
+                            @foreach($comments->get() as $comment)
+                                <li class="comment even thread-even depth-1 single-comment _item _person"
+                                    id="li-comment-312186">
+                                    <div id="comment-312186" class="comment-body">
 
-                                    <div class="_item__user comment-meta ">
-                                        <div class="_item__user--data " style="
+                                        <div class="_item__user comment-meta ">
+                                            <div class="_item__user--data " style="
     float: right;
 ">
-                                            <img
-                                                src="https://www.digikala.com/mag/wp-content/uploads/2015/08/Default_Profile_Picture1.jpg"
-                                                width="35" height="35" alt="Avatar"
-                                                class="avatar avatar-35wp-user-avatar wp-user-avatar-35 alignnone photo avatar-default"
-                                                style="
+                                                <img
+                                                    src="{{ $comment->user->get_avatar() ?: '---' }}"
+                                                    width="35" height="35" alt="Avatar"
+                                                    class="avatar avatar-35wp-user-avatar wp-user-avatar-35 alignnone photo avatar-default"
+                                                    style="
     border-radius: 50%;
 "> <span class="_item__user--name vcard">
-                        <span class="fn">sina</span>
+                        <span class="fn">{{ $comment->user->full_name ?: '---' }}</span>
                     </span>
-                                        </div>
-                                        <span class="_item__user--date" style="
-    float: left;
-">
-                    <i class="icon-clock-icon"></i>
-                    <time datetime="۱۳۹۹/۱۰/۱۹ ۱۰:۲۳:۵۸" class="_date">۱۹ دی ۱۳۹۹  |  ۱۰:۲۳</time>
-                </span>
-
-
-                                    </div>
-
-                                    <div class="_item__comment" style="clear: both;padding: 14px;">
-                                        <p>سلام ببخشید من تمام مراحل را انجام دادم ولی در ربات که شروع رو میزنم میگه شما
-                                            واجد شرایط نیستید<br>
-                                            ممنون راهنمایی کنید</p>
-
-                                        <span class="_btn" style="
-    float: left;
-">
-                        <a rel="nofollow" class="comment-reply-link" data-respondelement="respond"
-                           data-replyto="پاسخ به Sina"
-                           aria-label="پاسخ به Sina">پاسخ دادن</a>                    </span>
-                                    </div>
-
-
-                                </div>
-
-                            </li><!-- #comment-## -->
-
-                            <li class="comment odd alt thread-odd thread-alt depth-1 single-comment _item _person"
-                                id="li-comment-264441" style="
-    clear: both;
-    padding: 20px 0;
-">
-                                <div id="comment-264441" class="comment-body">
-
-                                    <div class="_item__user comment-meta " style="
-">
-                                        <div class="_item__user--data " style="
-    float: right;
-">
-                                            <img
-                                                src="https://www.digikala.com/mag/wp-content/uploads/2015/08/Default_Profile_Picture1.jpg"
-                                                width="35" height="35" alt="Avatar"
-                                                class="avatar avatar-35wp-user-avatar wp-user-avatar-35 alignnone photo avatar-default"
-                                                style="
-    border-radius: 50%;
-"> <span class="_item__user--name vcard">
-                        <span class="fn">امیر</span>
-                    </span>
-                                        </div>
-                                        <span class="_item__user--date" style="
-    float: left;
-">
-                    <i class="icon-clock-icon"></i>
-                    <time datetime="۱۳۹۸/۸/۱۸ ۰:۱۷:۲۰" class="_date">۱۸ آبان ۱۳۹۸  |  ۰۰:۱۷</time>
-                </span>
-
-                                    </div>
-
-                                    <div class="_item__comment" style="
-    clear: both;
-    padding: 14px;
-">
-                                        <p>باسلام من ۲۰تا گرفتم به چه دردی میخورد،چگونه میشه اضافه کرد؟</p>
-                                        <span class="_btn" style="
-    float: left;
-">
-                        <a rel="nofollow" class="comment-reply-link" data-respondelement="respond"
-                           data-replyto="پاسخ به Sina"
-                           aria-label="پاسخ به Sina">پاسخ دادن</a>                    </span>
-                                    </div>
-
-                                </div>
-
-                                <ol class="children _item__comment__reply" style="
-    clear: both;
-">
-
-                                    <li class="comment byuser comment-author-h-davarian bypostauthor even depth-2 single-comment _item _person"
-                                        id="li-comment-264585">
-                                        <div id="comment-264585" class="comment-body">
-
-                                            <div class="_item__user comment-meta post-author">
-                                                <div class="_item__user--data ">
-                                                    <img
-                                                        src="https://www.digikala.com/mag/wp-content/uploads/2021/10/20201129_214940-60x60.jpg"
-                                                        width="35" height="35" alt="حمیدرضا داوریان"
-                                                        class="avatar avatar-35 wp-user-avatar wp-user-avatar-35 alignnone photo"
-                                                        style="
-    border-radius: 50%;
-"> <span class="_item__user--name vcard">
-                        <span class="fn">حمیدرضا داوریان</span>
-                    </span>
-                                                </div>
-                                                <span class="_item__user--date" style="
-    float: left;
-">
-                    <i class="icon-clock-icon"></i>
-                    <time datetime="۱۳۹۸/۸/۱۹ ۲۲:۰۴:۵۲" class="_date">۱۹ آبان ۱۳۹۸  |  ۲۲:۰۴</time>
-                </span>
-
                                             </div>
-
-                                            <div class="_item__comment" style="
-    clear: both;
-    padding: 14px;
-">
-                                                <p>این توکن&zwnj;ها صرفا در حالت تست قرار دارند و فکر نمی&zwnj;کنم وقتی
-                                                    برنامه از حالت تست خارج شد، بشه ازش استفاده کرد. با این اوصاف باید
-                                                    صبر کرد تا نسخه کامل برنامه منتشر شه و متوجه شد داستان از چه
-                                                    قراره.</p>
-                                                <span class="_btn" style="
+                                            <span class="_item__user--date" style="
     float: left;
 ">
-                        <a rel="nofollow" class="comment-reply-link" data-respondelement="respond"
-                           data-replyto="پاسخ به Sina"
-                           aria-label="پاسخ به Sina">پاسخ دادن</a>                    </span>
-                                            </div>
+                                                     <i class="icon-clock-icon"></i>
+                                                     <time
+                                                         datetime="{{ \Hekmatinasser\Verta\Verta:: instance($comment->created_at)->format('%B %d، %Y') }}"
+                                                         class="_date">{{ \Hekmatinasser\Verta\Verta:: instance($comment->created_at)->format('%B %d، %Y') }}</time>
+                                            </span>
+
 
                                         </div>
 
-                                    </li><!-- #comment-## -->
-                                </ol><!-- .children -->
-                            </li>
+                                        <div class="_item__comment" style="clear: both;padding: 14px; word-wrap: break-word;">
+                                            <p>{{ $comment->body ?: '---' }}</p>
+
+                                            {{--                                            <span class="_btn" style="--}}
+                                            {{--    float: left;--}}
+                                            {{--">--}}
+                                            {{--                        <a rel="nofollow" class="comment-reply-link" data-respondelement="respond"--}}
+                                            {{--                           data-replyto="پاسخ به Sina"--}}
+                                            {{--                           aria-label="پاسخ به Sina">پاسخ دادن</a>                    </span>--}}
+                                        </div>
 
 
-                            <!-- #comment-## -->
+                                    </div>
+
+                                </li><!-- #comment-## -->
+                        @endforeach
+
+                        <!-- #comment-## -->
                         </ol>
 
                         <div class="module-title pagination-wrapper"></div>
@@ -247,37 +152,41 @@
                 </div>
 
 
-                <form class="px-5" onsubmit="return false">
+                <form class="px-5" wire:submit.prevent="SubmitNewComment()">
                     <div class="col-12 mt-5">
                         <div class="row">
 
-                            <div class="col-6">
-                                <div class="form-account-title">نام شما (اجباری)</div>
+                            <div class="col-12">
+                                <div class="form-account-title">{{ __('The title of your comment') }}
+                                    ({{ __('Required') }})
+                                </div>
                                 <div class="form-account-row">
-                                    <input class="input-field text-right" type="text" placeholder="نام خود را بنویسید">
+                                    <input class="input-field text-right" wire:model.defer="title"
+                                           type="text" name="title" required
+                                           placeholder="{{ __('Write the title of your comment') }}">
+
+                                    @error('title')
+                                    <span
+                                        class="text-danger text-wrap">{{ $message }}</span>
+                                    @enderror
                                 </div>
                             </div>
 
-                            <div class="col-6">
-                                <div class="form-account-title">ایمیل شما (اجباری)</div>
-                                <div class="form-account-row">
-                                    <input class="input-field text-right" type="text"
-                                           placeholder="ایمیل خود را بنویسید">
-                                </div>
-                            </div>
                         </div>
 
-                        <div class="form-account-title">متن نظر شما (اجباری)</div>
+                        <div class="form-account-title">{{ __('The text of your comment') }} ({{ __('Required') }})</div>
                         <div class="form-account-row">
                             <textarea class="input-field text-right" rows="5"
+                                      wire:model.defer="body"
+                                      required name="body"
                                       placeholder="نظر خود را بنویسید"></textarea>
                         </div>
                     </div>
-                    <button class="btn btn-primary btn-no-icon" style="
+                    <button type="submit" class="btn btn-primary btn-no-icon" style="
     float: left;
     margin-left: 5px;
 ">
-                        ثبت نظر
+                        {{ __('Submit Comment') }}
                     </button>
                 </form>
 
@@ -319,11 +228,14 @@
                 <div class="box">
                     <div class="box-header">جستجو در وبلاگ:</div>
                     <div class="box-content">
-                        <div class="ui-input ui-input--quick-search">
-                            <input type="text" class="ui-input-field ui-input-field--cleanable"
-                                   placeholder="دنبال چه مطلبی هستید؟">
-                            <span class="ui-input-cleaner"></span>
-                        </div>
+                        <form action="{{ route('blogs_list', ['locale' => $lang]) }}">
+                            <div class="ui-input ui-input--quick-search">
+                                <input type="text" class="ui-input-field ui-input-field--cleanable"
+                                       name="q"
+                                       placeholder="دنبال چه مطلبی هستید؟">
+                                <span class="ui-input-cleaner"></span>
+                            </div>
+                        </form>
                     </div>
                 </div>
 
@@ -386,3 +298,12 @@
     </div>
 
 </main>
+
+
+@push('StackScript')
+    <script type="text/javascript">
+        window.addEventListener('newCommentSubmited', event => {
+            showToast('{{ __('Dear user, your comment has been registered successfully, and after the approval of the administrator, it will be placed on the site.') }}', 'success');
+        });
+    </script>
+@endpush
