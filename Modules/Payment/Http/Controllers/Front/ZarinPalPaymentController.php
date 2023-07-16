@@ -17,9 +17,9 @@ class ZarinPalPaymentController extends BaseGatewayController
     public function pay($lang, OrderRequest $request)
     {
         $data = $request->validated();
-        $data['amount'] = auth()->user()->carts()->sum('total_price');
+        $data['amount'] = auth()->user()->carts()->get()->sum('total_price');
 
-        $order = auth()->user()->orders()->create();
+        $order = auth()->user()->orders()->create($data);
         abort_unless($order->user_id == auth()->id(), 404);
 
         if ($lang == 'fa')

@@ -19,8 +19,7 @@ class Order extends Model
     use Helpers;
 
     protected $fillable = [
-        'user_id', 'product_id', 'payment_id',
-        'size_id', 'color_id', 'count',
+        'user_id', 'payment_id',
         'first_name', 'last_name', 'phone',
         'address', 'postal_code', 'payment_type',
         'status',
@@ -31,10 +30,6 @@ class Order extends Model
         'user.first_name',
         'user.last_name',
         'user.username',
-        'product.title',
-        'size.title',
-        'color.title',
-        'count',
         'first_name',
         'last_name',
         'phone',
@@ -45,9 +40,6 @@ class Order extends Model
 
     protected $filter_fields = [
         'user_id',
-        'product_id',
-        'size_id',
-        'color_id',
         'status',
         'payment_type',
     ];

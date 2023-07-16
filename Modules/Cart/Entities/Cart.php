@@ -41,7 +41,14 @@ class Cart extends Model
 
     public function getTotalPriceAttribute()
     {
-        return $this->product ? $this->product->price * $this->count : 0;
+        if (!$this->product){
+            return 0;
+        }
+
+        if ($this->product->calculate_discount_percent() > 0){
+            return $this->product->discount_price * $this->count;
+        }
+        return $this->product->price * $this->count;
     }
 
     protected static function newFactory()

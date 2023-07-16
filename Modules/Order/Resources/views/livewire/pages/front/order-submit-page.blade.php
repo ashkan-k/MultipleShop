@@ -107,6 +107,7 @@
                                         <div class="form-account-row">
                                             <input class="input-field text-right" type="text"
                                                    name="first_name" required
+                                                   value="{{ old('first_name') }}"
                                                    placeholder="نام خود را وارد نمایید">
 
                                             @error('first_name')
@@ -120,6 +121,7 @@
                                         <div class="form-account-row">
                                             <input class="input-field text-right" type="text"
                                                    name="last_name" required
+                                                   value="{{ old('last_name') }}"
                                                    placeholder="نام خانوادگی خود را وارد نمایید">
 
                                             @error('last_name')
@@ -133,6 +135,7 @@
                                         <div class="form-account-row">
                                             <input class="input-field" type="text"
                                                    name="phone" required
+                                                   value="{{ old('phone') }}"
                                                    placeholder=" شماره موبایل خود را وارد نمایید">
 
                                             @error('phone')
@@ -151,7 +154,7 @@
                                         <div class="form-account-row">
                                             <textarea class="input-field text-right" rows="5"
                                                       name="address" required
-                                                      placeholder=" آدرس پستی خود را وارد نمایید"></textarea>
+                                                      placeholder=" آدرس پستی خود را وارد نمایید">{{ old('address') }}</textarea>
 
                                             @error('address')
                                             <span class="text-danger text-wrap">{{ $message }}</span>
@@ -164,7 +167,8 @@
                                         <div class="form-account-row">
                                             <input class="input-field" type="text"
                                                    name="postal_code" required
-                                                   placeholder=" شماره موبایل خود را وارد نمایید">
+                                                   value="{{ old('postal_code') }}"
+                                                   placeholder=" کد پستی خود را وارد نمایید">
 
                                             @error('postal_code')
                                             <span class="text-danger text-wrap">{{ $message }}</span>
