@@ -36,6 +36,17 @@ class OrderProduct extends Model
         'color_id',
     ];
 
+    protected $appends = ['short_name'];
+
+    public function getShortNameAttribute()
+    {
+        $lang = app()->getLocale();
+        $count = $this->count;
+
+        $product_title = $this->product->get_title($lang);
+        return "$product_title";
+    }
+
     protected static function newFactory()
     {
         return \Modules\Order\Database\factories\OrderFactory::new();

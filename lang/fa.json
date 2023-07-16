@@ -309,6 +309,7 @@
     "Enter the discount code": "کد تخفیف را وارد کنید",
     "The transaction encountered an error. Error code": "تراکنش با خطا مواجه شد. کد خطا",
     "Payment status: online payment (successful)": "وضعیت پرداخت : پرداخت آنلاین(موفق)",
+    "Payment error": "خطا در پرداخت",
     "Order status: Awaiting shipment": "وضعیت سفارش: در انتظار ارسال",
     "If an amount has been deducted from your account during this process, it will be returned to your account within the next 72 hours.": "چنانچه طی این فرایند مبلغی از حساب شما کسر شده است،طی 72 ساعت آینده به حساب شما باز خواهد گشت.",
     "The order will be ready to be sent in one day.": "سفارش نهایتا تا یک روز آماده ارسال خواهد شد.",

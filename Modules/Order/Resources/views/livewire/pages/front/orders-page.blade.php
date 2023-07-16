@@ -31,8 +31,7 @@
                                             <thead class="thead-light">
                                             <tr>
                                                 <th scope="col">#</th>
-                                                <th scope="col">{{ __('Product') }}</th>
-                                                <th scope="col">{{ __('Count') }}</th>
+                                                <th scope="col">{{ __('Products') }}</th>
                                                 <th scope="col">{{ __('Order number') }}</th>
                                                 <th scope="col">{{ __('Order date') }}</th>
                                                 <th scope="col">{{ __('Total Amount') }}</th>
@@ -45,8 +44,7 @@
                                             @foreach($objects as $order)
                                                 <tr>
                                                     <td>{{ $loop->iteration }}</td>
-                                                    <td>{{ $order->product ? $order->product->title : '---' }}</td>
-                                                    <td>{{ $order->count }}</td>
+                                                    <td>{{ $order->get_order_products() }}</td>
                                                     <td class="order-code">{{ $order->order_number ?: '---'  }}</td>
                                                     <td>
                                                         @if($lang == 'fa')
@@ -57,7 +55,13 @@
                                                     </td>
                                                     <td>{{ $order->payment ? $order->payment->amount : '---' }} {{ __('Toman') }}</td>
                                                     <td class="text-{{ $order->payment->status ? 'success' : 'danger' }}">{{ $order->payment->status ? 'موفق' : 'ناموفق' }}</td>
-                                                    <td class="text-{{ $order->get_status_class() }}">{{ $order->get_status() }}</td>
+                                                    <td class="text-{{ $order->payment->status ? $order->get_status_class() : 'danger' }}">
+                                                        @if($order->payment->status)
+                                                            {{ $order->get_status() }}
+                                                        @else
+                                                            {{ __('Payment error') }}
+                                                        @endif
+                                                    </td>
                                                 </tr>
                                             @endforeach
 

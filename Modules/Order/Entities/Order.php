@@ -136,4 +136,11 @@ class Order extends Model
     {
         return $this->hasMany(OrderProduct::class);
     }
+
+    public function get_order_products()
+    {
+        $objects = $this->hasMany(OrderProduct::class)->get();
+        $objects->each(function ($model) { $model->setAppends(['short_name']); });
+        return implode($objects->pluck('short_name')->toArray());
+    }
 }
