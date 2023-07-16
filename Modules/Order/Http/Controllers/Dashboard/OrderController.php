@@ -20,32 +20,31 @@ class OrderController extends Controller
     public function index()
     {
         $objects = Order::Search(request('search'))
-            ->Filter(\request())
-            ->with($this->order_relations)
-            ->latest()
+            ->Filter(\request());
+
+        if (in_array(\request('payment_status'), ['1', '0'])) {
+            $objects = $objects->WhereHas('payment', function ($query) {
+                return $query->whereIn('status', explode(',', \request('payment_status')));
+            });
+        }
+
+        $objects = $objects->with($this->order_relations)->latest()
             ->paginate(\request('pagination', env('PAGINATION_NUMBER', 10)));
 
         $filter_products = [];
-        foreach (Product::all()->pluck('title', 'id') as $key => $item){
+        foreach (Product::all()->pluck('title', 'id') as $key => $item) {
             $filter_products[] = [$key, $item];
         }
         $filter_users = [];
-        foreach (User::all() as $item){
+        foreach (User::all() as $item) {
             $filter_users[] = [$item->id, $item->full_name()];
         }
-        $filter_colors = [];
-        foreach (Color::all()->pluck('title', 'id') as $key => $item){
-            $filter_colors[] = [$key, $item];
-        }
-        $filter_sizes = [];
-        foreach (Color::all()->pluck('title', 'id') as $key => $item){
-            $filter_sizes[] = [$key, $item];
-        }
 
+        $payment_status_filters = [['1', 'پرداخت شده'], ['0', 'پرداخت نشده']];
         $status_filters = [['sending', 'درحال ارسال'], ['posted', 'ارسال شده'], ['delivered', 'تحویل داده شده']];
         $payment_type_filters = [['online', 'آنلاین'], ['cash', 'نقدی']];
 
-        return view('order::dashboard.list', compact('objects', 'filter_products', 'payment_type_filters', 'filter_users', 'filter_colors', 'filter_sizes', 'status_filters'));
+        return view('order::dashboard.list', compact('objects', 'filter_products', 'payment_type_filters', 'filter_users', 'payment_status_filters', 'status_filters'));
     }
 
     public function show(Order $order)

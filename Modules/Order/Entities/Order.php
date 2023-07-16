@@ -43,6 +43,7 @@ class Order extends Model
 
     protected $filter_fields = [
         'user_id',
+        'order_products.product_id',
         'status',
         'payment_type',
     ];

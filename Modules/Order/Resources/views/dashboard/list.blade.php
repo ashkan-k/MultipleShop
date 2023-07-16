@@ -73,8 +73,7 @@
                                         <form id="frm_filter">
                                             @include('dashboard.section.components.filters.select_box', ['items' => $filter_products, 'name' => 'product_id', 'label' => 'محصول'])
                                             @include('dashboard.section.components.filters.select_box', ['items' => $filter_users, 'name' => 'user_id', 'label' => 'کاربر'])
-                                            @include('dashboard.section.components.filters.select_box', ['items' => $filter_colors, 'name' => 'color_id', 'label' => 'رنگ'])
-                                            @include('dashboard.section.components.filters.select_box', ['items' => $filter_sizes, 'name' => 'size_id', 'label' => 'سایز'])
+                                            @include('dashboard.section.components.filters.select_box', ['items' => $payment_status_filters, 'name' => 'payment_status', 'label' => 'وضعیت پرداخت'])
                                             @include('dashboard.section.components.filters.select_box', ['items' => $status_filters, 'name' => 'status', 'label' => 'وضعیت'])
                                             @include('dashboard.section.components.filters.select_box', ['items' => $payment_type_filters, 'name' => 'payment_type', 'label' => 'نوع پرداخت'])
 
@@ -155,7 +154,7 @@
 
                                     <td>
                                         <div class="badge badge-light-{{ $item->payment && $item->payment->status ? 'success' : 'danger' }} active_modal_buttons">
-                                            @if($item->status)
+                                            @if($item->payment && $item->payment->status)
                                                 پرداخت شده
                                             @else
                                                 پرداخت نشده
