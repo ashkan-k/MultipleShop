@@ -1,15 +1,15 @@
 @extends('layouts.front-master')
 
-@section('title')محصول {{ $product->title ?: '---' }}@endsection
+@section('title')مقاله {{ $blog->get_title($lang) ?: '---' }}@endsection
 
 <?php $website_title = $lang == 'fa' ? $settings['website_title'] : $settings['website_en_title'];  ?>
 
 @section('content')
-    @livewire('product::pages.front.product-detail-page' , [
+    @livewire('blog::pages.front.blog-detail-page' , [
 
-        'titlePage' => 'دسته بندی ها',
+        'titlePage' => 'مقالات',
         'website_title' => $website_title,
-        'object' => $product,
+        'object' => $blog,
         'lang' => $lang,
 
     ])

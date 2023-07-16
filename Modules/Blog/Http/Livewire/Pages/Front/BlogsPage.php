@@ -23,7 +23,7 @@ class BlogsPage extends Component
 
     public function render()
     {
-        $this->objects = Blog::Search($this->search)->paginate($this->pagination);
+        $this->objects = Blog::ActiveBlogs()->Search($this->search)->latest()->paginate($this->pagination);
         return view('blog::livewire.pages.front.blogs-page', ['objects' => $this->objects]);
     }
 }

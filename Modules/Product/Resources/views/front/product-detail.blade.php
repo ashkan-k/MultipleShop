@@ -1,6 +1,6 @@
 @extends('layouts.front-master')
 
-@section('title')محصول {{ $product->title ?: '---' }}@endsection
+@section('title')محصول {{ $product->get_title($lang) ?: '---' }}@endsection
 
 <?php $website_title = $lang == 'fa' ? $settings['website_title'] : $settings['website_en_title'];  ?>
 

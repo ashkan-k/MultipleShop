@@ -92,9 +92,33 @@ class Blog extends Model
         return $lang == 'fa' ? $this->title : $this->en_title;
     }
 
+    public function get_slug($lang)
+    {
+        $slug = $this->slug;
+
+        if ($lang != 'fa'){
+            $slug = $this->en_slug;
+        }
+
+        return $slug ?: '---';
+    }
+
     public function scopeChangeStatus($query, $new_status)
     {
         $query->update(['status' => $new_status]);
+    }
+
+    public function scopeActiveBlogs($query)
+    {
+        return $query->where('status', 'publish');
+    }
+
+    public function scopeFindBySlug($query, $lang, $slug)
+    {
+        if ($lang == 'fa') {
+            return $query->where('slug', $slug)->firstOrFail();
+        }
+        return $query->where('en_slug', $slug)->firstOrFail();
     }
 
     protected static function newFactory()

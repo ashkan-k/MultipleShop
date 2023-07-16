@@ -10,7 +10,7 @@
                                     <span>{{ __('Online Shop') }} {{ $website_title }}</span>
                                 </a>
                             </li>
-                            <li><span>{{ __('Blog') }}</span></li>
+                            <li><span>{{ __('Blogs') }}</span></li>
                         </ul>
                     </div>
                 </div>
@@ -34,16 +34,16 @@
     padding: 0;
 ">
 
-                                                <a href="#" style="
+                                                <a href="{{ route('blog_detail', ['locale' => $lang, 'slug' => $object->get_slug($lang)]) }}" style="
     padding: 25px 10px;
     font-size: 18px;
 ">
                                                     {{ $object->get_title($lang) }}
                                                 </a>
-                                                <a class="product-box-img" href="#">
+                                                <a class="product-box-img" href="{{ route('blog_detail', ['locale' => $lang, 'slug' => $object->get_slug($lang)]) }}">
                                                     <img
-                                                        src=" {{ $object->get_image() }}"
-                                                        alt=" {{ $object->get_title($lang) }}">
+                                                        src="{{ $object->get_image() }}"
+                                                        alt="{{ $object->get_title($lang) }}">
                                                 </a>
                                                 <div class="product-box-content" style="
 ">

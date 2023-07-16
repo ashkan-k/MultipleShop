@@ -7,6 +7,7 @@ use App\Http\Traits\Uploader;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Blog\Entities\Blog;
 use Modules\Product\Entities\Brand;
 use Modules\Product\Entities\Category;
 use Modules\Product\Entities\Color;
@@ -24,9 +25,9 @@ class FrontBlogController extends Controller
         return view('blog::front.blogs');
     }
 
-    public function product_detail($lang, $slug)
+    public function blog_detail($lang, $slug)
     {
-        $product = Product::FindBySlug($lang, $slug);
-        return view('product::front.product-detail', compact('product'));
+        $blog = Blog::FindBySlug($lang, $slug);
+        return view('blog::front.blog-detail', compact('blog'));
     }
 }
