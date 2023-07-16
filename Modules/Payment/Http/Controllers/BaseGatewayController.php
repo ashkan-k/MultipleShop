@@ -112,6 +112,6 @@ class BaseGatewayController extends Controller
             }
         }
 
-        return [false, []];
+        return [false, $payment];
     }
 }

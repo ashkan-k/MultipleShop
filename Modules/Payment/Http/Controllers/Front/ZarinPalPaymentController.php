@@ -49,21 +49,18 @@ class ZarinPalPaymentController extends BaseGatewayController
         }
 
         $error_code = $result[1]->Status;
-        echo 'ERR: ' . $result[1]->Status;
-//        return view('payment::front.fail', compact('error_code'));
+        return view('payment::front.fail', compact('error_code'));
     }
 
     public function call_back()
     {
         $result = $this->GetZarinPalClientCallBackStatus(\request('Authority'));
-        if ($result[0]) {
-//            auth()->user()->carts()->truncate();
+        $payment = $result[1];
 
-            $payment = $result[1];
-//            echo 'success: ' . $payment->refID;
+        if ($result[0]) {
+            auth()->user()->carts()->truncate();
             return view('payment::front.success', compact('payment'));
         }
-        echo 'ERR: ';
-//        return view('payment::front.fail');
+        return view('payment::front.fail', compact('payment'));
     }
 }

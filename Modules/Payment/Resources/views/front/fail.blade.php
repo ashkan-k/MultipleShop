@@ -1,51 +1,33 @@
 @extends('layouts.front-master')
-@section('titlePage','پرداخت نا موفق')
-@section('Styles')
 
-@endsection
-@section('Scripts')
+@section('title') پرداخت ناموفق @endsection
 
-@endsection
 @section('content')
 
-    <div class="hero_in cart_section last">
-        <div class="wrapper">
-            <div class="container">
-                <div class="bs-wizard clearfix">
-                    <div class="bs-wizard-step">
-                        <div class="text-center bs-wizard-stepnum">انتخاب مرکز</div>
-                        <div class="progress">
-                            <div class="progress-bar"></div>
+    <main class="cart-page default">
+        <div class="container">
+            <div class="row">
+                <div class="cart-page-content col-12 order-1">
+                    <section class="page-content default">
+                        <div class="warning-checkout text-center default">
+                            <div class="icon-warning">
+                                <i class="fa fa-close"></i>
+                            </div>
+                            @if(isset($payment))
+                                <h1>سفارش <a href="{{ route('orders') }}">{{ $payment->order->order_number }}</a>در
+                                    پرداخت ناموفق بود.</h1>
+                                <p class="text-warning">برای جلوگیری از لغو سیستمی سفارش،تا 24 ساعت آینده پرداخت را
+                                    انجام دهید.</p>
+                                <p>چنانچه طی این فرایند مبلغی از حساب شما کسر شده است،طی 72 ساعت آینده به حساب شما باز
+                                    خواهد گشت.</p>
+                            @else
+                                <p class="text-warning">تراکنش با خطا مواجه شد. کد خطا: {{ $error_code }}</p>
+                            @endif
                         </div>
-                        <a class="bs-wizard-dot"></a>
-                    </div>
-
-                    <div class="bs-wizard-step">
-                        <div class="text-center bs-wizard-stepnum">فاکتور رزرو</div>
-                        <div class="progress">
-                            <div class="progress-bar"></div>
-                        </div>
-                        <a class="bs-wizard-dot"></a>
-                    </div>
-
-                    <div class="bs-wizard-step active">
-                        <div class="text-center bs-wizard-stepnum">پرداخت</div>
-                        <div class="progress">
-                            <div class="progress-bar"></div>
-                        </div>
-                        <a class="bs-wizard-dot"></a>
-                    </div>
-                </div>
-                <!-- End bs-wizard -->
-                <div id="confirm">
-                    <h1 class="text-danger">تراکنش با خطا مواجه شد.</h1>
-                    <p>در صورت کسر وجه از حساب بانکی شما، مبلغ ظرف 48 ساعت به حساب شما عودت داده خواهد شد.</p>
-                    @if(isset($error_code))
-                        <h2 style="color: #fff !important;">کد خطا: {{ $error_code ?: '---' }}</h2>
-                    @endif
+                    </section>
                 </div>
             </div>
         </div>
-    </div>
+    </main>
 
 @endsection

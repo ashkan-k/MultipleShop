@@ -31,13 +31,15 @@
                                 <table class="table">
                                     <thead>
                                     <tr>
-                                        <th scope="col">نام تحویل گیرنده : {{ $payment->order->first_name . ' ' . $payment->order->last_name }}</th>
+                                        <th scope="col">نام تحویل گیرنده
+                                            : {{ $payment->order->first_name . ' ' . $payment->order->last_name }}</th>
                                         <th scope="col">شماره تماس : {{ $payment->order->phone }}</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <tr>
-                                        <th scope="row">تعداد مرسوله : {{ $payment->order->order_products()->count() }}</th>
+                                        <th scope="row">تعداد مرسوله
+                                            : {{ $payment->order->order_products()->count() }}</th>
                                         <td>مبلغ کل : {{ number_format($payment->amount) }} {{ __('Toman') }}</td>
                                     </tr>
                                     <tr>
