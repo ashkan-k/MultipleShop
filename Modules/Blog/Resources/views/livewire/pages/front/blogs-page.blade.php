@@ -20,7 +20,7 @@
             <div class="col-12">
 
 
-                <div class="listing-counter">{{ count($objects)  }} {{ __('Blog') }}</div>
+                <div class="listing-counter">{{ count($objects)  }} {{ __('Blogs') }}</div>
 
 
                 <div class="listing default mt-3">
