@@ -18,12 +18,12 @@ return new class extends Migration
             $table->id();
 
             $table->foreignId('user_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
-            $table->foreignId('product_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
+//            $table->foreignId('product_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('payment_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
-            $table->foreignId('size_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
-            $table->foreignId('color_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
+//            $table->foreignId('size_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
+//            $table->foreignId('color_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
 
-            $table->integer('count')->default(1);
+//            $table->integer('count')->default(1);
 
             $table->string('first_name')->nullable();
             $table->string('last_name')->nullable();
@@ -33,7 +33,9 @@ return new class extends Migration
 
             $table->string('order_number')->nullable();
 
-            $table->enum('payment_type', EnumHelpers::$PaymentTypeEnum);
+            $table->string('amount')->default(0);
+
+            $table->enum('payment_type', EnumHelpers::$PaymentTypeEnum)->default('online');
             $table->enum('status', EnumHelpers::$OrderStatusEnum)->default('sending');
 
             $table->timestamps();

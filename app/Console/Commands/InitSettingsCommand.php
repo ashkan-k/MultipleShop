@@ -35,6 +35,10 @@ class InitSettingsCommand extends Command
         'show_guides' => 1,
         'show_footer_help_links' => 1,
 
+        # Payment Description
+        'gateway_description' => "خرید محصول از وبسایت جی تی کالا",
+        'en_gateway_description' => "Buy the product from the GT Kala website",
+
         # Comment Terms
         'comment_terms_en_title' => 'Guide others to choose this product by writing your comments.',
         'comment_terms_en_text' => '<p>Please read the summary of rules below before posting a comment

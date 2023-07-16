@@ -3,6 +3,7 @@
 namespace Modules\Order\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class OrderRequest extends FormRequest
 {
@@ -14,7 +15,18 @@ class OrderRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'user_id' => 'required|exists:users,id',
+            'coupon_id' => 'nullable|exists:coupons,id',
+            'first_name' => 'required|string',
+            'last_name' => 'required|string',
+            'address' => 'required',
+            'postal_code' => 'required|max:11',
+            'phone' => [
+                'required',
+                'min:11',
+                'max:11',
+                'regex:/(^\+?(09|98|0)?(9([0-9]{9}))$)/',
+            ],
         ];
     }
 
