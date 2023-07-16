@@ -24,6 +24,9 @@ class FrontOrderController extends Controller
 
     public function order_submit()
     {
+        if (auth()->user()->carts()->get()->sum('total_price') <= 0){
+            return redirect(route('cart'));
+        }
         return view('order::front.order_submit');
     }
 }

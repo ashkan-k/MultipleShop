@@ -1,6 +1,6 @@
 @extends('layouts.front-master')
 
-@section('title') پرداخت ناموفق @endsection
+@section('title') {{ __('Payment failed') }} @endsection
 
 @section('content')
 
@@ -14,14 +14,21 @@
                                 <i class="fa fa-close"></i>
                             </div>
                             @if(isset($payment))
-                                <h1>سفارش <a href="{{ route('orders') }}">{{ $payment->order->order_number }}</a>در
-                                    پرداخت ناموفق بود.</h1>
-                                <p class="text-warning">برای جلوگیری از لغو سیستمی سفارش،تا 24 ساعت آینده پرداخت را
-                                    انجام دهید.</p>
-                                <p>چنانچه طی این فرایند مبلغی از حساب شما کسر شده است،طی 72 ساعت آینده به حساب شما باز
-                                    خواهد گشت.</p>
+                                @if($lang == 'fa')
+                                    <h1>سفارش <a href="{{ route('orders') }}">{{ $payment->order->order_number }}</a>در
+                                        پرداخت ناموفق بود.</h1>
+                                @else
+                                    <h1>
+                                        the Order <a
+                                            href="{{ route('orders') }}">{{ $payment->order->order_number }}</a> failed
+                                        in payment.
+                                    </h1>
+                                @endif
+
+                                <p class="text-warning">{{ __('If an amount has been deducted from your account during this process, it will be returned to your account within the next 72 hours.') }}</p>
                             @else
-                                <p class="text-warning">تراکنش با خطا مواجه شد. کد خطا: {{ $error_code }}</p>
+                                <p class="text-warning">{{ __('The transaction encountered an error. Error code') }}
+                                    : {{ $error_code }}</p>
                             @endif
                         </div>
                     </section>
