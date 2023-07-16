@@ -59,8 +59,8 @@ class Payment extends Model
         return $this->belongsTo(Coupon::class);
     }
 
-    public function orders()
+    public function order()
     {
-        return $this->hasMany(Order::class);
+        return $this->hasOne(Order::class);
     }
 }

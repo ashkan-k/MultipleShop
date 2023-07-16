@@ -8,6 +8,7 @@ use Modules\Comment\Entities\Comment;
 use Modules\Comment\Http\Requests\CommentRequest;
 use Modules\Product\Entities\Color;
 use Modules\Product\Entities\Product;
+use Modules\Product\Entities\Size;
 
 class ProductDetailPage extends Component
 {
@@ -20,6 +21,7 @@ class ProductDetailPage extends Component
     public $object;
     public $cart_count = 1;
     public $cart_color;
+    public $cart_size;
 
     public $title;
     public $body;
@@ -104,12 +106,13 @@ class ProductDetailPage extends Component
             auth()->user()->carts()->create([
                 'product_id' => $this->object->id,
                 'color_id' => $this->cart_color,
+                'size_id' => $this->cart_size,
                 'count' => $this->cart_count,
             ]);
 
             $this->object->decrement('quantity', $this->cart_count);
             $this->cart_count = 1;
-            $this->cart_color = null;
+            $this->cart_color = $this->cart_size = null;
 
         } else {
 
@@ -128,6 +131,7 @@ class ProductDetailPage extends Component
     {
         $data = [
             'colors' => Color::whereIn('id', $this->object->colors_pluck_id())->get(),
+            'sizes' => Size::whereIn('id', $this->object->sizes_pluck_id())->get(),
 
             'comments' => $this->object->comments()->where('status', 'approved')->withCount(array('comment_points as positive_comments_point' => function ($query) {
                 $query->where('type', 'positive');

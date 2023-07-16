@@ -242,6 +242,25 @@
                                 @endforeach
 
                             </div>
+
+                            @if(count($sizes) > 0)
+                                <div class="product-variants default">
+                                    <span>{{ __('Size Selection') }}: </span>
+
+                                    @foreach($sizes as $size)
+                                        <div class="radio">
+                                            <input type="radio" name="size_id" id="id_size_{{ $size->id }}"
+                                                   wire:model.defer="cart_size"
+                                                   value="{{ $size->id }}">
+                                            <label for="id_size_{{ $size->id }}">
+                                                {{ $size->title ?: '---' }}
+                                            </label>
+                                        </div>
+                                    @endforeach
+
+                                </div>
+                            @endif
+
                             <div class="product-guarantee default">
                                 <i class="fa fa-check-circle"></i>
                                 <p class="product-guarantee-text">{{ __('Guarantee of authenticity and physical health of goods') }}</p>
@@ -323,7 +342,8 @@
                                     @if($object->quantity > 0)
 
                                         <div class="parent-btn">
-                                            <a href="{{ route('login') }}?next=/{{ request()->path() }}" class="dk-btn dk-btn-info">
+                                            <a href="{{ route('login') }}?next=/{{ request()->path() }}"
+                                               class="dk-btn dk-btn-info">
                                                 {{ __('Add to cart') }}
                                                 <i class="now-ui-icons shopping_cart-simple"></i>
                                             </a>
@@ -772,7 +792,8 @@
                             <h3 class="card-title">
                                 <span>{{ __('You may also like...') }}</span>
                             </h3>
-                            <a href="{{ route('products_list', ['locale' => $lang]) }}" class="view-all">{{ __('View All') }}</a>
+                            <a href="{{ route('products_list', ['locale' => $lang]) }}"
+                               class="view-all">{{ __('View All') }}</a>
                         </header>
                         <div class="product-carousel owl-carousel owl-theme">
 
