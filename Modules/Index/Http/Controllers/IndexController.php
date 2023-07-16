@@ -34,7 +34,7 @@ class IndexController extends Controller
             ->limit(10)->get();
         $cheapest_products = Product::ActiveProducts()
             ->orderBy('price')->limit(10)->get();
-        
+
         if (!$blogs = GetCache('index_blogs')) {
             $blogs = AddCache('index_blogs', Blog::latest()->get());
         }

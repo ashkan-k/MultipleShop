@@ -70,7 +70,11 @@
             </div>
         </div>
 
-        <?php  $main_categories = \Modules\Product\Entities\Category::whereNull('parent_id')->with(['children'])->get() ?>
+        @php
+            if (!$main_categories = GetCache('main_categories')) {
+                $main_categories = AddCache('main_categories', \Modules\Product\Entities\Category::whereNull('parent_id')->with(['children'])->get());
+            }
+        @endphp
 
         <div class="collapse navbar-collapse justify-content-end" id="navigation">
             <div class="logo-nav-res default text-center">
@@ -85,38 +89,56 @@
                     @if(count($main_cat->children))
 
                         <li class="sub-menu">
-                            <a href="#">@if($lang == 'fa'){{ $main_cat->title ?: '---' }}@else{{ $main_cat->en_title ?: '---' }}@endif</a>
+                            <a href="#">{{ $main_cat->get_title($lang) ?: '---' }}</a>
                             <ul>
                                 <li>
                                     <a href="#"></a>
                                 </li>
 
-                                @foreach($main_cat->children()->with(['children'])->get() as $child_1)
+                                @php
+                                    if (!$children_1 = GetCache('categories_' . $main_cat->id)) {
+                                        $children_1 = AddCache('categories_' . $main_cat->id, $main_cat->children()->with(['children'])->get());
+                                    }
+                                @endphp
+
+                                @foreach($children_1 as $child_1)
 
                                     @if(count($child_1->children))
 
                                         <li class="sub-menu">
-                                            <a href="#">@if($lang == 'fa'){{ $child_1->title ?: '---' }}@else{{ $child_1->en_title ?: '---' }}@endif</a>
+                                            <a href="#">{{ $child_1->get_title($lang) ?: '---' }}</a>
                                             <ul>
                                                 <li>
                                                     <a href="#"></a>
                                                 </li>
 
-                                                @foreach($child_1->children()->with(['children'])->get() as $child_2)
+                                                @php
+                                                    if (!$children_2 = GetCache('categories_' . $child_1->id)) {
+                                                        $children_2 = AddCache('categories_' . $child_1->id, $child_1->children()->with(['children'])->get());
+                                                    }
+                                                @endphp
+
+                                                @foreach($children_2 as $child_2)
 
                                                     @if(count($child_2->children))
 
                                                         <li class="sub-menu">
-                                                            <a href="#">@if($lang == 'fa'){{ $child_2->title ?: '---' }}@else{{ $child_2->en_title ?: '---' }}@endif</a>
+                                                            <a href="#">{{ $child_2->get_title($lang) ?: '---' }}</a>
                                                             <ul>
                                                                 <li>
                                                                     <a href="#"></a>
                                                                 </li>
 
-                                                                @foreach($child_2->children as $child_3)
+                                                                @php
+                                                                    if (!$children_3 = GetCache('categories_' . $child_2->id)) {
+                                                                        $children_3 = AddCache('categories_' . $child_2->id, $child_2->children);
+                                                                    }
+                                                                @endphp
+
+                                                                @foreach($children_3 as $child_3)
 
                                                                     <li>
-                                                                        <a href="{{ route('category.products', $child_3->get_slug($lang)) }}">@if($lang == 'fa'){{ $child_3->title ?: '---' }}@else{{ $child_3->en_title ?: '---' }}@endif</a>
+                                                                        <a href="{{ route('category.products', $child_3->get_slug($lang)) }}">{{ $child_3->get_title($lang) ?: '---' }}</a>
                                                                     </li>
 
                                                                 @endforeach
@@ -127,7 +149,7 @@
                                                     @else
 
                                                         <li>
-                                                            <a href="{{ route('category.products', $child_2->get_slug($lang)) }}">@if($lang == 'fa'){{ $child_2->title ?: '---' }}@else{{ $child_2->en_title ?: '---' }}@endif</a>
+                                                            <a href="{{ route('category.products', $child_2->get_slug($lang)) }}">{{ $child_2->get_title($lang) ?: '---' }}</a>
                                                         </li>
 
                                                     @endif
@@ -140,7 +162,7 @@
                                     @else
 
                                         <li>
-                                            <a href="{{ route('category.products', $child_1->get_slug($lang)) }}">@if($lang == 'fa'){{ $child_1->title ?: '---' }}@else{{ $child_1->en_title ?: '---' }}@endif</a>
+                                            <a href="{{ route('category.products', $child_1->get_slug($lang)) }}">{{ $child_1->get_title($lang) ?: '---' }}</a>
                                         </li>
 
                                     @endif
@@ -153,7 +175,7 @@
                     @else
 
                         <li>
-                            <a href="{{ route('category.products', $main_cat->get_slug($lang)) }}">@if($lang == 'fa'){{ $main_cat->title ?: '---' }}@else{{ $main_cat->en_title ?: '---' }}@endif</a>
+                            <a href="{{ route('category.products', $main_cat->get_slug($lang)) }}">{{ $main_cat->get_title($lang) ?: '---' }}</a>
                         </li>
 
                     @endif
@@ -234,15 +256,28 @@
         <nav class="main-menu">
             <div class="container">
                 <ul class="list float-right">
+
+                    @php
+                        if (!$main_categories = GetCache('main_categories')) {
+                            $main_categories = AddCache('main_categories', \Modules\Product\Entities\Category::whereNull('parent_id')->with(['children'])->get());
+                        }
+                    @endphp
+
                     @foreach($main_categories as $main_cat)
 
                         @if(count($main_cat->children))
                             <li class="list-item list-item-has-children mega-menu mega-menu-col-5">
                                 <a class="nav-link"
-                                   href="#">@if($lang == 'fa'){{ $main_cat->title ?: '---' }}@else{{ $main_cat->en_title ?: '---' }}@endif</a>
+                                   href="#">{{ $main_cat->get_title($lang) ?: '---' }}</a>
                                 <ul class="sub-menu nav">
 
-                                    @foreach($main_cat->children as $child_1)
+                                    @php
+                                        if (!$children_1 = GetCache('categories_' . $main_cat->id)) {
+                                            $children_1 = AddCache('categories_' . $main_cat->id, $main_cat->children()->with(['children'])->get());
+                                        }
+                                    @endphp
+
+                                    @foreach($children_1 as $child_1)
 
                                         @if(count($child_1->children))
 
@@ -267,25 +302,37 @@
                                             <li class="list-item list-item-has-children">
                                                 <i class="now-ui-icons arrows-1_minimal-left"></i><a
                                                     class="main-list-item nav-link"
-                                                    href="#">@if($lang == 'fa'){{ $child_1->title ?: '---' }}@else{{ $child_1->en_title ?: '---' }}@endif</a>
+                                                    href="#">{{ $child_1->get_title($lang) ?: '---' }}</a>
 
                                                 <ul class="sub-menu nav">
 
-                                                    @foreach($child_1->children as $child_2)
+                                                    @php
+                                                        if (!$children_2 = GetCache('categories_' . $child_1->id)) {
+                                                            $children_2 = AddCache('categories_' . $child_1->id, $child_1->children()->with(['children'])->get());
+                                                        }
+                                                    @endphp
+
+                                                    @foreach($children_2 as $child_2)
 
                                                         @if(count($child_2->children))
 
                                                             <li class="list-item list-item-has-children">
                                                                 <i class="now-ui-icons arrows-1_minimal-left"></i><a
                                                                     class="main-list-item nav-link"
-                                                                    href="#">@if($lang == 'fa'){{ $child_2->title ?: '---' }}@else{{ $child_2->en_title ?: '---' }}@endif</a>
+                                                                    href="#">{{ $child_2->get_title($lang) ?: '---' }}</a>
                                                                 <ul class="sub-menu nav">
 
-                                                                    @foreach($child_2->children as $child_3)
+                                                                    @php
+                                                                        if (!$children_3 = GetCache('categories_' . $child_2->id)) {
+                                                                            $children_3 = AddCache('categories_' . $child_2->id, $child_2->children);
+                                                                        }
+                                                                    @endphp
+
+                                                                    @foreach($children_3 as $child_3)
 
                                                                         <li class="list-item">
                                                                             <a class="nav-link"
-                                                                               href="{{ route('category.products', $child_3->get_slug($lang)) }}">@if($lang == 'fa'){{ $child_3->title ?: '---' }}@else{{ $child_3->en_title ?: '---' }}@endif</a>
+                                                                               href="{{ route('category.products', $child_3->get_slug($lang)) }}">{{ $child_3->get_title($lang) ?: '---' }}</a>
                                                                         </li>
 
                                                                     @endforeach
@@ -297,7 +344,7 @@
 
                                                             <li class="list-item">
                                                                 <a class="nav-link"
-                                                                   href="{{ route('category.products', $child_2->get_slug($lang)) }}">@if($lang == 'fa'){{ $child_2->title ?: '---' }}@else{{ $child_2->en_title ?: '---' }}@endif</a>
+                                                                   href="{{ route('category.products', $child_2->get_slug($lang)) }}">{{ $child_2->get_title($lang) ?: '---' }}</a>
                                                             </li>
 
                                                         @endif
@@ -312,7 +359,7 @@
                                             <li class="list-item list-item-has-children">
                                                 <i class="now-ui-icons arrows-1_minimal-left"></i><a
                                                     class="main-list-item nav-link"
-                                                    href="{{ route('category.products', $child_1->get_slug($lang)) }}">@if($lang == 'fa'){{ $child_1->title ?: '---' }}@else{{ $child_1->en_title ?: '---' }}@endif</a>
+                                                    href="{{ route('category.products', $child_1->get_slug($lang)) }}">{{ $child_1->get_title($lang) ?: '---' }}</a>
                                             </li>
 
                                         @endif
@@ -321,13 +368,13 @@
 
 
                                     <img src="{{ $main_cat->get_image() }}"
-                                         alt="@if($lang == 'fa'){{ $main_cat->title ?: '---' }}@else{{ $main_cat->en_title ?: '---' }}@endif">
+                                         alt="{{ $main_cat->get_title($lang) ?: '---' }}">
                                 </ul>
                             </li>
                         @else
                             <li class="list-item">
                                 <a class="nav-link"
-                                   href="{{ route('category.products', $main_cat->get_slug($lang)) }}">@if($lang == 'fa'){{ $main_cat->title ?: '---' }}@else{{ $main_cat->en_title ?: '---' }}@endif</a>
+                                   href="{{ route('category.products', $main_cat->get_slug($lang)) }}">{{ $main_cat->get_title($lang) ?: '---' }}</a>
                             </li>
                         @endif
 
