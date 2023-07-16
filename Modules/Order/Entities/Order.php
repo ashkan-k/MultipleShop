@@ -31,6 +31,7 @@ class Order extends Model
         'user.first_name',
         'user.last_name',
         'user.username',
+        'payment.refID',
         'first_name',
         'last_name',
         'phone',

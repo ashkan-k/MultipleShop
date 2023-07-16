@@ -115,14 +115,12 @@
                                     </div>
                                 </th>
                                 <th>شماره سفارش</th>
+                                <th>شناسه پرداخت</th>
                                 <th>کاربر</th>
-                                <th>محصول</th>
-                                <th>سایز</th>
-                                <th>رنگ</th>
-                                <th>تعداد</th>
+                                <th>مبلغ</th>
                                 <th>آدرس</th>
-                                <th>کد پستی</th>
                                 <th>نوع پرداخت</th>
+                                <th>وضعیت پرداخت</th>
                                 <th>وضعیت</th>
                                 <th>عملیات</th>
                             </tr>
@@ -142,23 +140,27 @@
 
                                     <td>{{ $item->order_number ?: '---'  }}</td>
 
+                                    <td>{{ $item->payment ? $item->payment->refID ?: '---' : '---'}}</td>
+
                                     <td>{{ $item->user ? $item->user->full_name() : '---'}}</td>
 
-                                    <td>{{ $item->product ? $item->product->title : '---'}}</td>
-
-                                    <td>{{ $item->size ? $item->size->title : '---'}}</td>
-
-                                    <td>{{ $item->color ? $item->color->title : '---'}}</td>
-
-                                    <td>{{ $item->count ?: '---'  }}</td>
+                                    <td>{{ number_format($item->amount) ?: '---'  }}</td>
 
                                     <td title="{{ $item->address }}">{{ $item->address ? \Illuminate\Support\Str::limit($item->address, 20) : '---'  }}</td>
-
-                                    <td>{{ $item->postal_code ?: '---'  }}</td>
 
                                     <td>
                                         <div ng-click="ChangePaymentTypeModal({{ $item->id }}, '{{ $item->payment_type }}')"
                                              class="badge badge-light-{{ $item->get_payment_type_class() }} active_modal_buttons">{{ $item->get_payment_type() }}</div>
+                                    </td>
+
+                                    <td>
+                                        <div class="badge badge-light-{{ $item->payment && $item->payment->status ? 'success' : 'danger' }} active_modal_buttons">
+                                            @if($item->status)
+                                                پرداخت شده
+                                            @else
+                                                پرداخت نشده
+                                            @endif
+                                        </div>
                                     </td>
 
                                     <td>
