@@ -79,6 +79,16 @@ class ZarinPalPaymentController extends BaseGatewayController
 
         if ($result[0]) {
             auth()->user()->carts()->truncate();
+
+            // Send Sms for user who were ordered
+            $user_text = sprintf(sms_helper::$SMS_PATTERNS['user_order_message'], auth()->user()->full_name(), $payment->order->order_number);
+            dispatch(new SendSmsJob(auth()->user()->phone, $user_text));
+
+            // Send Sms for website,s manager
+            $manager_phone = Setting::where('key', 'manager_phone_1')->first()->value;
+            $manager_text = sprintf(sms_helper::$SMS_PATTERNS['admin_order_message'], $payment->order->order_number, auth()->user()->full_name());
+            dispatch(new SendSmsJob($manager_phone, $manager_text));
+
             return view('payment::front.success', compact('payment'));
         }
         return view('payment::front.fail', compact('payment'));

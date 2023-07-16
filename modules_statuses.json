@@ -16,5 +16,6 @@
     "Poster": true,
     "Index": true,
     "Auth": true,
-    "Guide": true
+    "Guide": true,
+    "Email": true
 }
