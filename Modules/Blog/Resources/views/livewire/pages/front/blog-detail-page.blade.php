@@ -113,19 +113,32 @@
                         <span class="fn">{{ $comment->user->full_name ?: '---' }}</span>
                     </span>
                                             </div>
-                                            <span class="_item__user--date" style="
+
+                                            @if($lang == 'fa')
+                                                <span class="_item__user--date" style="
     float: left;
 ">
                                                      <i class="icon-clock-icon"></i>
                                                      <time
                                                          datetime="{{ \Hekmatinasser\Verta\Verta:: instance($comment->created_at)->format('%B %d، %Y') }}"
                                                          class="_date">{{ \Hekmatinasser\Verta\Verta:: instance($comment->created_at)->format('%B %d، %Y') }}</time>
-                                            </span>
+                                                 </span>
+                                            @else
+                                                    <span class="_item__user--date" style="
+        float: left;
+    ">
+                                                         <i class="icon-clock-icon"></i>
+                                                         <time
+                                                             datetime="{{ \Hekmatinasser\Verta\Verta:: instance($comment->created_at)->toCarbon()->isoFormat('MMMM Do YYYY') }}"
+                                                             class="_date">{{ \Hekmatinasser\Verta\Verta:: instance($comment->created_at)->toCarbon()->isoFormat('MMMM Do YYYY') }}</time>
+                                                </span>
 
+                                            @endif
 
                                         </div>
 
-                                        <div class="_item__comment" style="clear: both;padding: 14px; word-wrap: break-word;">
+                                        <div class="_item__comment"
+                                             style="clear: both;padding: 14px; word-wrap: break-word;">
                                             <p>{{ $comment->body ?: '---' }}</p>
 
                                             {{--                                            <span class="_btn" style="--}}
@@ -174,12 +187,13 @@
 
                         </div>
 
-                        <div class="form-account-title">{{ __('The text of your comment') }} ({{ __('Required') }})</div>
+                        <div class="form-account-title">{{ __('The text of your comment') }} ({{ __('Required') }})
+                        </div>
                         <div class="form-account-row">
                             <textarea class="input-field text-right" rows="5"
                                       wire:model.defer="body"
                                       required name="body"
-                                      placeholder="نظر خود را بنویسید"></textarea>
+                                      placeholder="{{ __('Write your text') }}"></textarea>
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary btn-no-icon" style="
@@ -196,7 +210,7 @@
                 <div class="box" style="
     padding-bottom: 15px;
 ">
-                    <div class="box-header">آخرین مطالب وبلاگ</div>
+                    <div class="box-header">{{ __('Latest blog content') }}</div>
 
                     @foreach($latest_blogs as $la_blog)
                         <div class="box-content">
@@ -226,13 +240,13 @@
 
                 </div>
                 <div class="box">
-                    <div class="box-header">جستجو در وبلاگ:</div>
+                    <div class="box-header">{{ __('Search the blog') }}:</div>
                     <div class="box-content">
                         <form action="{{ route('blogs_list', ['locale' => $lang]) }}">
                             <div class="ui-input ui-input--quick-search">
                                 <input type="text" class="ui-input-field ui-input-field--cleanable"
                                        name="q"
-                                       placeholder="دنبال چه مطلبی هستید؟">
+                                       placeholder="{{ __('What are you looking for?') }}">
                                 <span class="ui-input-cleaner"></span>
                             </div>
                         </form>
@@ -254,7 +268,7 @@
 ">
                         <header class="card-header">
                             <h3 class="card-title">
-                                <span>مطالب مرتبط</span>
+                                <span>{{ __('Related Blogs') }}</span>
                             </h3>
 
                         </header>
