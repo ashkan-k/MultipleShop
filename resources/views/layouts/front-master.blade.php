@@ -37,7 +37,7 @@
 
 </head>
 
-<body class="index-page sidebar-collapse" ng-app="myApp" ng-controller="myCtrl" ng-init="init()">
+<body @if($lang != 'fa') style="direction: ltr !important;" @endif class="index-page sidebar-collapse" ng-app="myApp" ng-controller="myCtrl" ng-init="init()">
 
 <!-- responsive-header -->
 <nav class="navbar direction-rtl fixed-top header-responsive">

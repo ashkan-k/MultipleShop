@@ -6,7 +6,7 @@
                     <div class="breadcrumb-section default">
                         <ul class="breadcrumb-list">
                             <li>
-                                <a href="#">
+                                <a href="/">
                                     <span>{{ __('Online Shop') }} {{ $website_title }}</span>
                                 </a>
                             </li>
