@@ -131,4 +131,9 @@ class Order extends Model
     {
         return $this->belongsTo(Color::class);
     }
+
+    public function order_products()
+    {
+        return $this->hasMany(OrderProduct::class);
+    }
 }

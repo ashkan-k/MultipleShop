@@ -19,6 +19,7 @@ class Cart extends Model
         'user_id',
         'product_id',
         'color_id',
+        'size_id',
     ];
 
     protected $search_fields  = [
@@ -28,6 +29,7 @@ class Cart extends Model
         'user.username',
         'product.title',
         'color.title',
+        'size.title',
     ];
 
     protected $filter_fields = [

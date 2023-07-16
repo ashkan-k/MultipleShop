@@ -5,6 +5,7 @@ namespace Modules\Payment\Http\Controllers\Front;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Modules\Order\Entities\Order;
+use Modules\Order\Entities\OrderProduct;
 use Modules\Order\Http\Requests\OrderRequest;
 use Modules\Payment\Http\Controllers\BaseGatewayController;
 use Modules\Setting\Entities\Setting;
@@ -17,22 +18,31 @@ class ZarinPalPaymentController extends BaseGatewayController
     public function pay($lang, OrderRequest $request)
     {
         $data = $request->validated();
-        $data['amount'] = auth()->user()->carts()->get()->sum('total_price');
+        abort_unless($data['user_id'] == auth()->id(), 404);
 
+        // Get Current User Carts List
+        $user_carts = auth()->user()->carts()->get();
+
+        // Calculate Amount
+        $data['amount'] = $user_carts->sum('total_price');
         $order = auth()->user()->orders()->create($data);
-        abort_unless($order->user_id == auth()->id(), 404);
 
+        // Add User Products Info To OrderProduct Table(attach size_id, color_id ,...)
+        $order->order_products()->createMany($user_carts->toArray());
+
+        // Get Transaction Description
         if ($lang == 'fa')
-            $description =  Setting::firstOrCreate(['key' => 'gateway_description'] , [
+            $description = Setting::firstOrCreate(['key' => 'gateway_description'], [
                 'key' => 'gateway_description',
                 'value' => 'خرید محصول از وبسایت جی تی کالا'
             ])->value;
         else
-            $description =  Setting::firstOrCreate(['key' => 'en_gateway_description'] , [
+            $description = Setting::firstOrCreate(['key' => 'en_gateway_description'], [
                 'key' => 'gateway_description',
                 'value' => 'Buy the product from the GT Kala website'
             ])->value;
 
+        // Redirect User To Zarinpal Gateway website
         $result = $this->GetZarinPalClientStatus($order, $description);
         if ($result[0]) {
             return redirect('https://sandbox.zarinpal.com/pg/StartPay/' . $result[1]->Authority);
@@ -47,6 +57,8 @@ class ZarinPalPaymentController extends BaseGatewayController
     {
         $result = $this->GetZarinPalClientCallBackStatus(\request('Authority'));
         if ($result[0]) {
+            auth()->user()->carts()->truncate();
+
             $payment = $result[1];
             echo 'success: ' . $payment->refID;
 //            return view('payment::front.success', compact('payment'));

@@ -18,7 +18,7 @@ return new class extends Migration
             $table->id();
 
             $table->foreignId('user_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
-            $table->foreignId('payment_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('payment_id')->nullable()->constrained()->onUpdate('cascade')->onDelete('cascade');
 
             $table->string('first_name')->nullable();
             $table->string('last_name')->nullable();
