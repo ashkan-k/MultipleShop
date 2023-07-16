@@ -22,11 +22,11 @@ class ProductDatabaseSeeder extends Seeder
     {
         Model::unguard();
         Category::factory(5)->create();
-//        Brand::factory(5)->create();
-//        Color::factory(5)->create();
-//        Size::factory(5)->create();
-//        Feature::factory(5)->create();
-//        Product::factory(5)->create();
+        Brand::factory(5)->create();
+        Color::factory(5)->create();
+        Size::factory(5)->create();
+        Feature::factory(5)->create();
+        Product::factory(5)->create();
 
         // $this->call("OthersTableSeeder");
     }

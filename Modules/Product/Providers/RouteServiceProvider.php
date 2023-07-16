@@ -2,8 +2,11 @@
 
 namespace Modules\Product\Providers;
 
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
+use Modules\Product\Entities\Category;
+use Modules\Product\Observers\CategoryObserver;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -24,6 +27,7 @@ class RouteServiceProvider extends ServiceProvider
     public function boot()
     {
         parent::boot();
+        Category::observe(CategoryObserver::class);
     }
 
     /**
