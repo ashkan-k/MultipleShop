@@ -87,6 +87,11 @@ class Blog extends Model
         return $saved;
     }
 
+    public function get_title($lang)
+    {
+        return $lang == 'fa' ? $this->title : $this->en_title;
+    }
+
     public function scopeChangeStatus($query, $new_status)
     {
         $query->update(['status' => $new_status]);

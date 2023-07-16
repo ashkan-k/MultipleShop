@@ -332,11 +332,11 @@
                                                 <div class="text-center style-icon">
                                                     <div>
                                                         <img src="{{ $blog->get_image() }}"
-                                                             alt="@if($lang == 'fa'){{ $blog->title }}@else{{ $blog->en_title }}@endif"
+                                                             alt="{{ $blog->get_title($lang) }}"
                                                              class="img-fluid">
                                                     </div>
                                                     <p class="mt-3 ">
-                                                        @if($lang == 'fa'){{ $blog->title }}@else{{ $blog->en_title }}@endif
+                                                        {{ $blog->get_title($lang) }}
                                                     </p>
 
                                                 </div>
