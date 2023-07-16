@@ -33,6 +33,6 @@ class AuthController extends Controller
     {
         $user = User::where('email', $request->email)->first();
         $this->SendCode($user);
-        return $this->SuccessResponse('کد تایید باموفقیت برای شما پیامک شد.');
+        return $this->SuccessResponse(__('The verification code has been successfully sent to you.'));
     }
 }

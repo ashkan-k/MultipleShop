@@ -4,8 +4,10 @@ namespace App\Http\Traits;
 
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\ValidationException;
 use Modules\Auth\Entities\ActivationCode;
+use Modules\Email\Emails\SendEmailMail;
 use Modules\Sms\Helpers\sms_helper;
 use Modules\Sms\Jobs\SendSmsJob;
 
@@ -23,8 +25,17 @@ trait AuthHelpers
     public function SendCode($user)
     {
         $code = $this->CreateNewCode($user);
-        $message = sprintf(sms_helper::$SMS_PATTERNS['verify_user'], $code->code);
-        dispatch(new SendSmsJob($user->email, $message));
+
+        $message = [
+//            sprintf(sms_helper::$SMS_PATTERNS['verify_user'], $code->code),
+            __('Dear user, your verification code'),
+            $code->code
+        ];
+        $title = 'بازیابی رمز عبور';
+        $template = 'email::emails/auth/verify_email';
+
+        Mail::to($user->email)->send(new SendEmailMail($user->email, $title, $message, $template));
+//        dispatch(new SendSmsJob($user->email, $message));
     }
 
     private function check_code_sent($user)

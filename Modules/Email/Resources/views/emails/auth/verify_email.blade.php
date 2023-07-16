@@ -1,9 +1,11 @@
+<?php $website_title = $lang == 'fa' ? $settings['website_title'] : $settings['website_en_title']; ?>
+
 <!doctype html>
 <html lang="en-US">
 
 <head>
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-    <title>Verify Email Template</title>
+    <title>{{ $title }}</title>
     <meta name="description" content="Reset Password Email Template.">
     <style type="text/css">
         a:hover {
@@ -45,19 +47,17 @@
                             </tr>
                             <tr>
                                 <td style="padding:0 35px;">
-                                    <h1 style="color:#1e1e2d; font-weight:500; margin:0;font-size:32px;font-family:'Rubik',sans-serif;">
-                                        کاربر {{ username }} به سایت ما خوش آمدید</h1>
+                                    <h1 style="color:#1e1e2d; font-weight:500; margin:0;font-size:32px;font-family:'Rubik',sans-serif;">{{ $title }}</h1>
                                     <span
-                                            style="display:inline-block; vertical-align:middle; margin:29px 0 26px; border-bottom:1px solid #cecece; width:100px;"></span>
+                                        style="display:inline-block; vertical-align:middle; margin:29px 0 26px; border-bottom:1px solid #cecece; width:100px;"></span>
                                     <p style="color:#455056; font-size:15px;line-height:24px; margin:0;">
-                                        برای تایید حساب کاربری خود کافی است تنها دکمه زده و وارد لینک شوید و این توکن را وارد کنید :
+                                        {{ $data[0] }} :
                                     </p>
 
-                                    <p>{{ token }}</p>
+                                    <p>{{ $data[1] }}</p>
 
-                                    <a href="{{ website_url }}/panel/email/verify"
-                                       style="background:#20e277;text-decoration:none !important; font-weight:500; margin-top:35px; color:#fff;text-transform:uppercase; font-size:14px;padding:10px 24px;display:inline-block;border-radius:50px;">
-                                        تایید حساب کاربری
+                                    <a style="background:#20e277;text-decoration:none !important; font-weight:500; margin-top:35px; color:#fff;text-transform:uppercase; font-size:14px;padding:10px 24px;display:inline-block;border-radius:50px;">
+                                        {{ $data[1] }}
                                     </a>
                                 </td>
                             </tr>
@@ -73,7 +73,7 @@
                     <td style="text-align:center;">
                         <p style="font-size:14px; color:rgba(69, 80, 86, 0.7411764705882353); line-height:18px; margin:0 0 0;">
                             &copy;
-                            <strong>https://www.github.com/ashkan-k</strong></p>
+                            <strong>{{ $website_title }}</strong></p>
                     </td>
                 </tr>
                 <tr>
