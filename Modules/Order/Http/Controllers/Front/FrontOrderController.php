@@ -21,4 +21,9 @@ class FrontOrderController extends Controller
     {
         return view('order::front.orders');
     }
+
+    public function order_submit()
+    {
+        return view('order::front.order_submit');
+    }
 }

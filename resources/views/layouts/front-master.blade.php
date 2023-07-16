@@ -57,6 +57,7 @@
             <div class="search-nav default">
                 <form action="{{ route('search') }}">
                     <input type="text" name="q" value="{{ request('q') }}"
+                           autocomplete="off"
                            placeholder="{{ __('Search ...') }}">
                     <button type="submit">
                         <i class="fa fa-search style-icon-search"></i>
@@ -218,7 +219,8 @@
                             </div>
                         </button>
                     @else
-                        <button onclick="window.location.href='{{ route('login') }}?next=/{{ request()->path() }}'" class="style-user-button">
+                        <button onclick="window.location.href='{{ route('login') }}?next=/{{ request()->path() }}'"
+                                class="style-user-button">
                             <div class="bg-color user-style">
                                 <i class="fa fa-user style-icon-head"></i>
                             </div>
@@ -332,9 +334,11 @@
                     @endforeach
 
 
-                    <li class="list-item amazing-item">
-                        <a class="nav-link" href="#amazing-slider" target="_blank">{{ __('The Amazing') }}</a>
-                    </li>
+                    @if(\Illuminate\Support\Facades\Route::currentRouteName() == 'index')
+                        <li class="list-item amazing-item">
+                            <a class="nav-link" href="#amazing-slider">{{ __('The Amazing') }}</a>
+                        </li>
+                    @endif
                 </ul>
             </div>
         </nav>
@@ -572,13 +576,13 @@
     app.controller('myCtrl', function ($scope, $http) {
         $scope.search_history = [];
 
-        $scope.SaveAndGetSearchHistory = function (){
+        $scope.SaveAndGetSearchHistory = function () {
             var searchHistory = (localStorage.searchHistory) ? JSON.parse(localStorage.searchHistory) : [];
 
             @if(request('q'))
-                searchHistory.push('{{ request('q') }}');
-                searchHistory = [...new Set(searchHistory)];
-                localStorage.searchHistory = JSON.stringify(searchHistory);
+            searchHistory.push('{{ request('q') }}');
+            searchHistory = [...new Set(searchHistory)];
+            localStorage.searchHistory = JSON.stringify(searchHistory);
             @endif
 
             console.log(searchHistory)

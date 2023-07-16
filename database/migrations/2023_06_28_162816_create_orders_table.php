@@ -31,6 +31,8 @@ return new class extends Migration
             $table->text('address')->nullable();
             $table->string('postal_code')->nullable();
 
+            $table->string('order_number')->nullable();
+
             $table->enum('payment_type', EnumHelpers::$PaymentTypeEnum);
             $table->enum('status', EnumHelpers::$OrderStatusEnum)->default('sending');
 

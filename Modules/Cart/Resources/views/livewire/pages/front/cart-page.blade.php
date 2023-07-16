@@ -103,7 +103,7 @@
                                         <div class="checkout-summary-price-value">
                                             <span class="checkout-summary-price-value-amount">{{ number_format($total_amount) }}</span>{{ __('Toman') }}
                                         </div>
-                                        <a href="checkout.html" class="selenium-next-step-shipping">
+                                        <a @if(!$total_amount) onclick="showToast('ملبغ قابل پرداخت نمیتواند صفر باشد!', 'error')" @else href="{{ route('order_submit', ['locale' => $lang]) }}" @endif class="selenium-next-step-shipping">
                                             <div class="parent-btn">
                                                 <button class="dk-btn dk-btn-info">
                                                     {{ __('Continue Order') }}

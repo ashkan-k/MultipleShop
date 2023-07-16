@@ -15,3 +15,4 @@ use Illuminate\Support\Facades\Route;
 use Modules\Order\Http\Controllers\Front\FrontOrderController;
 
 Route::get('profile/orders', [FrontOrderController::class, 'orders'])->name('orders');
+Route::get('order/submit', [FrontOrderController::class, 'order_submit'])->name('order_submit');

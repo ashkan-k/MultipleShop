@@ -65,7 +65,7 @@
                 <article class="product">
                     <div class="row">
                         <div class="col-lg-4 col-md-6 col-sm-12">
-                            <div class="product-gallery default">
+                            <div class="product-gallery default" wire:ignore>
                                 <img class="zoom-img" id="img-product-zoom" src="{{ $object->get_image() }}"
                                      alt="{{ $object->get_title($lang) }}"
                                      data-zoom-image="{{ $object->get_image() }}" width="411"/>
