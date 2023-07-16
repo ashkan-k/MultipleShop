@@ -40,12 +40,14 @@ class BaseGatewayController extends Controller
         ////////////////////////////////////////////////////////////
         /// در گاه پرداخت
 
+        $lang = app()->getLocale();
+
         $MerchantID = $this->merchant_id; //Required
         $Amount = $this->totalPrice; //Amount will be based on Toman - Required
         $Description = $description; // Required
         $Email = Setting::where('key', 'email')->first()->email; // Optional
         $Mobile = Setting::where('key', 'phone')->first()->phone; // Optional
-        $CallbackURL = env('APP_URL') . '/payment/callback'; // Required
+        $CallbackURL = env('APP_URL') . "/{$lang}" . '/payment/callback'; // Required
 
         $client = new SoapClient('https://sandbox.zarinpal.com/pg/services/WebGate/wsdl', ['encoding' => 'UTF-8']);
 

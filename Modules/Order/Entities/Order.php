@@ -24,6 +24,7 @@ class Order extends Model
         'address', 'postal_code', 'payment_type',
         'status',
         'order_number',
+        'amount',
     ];
 
     protected $search_fields = [
@@ -36,6 +37,7 @@ class Order extends Model
         'address',
         'postal_code',
         'order_number',
+        'amount',
     ];
 
     protected $filter_fields = [
