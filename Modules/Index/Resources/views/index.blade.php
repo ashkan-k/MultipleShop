@@ -209,7 +209,7 @@
                                 <h3 class="card-title">
                                     <span>{{ __('The most favorite products') }}</span>
                                 </h3>
-                                <a href="#" class="view-all">{{ __('View All') }}</a>
+                                <a href="{{ route('products_list') }}" class="view-all">{{ __('View All') }}</a>
                             </header>
                             <div class="product-carousel owl-carousel owl-theme">
 
@@ -275,7 +275,7 @@
                                 <h3 class="card-title">
                                     <span>{{ __('The cheapest products') }}</span>
                                 </h3>
-                                <a href="#" class="view-all">{{ __('View All') }}</a>
+                                <a href="{{ route('products_list') }}" class="view-all">{{ __('View All') }}</a>
                             </header>
                             <div class="product-carousel owl-carousel owl-theme">
 
@@ -322,13 +322,15 @@
                                 <h3 class="card-title">
                                     <span>{{ __('Readings') }}</span>
                                 </h3>
+
+                                <a href="{{ route('blogs_list') }}" class="view-all">{{ __('View All') }}</a>
                             </header>
                             <div class="row">
 
                                 @foreach($blogs as $blog)
                                     <div class="col-md-3 col-6">
                                         <div class="p-3 style-hover style-border-box">
-                                            <a href="single-product.html">
+                                            <a href="{{ route('blog_detail', $blog->get_slug($lang)) }}">
                                                 <div class="text-center style-icon">
                                                     <div>
                                                         <img src="{{ $blog->get_image() }}"

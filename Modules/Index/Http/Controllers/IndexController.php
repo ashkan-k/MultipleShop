@@ -36,7 +36,7 @@ class IndexController extends Controller
             ->orderBy('price')->limit(10)->get();
 
         if (!$blogs = GetCache('index_blogs')) {
-            $blogs = AddCache('index_blogs', Blog::latest()->get());
+            $blogs = AddCache('index_blogs', Blog::ActiveBlogs()->latest()->limit(10)->get());
         }
 
         $best_category = Category::where('is_best', 1)->with(['products'])->first();
