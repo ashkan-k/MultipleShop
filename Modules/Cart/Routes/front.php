@@ -14,4 +14,4 @@
 use Illuminate\Support\Facades\Route;
 use Modules\Cart\Http\Controllers\Front\FrontCartController;
 
-Route::get('cart', [FrontCartController::class, 'cart'])->name('cart');
+Route::get('cart', [FrontCartController::class, 'cart'])->name('cart')->middleware('auth');
