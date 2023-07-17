@@ -19,14 +19,16 @@ class Ticket extends Model
         'text',
         'file',
         'status',
+        'ticket_number',
     ];
 
     protected $search_fields = [
         'title',
         'text',
+        'ticket_number',
         'user.first_name',
         'user.last_name',
-        'user.username',
+        'user.phone',
         'category.title',
     ];
 
@@ -69,6 +71,20 @@ class Ticket extends Model
     public function scopeChangeStatus($query, $new_status)
     {
         $query->update(['status' => $new_status]);
+    }
+
+    public function save(array $options = [])
+    {
+        if (!$this->ticket_number) {
+            $last_ticket = Ticket::latest()->first();
+            if ($last_ticket) {
+                $this->ticket_number = intval($last_ticket->ticket_number) + 1;
+            } else {
+                $this->ticket_number = 10000;
+            }
+        }
+
+        return parent::save($options);
     }
 
     //

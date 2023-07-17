@@ -194,7 +194,7 @@
                                             <!--begin::Avatar-->
                                             <div class="symbol symbol-50 me-4">
                                                 <span class="symbol-label"
-                                                      style="background-image:url({{ $ticket->user ? $ticket->user->get_avatar() : '---'  }});"></span>
+                                                      style="background-image:url({{ $ticket->user ? $ticket->user->get_personal_photo() : '---'  }});"></span>
                                             </div>
                                             <!--end::Avatar-->
                                             <div class="pe-5">
@@ -236,7 +236,7 @@
                                                 <!--begin::Avatar-->
                                                 <div class="symbol symbol-50 me-4">
                                                 <span class="symbol-label"
-                                                      style="background-image:url({{ $answer->user ? $answer->user->get_avatar() : '---'  }});"></span>
+                                                      style="background-image:url({{ $answer->user ? $answer->user->get_personal_photo() : '---'  }});"></span>
                                                 </div>
                                                 <!--end::Avatar-->
                                                 <div class="pe-5">

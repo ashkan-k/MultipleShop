@@ -21,7 +21,7 @@ class TicketAnswer extends Model
         'text',
         'user.first_name',
         'user.last_name',
-        'user.username',
+        'user.phone',
         'ticket.title',
     ];
 

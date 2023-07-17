@@ -22,6 +22,7 @@ return new class extends Migration
             $table->text('text');
             $table->text('file')->nullable();
             $table->enum('status', EnumHelpers::$TicketStatusEnum)->default('waiting');
+            $table->string('ticket_number')->nullable();
             $table->timestamps();
         });
     }

@@ -118,6 +118,7 @@
                                                data-kt-check-target="#kt_table_items .form-check-input"/>
                                     </div>
                                 </th>
+                                <th>شماره تیکت</th>
                                 <th>عنوان</th>
                                 <th>کاربر</th>
                                 <th>دسته بندی</th>
@@ -139,6 +140,8 @@
                                                    class="form-check-input">
                                         </div>
                                     </td>
+
+                                    <td>{{ $item->ticket_number ?: '---'  }}</td>
 
                                     <td>{{ $item->title ?: '---'  }}</td>
 

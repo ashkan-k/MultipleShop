@@ -42,7 +42,8 @@ class TicketController extends Controller
 
     public function create()
     {
-        return view('ticket::dashboard.ticket.form');
+        $categories = TicketCategory::all();
+        return view('ticket::dashboard.ticket.form', compact('categories'));
     }
 
     public function store(TicketRequest $request)
@@ -58,7 +59,9 @@ class TicketController extends Controller
         if (auth()->user()->is_staff()) {
             $this->check_myself_queryset($ticket, 'web');
         }
-        return view('ticket::dashboard.ticket.form')->with('object', $ticket);
+
+        $categories = TicketCategory::all();
+        return view('ticket::dashboard.ticket.form', compact('categories'))->with('object', $ticket);
     }
 
     public function update(TicketRequest $request, Ticket $ticket)
