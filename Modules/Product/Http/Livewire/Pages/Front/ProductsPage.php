@@ -76,9 +76,11 @@ class ProductsPage extends Component
                         return $item !== false;
                     });
 
-                    $this->products = $this->products->whereHas('product_features', function ($query) use ($filter, $feature_id) {
-                        return $query->whereIn('value', $filter)->where('feature_id', $feature_id);
-                    });
+                    if ($filter){
+                        $this->products = $this->products->whereHas('product_features', function ($query) use ($filter, $feature_id) {
+                            return $query->whereIn('value', $filter)->where('feature_id', $feature_id);
+                        });
+                    }
                 } else {
                     $this->products = $this->products->whereHas('product_features', function ($query) use ($filter, $feature_id) {
                         return $query->where('value', $filter[0])->where('feature_id', $feature_id);

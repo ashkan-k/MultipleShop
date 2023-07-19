@@ -219,10 +219,17 @@
 @push('StackScript')
     <script>
         function FilterByQuantity(){
-            console.log('ssssssssss')
-            console.log($('#only_available_items_checkbox').prop('checked'))
             var show_only_has_quantity_filter = $('#only_available_items_checkbox').prop('checked');
             @this.call('FilterByQuantity', show_only_has_quantity_filter);
         }
+    </script>
+
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function () {
+        @this.on('triggerAddNewRadioItem', (feature_id, feature_type, filter) => {
+            console.log(@this.selected_filters)
+            @this.call('AddNewRadioFilterItem', feature_id, feature_type, filter);
+        });
+        })
     </script>
 @endpush
