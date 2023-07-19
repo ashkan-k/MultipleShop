@@ -185,7 +185,7 @@
                                 </div>
                                 <!--end::Title-->
                                 <!--begin::پیام accordion-->
-                                <div data-kt-inbox-message="message_wrapper">
+                                <div data-kt-inbox-message="message_wrapper"  style="margin-bottom: 80px !important;">
                                     <!--begin::پیام header-->
                                     <div class="d-flex flex-wrap gap-2 flex-stack cursor-pointer"
                                          data-kt-inbox-message="header">
@@ -194,7 +194,7 @@
                                             <!--begin::Avatar-->
                                             <div class="symbol symbol-50 me-4">
                                                 <span class="symbol-label"
-                                                      style="background-image:url({{ $ticket->user ? $ticket->user->get_personal_photo() : '---'  }});"></span>
+                                                      style="background-image:url({{ $ticket->user ? $ticket->user->get_avatar() : '---'  }});"></span>
                                             </div>
                                             <!--end::Avatar-->
                                             <div class="pe-5">
@@ -227,7 +227,7 @@
                                 </div>
 
                                 @foreach($answers as $answer)
-                                    <div class="separator my-6"></div>
+                                    <div class="separator my-6 "></div>
                                     <div data-kt-inbox-message="message_wrapper">
                                         <div class="d-flex flex-wrap gap-2 flex-stack cursor-pointer"
                                              data-kt-inbox-message="header">
@@ -236,7 +236,7 @@
                                                 <!--begin::Avatar-->
                                                 <div class="symbol symbol-50 me-4">
                                                 <span class="symbol-label"
-                                                      style="background-image:url({{ $answer->user ? $answer->user->get_personal_photo() : '---'  }});"></span>
+                                                      style="background-image:url({{ $answer->user ? $answer->user->get_avatar() : '---'  }});"></span>
                                                 </div>
                                                 <!--end::Avatar-->
                                                 <div class="pe-5">
@@ -266,7 +266,7 @@
                                        class="d-flex align-items-center fs-6 fw-semibold mb-2 mt-20">
                                     <span class="required">متن پاسخ</span>
                                 </label>
-                                <form id="kt_inbox_reply_form" class="rounded border "
+                                <form id="ticket_frm" class="rounded border "
                                       action="{{ route('ticket-answers.store', $ticket->id) }}" method="post"
                                       enctype="multipart/form-data">
                                     @csrf
@@ -297,7 +297,7 @@
                                                 <!--begin::ثبت-->
                                                 <span class="btn btn-primary fs-bold px-6" data-kt-inbox-form="send">
 																		<span
-                                                                            onclick="$('#kt_inbox_reply_form').submit()"
+                                                                            onclick="$('#ticket_frm').submit()"
                                                                             class="indicator-label">ارسال</span>
 																		<span class="indicator-progress">لطفا صبر کنید...</span>
 																	</span>
