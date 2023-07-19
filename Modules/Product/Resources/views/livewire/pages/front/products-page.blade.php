@@ -108,7 +108,7 @@
                         <div class="col-12">
                             <div class="listing-header default">
                                 <ul class="listing-sort nav nav-tabs justify-content-center" role="tablist"
-                                    data-label="{{ __('Order by') }}">
+                                    data-label="{{ __('Order by') }}:">
                                     <li>
                                         <a wire:click="ChangeOrderBy('view_count')"
                                            class="{{ $order_by == 'view_count' ? 'active' : '' }}" data-toggle="tab"
@@ -164,14 +164,14 @@
                                                     <span class="product-seller-details-badge-container"></span>
                                                 </div>
                                                 <a class="product-box-img"
-                                                   href="{{ route('product_detail', $pro->get_slug($lang)) }}">
+                                                   href="{{ route('product_detail', ['locale' => $lang, 'slug' => $pro->get_slug($lang)]) }}">
                                                     <img src="{{ $pro->get_image() }}"
                                                          alt="{{ $pro->get_title($lang) }}">
                                                 </a>
                                                 <div class="product-box-content">
                                                     <div class="product-box-content-row">
                                                         <div class="product-box-title">
-                                                            <a href="{{ route('product_detail', $pro->get_slug($lang)) }}">
+                                                            <a href="{{ route('product_detail', ['locale' => $lang, 'slug' => $pro->get_slug($lang)]) }}">
                                                                 {{ \Illuminate\Support\Str::limit($pro->get_title($lang), 32) }}
                                                             </a>
                                                         </div>
@@ -210,4 +210,12 @@
 @endsection
 
 @push('StackScript')
+    <script>
+        function FilterByQuantity(){
+            console.log('ssssssssss')
+            console.log($('#only_available_items_checkbox').prop('checked'))
+            var show_only_has_quantity_filter = $('#only_available_items_checkbox').prop('checked');
+            @this.call('FilterByQuantity', show_only_has_quantity_filter);
+        }
+    </script>
 @endpush

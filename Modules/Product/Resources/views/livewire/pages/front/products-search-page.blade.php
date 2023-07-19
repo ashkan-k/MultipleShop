@@ -123,7 +123,7 @@
                         <div class="col-12">
                             <div class="listing-header default">
                                 <ul class="listing-sort nav nav-tabs justify-content-center" role="tablist"
-                                    data-label="{{ __('Order by :') }}">
+                                    data-label="{{ __('Order by') }}:">
                                     <li>
                                         <a wire:click="ChangeOrderBy('view_count')"
                                            class="{{ $order_by == 'view_count' ? 'active' : '' }}" data-toggle="tab"
@@ -224,3 +224,14 @@
         </div>
     </div>
 </main>
+
+@push('StackScript')
+    <script>
+        function FilterByQuantity(){
+            console.log('ssssssssss')
+            console.log($('#only_available_items_checkbox').prop('checked'))
+            var show_only_has_quantity_filter = $('#only_available_items_checkbox').prop('checked');
+        @this.call('FilterByQuantity', show_only_has_quantity_filter);
+        }
+    </script>
+@endpush
