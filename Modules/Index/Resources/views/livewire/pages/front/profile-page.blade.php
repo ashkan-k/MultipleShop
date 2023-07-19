@@ -99,7 +99,7 @@
                                         </div>
 
                                         <div class="col-12 text-center">
-                                            <a href="#" class="btn-link-border form-account-link">
+                                            <a href="{{ route('wishlists') }}" class="btn-link-border form-account-link">
                                                 {{ __('View and edit the list of favorites') }}
                                             </a>
                                         </div>

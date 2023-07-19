@@ -41,6 +41,7 @@
                             <table class="table">
                                 <tbody>
 
+                                @if(count($objects))
                                     @foreach($objects as $item)
                                         <tr class="checkout-item">
                                             <td>
@@ -63,11 +64,17 @@
                                             @endif
                                         </tr>
                                     @endforeach
+                                @else
+                                    <div class="col-12 mt-3 text-center">
+                                        <h5 class="text-empty">{{ __('There are no items to display!') }}</h5>
+                                    </div>
+                                @endif
 
                                 </tbody>
                             </table>
                         </div>
                     </div>
+
                     <aside class="cart-page-aside col-xl-3 col-lg-4 col-md-6 center-section order-2">
                         <div class="checkout-aside">
                             <div class="checkout-summary">

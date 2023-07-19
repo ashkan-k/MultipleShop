@@ -524,7 +524,7 @@
                             </span>
                         </div>
                         <div class="col-12 col-lg-2">{{ __('Phone Number') }}: {!! $settings['footer_phone'] !!}</div>
-                        <div class="col-12 col-lg-2">{{ __('Email') }}:<a href="#">{!! $settings['footer_email'] !!}</a>
+                        <div class="col-12 col-lg-2">{{ __('Email') }}:<a href="mailto:{!! $settings['footer_email'] !!}">{!! $settings['footer_email'] !!}</a>
                         </div>
                         <div class="col-12 col-lg-4 text-center">
                             {!! $settings['footer_app_links'] !!}
