@@ -67,6 +67,13 @@ class ProductsSearchPage extends Component
 
     private function Filter()
     {
+        $this->categories_filter = array_filter($this->categories_filter, function ($item) {
+            return $item !== false;
+        });
+        $this->brands_filter = array_filter($this->brands_filter, function ($item) {
+            return $item !== false;
+        });
+
         if ($this->categories_filter) {
             $this->products->whereIn('category_id', $this->categories_filter);
         }
