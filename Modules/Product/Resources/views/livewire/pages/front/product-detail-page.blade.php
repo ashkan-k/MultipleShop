@@ -183,16 +183,18 @@
                                     <span>{{ $object->en_title ?: '---' }}</span>
                                 </h1>
                             </div>
-                            <div class="product-guaranteed default">
-                                @if($lang == 'fa')
-                                    بیش از {{ $comments->where('suggest_score', 'suggest')->count() }} نفر از خریداران
-                                    این
-                                    محصول را پیشنهاد داده‌اند
-                                @else
-                                    More than {{ $comments->where('suggest_score', 'suggest')->count() }} buyers have
-                                    recommended this product
-                                @endif
-                            </div>
+                            @if($suggested_count = $comments->where('suggest_score', 'suggest')->count())
+                                <div class="product-guaranteed default">
+                                    @if($lang == 'fa')
+                                        بیش از {{ $suggested_count }} نفر از خریداران
+                                        این
+                                        محصول را پیشنهاد داده‌اند
+                                    @else
+                                        More than {{ $suggested_count }} buyers have
+                                        recommended this product
+                                    @endif
+                                </div>
+                            @endif
                             <div class="product-params default">
                                 <ul data-title="{{ __('Product features') }}">
 
@@ -279,12 +281,14 @@
                                 </div>
                                 <span class="price-currency">{{ __('Toman') }}</span>
 
-                                <div class="price-discount" data-title="{{ __('Discount') }}">
+                                @if($object->calculate_discount_percent())
+                                    <div class="price-discount" data-title="{{ __('Discount') }}">
                                             <span>
                                                 {{ $object->calculate_discount_percent() ?: '0' }}
                                             </span>
-                                    <span>%</span>
-                                </div>
+                                        <span>%</span>
+                                    </div>
+                                @endif
                             </div>
 
                             @if($object->quantity > 0 && !isset($user_cart))
@@ -642,8 +646,12 @@
                                             </div>
 
                                             <h2 class="param-title mt-5">
-                                                {{ __('User Comments') }}
-                                                <span>{{ $comments->count() }} {{ __('Comments') }}</span>
+                                                @if($comments->count())
+                                                    {{ __('User Comments') }}
+                                                    <span>{{ $comments->count() }} {{ __('Comments') }}</span>
+                                                @else
+                                                    {{ __('There is no comment.') }}
+                                                @endif
                                             </h2>
                                             <div class="comments-area default">
                                                 <ol class="comment-list" style="width: 100% !important;">
@@ -666,7 +674,7 @@
                                                                                 </div>
                                                                                 <div class="cell color-cell">
                                                                                     <span class="shopping-color-value"
-                                                                                          style="background-color: #FFFFFF; border: 1px solid rgba(0, 0, 0, 0.25)"></span>{{ $ordered_color ? $ordered_color->color->title : '---' }}
+                                                                                          style="background-color: #FFFFFF; border: 1px solid rgba(0, 0, 0, 0.25)"></span>{{ $ordered_color && $ordered_color->color ? $ordered_color->color->title : '---' }}
                                                                                 </div>
                                                                             </li>
                                                                             <li>

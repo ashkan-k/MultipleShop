@@ -155,7 +155,11 @@
 
                                     <td>{{ $item->price ? number_format($item->price) : '---'  }} تومان</td>
 
-                                    <td>{{ $item->quantity ?: '0'  }} عدد</td>
+                                    @if($item->quantity <= 0)
+                                        <td><span class="text-danger">{{ $item->quantity ?: '0'  }} عدد</span></td>
+                                    @else
+                                        <td>{{ $item->quantity ?: '0'  }} عدد</td>
+                                    @endif
 
                                     <td>
                                         <div class="symbol symbol-circle symbol-50px overflow-hidden me-3">

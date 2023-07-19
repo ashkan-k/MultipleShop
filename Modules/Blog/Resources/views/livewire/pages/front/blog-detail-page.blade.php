@@ -49,7 +49,7 @@
                                     <div class="jeg_post_meta" style="
 ">
                                         <div property="datePublished" class="meta-date"><i
-                                                class="fa fa-clock-o"></i>{{ \Hekmatinasser\Verta\Verta:: instance($object->created_at)->format('%B %d، %Y') }}
+                                                class="fa fa-clock-o ml-2"></i>{{ \Hekmatinasser\Verta\Verta:: instance($object->created_at)->format('%B %d، %Y') }}
                                         </div>
                                     </div>
                                 </div>
@@ -78,11 +78,35 @@
     padding: 30px 0;
 ">
                         <div class="module-title__txt">
-                            <strong class="bold heading" style="
+                            @if($comments->count())
+                                <strong class="bold heading" style="
     font-size: 18px;
     padding-right: 30px;
 ">{{ $comments->count() }} {{ __('Comments') }}</strong>
+                            @else
+                                <strong class="bold heading" style="
+    font-size: 18px;
+    padding-right: 30px;
+">{{ __('There is no comment.') }}</strong>
+                            @endif
                         </div>
+
+                        @guest
+                            <div class="pl-5 text-center">
+                                @if($lang == 'fa')
+                                    <h5>برای ثبت
+                                        نظر ابتدا
+                                        <a class="text-info"
+                                           href="{{ route('login', ['locale' => $lang]) }}?next=/{{ request()->path() }}">
+                                            وارد </a> شوید</h5>
+                                @else
+                                    <h5><a class="text-info"
+                                           href="{{ route('login', ['locale' => $lang]) }}?next=/{{ request()->path() }}">Log
+                                            in</a> first to post a comment</h5>
+                                @endif
+                            </div>
+                        @endguest
+
                         <div class="module-title__sep" style="
     -webkit-flex-grow: 1;
     flex-grow: 1;
@@ -124,7 +148,7 @@
                                                          class="_date">{{ \Hekmatinasser\Verta\Verta:: instance($comment->created_at)->format('%B %d، %Y') }}</time>
                                                  </span>
                                             @else
-                                                    <span class="_item__user--date" style="
+                                                <span class="_item__user--date" style="
         float: left;
     ">
                                                          <i class="icon-clock-icon"></i>
@@ -164,45 +188,46 @@
 
                 </div>
 
+                @auth
+                    <form class="px-5" wire:submit.prevent="SubmitNewComment()">
+                        <div class="col-12 mt-5">
+                            <div class="row">
 
-                <form class="px-5" wire:submit.prevent="SubmitNewComment()">
-                    <div class="col-12 mt-5">
-                        <div class="row">
+                                <div class="col-12">
+                                    <div class="form-account-title">{{ __('The title of your comment') }}
+                                        ({{ __('Required') }})
+                                    </div>
+                                    <div class="form-account-row">
+                                        <input class="input-field text-right" wire:model.defer="title"
+                                               type="text" name="title" required
+                                               placeholder="{{ __('Write the title of your comment') }}">
 
-                            <div class="col-12">
-                                <div class="form-account-title">{{ __('The title of your comment') }}
-                                    ({{ __('Required') }})
+                                        @error('title')
+                                        <span
+                                            class="text-danger text-wrap">{{ $message }}</span>
+                                        @enderror
+                                    </div>
                                 </div>
-                                <div class="form-account-row">
-                                    <input class="input-field text-right" wire:model.defer="title"
-                                           type="text" name="title" required
-                                           placeholder="{{ __('Write the title of your comment') }}">
 
-                                    @error('title')
-                                    <span
-                                        class="text-danger text-wrap">{{ $message }}</span>
-                                    @enderror
-                                </div>
                             </div>
 
-                        </div>
-
-                        <div class="form-account-title">{{ __('The text of your comment') }} ({{ __('Required') }})
-                        </div>
-                        <div class="form-account-row">
+                            <div class="form-account-title">{{ __('The text of your comment') }} ({{ __('Required') }})
+                            </div>
+                            <div class="form-account-row">
                             <textarea class="input-field text-right" rows="5"
                                       wire:model.defer="body"
                                       required name="body"
                                       placeholder="{{ __('Write your text') }}"></textarea>
+                            </div>
                         </div>
-                    </div>
-                    <button type="submit" class="btn btn-primary btn-no-icon" style="
+                        <button type="submit" class="btn btn-primary btn-no-icon" style="
     float: left;
     margin-left: 5px;
 ">
-                        {{ __('Submit Comment') }}
-                    </button>
-                </form>
+                            {{ __('Submit Comment') }}
+                        </button>
+                    </form>
+                @endauth
 
             </div>
 
