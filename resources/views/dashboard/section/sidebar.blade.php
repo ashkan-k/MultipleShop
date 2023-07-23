@@ -119,7 +119,7 @@
                 </div>
 
                 <div data-kt-menu-trigger="click"
-                     class="menu-item @if(str_starts_with(\Illuminate\Support\Facades\Route::current()->getName(), 'ticket-categires.') || str_starts_with(\Illuminate\Support\Facades\Route::current()->getName(), 'tickets.') || str_starts_with(\Illuminate\Support\Facades\Route::current()->getName(), 'ticket-answers.')) show @endif menu-accordion">
+                     class="menu-item @if(str_starts_with(\Illuminate\Support\Facades\Route::current()->getName(), 'ticket-categories.') || str_starts_with(\Illuminate\Support\Facades\Route::current()->getName(), 'tickets.') || str_starts_with(\Illuminate\Support\Facades\Route::current()->getName(), 'ticket-answers.')) show @endif menu-accordion">
                 <span class="menu-link">
 											<span class="menu-icon">
 												<i class="ki-duotone ki-sms fs-2">
