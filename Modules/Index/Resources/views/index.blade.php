@@ -7,11 +7,10 @@
             <div class="col-12">
                 <section id="main-slider" class="carousel slide carousel-fade" data-ride="carousel">
                     <ol class="carousel-indicators d-none d-md-flex">
-                        <li data-target="#main-slider" data-slide-to="0" class="active"></li>
-                        <li data-target="#main-slider" data-slide-to="1"></li>
-                        <li data-target="#main-slider" data-slide-to="2"></li>
-                        <li data-target="#main-slider" data-slide-to="3"></li>
-                        <li data-target="#main-slider" data-slide-to="4"></li>
+                        @foreach($sliders as $slider)
+                            <li data-target="#main-slider" data-slide-to="{{ $loop->index }}"
+                                @if($loop->index == 0) class="active" @endif></li>
+                        @endforeach
                     </ol>
                     <div class="carousel-inner1">
 
@@ -229,7 +228,8 @@
                                                 <del>
                                                     <span>{{ number_format($most_favorite_pro->price) }}<span>{{ __('Toman') }}</span></span>
                                                 </del>
-                                                <ins><span>{{ number_format($most_favorite_pro->discount_price) }}<span>{{ __('Toman') }}</span></span>
+                                                <ins>
+                                                    <span>{{ number_format($most_favorite_pro->discount_price) }}<span>{{ __('Toman') }}</span></span>
                                                 </ins>
                                             @else
                                                 <ins>
@@ -375,11 +375,13 @@
                                                 </div>
                                                 <div class="col-8">
                                                     <div class="mt-4 pl-0">
-                                                        <a href="{{ route('product_detail', $prod->get_slug($lang)) }}" class="color-title ">
+                                                        <a href="{{ route('product_detail', $prod->get_slug($lang)) }}"
+                                                           class="color-title ">
                                                             {{ $prod->get_title($lang) ?: '---' }}
                                                         </a>
                                                         <p class="mt-3">
-                                                            <span class="float-right font_12">{{ number_format($prod->price) }} {{ __('Toman') }}</span>
+                                                            <span
+                                                                class="float-right font_12">{{ number_format($prod->price) }} {{ __('Toman') }}</span>
                                                             <span class="float-left font_12">
                                                             <i class="fa fa-star" style="color: #faba00"></i>
                                                             <i class="fa fa-star" style="color: #faba00"></i>

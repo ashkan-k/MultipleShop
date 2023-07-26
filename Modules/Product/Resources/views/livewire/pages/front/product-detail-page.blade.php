@@ -183,7 +183,7 @@
                                     <span>{{ $object->en_title ?: '---' }}</span>
                                 </h1>
                             </div>
-                            @if($suggested_count = $comments->where('suggest_score', 'suggest')->count())
+                            @if($suggested_count)
                                 <div class="product-guaranteed default">
                                     @if($lang == 'fa')
                                         بیش از {{ $suggested_count }} نفر از خریداران

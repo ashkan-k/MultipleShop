@@ -139,6 +139,12 @@ class ProductDetailPage extends Component
                 $query->where('type', 'negative');
             }))->with(['user']),
 
+            'suggested_count' => $this->object->comments()->where('status', 'approved')->withCount(array('comment_points as positive_comments_point' => function ($query) {
+                $query->where('type', 'positive');
+            }))->withCount(array('comment_points as negative_comments_point' => function ($query) {
+                $query->where('type', 'negative');
+            }))->with(['user'])->where('suggest_score', 'suggest')->count(),
+
             'wish_lists' => $this->object->wish_lists()->get(),
             'top_features' => $this->object->product_features()->whereIn('place', ['up', 'both'])->with('feature')->get(),
             'bottom_features' => $this->object->product_features()->whereIn('place', ['down', 'both'])->with('feature')->get(),
