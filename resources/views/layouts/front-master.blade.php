@@ -50,7 +50,7 @@
                 <span class="navbar-toggler-bar bar2"></span>
                 <span class="navbar-toggler-bar bar3"></span>
             </button>
-            <a class="navbar-brand" href="#pablo">
+            <a class="navbar-brand" href="/">
                 <img src="/front/assets/img/14.png" height="24px" alt="">
             </a>
 
