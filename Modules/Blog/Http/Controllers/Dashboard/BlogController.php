@@ -51,6 +51,10 @@ class BlogController extends Controller
     {
         $image = $this->UploadFile($request, 'image', 'blogs_images', $blog->title, $blog->image);
 
+        if ($image != $blog->image) {
+            $this->DeleteFile($blog->image);
+        }
+
         $blog->update(array_merge($request->validated(), ['image' => $image]));
         return $this->SuccessRedirect('آیتم مورد نظر با موفقیت ویرایش شد.', 'blogs.index');
     }
@@ -58,6 +62,7 @@ class BlogController extends Controller
     public function destroy(Blog $blog)
     {
         $blog->delete();
+        $this->DeleteFile($blog->image);
         return $this->SuccessRedirect('آیتم مورد نظر با موفقیت حذف شد.', 'blogs.index');
     }
 

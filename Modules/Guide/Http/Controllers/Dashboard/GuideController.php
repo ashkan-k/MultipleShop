@@ -46,6 +46,10 @@ class GuideController extends Controller
     {
         $image = $this->UploadFile($request, 'image', 'guide_images', $guide->title, $guide->image);
 
+        if ($image != $guide->image) {
+            $this->DeleteFile($guide->image);
+        }
+
         $guide->update(array_merge($request->validated(), ['image' => $image]));
         return $this->SuccessRedirect('آیتم مورد نظر با موفقیت ویرایش شد.', 'guides.index');
     }
@@ -53,6 +57,7 @@ class GuideController extends Controller
     public function destroy(Guide $guide)
     {
         $guide->delete();
+        $this->DeleteFile($guide->image);
         return $this->SuccessRedirect('آیتم مورد نظر با موفقیت حذف شد.', 'guides.index');
     }
 }

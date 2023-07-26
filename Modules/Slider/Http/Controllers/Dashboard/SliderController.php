@@ -45,6 +45,10 @@ class SliderController extends Controller
     {
         $image = $this->UploadFile($request, 'image', 'sliders', $slider->title, $slider->image);
 
+        if ($image != $slider->image) {
+            $this->DeleteFile($slider->image);
+        }
+
         $slider->update(array_merge($request->all(), ['image' => $image]));
         return $this->SuccessRedirect('آیتم مورد نظر با موفقیت ویرایش شد.', 'sliders.index');
     }
@@ -52,6 +56,7 @@ class SliderController extends Controller
     public function destroy(Slider $slider)
     {
         $slider->delete();
+        $this->DeleteFile($slider->image);
         return $this->SuccessRedirect('آیتم مورد نظر با موفقیت حذف شد.', 'sliders.index');
     }
 }

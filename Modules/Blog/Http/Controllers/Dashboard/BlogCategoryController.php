@@ -45,6 +45,10 @@ class BlogCategoryController extends Controller
     {
         $image = $this->UploadFile($request, 'image', 'blog_category_images', $category->title, $category->image);
 
+        if ($image != $category->image) {
+            $this->DeleteFile($category->image);
+        }
+
         $category->update(array_merge($request->all(), ['image' => $image]));
         return $this->SuccessRedirect('آیتم مورد نظر با موفقیت ویرایش شد.', 'blog.categories.index');
     }
@@ -52,6 +56,7 @@ class BlogCategoryController extends Controller
     public function destroy(BlogCategory $category)
     {
         $category->delete();
+        $this->DeleteFile($category->image);
         return $this->SuccessRedirect('آیتم مورد نظر با موفقیت حذف شد.', 'blog.categories.index');
     }
 }

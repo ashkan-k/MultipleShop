@@ -38,7 +38,7 @@ class PosterController extends Controller
 
     public function store(PosterRequest $request)
     {
-        $image = $this->UploadFile($request, 'image', 'poster_images', $request->title);
+        $image = $this->UploadFile($request, 'image', 'posters', $request->title);
 
         Poster::create(array_merge($request->validated(), ['image' => $image]));
         return $this->SuccessRedirect('آیتم مورد نظر با موفقیت ثبت شد.', 'posters.index');
@@ -51,7 +51,11 @@ class PosterController extends Controller
 
     public function update(PosterRequest $request, Poster $poster)
     {
-        $image = $this->UploadFile($request, 'image', 'poster_images', $poster->title, $poster->image);
+        $image = $this->UploadFile($request, 'image', 'posters', $poster->title, $poster->image);
+
+        if ($image != $poster->image) {
+            $this->DeleteFile($poster->image);
+        }
 
         $poster->update(array_merge($request->validated(), ['image' => $image]));
         return $this->SuccessRedirect('آیتم مورد نظر با موفقیت ویرایش شد.', 'posters.index');
@@ -60,6 +64,7 @@ class PosterController extends Controller
     public function destroy(Poster $poster)
     {
         $poster->delete();
+        $this->DeleteFile($poster->image);
         return $this->SuccessRedirect('آیتم مورد نظر با موفقیت حذف شد.', 'posters.index');
     }
 }

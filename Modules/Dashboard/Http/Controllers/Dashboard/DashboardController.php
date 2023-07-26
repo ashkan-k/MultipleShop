@@ -61,6 +61,10 @@ class DashboardController extends Controller
         if (\request()->method() == 'POST'){
             $avatar = $this->UploadFile($request, 'avatar' , 'avatars', $user->email, $user->avatar);
 
+            if ($avatar != $user->avatar){
+                $this->DeleteFile($user->avatar);
+            }
+
             $data = $request->validated();
 
             $password = $data['password'];
