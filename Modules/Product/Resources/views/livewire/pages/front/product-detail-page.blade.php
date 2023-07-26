@@ -942,6 +942,10 @@
         window.addEventListener('addToCartError', event => {
             showToast(event['detail']['message'], 'error');
         });
+
+        window.addEventListener('cartStatusUpdated', event => {
+            $('#cart_count_badge').html(event['detail']['cart_count'])
+        });
     </script>
 
     {{--    <script>--}}

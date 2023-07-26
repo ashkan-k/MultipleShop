@@ -15,8 +15,6 @@ class FrontOrderController extends Controller
 {
     use Responses;
 
-    private $order_relations = ['product', 'payment'];
-
     public function orders()
     {
         return view('order::front.orders');

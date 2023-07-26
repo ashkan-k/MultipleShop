@@ -12,7 +12,7 @@ trait Helpers
 {
     public function check_myself_queryset($object, $guard = 'api')
     {
-        if (auth()->user()->is_staff() && $object->user_id != auth()->id()) {
+        if (!auth()->user()->is_staff() && $object->user_id != auth()->id()) {
             abort(404);
         }
     }

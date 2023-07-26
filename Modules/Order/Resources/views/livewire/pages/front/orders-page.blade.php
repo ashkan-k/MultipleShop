@@ -35,7 +35,6 @@
                                                 <th scope="col">{{ __('Order number') }}</th>
                                                 <th scope="col">{{ __('Order date') }}</th>
                                                 <th scope="col">{{ __('Total Amount') }}</th>
-                                                <th scope="col">{{ __('Payment Operation') }}</th>
                                                 <th scope="col">{{ __('Status') }}</th>
                                             </tr>
                                             </thead>
@@ -54,9 +53,8 @@
                                                         @endif
                                                     </td>
                                                     <td>{{ $order->payment ? $order->payment->amount : '---' }} {{ __('Toman') }}</td>
-                                                    <td class="text-{{ $order->payment->status ? 'success' : 'danger' }}">{{ $order->payment->status ? 'موفق' : 'ناموفق' }}</td>
-                                                    <td class="text-{{ $order->payment->status ? $order->get_status_class() : 'danger' }}">
-                                                        @if($order->payment->status)
+                                                    <td class="text-{{ $order->payment && $order->payment->status ? $order->get_status_class() : 'danger' }}">
+                                                        @if($order->payment && $order->payment->status)
                                                             {{ $order->get_status() }}
                                                         @else
                                                             {{ __('Payment error') }}

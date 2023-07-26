@@ -14,7 +14,7 @@ class OrdersPage extends Component
     public $website_title = '';
     public $lang;
 
-    private $order_relations = ['product', 'payment'];
+    private $order_relations = ['payment'];
 
     protected $objects;
 

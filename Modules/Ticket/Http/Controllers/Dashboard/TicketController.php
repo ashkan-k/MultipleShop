@@ -43,14 +43,20 @@ class TicketController extends Controller
     public function create()
     {
         $categories = TicketCategory::all();
-        return view('ticket::dashboard.ticket.form', compact('categories'));
+        $users = User::all();
+        return view('ticket::dashboard.ticket.form', compact('categories', 'users'));
     }
 
     public function store(TicketRequest $request)
     {
         $file = $this->UploadFile($request, 'file', 'ticket_files', auth()->id());
 
-        auth()->user()->tickets()->create(array_merge($request->except(['status']), ['file' => $file]));
+        $data = $request->validated();
+        if (!isset($data['user_id'])){
+            $data['user_id'] = auth()->id();
+        }
+
+        Ticket::create(array_merge($data, ['file' => $file]));
         return $this->SuccessRedirect('تیکت شما با موفقیت ثبت شد.', 'tickets.index');
     }
 
@@ -61,17 +67,16 @@ class TicketController extends Controller
         }
 
         $categories = TicketCategory::all();
-        return view('ticket::dashboard.ticket.form', compact('categories'))->with('object', $ticket);
+        $users = User::all();
+        return view('ticket::dashboard.ticket.form', compact('categories', 'users'))->with('object', $ticket);
     }
 
     public function update(TicketRequest $request, Ticket $ticket)
     {
-        if (auth()->user()->is_staff()) {
-            $this->check_myself_queryset($ticket, 'web');
-        }
+        $this->check_myself_queryset($ticket, 'web');
         $file = $this->UploadFile($request, 'file', 'ticket_files', auth()->id(), $ticket->file);
 
-        $ticket->update(array_merge($request->except(['status', 'user_id']), ['file' => $file]));
+        $ticket->update(array_merge($request->validated(), ['file' => $file]));
         return $this->SuccessRedirect('تیکت شما با موفقیت ویرایش شد.', 'tickets.index');
     }
 

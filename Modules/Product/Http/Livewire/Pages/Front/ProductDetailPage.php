@@ -123,6 +123,7 @@ class ProductDetailPage extends Component
 
         }
 
+        $this->dispatchBrowserEvent('cartStatusUpdated', ['cart_count' => auth()->user()->carts()->count()]);
     }
 
     //

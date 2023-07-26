@@ -146,7 +146,7 @@
                                                             @endif
                                                         </td>
                                                         <td>{{ $order->payment ? $order->payment->amount : '---' }} {{ __('Toman') }}</td>
-                                                        <td class="text-{{ $order->payment->status ? 'success' : 'danger' }}">{{ $order->payment->status ? 'موفق' : 'ناموفق' }}</td>
+                                                        <td class="text-{{ $order->payment && $order->payment->status ? 'success' : 'danger' }}">{{ $order->payment && $order->payment->status ? 'موفق' : 'ناموفق' }}</td>
                                                         <td class="text-{{ $order->get_status_class() }}">{{ $order->get_status() }}</td>
                                                     </tr>
                                                 @endforeach

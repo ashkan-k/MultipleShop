@@ -64,6 +64,36 @@
                                     @endif
 
                                     <div class="d-flex flex-column mb-8 fv-row">
+                                        <label for="id_user_id"
+                                               class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                            <span class="required">کاربر مربوطه</span>
+                                        </label>
+
+                                        <select id="id_user_id" name="user_id"
+                                                data-kt-select2="true"
+                                                class="form-control form-control-solid">
+                                            <option value="" disabled>کاربر مربوطه را انتخاب کنید</option>
+                                            @foreach($users as $user)
+
+                                                <option
+                                                    @if(isset($object->user_id) && $object->user_id == $user->id) selected
+                                                    @endif value="{{ $user->id }}">{{ $user->full_name() }}
+                                                </option>
+
+                                            @endforeach
+                                        </select>
+
+                                        @error('user_id')
+                                        <div class="fv-plugins-message-container invalid-feedback">
+                                            <div data-field="meta_title" data-validator="notEmpty">
+                                                {{ $message }}
+                                            </div>
+                                        </div>
+                                        @enderror
+
+                                    </div>
+
+                                    <div class="d-flex flex-column mb-8 fv-row">
                                         <label for="id_title"
                                                class="d-flex align-items-center fs-6 fw-semibold mb-2">
                                             <span class="required">عنوان</span>
