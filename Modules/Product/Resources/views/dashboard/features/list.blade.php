@@ -415,9 +415,9 @@
                 data['filter_items'] = temp_filter_items;
 
                 if (data['id']) {
-                    var url = `/api/products/featureaaaaas/update/${data['id']}`
+                    var url = `/api/products/features/${data['id']}`
                 } else {
-                    var url = `/api/products/featuresfdsfdsjhgf/qqq/create`
+                    var url = `/api/products/features`
                 }
 
                 $http.post(url, data).then(res => {
