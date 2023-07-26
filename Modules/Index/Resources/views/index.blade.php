@@ -75,19 +75,32 @@
                                     <div class="widget-product p-4">
                                         <div class="product-carousel owl-carousel owl-theme">
 
-                                            <div class="item vip_car_box_product">
-                                                <a href="single-product.html">
-                                                    <img src="/front/assets/img/product/band-products.jpg"
-                                                         class="img-fluid" alt="">
-                                                </a>
-                                                <h2 class="post-title">
-                                                    <a href="single-product.html">اسپیکر بلوتوثی لیتو مدل PARTY PLUS 400</a>
-                                                </h2>
-                                                <div class="price">
-                                                    <del><span>2,890,000<span>تومان</span></span></del>
-                                                    <ins><span>1,699,000<span>تومان</span></span></ins>
+                                            @foreach($special_products as $special_pr)
+                                                <div class="item vip_car_box_product">
+                                                    <a href="{{ route('product_detail', $special_pr->get_slug($lang)) }}">
+                                                        <img src="{{ $special_pr->get_image() }}"
+                                                             class="img-fluid"
+                                                             alt="{{ $special_pr->get_title($lang) ?: '---' }}">
+                                                    </a>
+                                                    <h2 class="post-title">
+                                                        <a href="{{ route('product_detail', $special_pr->get_slug($lang)) }}">{{ $special_pr->get_title($lang) ?: '---' }}</a>
+                                                    </h2>
+                                                    <div class="price">
+                                                        @if($special_pr->calculate_discount_percent() > 0)
+                                                            <del>
+                                                                <span>{{ number_format($special_pr->price) }}<span>{{ __('Toman') }}</span></span>
+                                                            </del>
+                                                            <ins>
+                                                                <span>{{ number_format($special_pr->discount_price) }}<span>{{ __('Toman') }}</span></span>
+                                                            </ins>
+                                                        @else
+                                                            <ins>
+                                                                <span>{{ number_format($special_pr->price) }}<span>{{ __('Toman') }}</span></span>
+                                                            </ins>
+                                                        @endif
+                                                    </div>
                                                 </div>
-                                            </div>
+                                            @endforeach
 
                                         </div>
                                     </div>
