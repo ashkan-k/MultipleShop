@@ -149,6 +149,12 @@
                             </label>
 
                             <input type="file" id="id_image" accept="image/*" multiple class="form-control">
+                            <div class="fv-plugins-message-container invalid-feedback">
+                                <div data-field="meta_title" data-validator="notEmpty">
+                                    امکان آپلود چند تصویر به صورت همزمان وجود دارد.
+                                </div>
+                            </div>
+
                             <div ng-if="obj.image" class="input-field col s12 mt-3">
                                 <p>تصویر قبلی:</p>
                                 <a href="[[ obj.image]]" target="_blank"><img

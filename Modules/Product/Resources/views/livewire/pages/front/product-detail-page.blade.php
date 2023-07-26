@@ -73,10 +73,19 @@
                                 <div id="gallery_01f" style="width:500px;float:left;">
                                     <ul class="gallery-items owl-carousel owl-theme" id="gallery-slider">
 
+                                        <li class="item">
+                                            <a href="#"
+                                               class="elevatezoom-gallery active"
+                                               data-update=""
+                                               data-image="{{ $object->get_image() }}"
+                                               data-zoom-image="{{ $object->get_image() }}">
+                                                <img src="{{ $object->get_image() }}" width="100"/></a>
+                                        </li>
+
                                         @foreach($object->galleries()->get() as $gallery)
                                             <li class="item">
                                                 <a href="#"
-                                                   class="elevatezoom-gallery {{ $loop->index == 0 ? 'active' : ''  }}"
+                                                   class="elevatezoom-gallery"
                                                    data-update=""
                                                    data-image="{{ $gallery->get_image() }}"
                                                    data-zoom-image="{{ $gallery->get_image() }}">

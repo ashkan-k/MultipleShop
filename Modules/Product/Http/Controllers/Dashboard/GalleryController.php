@@ -27,9 +27,10 @@ class GalleryController extends Controller
         return $this->SuccessRedirect('آیتم مورد نظر با موفقیت ثبت شد.', 'galleries.index');
     }
 
-    public function destroy(Gallery $product)
+    public function destroy(Gallery $gallery)
     {
-        $product->delete();
+        $gallery->delete();
+        $this->DeleteFile($gallery->image);
         return $this->SuccessRedirect('آیتم مورد نظر با موفقیت حذف شد.', 'galleries.index');
     }
 }

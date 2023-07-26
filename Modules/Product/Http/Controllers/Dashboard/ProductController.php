@@ -76,6 +76,10 @@ class ProductController extends Controller
     {
         $image = $this->UploadFile($request, 'image', 'product_images', $product->title, $product->image);
 
+        if ($image != $product->image){
+            $this->DeleteFile($product->image);
+        }
+
         $data = $request->validated();
 
         $data['is_active'] = $request->has('is_active') ?? false;
@@ -91,6 +95,7 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         $product->delete();
+        $this->DeleteFile($product->image);
         return $this->SuccessRedirect('آیتم مورد نظر با موفقیت حذف شد.', 'products.index');
     }
 }
