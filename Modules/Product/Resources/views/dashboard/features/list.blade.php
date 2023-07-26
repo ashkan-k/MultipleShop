@@ -215,7 +215,7 @@
                                     class="form-control form-control-solid">
                                 <option value="" disabled>نوع فیلتر را انتخاب کنید</option>
                                 <option value="checkbox">چک باکس</option>
-                                <option value="radio">رادیو باتن</option>
+                                <option value="radio">دکمه رادیویی</option>
                                 <option value="text">متنی</option>
                             </select>
                             <p ng-if="instance.filter_type == 'text'" class="text-danger">تکست باکس امکان فیلتر کردن ندارد. فقط جنبه ی نمایشی خواهد داشت.</p>
@@ -420,6 +420,9 @@
                     var url = `/api/products/features/`
                 }
 
+                console.log('aaaaaaaaaaaaaaaaaaa')
+                console.log(url)
+
                 $http.post(url, data).then(res => {
                     showToast(res['data']['data'], 'success');
                     $scope.is_submited = false;
@@ -427,6 +430,7 @@
                         location.reload()
                     }, 500)
                 }).catch(err => {
+                    console.log('4444444444444')
                     $scope.is_submited = false;
                     if (err['data']['errors']['category_id']) {
                         showToast(err['data']['errors']['category_id'][0], 'error');

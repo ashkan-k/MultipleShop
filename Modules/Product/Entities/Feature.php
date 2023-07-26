@@ -35,7 +35,7 @@ class Feature extends Model
        if ($this->filter_type == 'checkbox'){
            return 'چک باکس';
        }elseif ($this->filter_type == 'radio'){
-           return 'رادیو باتن';
+           return 'دکمه رادیویی';
        }elseif ($this->filter_type == 'text'){
            return 'متنی';
        }
