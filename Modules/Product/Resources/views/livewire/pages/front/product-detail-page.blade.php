@@ -656,7 +656,7 @@
                                             <div class="comments-area default">
                                                 <ol class="comment-list" style="width: 100% !important;">
 
-                                                    @foreach($comments->where('status', 'approved')->get() as $comment)
+                                                    @foreach($comments->get() as $comment)
                                                         <?php $ordered_color = \Modules\Order\Entities\OrderProduct::where('product_id', $comment->commentable_id)->whereHas('order', function ($query) use ($comment){
                                                             return $query->where('user_id', $comment->user_id);
                                                         })->first() ?>
