@@ -81,8 +81,6 @@ class ProductController extends Controller
         $data['is_active'] = $request->has('is_active') ?? false;
         $data['is_special'] = $request->has('is_special') ?? false;
 
-//        dd($data['color_id'], $data['size_id']);
-
         $product->update(array_merge($data, ['image' => $image]));
         $product->colors()->sync($data['color_id'] ?? []);
         $product->sizes()->sync($data['size_id'] ?? []);
