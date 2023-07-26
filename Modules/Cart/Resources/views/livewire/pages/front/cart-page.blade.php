@@ -108,7 +108,7 @@
                                     <div class="checkout-summary-content">
                                         <div class="checkout-summary-price-title">{{ __('Payable Amount') }}:</div>
                                         <div class="checkout-summary-price-value">
-                                            <span class="checkout-summary-price-value-amount">{{ number_format($total_amount) }}</span>{{ __('Toman') }}
+                                            <span class="checkout-summary-price-value-amount">{{ number_format($total_amount) }}</span> {{ __('Toman') }}
                                         </div>
                                         <a @if(!$total_amount) onclick="showToast('ملبغ قابل پرداخت نمیتواند صفر باشد!', 'error')" @else href="{{ route('order_submit', ['locale' => $lang]) }}" @endif class="selenium-next-step-shipping">
                                             <div class="parent-btn">

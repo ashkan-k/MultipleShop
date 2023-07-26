@@ -420,9 +420,6 @@
                     var url = `/api/products/features/`
                 }
 
-                console.log('aaaaaaaaaaaaaaaaaaa')
-                console.log(url)
-
                 $http.post(url, data).then(res => {
                     showToast(res['data']['data'], 'success');
                     $scope.is_submited = false;
@@ -430,9 +427,8 @@
                         location.reload()
                     }, 500)
                 }).catch(err => {
-                    console.log('4444444444444')
                     $scope.is_submited = false;
-                    if (err['data']['errors']['category_id']) {
+                    if (err['data']['errors'] && err['data']['errors']['category_id']) {
                         showToast(err['data']['errors']['category_id'][0], 'error');
                         return;
                     }
