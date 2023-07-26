@@ -416,7 +416,7 @@
                     <div class="row">
                         @foreach($guides as $guide)
                             <div class="service-item col">
-                                <a href="#" target="_blank">
+                                <a href="{{ $guide->link }}" target="_blank">
                                     <img src="{{ $guide->get_image() }}"
                                          alt="@if($lang == 'fa'){{ $guide->title }}@else{{ $guide->en_title }}@endif">
                                 </a>
