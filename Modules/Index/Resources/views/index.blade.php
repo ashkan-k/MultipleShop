@@ -64,6 +64,8 @@
                 </div>
             </div>
 
+            @dd($special_products->count())
+
             @if($settings['show_special_products'])
                 <div class="mt-2 mb-3 ">
                     <div class="row">
