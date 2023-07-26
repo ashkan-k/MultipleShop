@@ -421,18 +421,22 @@
                                                 <span>{{ $object->get_title($lang) }}</span>
                                             </h2>
                                             <div class="parent-expert default">
-                                                <div class="content-expert">
+                                                <div class="content-expert active">
                                                     <p>{!! $object->description !!}</p>
                                                 </div>
                                                 <div class="sum-more">
-                                                            <span class="show-more btn-link-border">
+                                                        <span class="show-more btn-link-border"
+                                                              style="display: none !important;">
                                                                 {{ __('Show more') }}
                                                             </span>
-                                                    <span class="show-less btn-link-border">
+                                                    @if(\Illuminate\Support\Str::length($object->description) > 300)
+                                                        <span class="show-less btn-link-border"
+                                                              style="display: block !important;">
                                                                 {{ __('Show less') }}
                                                             </span>
+                                                    @endif
                                                 </div>
-                                                <div class="shadow-box"></div>
+                                                <div class="shadow-box" style="display: none !important;"></div>
                                             </div>
 
                                         </article>
@@ -657,7 +661,7 @@
                                                 <ol class="comment-list" style="width: 100% !important;">
 
                                                     @foreach($comments->get() as $comment)
-                                                        <?php $ordered_color = \Modules\Order\Entities\OrderProduct::where('product_id', $comment->commentable_id)->whereHas('order', function ($query) use ($comment){
+                                                        <?php $ordered_color = \Modules\Order\Entities\OrderProduct::where('product_id', $comment->commentable_id)->whereHas('order', function ($query) use ($comment) {
                                                             return $query->where('user_id', $comment->user_id);
                                                         })->first() ?>
 

@@ -6,6 +6,7 @@ namespace App\Http\Traits;
 
 use App\Jobs\SendSmsJob;
 use App\Models\NotificationMessage;
+use Illuminate\Support\Facades\File;
 
 trait Helpers
 {
@@ -66,5 +67,20 @@ trait Helpers
         }
 
         return $result;
+    }
+
+    public function CreateFolder($folder)
+    {
+        if (!is_dir($folder)) {
+            dd('ssssssssssssss');
+            File::makeDirectory($folder, 0777, true, true);
+        }
+    }
+
+    public function DeleteFile($file)
+    {
+        if (File::exists(public_path($file))) {
+            File::delete(public_path($file));
+        }
     }
 }

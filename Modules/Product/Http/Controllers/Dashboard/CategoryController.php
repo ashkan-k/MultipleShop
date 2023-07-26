@@ -2,6 +2,7 @@
 
 namespace Modules\Product\Http\Controllers\Dashboard;
 
+use App\Http\Traits\Helpers;
 use App\Http\Traits\Responses;
 use App\Http\Traits\Uploader;
 use Illuminate\Contracts\Support\Renderable;
@@ -12,7 +13,7 @@ use Modules\Product\Http\Requests\CategoryRequest;
 
 class CategoryController extends Controller
 {
-    use Responses, Uploader;
+    use Responses, Uploader, Helpers;
 
     public function index()
     {
@@ -63,7 +64,12 @@ class CategoryController extends Controller
         $image = $this->UploadFile($request, 'image', 'product_category_images', $category->title, $category->image);
 
         if ($request->is_delete_image){
+            $this->DeleteFile($image);
             $image = null;
+        }
+
+        if ($image != $category->image){
+            $this->DeleteFile($category->image);
         }
 
         $data = $request->validated();
@@ -78,6 +84,7 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         $category->delete();
+        $this->DeleteFile($category->image);
         return $this->SuccessRedirect('آیتم مورد نظر با موفقیت حذف شد.', 'categories.index');
     }
 }

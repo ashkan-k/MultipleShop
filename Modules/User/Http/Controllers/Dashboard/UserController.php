@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Hash;
+use Modules\Dashboard\Jobs\DeleteFileJob;
 use Modules\User\Entities\User;
 use Modules\User\Http\Requests\UserRequest;
 
@@ -55,6 +56,10 @@ class UserController extends Controller
         $avatar = $this->UploadFile($request, 'avatar' , 'avatars', $user->email, $user->avatar);
         $request['password'] = $request->password ? Hash::make($request->password) : $user->password;
 
+        if ($avatar != $user->avatar){
+            $this->DeleteFile($user->avatar);
+        }
+
         $request['is_admin'] = $request->has('is_admin') ?? false;
         $request['is_staff'] = $request->has('is_staff') ?? false;
 
@@ -65,6 +70,7 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         $user->delete();
+        $this->DeleteFile($user->avatar);
         return $this->SuccessRedirect('آیتم مورد نظر با موفقیت حذف شد.', 'users.index');
     }
 

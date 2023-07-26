@@ -85,7 +85,7 @@ class ProductController extends Controller
         $product->colors()->sync($data['color_id'] ?? []);
         $product->sizes()->sync($data['size_id'] ?? []);
 
-        return $this->SuccessRedirect('آیتم مورد نظر با موفقیت ویرایش شد.', 'products.index');
+        return $this->SuccessRedirect('آیتم مورد نظر با موفقیت ویرایش شد.', 'products.edit', [], $product->id);
     }
 
     public function destroy(Product $product)

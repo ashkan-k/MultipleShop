@@ -3,9 +3,6 @@
 @section('title'){{ __('Reset Password') }}@endsection
 
 @section('content')
-{{--    @if($errors->any())--}}
-{{--        @dd($errors->all())--}}
-{{--    @endif--}}
 
     <main class="cart-page default">
         <div class="container">

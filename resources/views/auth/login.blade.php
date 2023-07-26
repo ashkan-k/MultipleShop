@@ -91,7 +91,7 @@
                                                                 class="fa fa-refresh"></i></button>
                                                     </div>
                                                     <input id="captcha" type="text" required
-                                                           value="{{ old('captcha') }}"
+                                                           value=""
                                                            placeholder="{{ __('Enter the captcha code') }}"
                                                            class="input-field @error('captcha') is-invalid @enderror"
                                                            name="captcha">
@@ -181,7 +181,7 @@
                                                                 class="fa fa-refresh"></i></button>
                                                     </div>
                                                     <input id="captcha" type="text" required
-                                                           value="{{ old('captcha') }}"
+                                                           value=""
                                                            placeholder="{{ __('Enter the captcha code') }}"
                                                            class="input-field @error('captcha') is-invalid @enderror"
                                                            name="captcha">
