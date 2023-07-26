@@ -84,8 +84,8 @@ class ProductController extends Controller
 //        dd($data['color_id'], $data['size_id']);
 
         $product->update(array_merge($data, ['image' => $image]));
-        $product->colors()->sync($data['color_id']);
-        $product->sizes()->sync($data['size_id']);
+        $product->colors()->sync($data['color_id'] ?? []);
+        $product->sizes()->sync($data['size_id'] ?? []);
 
         return $this->SuccessRedirect('آیتم مورد نظر با موفقیت ویرایش شد.', 'products.index');
     }

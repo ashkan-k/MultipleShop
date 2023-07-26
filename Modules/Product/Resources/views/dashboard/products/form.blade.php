@@ -338,7 +338,7 @@
                                             @endforeach
                                         </select>
 
-                                        @error('color_id')
+                                        @error('color_id.*')
                                         <div class="fv-plugins-message-container invalid-feedback">
                                             <div data-field="meta_title" data-validator="notEmpty">
                                                 {{ $message }}
@@ -369,7 +369,7 @@
                                             @endforeach
                                         </select>
 
-                                        @error('size_id')
+                                        @error('size_id.*')
                                         <div class="fv-plugins-message-container invalid-feedback">
                                             <div data-field="meta_title" data-validator="notEmpty">
                                                 {{ $message }}
