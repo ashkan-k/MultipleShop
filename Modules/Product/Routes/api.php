@@ -29,8 +29,8 @@ Route::prefix('galleries')->middleware('check_admin')->group(function () {
 
 Route::middleware('check_admin')->group(function () {
     // Features
-    Route::post('features/create', [FeatureController::class, 'store']);
-    Route::post('features/update/{feature}', [FeatureController::class, 'update']);
+    Route::post('featuresfdsfdsjhgf/qqq/create', [FeatureController::class, 'store']);
+    Route::post('featureaaaaas/update/{feature}', [FeatureController::class, 'update']);
     Route::get('features/items/{feature}', [FeatureController::class, 'feature_filter_items']);
 
     // Product Features
