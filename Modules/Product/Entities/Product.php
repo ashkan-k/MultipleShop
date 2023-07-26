@@ -276,7 +276,7 @@ class Product extends Model
 
     public function orders()
     {
-        return $this->hasMany(Order::class);
+        return $this->belongsToMany(Order::class, 'order_products');
     }
 
     public function comments()
