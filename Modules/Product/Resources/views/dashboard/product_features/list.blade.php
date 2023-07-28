@@ -322,9 +322,9 @@
                 $scope.obj['product_id'] = {{ $product->id }};
 
                 if ($scope.obj['id']) {
-                    var url = `/api/products/products-features/${$scope.obj['id']}/`
+                    var url = `/api/products/products-features/${$scope.obj['id']}`
                 } else {
-                    var url = `/api/products/products-features/`
+                    var url = `/api/products/products-features`
                 }
 
                 $http.post(url, $scope.obj).then(res => {
