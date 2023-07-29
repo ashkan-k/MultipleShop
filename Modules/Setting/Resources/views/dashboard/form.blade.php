@@ -104,6 +104,29 @@
 
                                     </div>
 
+                                    <div class="d-flex flex-column mb-8 fv-row">
+                                        <label for="id_is_active"
+                                               class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                            <span class="required">وضعیت (فعال / غیرفعال)</span>
+                                        </label>
+
+                                        <div class="form-check form-check-solid form-switch form-check-custom fv-row">
+                                            <input @if(isset($object) && $object->is_active) checked
+                                                   @elseif(old('is_active')) checked @else checked @endif  name="is_active"
+                                                   class="form-check-input w-45px h-30px" type="checkbox"
+                                                   id="id_is_active" value="1">
+                                            <label class="form-check-label" for="id_is_active"></label>
+                                        </div>
+
+                                        @error('is_active')
+                                        <div class="fv-plugins-message-container invalid-feedback">
+                                            <div data-field="meta_title" data-validator="notEmpty">
+                                                {{ $message }}
+                                            </div>
+                                        </div>
+                                        @enderror
+                                    </div>
+
                                     <div class="row py-5">
                                         <div class="col-md-9 offset-md-3">
                                             <div class="d-flex" style="float: left !important;">

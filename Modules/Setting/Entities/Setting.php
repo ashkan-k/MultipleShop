@@ -11,7 +11,7 @@ class Setting extends Model
     use HasFactory;
     use Searchable;
 
-    protected $fillable = ['key', 'value'];
+    protected $fillable = ['key', 'value', 'is_active'];
 
     protected $search_fields  = [
         'key',

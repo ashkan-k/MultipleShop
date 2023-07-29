@@ -56,14 +56,6 @@
 
                         <div class="card-toolbar">
                             <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
-                                {{--                                <button type="button" class="btn btn-light-primary me-3" data-bs-toggle="modal"--}}
-                                {{--                                        data-bs-target="#kt_modal_export_تنظیمات">--}}
-                                {{--                                    <i class="ki-duotone ki-exit-up fs-2">--}}
-                                {{--                                        <span class="path1"></span>--}}
-                                {{--                                        <span class="path2"></span>--}}
-                                {{--                                    </i>خروجی--}}
-                                {{--                                </button>--}}
-
                                 <button onclick="window.location.href='{{ route('settings.create') }}'" type="button"
                                         class="btn btn-primary" data-bs-toggle="modal"
                                         data-bs-target="#kt_modal_add_user">
@@ -93,6 +85,7 @@
                                 </th>
                                 <th>کلید</th>
                                 <th>مقدار</th>
+                                <th>وضعیت</th>
                                 <th class="text-end min-w-100px">عملیات</th>
                             </tr>
                             </thead>
@@ -112,6 +105,18 @@
                                     <td>{{ $item->key }}</td>
 
                                     <td title="{{ $item->value }}">{{ \Illuminate\Support\Str::limit($item->value, 50) }}</td>
+
+                                    <td>
+                                        <div ng-click="ChangeStatusModal({{ $item->id }}, '{{ $item->is_active ? 1 : 0 }}')"
+                                             class="badge badge-light-{{ $item->is_active ? 'success' : 'danger' }} active_modal_buttons">
+                                            @if($item->is_active)
+                                                فعال
+                                            @else
+
+                                                غیر فعال
+                                            @endif
+                                        </div>
+                                    </td>
 
                                     <td class="text-end">
                                         <a href="#"
