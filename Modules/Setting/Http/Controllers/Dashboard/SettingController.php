@@ -41,8 +41,9 @@ class SettingController extends Controller
 
     public function update(SettingRequest $request, Setting $setting)
     {
-        $request['is_active'] = $request->has('is_active') ?? false;
-        $setting->update($request->validated());
+        $data = $request->validated();
+        $data['is_active'] = $request->has('is_active') ?? false;
+        $setting->update($data);
         return $this->SuccessRedirect('آیتم مورد نظر با موفقیت ویرایش شد.', 'settings.index');
     }
 
