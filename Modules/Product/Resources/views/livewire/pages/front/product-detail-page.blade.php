@@ -10,6 +10,10 @@
                                 <a href="/"> <span>{{ __('Online Shop') }} {{ $website_title }}</span></a>
                             </li>
 
+                            <li>
+                                <a href="{{ route('products_list', ['locale' => $lang]) }}"><span>{{ __('Products') }}</span></a>
+                            </li>
+
                             @if(isset($object->category->parent->parent->parent))
                                 <li>
                                     <a href="{{ route('category.products', [
@@ -341,7 +345,7 @@
                                         @else
 
                                             <div class="parent-btn">
-                                                <a class="dk-btn dk-btn-info" style="cursor: not-allowed" disabled>
+                                                <a class="dk-btn dk-btn-grey" style="cursor: not-allowed" disabled>
                                                     {{ __('Unavailable') }}
                                                     <i class="now-ui-icons shopping_cart-simple"></i>
                                                 </a>
@@ -365,7 +369,7 @@
                                     @else
 
                                         <div class="parent-btn">
-                                            <a class="dk-btn dk-btn-info" style="cursor: not-allowed" disabled>
+                                            <a class="dk-btn dk-btn-grey" style="cursor: not-allowed" disabled>
                                                 {{ __('Unavailable') }}
                                                 <i class="now-ui-icons shopping_cart-simple"></i>
                                             </a>

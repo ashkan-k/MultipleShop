@@ -214,7 +214,7 @@
 
                                         <textarea type="text" id="id_description"
                                                   class="form-control form-control-solid"
-                                                  placeholder="توضیحات را وارد کنید" name="description" rows="12"
+                                                  placeholder="توضیحات را وارد کنید" name="description" rows="18"
                                                   required>@if(old('description')){{ old('description') }}@elseif(isset($object->description)){{ $object->description }}@endif</textarea>
 
                                         @error('description')

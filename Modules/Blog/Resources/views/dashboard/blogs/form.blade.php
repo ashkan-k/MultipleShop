@@ -173,7 +173,7 @@
                                         </label>
 
                                         <textarea type="text" id="id_text" class="form-control form-control-solid"
-                                                  placeholder="متن را وارد کنید" name="text" rows="15"
+                                                  placeholder="متن را وارد کنید" name="text" rows="18"
                                                   required>@if(old('text')){{ old('text') }}@elseif(isset($object->text)){{ $object->text }}@endif</textarea>
 
                                         @error('text')

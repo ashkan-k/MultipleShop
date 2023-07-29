@@ -358,7 +358,7 @@
                     <div class="col-12">
                         <header class="mt-3">
                             <h5>
-                                <span>{{ __('The best') }} {{ $best_category->get_title($lang) ?: '---' }}</span>
+                                <span>{{ $best_category->get_title($lang) ?: '---' }}</span>
                             </h5>
                         </header>
                         <div class="row">
@@ -369,9 +369,11 @@
                                         <div class="p-3">
                                             <div class="row">
                                                 <div class="col-4">
-                                                    <img src="{{ $prod->get_image() }}"
-                                                         alt="{{ $prod->get_title($lang) ?: '---' }}"
-                                                         class="img-fluid">
+                                                    <a href="{{ route('product_detail', $prod->get_slug($lang)) }}">
+                                                        <img src="{{ $prod->get_image() }}"
+                                                             alt="{{ $prod->get_title($lang) ?: '---' }}"
+                                                             class="img-fluid">
+                                                    </a>
                                                 </div>
                                                 <div class="col-8">
                                                     <div class="mt-4 pl-0">
