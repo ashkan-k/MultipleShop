@@ -52,4 +52,10 @@ class SettingController extends Controller
         $setting->delete();
         return $this->SuccessRedirect('آیتم مورد نظر با موفقیت حذف شد.', 'settings.index');
     }
+
+    public function change_status(Setting $setting)
+    {
+        $setting->update(['is_active' => \request('is_active')]);
+        return $this->SuccessResponse('وضعیت آیتم مورد نظر با موفقیت تغییر یافت.');
+    }
 }
