@@ -18,6 +18,18 @@ class Setting extends Model
         'value',
     ];
 
+    public static $DynamicItems = [
+        'lang' => [
+            'key' => 'زبان اصلی سیستم',
+            'value' => 'ssss',
+        ],
+    ];
+
+    public static function GetDynamicItem($key)
+    {
+        return self::$DynamicItems[$key];
+    }
+
     protected static function newFactory()
     {
         return \Modules\Setting\Database\factories\SettingFactory::new();

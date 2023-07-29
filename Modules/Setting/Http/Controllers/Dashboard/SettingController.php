@@ -53,6 +53,15 @@ class SettingController extends Controller
         return $this->SuccessRedirect('آیتم مورد نظر با موفقیت حذف شد.', 'settings.index');
     }
 
+    //
+
+    public function dynamic_form()
+    {
+        $item = Setting::GetDynamicItem('lang');
+        dd($item);
+        return view('setting::dashboard.dynamic_form')->with('object', $setting);
+    }
+
     public function change_status(Setting $setting)
     {
         $setting->update(['is_active' => \request('is_active')]);
