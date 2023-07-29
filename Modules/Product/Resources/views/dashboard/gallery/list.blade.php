@@ -151,7 +151,7 @@
                             <input type="file" id="id_image" accept="image/*" multiple class="form-control">
                             <div class="fv-plugins-message-container invalid-feedback">
                                 <div data-field="meta_title" data-validator="notEmpty">
-                                    امکان آپلود چند تصویر به صورت همزمان وجود دارد.
+                                    <h5 class="text-danger">امکان آپلود چند تصویر به صورت همزمان وجود دارد.</h5>
                                 </div>
                             </div>
 
