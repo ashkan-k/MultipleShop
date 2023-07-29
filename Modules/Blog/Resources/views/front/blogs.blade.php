@@ -8,7 +8,9 @@
     @livewire('blog::pages.front.blogs-page' , [
 
         'titlePage' => 'مقالات',
+        'lang' => $lang,
         'website_title' => $website_title,
+        'category_slug' => $category_slug,
 
     ])
 @endsection

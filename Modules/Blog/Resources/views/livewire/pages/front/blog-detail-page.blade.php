@@ -13,7 +13,7 @@
                             <li><a href="{{ route('blogs_list', ['locale' => $lang]) }}"><span>{{ __('Blogs') }}</span></a>
                             </li>
                             <li>
-                                <span>{{ $object->category ? $object->category->title : '---' }}</span>
+                                <a href="{{ route('blog_category_list', ['locale' => $lang, 'slug' => $object->category->get_slug($lang)]) }}"><span>{{ $object->category ? $object->category->get_title($lang) : '---' }}</span></a>
                             </li>
                             <li>
                                 <span>{{ $object->get_title($lang) }}</span>
@@ -284,57 +284,59 @@
 
     </div>
 
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="mt-3">
-                    <div class="widget widget-product card" style="
+    @if(count($related_blogs))
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="mt-3">
+                        <div class="widget widget-product card" style="
     height: 390px;
 ">
-                        <header class="card-header">
-                            <h3 class="card-title">
-                                <span>{{ __('Related Blogs') }}</span>
-                            </h3>
+                            <header class="card-header">
+                                <h3 class="card-title">
+                                    <span>{{ __('Related Blogs') }}</span>
+                                </h3>
 
-                        </header>
-                        <div class="product-carousel owl-carousel owl-theme owl-rtl owl-loaded owl-drag">
+                            </header>
+                            <div class="product-carousel owl-carousel owl-theme owl-rtl owl-loaded owl-drag">
 
 
-                            <div class="owl-stage-outer">
-                                <div class="owl-stage"
-                                     style="transform: translate3d(1500px, 0px, 0px); transition: all 0s ease 0s; width: 4250px;">
+                                <div class="owl-stage-outer">
+                                    <div class="owl-stage"
+                                         style="transform: translate3d(1500px, 0px, 0px); transition: all 0s ease 0s; width: 4250px;">
 
-                                    @foreach($related_blogs as $rel_blog)
-                                        <div class="owl-item" style="width: 240px; margin-left: 10px;">
-                                            <div class="item">
-                                                <a href="{{ route('blog_detail', ['locale' => $lang, 'slug' => $rel_blog->get_slug($lang)]) }}">
-                                                    <img src="{{ $rel_blog->get_image() }}"
-                                                         class="img-fluid" alt="{{ $rel_blog->get_title($lang) }}">
-                                                </a>
-                                                <h2 class="post-title">
-                                                    <a href="{{ route('blog_detail', ['locale' => $lang, 'slug' => $rel_blog->get_slug($lang)]) }}">{{ $rel_blog->get_title($lang) }}</a>
-                                                </h2>
+                                        @foreach($related_blogs as $rel_blog)
+                                            <div class="owl-item" style="width: 240px; margin-left: 10px;">
+                                                <div class="item">
+                                                    <a href="{{ route('blog_detail', ['locale' => $lang, 'slug' => $rel_blog->get_slug($lang)]) }}">
+                                                        <img src="{{ $rel_blog->get_image() }}"
+                                                             class="img-fluid" alt="{{ $rel_blog->get_title($lang) }}">
+                                                    </a>
+                                                    <h2 class="post-title">
+                                                        <a href="{{ route('blog_detail', ['locale' => $lang, 'slug' => $rel_blog->get_slug($lang)]) }}">{{ $rel_blog->get_title($lang) }}</a>
+                                                    </h2>
+                                                </div>
                                             </div>
-                                        </div>
-                                    @endforeach
+                                        @endforeach
 
+                                    </div>
                                 </div>
+                                <div class="owl-nav">
+                                    <button type="button" role="presentation" class="owl-prev"><i
+                                            class="now-ui-icons arrows-1_minimal-right"></i></button>
+                                    <button type="button" role="presentation" class="owl-next"><i
+                                            class="now-ui-icons arrows-1_minimal-left"></i></button>
+                                </div>
+                                <div class="owl-dots disabled"></div>
                             </div>
-                            <div class="owl-nav">
-                                <button type="button" role="presentation" class="owl-prev"><i
-                                        class="now-ui-icons arrows-1_minimal-right"></i></button>
-                                <button type="button" role="presentation" class="owl-next"><i
-                                        class="now-ui-icons arrows-1_minimal-left"></i></button>
-                            </div>
-                            <div class="owl-dots disabled"></div>
                         </div>
                     </div>
+
                 </div>
-
             </div>
-        </div>
 
-    </div>
+        </div>
+    @endif
 
 </main>
 

@@ -20,9 +20,9 @@ class FrontBlogController extends Controller
 {
     use Responses, Uploader;
 
-    public function blogs($lang)
+    public function blogs($lang, $category_slug = null)
     {
-        return view('blog::front.blogs');
+        return view('blog::front.blogs', compact('category_slug'));
     }
 
     public function blog_detail($lang, $slug)

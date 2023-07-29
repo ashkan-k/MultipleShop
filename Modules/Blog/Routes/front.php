@@ -14,5 +14,6 @@
 use Illuminate\Support\Facades\Route;
 use Modules\Blog\Http\Controllers\Front\FrontBlogController;
 
-Route::get('blogs/{slug}', [FrontBlogController::class, 'blog_detail'])->name('blog_detail');
-Route::get('blogs', [FrontBlogController::class, 'blogs'])->name('blogs_list');
+Route::get('blog/{slug}', [FrontBlogController::class, 'blog_detail'])->name('blog_detail');
+Route::get('blog/category/{slug}', [FrontBlogController::class, 'blogs'])->name('blog_category_list');
+Route::get('blog', [FrontBlogController::class, 'blogs'])->name('blogs_list');

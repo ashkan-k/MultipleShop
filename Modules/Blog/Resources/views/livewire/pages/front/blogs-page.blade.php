@@ -10,7 +10,13 @@
                                     <span>{{ __('Online Shop') }} {{ $website_title }}</span>
                                 </a>
                             </li>
-                            <li><span>{{ __('Blogs') }}</span></li>
+                            <li>
+                                @if(isset($category_object))
+                                    <span>{{ $category_object->get_title($lang) }}</span>
+                                @else
+                                    <span>{{ __('Blogs') }}</span>
+                                @endif
+                            </li>
                         </ul>
                     </div>
                 </div>

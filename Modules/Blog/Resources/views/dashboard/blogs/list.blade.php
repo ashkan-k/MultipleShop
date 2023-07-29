@@ -204,7 +204,7 @@
                         <!--end::Table-->
 
                         <div class="row">
-                            @include('dashboard.section.components.bulk_actions.bulk_actions', ['actions' => [['delete', 'حذف کردن'], ['draft', 'پیش نویس شدن'], ['publish', 'منتشر شدن'], ['done', 'پایان انتشار شدن']], 'items' => $objects])
+                            @include('dashboard.section.components.bulk_actions.bulk_actions', ['actions' => [['delete', 'حذف کردن'], ['draft', 'پیش نویس شدن'], ['publish', 'منتشر شدن'], ['done', 'بسته شدن']], 'items' => $objects])
                             @include('dashboard.section.components.filters.limit_select_box')
 
 
@@ -257,7 +257,7 @@
                             <select ng-model="status" id="id_status" class="form-control form-control-solid">
                                 <option value="draft">پیش نویس</option>
                                 <option value="publish">انتشار</option>
-                                <option value="done">پایان انتشار</option>
+                                <option value="done">بسته</option>
                             </select>
                         </div>
 

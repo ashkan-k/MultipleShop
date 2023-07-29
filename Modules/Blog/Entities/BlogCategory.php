@@ -29,6 +29,14 @@ class BlogCategory extends Model
         'en_slug',
     ];
 
+    public function scopeFindBySlug($query, $lang, $slug)
+    {
+        if ($lang == 'fa') {
+            return $query->where('slug', $slug)->firstOrFail();
+        }
+        return $query->where('en_slug', $slug)->firstOrFail();
+    }
+
     public function save(array $options = [])
     {
         if (!$this->slug){
@@ -48,6 +56,22 @@ class BlogCategory extends Model
             $saved =  parent::save($options);
         }
         return $saved;
+    }
+
+    public function get_title($lang)
+    {
+        return $lang == 'fa' ? $this->title : $this->en_title;
+    }
+
+    public function get_slug($lang)
+    {
+        $slug = $this->slug;
+
+        if ($lang != 'fa'){
+            $slug = $this->en_slug;
+        }
+
+        return $slug ?: '---';
     }
 
     public function get_image()

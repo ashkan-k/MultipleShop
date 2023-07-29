@@ -22,7 +22,7 @@ class BlogController extends Controller
             ->with('user')
             ->latest()
             ->paginate(\request('pagination', env('PAGINATION_NUMBER', 10)));
-        $status_filters = [['draft', 'پیش نویس'], ['publish', 'انتشار'], ['done', 'پایان انتشار']];
+        $status_filters = [['draft', 'پیش نویس'], ['publish', 'انتشار'], ['done', 'بسته']];
 
         return view('blog::dashboard.blogs.list', compact('objects', 'status_filters'));
     }

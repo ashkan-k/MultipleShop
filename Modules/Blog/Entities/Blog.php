@@ -50,7 +50,7 @@ class Blog extends Model
         } elseif ($this->status == 'publish') {
             return 'انتشار';
         }
-        return 'پایان انتشار';
+        return 'بسته';
     }
 
     public function get_status_class()

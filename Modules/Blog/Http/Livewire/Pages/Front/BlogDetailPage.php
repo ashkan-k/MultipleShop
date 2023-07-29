@@ -43,7 +43,8 @@ class BlogDetailPage extends Component
     {
         $data = [
             'latest_blogs' => Blog::latest()->limit(5)->get(),
-            'related_blogs' => Blog::where('category_id', $this->object->category_id)->get(),
+            'related_blogs' => Blog::where('category_id', $this->object->category_id)
+                ->where('id', '!=', $this->object->id)->get(),
             'comments' => $this->object->comments()->where('status', 'approved')->with(['user'])
         ];
         return view('blog::livewire.pages.front.blog-detail-page', $data);

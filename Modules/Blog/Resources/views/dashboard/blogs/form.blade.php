@@ -238,7 +238,7 @@
                                             </option>
                                             <option
                                                 @if((isset($object->status) && $object->status == 'done') || old('status') == 'done') selected
-                                                @endif value="done">پایان انتشار
+                                                @endif value="done">بسته
                                             </option>
                                         </select>
 

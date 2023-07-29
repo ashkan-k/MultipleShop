@@ -68,7 +68,7 @@ class ZarinPalPaymentController extends BaseGatewayController
             return redirect('https://sandbox.zarinpal.com/pg/StartPay/' . $result[1]->Authority);
         }
 
-        $error_code = $result[1]->Status;
+        $error_code = $result[1]->Status ?? '-1';
         return view('payment::front.fail', compact('error_code'));
     }
 

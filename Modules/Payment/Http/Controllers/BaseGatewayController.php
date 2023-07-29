@@ -49,7 +49,11 @@ class BaseGatewayController extends Controller
         $Mobile = Setting::where('key', 'phone')->first()->phone; // Optional
         $CallbackURL = env('APP_URL') . "/{$lang}" . '/payment/callback'; // Required
 
-        $client = new SoapClient('https://sandbox.zarinpal.com/pg/services/WebGate/wsdl', ['encoding' => 'UTF-8']);
+        try {
+            $client = new SoapClient('https://sandbox.zarinpal.com/pg/services/WebGate/wsdl', ['encoding' => 'UTF-8']);
+        }catch (\Exception $exception){
+            return [false, -1];
+        }
 
         $result = $client->PaymentRequest(
             [
@@ -75,7 +79,6 @@ class BaseGatewayController extends Controller
             $order->update(['payment_id' => $payment->id]);
 
             return [true, $result];
-            return redirect('https://sandbox.zarinpal.com/pg/StartPay/' . $result->Authority);
 
         } else {
             return [false, $result];
