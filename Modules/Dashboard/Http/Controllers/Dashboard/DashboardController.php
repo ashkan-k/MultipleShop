@@ -80,4 +80,16 @@ class DashboardController extends Controller
         }
         return view('dashboard::profile', compact('user'));
     }
+
+    //
+
+    public function upload_ckeditor_image(Request $request)
+    {
+        $request->validate([
+            'upload' => 'required|mimes:jpeg,png,bmp',
+        ]);
+
+        $url = $this->UploadFile($request, 'upload', 'ckeditor', 'files');
+        return "<script>window.parent.CKEDITOR.tools.callFunction(1 , '{$url}' , '')</script>";
+    }
 }

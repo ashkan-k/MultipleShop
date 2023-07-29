@@ -18,3 +18,5 @@ Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 ## Profile
 Route::get('profile', [DashboardController::class, 'profile'])->name('profile');
 Route::post('profile', [DashboardController::class, 'profile'])->name('profile_store');
+
+Route::post('/ckeditor/CK' , [DashboardController::class , 'upload_ckeditor_image'])->name('upload_ckeditor_image');
