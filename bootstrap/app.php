@@ -15,10 +15,8 @@ $app = new Illuminate\Foundation\Application(
     $_ENV['APP_BASE_PATH'] ?? dirname(__DIR__)
 );
 
-dd(base_path());
-
 //$app->usePublicPath($app->basePath('public_html'));
-// $app->usePublicPath('/home/tehranco/test.faradownload.com');
+$app->usePublicPath('/home/tehranco/test.faradownload.com');
 
 /*
 |--------------------------------------------------------------------------
