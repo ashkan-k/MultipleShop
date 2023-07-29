@@ -208,10 +208,6 @@
 
 @section('Scripts')
     <script>
-        CKEDITOR.replace('id_text');
-    </script>
-
-    <script>
         app.controller('myCtrl', function ($scope, $http) {
             $scope.is_english = false;
         });

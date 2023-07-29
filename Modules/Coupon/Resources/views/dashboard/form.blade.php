@@ -213,10 +213,6 @@
 
 @section('Scripts')
     <script>
-        CKEDITOR.replace('id_description');
-    </script>
-
-    <script>
         $(document).ready(function() {
             $('#id_expiration').val(toEnglishDigits($('#id_expiration').val()))
             $('#id_discount_end_date').val(toEnglishDigits($('#id_discount_end_date').val()))

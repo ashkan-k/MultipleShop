@@ -550,7 +550,11 @@
 
 @section('Scripts')
     <script>
-        CKEDITOR.replace('id_description');
+        CKEDITOR.replace('id_description', {
+            filebrowserUploadMethod: 'form',
+            filebrowserUploadUrl : '{{ route('upload_ckeditor_image') }}',
+            filebrowserImageUploadUrl :  '{{ route('upload_ckeditor_image') }}'
+        });
         $('#id_color_id').select2();
         $('#id_size_id').select2();
     </script>

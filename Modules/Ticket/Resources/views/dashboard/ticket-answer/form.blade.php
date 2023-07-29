@@ -328,7 +328,11 @@
 
 @section('Scripts')
     <script>
-        CKEDITOR.replace('id_text');
+        CKEDITOR.replace('id_text', {
+            filebrowserUploadMethod: 'form',
+            filebrowserUploadUrl : '{{ route('upload_ckeditor_image') }}',
+            filebrowserImageUploadUrl :  '{{ route('upload_ckeditor_image') }}'
+        });
     </script>
 
     <script>
