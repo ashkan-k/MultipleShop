@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
+use Modules\Auth\Rules\ReCaptcha;
 
 class LoginRequest extends FormRequest
 {
@@ -29,7 +30,7 @@ class LoginRequest extends FormRequest
         return [
             'email' => ['required', 'string', 'email'],
             'password' => ['required', 'string'],
-            'captcha' => 'required|captcha',
+            'recaptcha_token' => ['required', new Recaptcha()]
         ];
     }
 

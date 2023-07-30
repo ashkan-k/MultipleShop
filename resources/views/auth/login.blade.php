@@ -39,7 +39,7 @@
                                                ng-click="ChangePage('login')">{{ __('Please Login') }}</a>
                                         </div>
                                         <div class="account-box-content">
-                                            <form class="form-account" method="post"
+                                            <form class="form-account" method="post" id="frm_login"
                                                   action="{{ route('register') }}?next={{ request('next') }}">
                                                 @csrf
 
@@ -173,20 +173,9 @@
                                                 <div class="form-account-title mt-3" style="margin-bottom: 0 !important;">{{ __('Captcha') }}</div>
                                                 <div class="form-account-row">
                                                     <label class="input-label"></label>
-                                                    <div class="captcha">
-                                                        <span class="captcha-image">{!! captcha_img() !!}</span>
-                                                        <button type="button"
-                                                                style="background-color: #ef5661 !important;"
-                                                                class="btn btn-success rounded refresh_button"><i
-                                                                class="fa fa-refresh"></i></button>
-                                                    </div>
-                                                    <input id="captcha" type="text" required
-                                                           value=""
-                                                           placeholder="{{ __('Enter the captcha code') }}"
-                                                           class="input-field @error('captcha') is-invalid @enderror"
-                                                           name="captcha">
+                                                    <div class="g-recaptcha" data-sitekey="{{ env('GOOGLE_RECAPTCHA_KEY') }}"></div>
 
-                                                    @error('captcha')
+                                                    @error('g-recaptcha-response')
                                                     <span class="text-danger text-wrap">{{ $message }}</span>
                                                     @enderror
                                                 </div>
@@ -233,6 +222,8 @@
 @endsection
 
 @section('scripts')
+    <script src="https://www.google.com/recaptcha/api.js?render={{ env('GOOGLE_RECAPTCHA_KEY') }}"></script>
+
     @include('front.components.captcha_js')
 
     <script>
@@ -271,3 +262,18 @@
         });
     </script>
 @endsection
+
+@push('StackScript')
+    <script>
+        grecaptcha.ready(function () {
+            document.getElementById('frm_login').addEventListener("submit", function (event) {
+                event.preventDefault();
+                grecaptcha.execute('{{ env('GOOGLE_RECAPTCHA_KEY') }}', { action: 'register' })
+                    .then(function (token) {
+                        document.getElementById("recaptcha_token").value = token;
+                        document.getElementById('frm_login').submit();
+                    });
+            });
+        });
+    </script>
+@endpush
