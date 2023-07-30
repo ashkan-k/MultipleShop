@@ -74,6 +74,11 @@ class SettingController extends Controller
     public function dynamic_form($key, Setting $setting = null)
     {
         $form = Setting::GetDynamicItem($key);
+        $setting = Setting::firstOrCreate(['key' => $form['key']] , [
+            'key' => $form['key'],
+            'value' => 'fa',
+            'is_active' => true,
+        ]);
         return view('setting::dashboard.dynamic_form', compact('form'))->with('object', $setting);
     }
 }
