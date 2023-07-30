@@ -25,7 +25,7 @@ class AppServiceProvider extends ServiceProvider
     {
         if (Schema::hasTable('settings') && !str_contains('dashboard', request()->url())){
             $settings = [];
-            foreach (Setting::all() as $item){
+            foreach (Setting::ActiveProducts()->get() as $item){
                 $settings[$item->key] = $item->value;
             }
             View::share('settings', $settings);

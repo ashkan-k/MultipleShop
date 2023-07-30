@@ -20,8 +20,16 @@ class Setting extends Model
 
     public static $DynamicItems = [
         'lang' => [
-            'key' => 'زبان اصلی سیستم',
-            'value' => 'ssss',
+            'title' => 'زبان اصلی سیستم',
+            'key' => 'default_system_lang',
+            'has_active_status' => true,
+            'field' => [
+                'type' => 'select',
+                'options' => [
+                    'fa' => 'فارسی',
+                    'en' => 'انگلیسی',
+                ],
+            ],
         ],
     ];
 
@@ -30,8 +38,29 @@ class Setting extends Model
         return self::$DynamicItems[$key];
     }
 
+    //
+
+    private function ChangeDefaultSystemLocale()
+    {
+        app()->setLocale($this->value);
+        session()->put('current_lang', $this->value);
+    }
+
+    public function save(array $options = [])
+    {
+        if ($this->key == 'default_system_lang' and $this->is_active){
+            $this->ChangeDefaultSystemLocale();
+        }
+        return parent::save($options);
+    }
+
     protected static function newFactory()
     {
         return \Modules\Setting\Database\factories\SettingFactory::new();
+    }
+
+    public function scopeActiveProducts($query)
+    {
+        return $query->where('is_active', 1);
     }
 }

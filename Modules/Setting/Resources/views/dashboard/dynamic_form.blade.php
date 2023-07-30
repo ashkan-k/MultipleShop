@@ -13,7 +13,12 @@
                 <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
                     <!--begin::Title-->
                     <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">
-                        افزودن تنظیمات</h1>
+                        @if($form)
+                            تغغیر تنظیمات {{ $form['title'] }}
+                        @else
+                            افزودن تنظیمات
+                        @endif
+                    </h1>
                     <!--end::Title-->
                     <!--begin::Breadcrumb-->
                     <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1">
@@ -56,76 +61,103 @@
                                 <!--begin::Form-->
                                 <form role="form" enctype="multipart/form-data"
                                       method="post"
-                                      action="@if(isset($object)){{ route('settings.update' , $object->id) }}@else{{ route('settings.store') }}@endif">
+                                      action="@if(isset($object)){{ route('settings.update' , $object->id) }}@else{{ route('settings.store') }}@endif?next=/{{ request()->path() }}">
 
                                     @csrf
                                     @if(isset($object))
                                         @method('PATCH')
                                     @endif
 
-                                    <div class="d-flex flex-column mb-8 fv-row">
-                                        <!--begin::Tags-->
-                                        <label for="id_key" class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                            <span class="required">{{ $key_label }}</span>
-                                        </label>
-                                        <!--end::Tags-->
-                                        <input type="text" id="id_key" class="form-control form-control-solid"
-                                               value="@if(old('key')){{ old('key') }}@elseif(isset($object->key)){{ $object->key }}@endif"
-                                               placeholder="{{ $key_label }} را وارد کنید" name="key" required/>
+                                    <input type="hidden" name="key" value="{{ $form['key'] }}">
 
-                                        @error('key')
-                                        <div class="fv-plugins-message-container invalid-feedback">
-                                            <div data-field="meta_title" data-validator="notEmpty">
-                                                {{ $message }}
+                                    @if($form['field']['type'] == 'select')
+
+                                        <div class="d-flex flex-column mb-8 fv-row">
+                                            <!--begin::Tags-->
+                                            <label for="id_value"
+                                                   class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                                <span class="required">{{ $form['title'] }}</span>
+                                            </label>
+                                            <!--end::Tags-->
+
+                                            <select id="id_value" name="value"
+                                                    data-kt-select2="true" required
+                                                    class="form-control form-control-solid">
+                                                <option value="" disabled>{{ $form['title'] }} را انتخاب کنید</option>
+                                                @foreach($form['field']['options'] as $key => $value)
+
+                                                    <option
+                                                        @if(isset($object->value) && $object->value == $key) selected
+                                                        @endif value="{{ $key }}">{{ $value }}
+                                                    </option>
+
+                                                @endforeach
+                                            </select>
+
+                                            @error('value')
+                                            <div class="fv-plugins-message-container invalid-feedback">
+                                                <div data-field="meta_title" data-validator="notEmpty">
+                                                    {{ $message }}
+                                                </div>
                                             </div>
+                                            @enderror
+
                                         </div>
-                                        @enderror
 
-                                    </div>
+                                    @elseif($form['field']['type'] == 'textarea')
 
-                                    <div class="d-flex flex-column mb-8 fv-row">
-                                        <!--begin::Tags-->
-                                        <label for="id_value" class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                            <span class="required">$key_label</span>
-                                        </label>
-                                        <!--end::Tags-->
-                                        <textarea type="text" id="id_value" class="form-control form-control-solid"
-                                                  rows="8" required
-                                                  placeholder="$key_label را وارد کنید"
-                                                  name="value">@if(old('value')){{ old('value') }}@elseif(isset($object->value)){{ $object->value }}@endif</textarea>
+                                        <div class="d-flex flex-column mb-8 fv-row">
+                                            <!--begin::Tags-->
+                                            <label for="id_value"
+                                                   class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                                <span class="required">$key_label</span>
+                                            </label>
+                                            <!--end::Tags-->
+                                            <textarea type="text" id="id_value" class="form-control form-control-solid"
+                                                      rows="8" required
+                                                      placeholder="$key_label را وارد کنید"
+                                                      name="value">@if(old('value')){{ old('value') }}@elseif(isset($object->value)){{ $object->value }}@endif</textarea>
 
-                                        @error('value')
-                                        <div class="fv-plugins-message-container invalid-feedback">
-                                            <div data-field="meta_title" data-validator="notEmpty">
-                                                {{ $message }}
+                                            @error('value')
+                                            <div class="fv-plugins-message-container invalid-feedback">
+                                                <div data-field="meta_title" data-validator="notEmpty">
+                                                    {{ $message }}
+                                                </div>
                                             </div>
-                                        </div>
-                                        @enderror
+                                            @enderror
 
-                                    </div>
-
-                                    <div class="d-flex flex-column mb-8 fv-row">
-                                        <label for="id_is_active"
-                                               class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                            <span class="required">وضعیت (فعال / غیرفعال)</span>
-                                        </label>
-
-                                        <div class="form-check form-check-solid form-switch form-check-custom fv-row">
-                                            <input @if(isset($object) && $object->is_active) checked
-                                                   @elseif(old('is_active')) checked @else checked @endif  name="is_active"
-                                                   class="form-check-input w-45px h-30px" type="checkbox"
-                                                   id="id_is_active" value="1">
-                                            <label class="form-check-label" for="id_is_active"></label>
                                         </div>
 
-                                        @error('is_active')
-                                        <div class="fv-plugins-message-container invalid-feedback">
-                                            <div data-field="meta_title" data-validator="notEmpty">
-                                                {{ $message }}
+                                    @endif
+
+
+                                    @if($form['has_active_status'])
+                                        <div class="d-flex flex-column mb-8 fv-row">
+                                            <label for="id_is_active"
+                                                   class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                                <span class="required">وضعیت (فعال / غیرفعال)</span>
+                                            </label>
+
+                                            <div class="form-check form-check-solid form-switch form-check-custom fv-row">
+                                                <input @if(isset($object) && $object->is_active) checked
+                                                       @elseif(old('is_active')) checked @elseif(!isset($object)) checked
+                                                       @endif  name="is_active"
+                                                       class="form-check-input w-45px h-30px" type="checkbox"
+                                                       id="id_is_active" value="1">
+                                                <label class="form-check-label" for="id_is_active"></label>
                                             </div>
+
+                                            @error('is_active')
+                                            <div class="fv-plugins-message-container invalid-feedback">
+                                                <div data-field="meta_title" data-validator="notEmpty">
+                                                    {{ $message }}
+                                                </div>
+                                            </div>
+                                            @enderror
                                         </div>
-                                        @enderror
-                                    </div>
+                                    @else
+                                        <input type="hidden" name="is_active" value="1">
+                                    @endif
 
                                     <div class="row py-5">
                                         <div class="col-md-9 offset-md-3">
@@ -167,11 +199,13 @@
 
 @section('Scripts')
     <script>
+        @if($form['field']['type'] == 'textarea')
         CKEDITOR.replace('id_value', {
             filebrowserUploadMethod: 'form',
-            filebrowserUploadUrl : '{{ route('upload_ckeditor_image') }}',
-            filebrowserImageUploadUrl :  '{{ route('upload_ckeditor_image') }}'
+            filebrowserUploadUrl: '{{ route('upload_ckeditor_image') }}',
+            filebrowserImageUploadUrl: '{{ route('upload_ckeditor_image') }}'
         });
+        @endif
     </script>
 @endsection
 

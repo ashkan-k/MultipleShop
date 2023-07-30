@@ -14,4 +14,7 @@
 use Illuminate\Support\Facades\Route;
 use Modules\Setting\Http\Controllers\Dashboard\SettingController;
 
+Route::get('settings/dynamic/form', [SettingController::class, 'dynamic_form'])->name('dynamic_form');
+Route::get('settings/dynamic/form/{setting}', [SettingController::class, 'dynamic_form']);
+
 Route::resource('settings', SettingController::class);

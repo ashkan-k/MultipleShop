@@ -30,8 +30,13 @@ class SettingController extends Controller
     {
         $data = $request->validated();
         $data['is_active'] = $request->has('is_active') ?? false;
-        Setting::create($data);
-        return $this->SuccessRedirect('آیتم مورد نظر با موفقیت ثبت شد.', 'settings.index');
+        $setting = Setting::create($data);
+
+        $next_url = route('settings.index');
+        if (\request('next')){
+            $next_url = \request('next') . '/' . $setting->id;
+        }
+        return $this->SuccessRedirectUrl('آیتم مورد نظر با موفقیت ثبت شد.', $next_url);
     }
 
     public function edit(Setting $setting)
@@ -44,7 +49,12 @@ class SettingController extends Controller
         $data = $request->validated();
         $data['is_active'] = $request->has('is_active') ?? false;
         $setting->update($data);
-        return $this->SuccessRedirect('آیتم مورد نظر با موفقیت ویرایش شد.', 'settings.index');
+
+        $next_url = route('settings.index');
+        if (\request('next')){
+            $next_url = \request('next');
+        }
+        return $this->SuccessRedirectUrl('آیتم مورد نظر با موفقیت ویرایش شد.', $next_url);
     }
 
     public function destroy(Setting $setting)
@@ -53,18 +63,17 @@ class SettingController extends Controller
         return $this->SuccessRedirect('آیتم مورد نظر با موفقیت حذف شد.', 'settings.index');
     }
 
-    //
-
-    public function dynamic_form()
-    {
-        $item = Setting::GetDynamicItem('lang');
-        dd($item);
-        return view('setting::dashboard.dynamic_form')->with('object', $setting);
-    }
-
     public function change_status(Setting $setting)
     {
         $setting->update(['is_active' => \request('is_active')]);
         return $this->SuccessResponse('وضعیت آیتم مورد نظر با موفقیت تغییر یافت.');
+    }
+
+    //
+
+    public function dynamic_form(Setting $setting = null)
+    {
+        $form = Setting::GetDynamicItem('lang');
+        return view('setting::dashboard.dynamic_form', compact('form'))->with('object', $setting);
     }
 }
