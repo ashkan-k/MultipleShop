@@ -636,20 +636,20 @@
                 <div class="menu-sub menu-sub-accordion">
 
                     <div class="menu-item">
+                        <a class="menu-link @if(\Illuminate\Support\Facades\Route::current()->getName() == 'dynamic_form') active @endif"
+                           href="{{ route('dynamic_form', ['key' => 'lang']) }}">
+													<span class="menu-bullet">
+														<span class="bullet bullet-dot"></span>
+													</span>
+                            <span class="menu-title">تنظیمات زبان</span>
+                        </a>
+
                         <a class="menu-link @if(\Illuminate\Support\Facades\Route::current()->getName() == 'settings.index') active @endif"
                            href="{{ route('settings.index') }}">
 													<span class="menu-bullet">
 														<span class="bullet bullet-dot"></span>
 													</span>
-                            <span class="menu-title">لیست تنظیمات</span>
-                        </a>
-
-                        <a class="menu-link @if(\Illuminate\Support\Facades\Route::current()->getName() == 'settings.create') active @endif"
-                           href="{{ route('settings.create') }}">
-													<span class="menu-bullet">
-														<span class="bullet bullet-dot"></span>
-													</span>
-                            <span class="menu-title">افزودن تنظیمات</span>
+                            <span class="menu-title">سایر تنظیمات</span>
                         </a>
                     </div>
 

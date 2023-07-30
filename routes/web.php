@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use Modules\Setting\Entities\Setting;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,6 +29,10 @@ Route::get('/', function () {
     $lang = session()->get('current_lang');
     if ($lang) {
         app()->setLocale($lang);
+    } else {
+        if ($lang_setting = Setting::where('key', 'default_system_lang')->first()) {
+            app()->setLocale($lang_setting->value);
+        }
     }
 
     return redirect(app()->getLocale());

@@ -71,9 +71,9 @@ class SettingController extends Controller
 
     //
 
-    public function dynamic_form(Setting $setting = null)
+    public function dynamic_form($key, Setting $setting = null)
     {
-        $form = Setting::GetDynamicItem('lang');
+        $form = Setting::GetDynamicItem($key);
         return view('setting::dashboard.dynamic_form', compact('form'))->with('object', $setting);
     }
 }
