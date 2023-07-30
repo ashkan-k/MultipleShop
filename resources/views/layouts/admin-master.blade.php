@@ -151,7 +151,17 @@ Like: www.facebook.com/keenthemes
                                     <span class="path2"></span>
                                     <span class="path3"></span>
                                 </i>
-                                <span class="bullet bullet-dot bg-success h-6px w-6px position-absolute translate-middle top-0 start-50 animation-blink"></span>
+                                @if(auth()->user()->is_staff())
+                                    @if(\Modules\Ticket\Entities\Ticket::whereStatus('waiting')->exists())
+                                        <span
+                                            class="bullet bullet-dot bg-success h-6px w-6px position-absolute translate-middle top-0 start-50 animation-blink"></span>
+                                    @endif
+                                @else
+                                    @if(auth()->user()->tickets()->whereStatus('waiting')->exists())
+                                        <span
+                                            class="bullet bullet-dot bg-success h-6px w-6px position-absolute translate-middle top-0 start-50 animation-blink"></span>
+                                    @endif
+                                @endif
                             </div>
                             <!--end::Menu wrapper-->
                         </div>
