@@ -445,7 +445,7 @@
                                     <div class="d-flex flex-column mb-8 fv-row">
                                         <label for="id_is_special"
                                                class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                            <span class="required">آیا ویژه است؟</span>
+                                            <span>آیا ویژه است؟</span>
                                         </label>
 
                                         <div class="form-check form-check-solid form-switch form-check-custom fv-row">
@@ -468,7 +468,7 @@
                                     <div class="d-flex flex-column mb-8 fv-row">
                                         <label for="id_is_active"
                                                class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                            <span class="required">وضعیت فعال</span>
+                                            <span>وضعیت فعال</span>
                                         </label>
 
                                         <div class="form-check form-check-solid form-switch form-check-custom fv-row">
