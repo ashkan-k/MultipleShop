@@ -205,7 +205,7 @@
                                         این
                                         محصول را پیشنهاد داده‌اند
                                     @else
-                                        More than {{ $suggested_count }} buyers have
+                                        More than {{ $suggested_count }} ({{ $object->CalculateSuggestedCommentsPercent() }}%) buyers have
                                         recommended this product
                                     @endif
                                 </div>
