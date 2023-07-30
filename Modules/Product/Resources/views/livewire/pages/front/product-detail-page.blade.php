@@ -118,11 +118,11 @@
                                     @endif
                                 @endauth
 
-                                <li>
-                                    <button data-toggle="modal" data-target="#myModal"><i
-                                            class="fa fa-share-alt"></i></button>
-                                    <span class="tooltip-option">{{ __('Share') }}</span>
-                                </li>
+{{--                                <li>--}}
+{{--                                    <button data-toggle="modal" data-target="#myModal"><i--}}
+{{--                                            class="fa fa-share-alt"></i></button>--}}
+{{--                                    <span class="tooltip-option">{{ __('Share') }}</span>--}}
+{{--                                </li>--}}
                             </ul>
                             <!-- Modal Core -->
                             <div class="modal-share modal fade" id="myModal" tabindex="-1" role="dialog"
@@ -193,13 +193,15 @@
                             <div class="product-title default">
                                 <h1>
                                     {{ $object->get_title($lang) }}
-                                    <span>{{ $object->en_title ?: '---' }}</span>
+                                    @if($object->en_title)
+                                        <span>{{ $object->en_title ?: '---' }}</span>
+                                    @endif
                                 </h1>
                             </div>
                             @if($suggested_count)
                                 <div class="product-guaranteed default">
                                     @if($lang == 'fa')
-                                        بیش از {{ $suggested_count }} نفر از خریداران
+                                        بیش از {{ $suggested_count }} ({{ $object->CalculateSuggestedCommentsPercent() }}%) نفر از خریداران
                                         این
                                         محصول را پیشنهاد داده‌اند
                                     @else
@@ -288,9 +290,18 @@
                                        class="btn-link-border">{{ $object->user ? $object->user->full_name() : '---' }}</a>
                                 </p>
                             </div>
+
+                            @if($object->calculate_discount_percent())
+                                <del> <h5> {{ number_format($object->price) }} {{ __('Toman') }} </h5></del>
+                            @endif
+
                             <div class="price-product defualt">
                                 <div class="price-value">
-                                    <span> {{ number_format($object->price) }} </span>
+                                    @if($object->calculate_discount_percent())
+                                        <span> {{ number_format($object->discount_price) }} </span>
+                                    @else
+                                        <span> {{ number_format($object->price) }} </span>
+                                    @endif
                                 </div>
                                 <span class="price-currency">{{ __('Toman') }}</span>
 

@@ -197,6 +197,16 @@ class Product extends Model
         return $query->where('en_slug', $slug)->firstOrFail();
     }
 
+    public function CalculateSuggestedCommentsPercent()
+    {
+        $positive_suggests = $this->comments()->where('status', 'approved')
+            ->where('suggest_score', 'suggest')->count();
+
+        $all_suggests = $this->comments()->where('status', 'approved')->count();
+
+        return round(($positive_suggests * 100) / $all_suggests);
+    }
+
     //
 
     public function user()

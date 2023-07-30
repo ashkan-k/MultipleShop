@@ -77,6 +77,13 @@ class Comment extends Model
         $query->update(['status' => $new_status]);
     }
 
+    public function calculate_discount_percent()
+    {
+
+        $discount_percent = round(($this->discount_price * 100) / $this->price);
+        return $discount_percent;
+    }
+
     //
 
     public function user()
