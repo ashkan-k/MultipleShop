@@ -1,6 +1,6 @@
 @extends('layouts.front-master')
 
-@section('title') پروفایل کاربری @endsection
+@section('title') {{ __('User profile') }} @endsection
 
 @section('content')
     <div class="overlay-search-box"></div>

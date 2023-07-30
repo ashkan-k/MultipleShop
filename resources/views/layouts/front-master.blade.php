@@ -238,7 +238,8 @@
                         <button onclick="window.location.href='{{ route('cart') }}'" class="style-user-button">
                             <div class="bg-color user-style" style="position: relative;display: inline-block;">
                                 <i class="fa fa-shopping-basket style-icon-head"></i>
-                                <span style="          position: absolute;
+                                @if($cart_count = auth()->user()->carts()->count())
+                                    <span style="          position: absolute;
                                       top: -10px;
                                       left: -10px;
                                       background-color: #ef5661;
@@ -249,7 +250,8 @@
                                       font-weight: bold;
                                       text-align: center;
                                       line-height: 1;
-                                      transition: all 0.3s ease-in-out;" id="cart_count_badge" class="badge">{{ auth()->user()->carts()->count() }}</span>
+                                      transition: all 0.3s ease-in-out;" id="cart_count_badge" class="badge">{{ $cart_count }}</span>
+                                @endif
                             </div>
                         </button>
                     @else

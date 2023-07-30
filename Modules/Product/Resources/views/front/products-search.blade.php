@@ -1,6 +1,6 @@
 @extends('layouts.front-master')
 
-@section('title')لیست محصولات@endsection
+@section('title'){{ __('Products List') }}@endsection
 
 <?php $website_title = $lang == 'fa' ? $settings['website_title'] : $settings['website_en_title'];  ?>
 
