@@ -202,12 +202,12 @@
                                 <div class="product-guaranteed default">
                                     @if($lang == 'fa')
                                         بیش از {{ $suggested_count }}
-                                        ({{ $object->CalculateSuggestedCommentsPercent() }}%) نفر از خریداران
+                                        نفر ({{ $object->CalculateSuggestedCommentsPercent() }}%) از خریداران
                                         این
                                         محصول را پیشنهاد داده‌اند
                                     @else
                                         More than {{ $suggested_count }}
-                                        ({{ $object->CalculateSuggestedCommentsPercent() }}%) buyers have
+                                        buyers (({{ $object->CalculateSuggestedCommentsPercent() }}%)) have
                                         recommended this product
                                     @endif
                                 </div>
