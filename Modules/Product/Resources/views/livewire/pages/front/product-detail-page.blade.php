@@ -844,13 +844,13 @@
                                         @if($may_like_pro->discount_price)
                                             <div class="text-center">
                                                 <del>
-                                                    <span>{{ number_format($may_like_pro->discount_price) }}<span>{{ __('Toman') }}</span></span>
+                                                    <span>{{ number_format($may_like_pro->discount_price) }} <span>{{ __('Toman') }}</span></span>
                                                 </del>
                                             </div>
                                         @endif
                                         <div class="text-center">
                                             <ins>
-                                                <span>{{ number_format($may_like_pro->price) }}<span>{{ __('Toman') }}</span></span>
+                                                <span>{{ number_format($may_like_pro->price) }} <span>{{ __('Toman') }}</span></span>
                                             </ins>
                                         </div>
                                     </div>
@@ -897,12 +897,12 @@
                                     <div class="price">
                                         @if($related_pro->discount_price)
                                             <del>
-                                                <span>{{ number_format($related_pro->discount_price) }}<span>{{ __('Toman') }}</span></span>
+                                                <span>{{ number_format($related_pro->discount_price) }} <span>{{ __('Toman') }}</span></span>
                                             </del>
                                         @endif
 
                                         <ins>
-                                            <span>{{ number_format($related_pro->price) }}<span>{{ __('Toman') }}</span></span>
+                                            <span>{{ number_format($related_pro->price) }} <span>{{ __('Toman') }}</span></span>
                                         </ins>
                                     </div>
                                 </div>
