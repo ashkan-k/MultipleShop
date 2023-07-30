@@ -3,6 +3,7 @@
 namespace Modules\Auth\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Modules\Auth\Rules\ReCaptcha;
 
 class ResetPasswordRequest extends FormRequest
 {
@@ -19,6 +20,7 @@ class ResetPasswordRequest extends FormRequest
                 'email',
                 'exists:users,email',
             ],
+            'recaptcha_token' => ['required', new Recaptcha()]
         ];
     }
 

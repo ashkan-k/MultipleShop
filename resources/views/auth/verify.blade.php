@@ -1,6 +1,6 @@
 @extends('layouts.auth-master')
 
-@section('titlePage','تایید حساب کاربری')
+@section('titlePage', __('User account verification'))
 
 @section('content')
 

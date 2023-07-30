@@ -44,6 +44,6 @@ class ReCaptcha implements Rule
      */
     public function message()
     {
-        return 'The google recaptcha is required.';
+        return __('The google recaptcha is required.');
     }
 }
