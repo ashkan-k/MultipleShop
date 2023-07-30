@@ -80,6 +80,8 @@
                                                     @enderror
                                                 </div>
 
+                                                <input type="hidden" name="recaptcha_token" id="recaptcha_token">
+
                                                 <div class="form-account-title mt-3" style="margin-bottom: 0 !important;">{{ __('Captcha') }}</div>
                                                 <div class="form-account-row">
                                                     <label class="input-label"></label>
@@ -158,6 +160,8 @@
                                                     <span class="text-danger text-wrap">{{ $message }}</span>
                                                     @enderror
                                                 </div>
+
+                                                <input type="hidden" name="recaptcha_token" id="recaptcha_token_2">
 
                                                 <div class="form-account-title mt-3" style="margin-bottom: 0 !important;">{{ __('Captcha') }}</div>
                                                 <div class="form-account-row">
@@ -253,6 +257,6 @@
 @endsection
 
 @push('StackScript')
-    @include('front.components.google_captcha_js', ['form_id' => 'frm_login'])
-    @include('front.components.google_captcha_js', ['form_id' => 'frm_register'])
+    @include('front.components.google_captcha_js', ['form_id' => 'frm_login', 'field_id' => 'recaptcha_token_2'])
+    @include('front.components.google_captcha_js', ['form_id' => 'frm_register', 'field_id' => 'recaptcha_token'])
 @endpush

@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
+use Modules\Auth\Rules\ReCaptcha;
 use Modules\User\Entities\User;
 
 class RegisteredUserController extends Controller
@@ -36,7 +37,7 @@ class RegisteredUserController extends Controller
         $request->validate([
             'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'captcha' => 'required|captcha',
+            'recaptcha_token' => ['required', new Recaptcha()]
         ], ['captcha.required' => __('The captcha field is required.'),]);
 
         $user = User::create([
