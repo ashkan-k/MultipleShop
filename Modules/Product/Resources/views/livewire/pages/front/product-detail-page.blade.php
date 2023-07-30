@@ -118,11 +118,11 @@
                                     @endif
                                 @endauth
 
-{{--                                <li>--}}
-{{--                                    <button data-toggle="modal" data-target="#myModal"><i--}}
-{{--                                            class="fa fa-share-alt"></i></button>--}}
-{{--                                    <span class="tooltip-option">{{ __('Share') }}</span>--}}
-{{--                                </li>--}}
+                                {{--                                <li>--}}
+                                {{--                                    <button data-toggle="modal" data-target="#myModal"><i--}}
+                                {{--                                            class="fa fa-share-alt"></i></button>--}}
+                                {{--                                    <span class="tooltip-option">{{ __('Share') }}</span>--}}
+                                {{--                                </li>--}}
                             </ul>
                             <!-- Modal Core -->
                             <div class="modal-share modal fade" id="myModal" tabindex="-1" role="dialog"
@@ -201,11 +201,13 @@
                             @if($suggested_count)
                                 <div class="product-guaranteed default">
                                     @if($lang == 'fa')
-                                        بیش از {{ $suggested_count }} ({{ $object->CalculateSuggestedCommentsPercent() }}%) نفر از خریداران
+                                        بیش از {{ $suggested_count }}
+                                        ({{ $object->CalculateSuggestedCommentsPercent() }}%) نفر از خریداران
                                         این
                                         محصول را پیشنهاد داده‌اند
                                     @else
-                                        More than {{ $suggested_count }} ({{ $object->CalculateSuggestedCommentsPercent() }}%) buyers have
+                                        More than {{ $suggested_count }}
+                                        ({{ $object->CalculateSuggestedCommentsPercent() }}%) buyers have
                                         recommended this product
                                     @endif
                                 </div>
@@ -292,7 +294,7 @@
                             </div>
 
                             @if($object->calculate_discount_percent())
-                                <del> <h5> {{ number_format($object->price) }} {{ __('Toman') }} </h5></del>
+                                <del><h5> {{ number_format($object->price) }} {{ __('Toman') }} </h5></del>
                             @endif
 
                             <div class="price-product defualt">
@@ -852,18 +854,33 @@
 ]) }}">{{ \Illuminate\Support\Str::limit($may_like_pro->get_title($lang), 32) }}</a>
                                     </h2>
                                     <div class="price">
-                                        @if($may_like_pro->discount_price)
-                                            <div class="text-center">
-                                                <del>
-                                                    <span>{{ number_format($may_like_pro->discount_price) }} <span>{{ __('Toman') }}</span></span>
-                                                </del>
-                                            </div>
+
+                                        @if($may_like_pro->quantity)
+
+                                            @if($may_like_pro->calculate_discount_percent() > 0)
+                                                <div class="text-center">
+                                                    <del>
+                                                        <span>{{ number_format($may_like_pro->price) }} <span>{{ __('Toman') }}</span></span>
+                                                    </del>
+                                                </div>
+                                                <div class="text-center">
+                                                    <ins>
+                                                        <span>{{ number_format($may_like_pro->discount_price) }} <span>{{ __('Toman') }}</span></span>
+                                                    </ins>
+                                                </div>
+                                            @else
+                                                <div class="text-center">
+                                                    <ins>
+                                                        <span>{{ number_format($may_like_pro->price) }} <span>{{ __('Toman') }}</span></span>
+                                                    </ins>
+                                                </div>
+                                            @endif
+
+                                        @else
+                                            <span
+                                                style="color: #979898; font-size: 17px; display: block; width: 100%;">{{ __('Unavailable') }}</span>
                                         @endif
-                                        <div class="text-center">
-                                            <ins>
-                                                <span>{{ number_format($may_like_pro->price) }} <span>{{ __('Toman') }}</span></span>
-                                            </ins>
-                                        </div>
+
                                     </div>
                                 </div>
                             @endforeach
@@ -906,15 +923,31 @@
 ]) }}">{{ \Illuminate\Support\Str::limit($related_pro->get_title($lang), 32) }}</a>
                                     </h2>
                                     <div class="price">
-                                        @if($related_pro->discount_price)
-                                            <del>
-                                                <span>{{ number_format($related_pro->discount_price) }} <span>{{ __('Toman') }}</span></span>
-                                            </del>
-                                        @endif
+                                        @if($related_pro->quantity)
 
-                                        <ins>
-                                            <span>{{ number_format($related_pro->price) }} <span>{{ __('Toman') }}</span></span>
-                                        </ins>
+                                            @if($related_pro->calculate_discount_percent() > 0)
+                                                <div class="text-center">
+                                                    <del>
+                                                        <span>{{ number_format($related_pro->price) }} <span>{{ __('Toman') }}</span></span>
+                                                    </del>
+                                                </div>
+                                                <div class="text-center">
+                                                    <ins>
+                                                        <span>{{ number_format($related_pro->discount_price) }} <span>{{ __('Toman') }}</span></span>
+                                                    </ins>
+                                                </div>
+                                            @else
+                                                <div class="text-center">
+                                                    <ins>
+                                                        <span>{{ number_format($related_pro->price) }} <span>{{ __('Toman') }}</span></span>
+                                                    </ins>
+                                                </div>
+                                            @endif
+
+                                        @else
+                                            <span
+                                                style="color: #979898; font-size: 17px; display: block; width: 100%;">{{ __('Unavailable') }}</span>
+                                        @endif
                                     </div>
                                 </div>
                             @endforeach

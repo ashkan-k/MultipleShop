@@ -179,17 +179,24 @@
                                                     <div class="product-box-row product-box-row-price">
                                                         <div class="price">
                                                             <div class="price-value">
-                                                                @if($pro->calculate_discount_percent())
-                                                                    <div class="price-value-wrapper">
-                                                                        {{ number_format($pro->discount_price) ?: '---' }} <span
-                                                                            class="price-currency">{{ __('Toman') }}</span>
-                                                                    </div>
+                                                                @if($pro->quantity)
+                                                                    @if($pro->calculate_discount_percent())
+                                                                        <div class="price-value-wrapper">
+                                                                            {{ number_format($pro->discount_price) ?: '---' }} <span
+                                                                                class="price-currency">{{ __('Toman') }}</span>
+                                                                        </div>
+                                                                    @else
+                                                                        <div class="price-value-wrapper">
+                                                                            {{ number_format($pro->price) ?: '---' }} <span
+                                                                                class="price-currency">{{ __('Toman') }}</span>
+                                                                        </div>
+                                                                    @endif
                                                                 @else
                                                                     <div class="price-value-wrapper">
-                                                                        {{ number_format($pro->price) ?: '---' }} <span
-                                                                            class="price-currency">{{ __('Toman') }}</span>
+                                                                        {{ __('Unavailable') }}
                                                                     </div>
                                                                 @endif
+
                                                             </div>
                                                         </div>
                                                     </div>
