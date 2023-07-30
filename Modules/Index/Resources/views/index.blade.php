@@ -86,17 +86,22 @@
                                                         <a href="{{ route('product_detail', $special_pr->get_slug($lang)) }}">{{ $special_pr->get_title($lang) ?: '---' }}</a>
                                                     </h2>
                                                     <div class="price">
-                                                        @if($special_pr->calculate_discount_percent() > 0)
-                                                            <del>
-                                                                <span>{{ number_format($special_pr->price) }} <span>{{ __('Toman') }}</span></span>
-                                                            </del>
-                                                            <ins>
-                                                                <span>{{ number_format($special_pr->discount_price) }} <span>{{ __('Toman') }}</span></span>
-                                                            </ins>
+                                                        @if($special_pr->quantity)
+                                                            @if($special_pr->calculate_discount_percent() > 0)
+                                                                <del>
+                                                                    <span>{{ number_format($special_pr->price) }} <span>{{ __('Toman') }}</span></span>
+                                                                </del>
+                                                                <ins>
+                                                                    <span>{{ number_format($special_pr->discount_price) }} <span>{{ __('Toman') }}</span></span>
+                                                                </ins>
+                                                            @else
+                                                                <ins>
+                                                                    <span>{{ number_format($special_pr->price) }} <span>{{ __('Toman') }}</span></span>
+                                                                </ins>
+                                                            @endif
                                                         @else
-                                                            <ins>
-                                                                <span>{{ number_format($special_pr->price) }} <span>{{ __('Toman') }}</span></span>
-                                                            </ins>
+                                                            <span
+                                                                style="color: #979898; font-size: 17px; display: block; width: 100%;">{{ __('Unavailable') }}</span>
                                                         @endif
                                                     </div>
                                                 </div>
@@ -153,23 +158,28 @@
                                             <a href="{{ route('product_detail', $latest_pro->get_slug($lang)) }}">{{ $latest_pro->get_title($lang) ?: '---' }}</a>
                                         </h2>
                                         <div class="price">
-                                            @if($latest_pro->calculate_discount_percent() > 0)
-                                                <div class="text-center">
-                                                    <del>
-                                                        <span>{{ number_format($latest_pro->price) }} <span>{{ __('Toman') }}</span></span>
-                                                    </del>
-                                                </div>
-                                                <div class="text-center">
-                                                    <ins>
-                                                        <span>{{ number_format($latest_pro->discount_price) }} <span>{{ __('Toman') }}</span></span>
-                                                    </ins>
-                                                </div>
+                                            @if($latest_pro->quantity)
+                                                @if($latest_pro->calculate_discount_percent() > 0)
+                                                    <div class="text-center">
+                                                        <del>
+                                                            <span>{{ number_format($latest_pro->price) }} <span>{{ __('Toman') }}</span></span>
+                                                        </del>
+                                                    </div>
+                                                    <div class="text-center">
+                                                        <ins>
+                                                            <span>{{ number_format($latest_pro->discount_price) }} <span>{{ __('Toman') }}</span></span>
+                                                        </ins>
+                                                    </div>
+                                                @else
+                                                    <div class="text-center">
+                                                        <ins>
+                                                            <span>{{ number_format($latest_pro->price) }} <span>{{ __('Toman') }}</span></span>
+                                                        </ins>
+                                                    </div>
+                                                @endif
                                             @else
-                                                <div class="text-center">
-                                                    <ins>
-                                                        <span>{{ number_format($latest_pro->price) }} <span>{{ __('Toman') }}</span></span>
-                                                    </ins>
-                                                </div>
+                                                <span
+                                                    style="color: #979898; font-size: 17px; display: block; width: 100%;">{{ __('Unavailable') }}</span>
                                             @endif
                                         </div>
                                     </div>
@@ -224,19 +234,23 @@
                                         </h2>
                                         <div class="price">
 
-                                            @if($most_favorite_pro->calculate_discount_percent() > 0)
-                                                <del>
-                                                    <span>{{ number_format($most_favorite_pro->price) }} <span>{{ __('Toman') }}</span></span>
-                                                </del>
-                                                <ins>
-                                                    <span>{{ number_format($most_favorite_pro->discount_price) }} <span>{{ __('Toman') }}</span></span>
-                                                </ins>
+                                            @if($most_favorite_pro->quantity)
+                                                @if($most_favorite_pro->calculate_discount_percent() > 0)
+                                                    <del>
+                                                        <span>{{ number_format($most_favorite_pro->price) }} <span>{{ __('Toman') }}</span></span>
+                                                    </del>
+                                                    <ins>
+                                                        <span>{{ number_format($most_favorite_pro->discount_price) }} <span>{{ __('Toman') }}</span></span>
+                                                    </ins>
+                                                @else
+                                                    <ins>
+                                                        <span>{{ number_format($most_favorite_pro->price) }} <span>{{ __('Toman') }}</span></span>
+                                                    </ins>
+                                                @endif
                                             @else
-                                                <ins>
-                                                    <span>{{ number_format($most_favorite_pro->price) }} <span>{{ __('Toman') }}</span></span>
-                                                </ins>
+                                                <span
+                                                    style="color: #979898; font-size: 17px; display: block; width: 100%;">{{ __('Unavailable') }}</span>
                                             @endif
-
 
                                         </div>
                                     </div>
@@ -291,17 +305,22 @@
                                         </h2>
                                         <div class="price">
 
-                                            @if($cheapest_pro->calculate_discount_percent() > 0)
-                                                <del>
-                                                    <span>{{ number_format($cheapest_pro->price) }} <span>{{ __('Toman') }}</span></span>
-                                                </del>
-                                                <ins>
-                                                    <span>{{ number_format($cheapest_pro->discount_price) }} <span>{{ __('Toman') }}</span></span>
-                                                </ins>
+                                            @if($cheapest_pro->quantity)
+                                                @if($cheapest_pro->calculate_discount_percent() > 0)
+                                                    <del>
+                                                        <span>{{ number_format($cheapest_pro->price) }} <span>{{ __('Toman') }}</span></span>
+                                                    </del>
+                                                    <ins>
+                                                        <span>{{ number_format($cheapest_pro->discount_price) }} <span>{{ __('Toman') }}</span></span>
+                                                    </ins>
+                                                @else
+                                                    <ins>
+                                                        <span>{{ number_format($cheapest_pro->price) }} <span>{{ __('Toman') }}</span></span>
+                                                    </ins>
+                                                @endif
                                             @else
-                                                <ins>
-                                                    <span>{{ number_format($cheapest_pro->price) }} <span>{{ __('Toman') }}</span></span>
-                                                </ins>
+                                                <span
+                                                    style="color: #979898; font-size: 17px; display: block; width: 100%;">{{ __('Unavailable') }}</span>
                                             @endif
 
                                         </div>
@@ -382,8 +401,25 @@
                                                             {{ $prod->get_title($lang) ?: '---' }}
                                                         </a>
                                                         <p class="mt-3">
-                                                            <span
-                                                                class="float-right font_12">{{ number_format($prod->price) }} {{ __('Toman') }}</span>
+                                                            @if($prod->quantity)
+                                                                @if($prod->calculate_discount_percent() > 0)
+{{--                                                                    <del style="display: block !important;">--}}
+{{--                                                                        <span>{{ number_format($prod->price) }} <span>{{ __('Toman') }}</span></span>--}}
+{{--                                                                    </del>--}}
+{{--                                                                    <span--}}
+{{--                                                                        class="float-right font_12">{{ number_format($prod->price) }} {{ __('Toman') }}</span>--}}
+
+                                                                    <span
+                                                                        class="float-right font_12">{{ number_format($prod->discount_price) }} {{ __('Toman') }}</span>
+                                                                @else
+                                                                    <span
+                                                                        class="float-right font_12">{{ number_format($prod->price) }} {{ __('Toman') }}</span>
+                                                                @endif
+                                                            @else
+                                                                <span class="float-right font_12"
+                                                                    style="color: #979898; font-size: 12px;">{{ __('Unavailable') }}</span>
+                                                            @endif
+
                                                             <span class="float-left font_12">
                                                             <i class="fa fa-star" style="color: #faba00"></i>
                                                             <i class="fa fa-star" style="color: #faba00"></i>
