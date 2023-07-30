@@ -2,6 +2,10 @@
 
 @section('title'){{ __('Reset Password') }}@endsection
 
+@section('styles')
+    {!! \Lunaweb\RecaptchaV3\Facades\RecaptchaV3::initJs() !!}
+@endsection
+
 @section('content')
 
     <main class="cart-page default">
@@ -18,7 +22,8 @@
 
                         <div class="account-box-title">{{ __('Reset Password') }}</div>
                         <div class="account-box-content">
-                            <form class="form-account" method="POST" id="frm_reset_password" action="{{ route('reset_password_store') }}">
+                            <form class="form-account" method="POST" id="frm_reset_password"
+                                  action="{{ route('reset_password_store') }}">
                                 @csrf
 
                                 <div class="form-account-title">{{ __('Email') }}</div>
@@ -34,10 +39,9 @@
                                     @enderror
                                 </div>
 
-                                <div class="form-account-title mt-3" style="margin-bottom: 0 !important;">{{ __('Captcha') }}</div>
                                 <div class="form-account-row">
                                     <label class="input-label"></label>
-                                    <div class="g-recaptcha" data-sitekey="{{ env('GOOGLE_RECAPTCHA_KEY') }}"></div>
+                                    {!! \Lunaweb\RecaptchaV3\Facades\RecaptchaV3::field('register') !!}
 
                                     @error('g-recaptcha-response')
                                     <span class="text-danger text-wrap">{{ $message }}</span>
@@ -61,10 +65,10 @@
     </main>
 @endsection
 
-@section('scripts')
-    <script src="https://www.google.com/recaptcha/api.js?render={{ env('GOOGLE_RECAPTCHA_KEY') }}"></script>
-@endsection
+{{--@section('scripts')--}}
+{{--    <script src="https://www.google.com/recaptcha/api.js?render={{ env('GOOGLE_RECAPTCHA_KEY') }}"></script>--}}
+{{--@endsection--}}
 
-@push('StackScript')
-    @include('front.components.google_captcha_js', ['form_id' => 'frm_reset_password'])
-@endpush
+{{--@push('StackScript')--}}
+{{--    @include('front.components.google_captcha_js', ['form_id' => 'frm_reset_password'])--}}
+{{--@endpush--}}

@@ -26,7 +26,7 @@ class ReCaptcha implements Rule
     public function passes($attribute, $value)
     {
         $response = Http::asForm()->post("https://www.google.com/recaptcha/api/siteverify", [
-            'secret' => config('services.recaptcha.secret_key'),
+            'secret' => env('GOOGLE_RECAPTCHA_SECRET'),
             'response' => $value,
             'ip' => request()->ip(),
         ]);

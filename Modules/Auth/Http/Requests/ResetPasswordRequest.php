@@ -20,7 +20,7 @@ class ResetPasswordRequest extends FormRequest
                 'email',
                 'exists:users,email',
             ],
-            'recaptcha_token' => ['required', new Recaptcha()]
+            'g-recaptcha-response' => 'required|recaptchav3:register,0.5'
         ];
     }
 
