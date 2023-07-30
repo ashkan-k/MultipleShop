@@ -199,7 +199,7 @@
                                     <div class="d-flex flex-column mb-8 fv-row">
                                         <label for="id_is_best"
                                                class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                            <span class="required">ایا بهترین دسته بندی شود؟</span>
+                                            <span>ایا بهترین دسته بندی شود؟</span>
                                         </label>
 
                                         <div class="form-check form-check-solid form-switch form-check-custom fv-row">
@@ -223,7 +223,7 @@
                                     <div class="d-flex flex-column mb-8 fv-row">
                                         <label for="id_is_special"
                                                class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                            <span class="required">ایا ویژه است؟</span>
+                                            <span>ایا ویژه است؟</span>
                                         </label>
 
                                         <div class="form-check form-check-solid form-switch form-check-custom fv-row">

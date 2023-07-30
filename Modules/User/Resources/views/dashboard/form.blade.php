@@ -164,7 +164,7 @@
                                     <div class="d-flex flex-column mb-8 fv-row">
                                         <label for="id_password"
                                                class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                            <span class="required">رمز عبور</span>
+                                            <span @if(!isset($object)) class="required" @endif>رمز عبور</span>
                                         </label>
 
                                         <input type="text" id="id_password" class="form-control form-control-solid"
@@ -185,7 +185,7 @@
                                     <div class="d-flex flex-column mb-8 fv-row">
                                         <label for="id_password_confirmation"
                                                class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                            <span class="required">تکرار رمز عبور</span>
+                                            <span @if(!isset($object)) class="required" @endif>تکرار رمز عبور</span>
                                         </label>
 
                                         <input type="text" id="id_password_confirmation"
@@ -248,7 +248,7 @@
                                     <div class="d-flex flex-column mb-8 fv-row">
                                         <label for="id_is_staff"
                                                class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                            <span class="required">آیا کارمند است؟</span>
+                                            <span>آیا کارمند است؟</span>
                                         </label>
 
                                         <div class="form-check form-check-solid form-switch form-check-custom fv-row">
@@ -271,7 +271,7 @@
                                     <div class="d-flex flex-column mb-8 fv-row">
                                         <label for="id_is_admin"
                                                class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                            <span class="required">آیا مدیر است؟</span>
+                                            <span>آیا مدیر است؟</span>
                                         </label>
 
                                         <div class="form-check form-check-solid form-switch form-check-custom fv-row">
@@ -294,7 +294,7 @@
 
                                     <div class="d-flex flex-column mb-8 fv-row">
                                         <label for="id_avatar" class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                            <span class="required">آواتار</span>
+                                            <span>آواتار</span>
                                         </label>
 
                                         <input type="file" id="id_avatar" class="form-control form-control-solid"

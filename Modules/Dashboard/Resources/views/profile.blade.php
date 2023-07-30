@@ -161,7 +161,7 @@
                                     <div class="d-flex flex-column mb-8 fv-row">
                                         <label for="id_password"
                                                class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                            <span class="required">رمز عبور</span>
+                                            <span @if(!isset($user)) class="required" @endif>رمز عبور</span>
                                         </label>
 
                                         <input type="text" id="id_password" class="form-control form-control-solid"
@@ -182,7 +182,7 @@
                                     <div class="d-flex flex-column mb-8 fv-row">
                                         <label for="id_password_confirmation"
                                                class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                            <span class="required">تکرار رمز عبور</span>
+                                            <span @if(!isset($user)) class="required" @endif>تکرار رمز عبور</span>
                                         </label>
 
                                         <input type="text" id="id_password_confirmation"
@@ -224,7 +224,7 @@
 
                                     <div class="d-flex flex-column mb-8 fv-row">
                                         <label for="id_avatar" class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                            <span class="required">آواتار</span>
+                                            <span>آواتار</span>
                                         </label>
 
                                         <input type="file" id="id_avatar" class="form-control form-control-solid"
