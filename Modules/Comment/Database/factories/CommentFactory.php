@@ -6,6 +6,7 @@ use App\Enums\EnumHelpers;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Modules\Article\Entities\Article;
 use Modules\Blog\Entities\Blog;
+use Modules\Comment\Entities\Comment;
 use Modules\Place\Entities\Place;
 use Modules\Product\Entities\Product;
 use Modules\User\Entities\User;
@@ -39,6 +40,7 @@ class CommentFactory extends Factory
             'commentable_type' => $commentable,
             'status' => fake()->randomElement(EnumHelpers::$CommentStatusEnum),
             'suggest_score' => fake()->randomElement(EnumHelpers::$CommentSeggestToFriendEnum),
+            'parent_id' => Comment::factory(),
         ];
     }
 
