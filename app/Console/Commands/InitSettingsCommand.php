@@ -244,6 +244,12 @@ class InitSettingsCommand extends Command
         'youtube' => "multi_shop",
         'instagram' => "multi_shop",
         'aparat' => "multi_shop",
+
+        # Terms
+        'terms_title' => "قوانین و مقررات فروشگاه ما",
+        'terms_en_title' => "Our store rules and regulations",
+        'terms_text' => "خدمات و محتوای این وب سایت به جز در مواردی خاص به صورت کامل رایگان بوده و در دسترس همه عموم قرار دارد. بنابراین درصورت عدم دسترسی به این وب سایت به هر دلیلی یا قطع خدمات و مسدود شدن محتوای وب سایت، ما هیچ گونه مسئولیتی را قبول نخواهیم کرد. اگرچه محتوای این وب سایت بسیار قابل اعتماد است، ما ضمانت نمی‌کنیم که این وب سایت و محتوای آن، بدون اشکال و خطا باشد. بنابراین در استفاده از محتوای آن هیچ گونه مسئولیتی در هیچ موردی را قبول نخواهیم کرد. تمامی لینک‌های خارجی داده شده تنها برای اطلاع رسانی بوده و این وب سایت هیچ گونه مسئولیتی را درقبال محتوای آن‌ها ندارد.",
+        'terms_en_text' => "The services and content of this website are completely free and available to the public, except in special cases. Therefore, we will not accept any responsibility if this website is not accessible for any reason or if the service is interrupted and the content of the website is blocked. Although the content of this website is highly reliable, we do not guarantee that this website and its content are error-free. Therefore, in using its content, we will not accept any responsibility in any case. All external links given are for information only and this website is not responsible for their content.",
     ];
 
     /**

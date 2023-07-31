@@ -48,6 +48,11 @@ class IndexController extends Controller
         return view('index::index', compact('sliders', 'special_categories', 'special_products', 'top_posters', 'center_posters', 'bottom_posters', 'latest_products', 'most_favorite_products', 'cheapest_products', 'blogs', 'best_category'));
     }
 
+    public function terms()
+    {
+        return view('index::terms');
+    }
+
     public function profile()
     {
         $user = auth()->user();

@@ -1,5 +1,7 @@
 @extends('layouts.front-master')
 
+@section('title') {{ $object->get_title($lang) }} @endsection
+
 @section('content')
     <div class="overlay-search-box"></div>
 
