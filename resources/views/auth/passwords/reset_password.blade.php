@@ -33,20 +33,15 @@
                                            value="{{ old('email') }}" name="email"
                                            placeholder="{{ __('Enter your email') }}">
 
-
                                     @error('email')
                                     <span class="text-danger text-wrap">{{ $message }}</span>
                                     @enderror
                                 </div>
 
-                                <div class="form-account-row">
-                                    <label class="input-label"></label>
-                                    {!! \Lunaweb\RecaptchaV3\Facades\RecaptchaV3::field('register') !!}
-
-                                    @error('g-recaptcha-response')
+                                <input type="hidden" name="recaptcha_token" id="recaptcha_token">
+                                @error('recaptcha_token')
                                     <span class="text-danger text-wrap">{{ $message }}</span>
-                                    @enderror
-                                </div>
+                                @enderror
 
                                 <div class="form-account-row form-account-submit">
                                     <div class="parent-btn">
@@ -65,10 +60,10 @@
     </main>
 @endsection
 
-{{--@section('scripts')--}}
-{{--    <script src="https://www.google.com/recaptcha/api.js?render={{ env('GOOGLE_RECAPTCHA_KEY') }}"></script>--}}
-{{--@endsection--}}
+@section('scripts')
+    <script src="https://www.google.com/recaptcha/api.js?render={{ env('GOOGLE_RECAPTCHA_KEY') }}"></script>
+@endsection
 
-{{--@push('StackScript')--}}
-{{--    @include('front.components.google_captcha_js', ['form_id' => 'frm_reset_password'])--}}
-{{--@endpush--}}
+@push('StackScript')
+    @include('front.components.google_captcha_js', ['form_id' => 'frm_reset_password', 'field_id' => 'recaptcha_token'])
+@endpush

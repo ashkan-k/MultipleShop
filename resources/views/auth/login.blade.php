@@ -81,16 +81,9 @@
                                                 </div>
 
                                                 <input type="hidden" name="recaptcha_token" id="recaptcha_token">
-
-                                                <div class="form-account-title mt-3" style="margin-bottom: 0 !important;">{{ __('Captcha') }}</div>
-                                                <div class="form-account-row">
-                                                    <label class="input-label"></label>
-                                                    <div class="g-recaptcha" data-sitekey="{{ env('GOOGLE_RECAPTCHA_KEY') }}"></div>
-
-                                                    @error('g-recaptcha-response')
+                                                @error('recaptcha_token')
                                                     <span class="text-danger text-wrap">{{ $message }}</span>
-                                                    @enderror
-                                                </div>
+                                                @enderror
 
                                                 <div class="form-account-agree">
                                                     <label class="checkbox-form checkbox-primary">
@@ -162,16 +155,19 @@
                                                 </div>
 
                                                 <input type="hidden" name="recaptcha_token" id="recaptcha_token_2">
+                                                @error('recaptcha_token')
+                                                <span class="text-danger text-wrap">{{ $message }}</span>
+                                                @enderror
 
-                                                <div class="form-account-title mt-3" style="margin-bottom: 0 !important;">{{ __('Captcha') }}</div>
-                                                <div class="form-account-row">
-                                                    <label class="input-label"></label>
-                                                    <div class="g-recaptcha" data-sitekey="{{ env('GOOGLE_RECAPTCHA_KEY') }}"></div>
+                                                {{--                                                <div class="form-account-title mt-3" style="margin-bottom: 0 !important;">{{ __('Captcha') }}</div>--}}
+                                                {{--                                                <div class="form-account-row">--}}
+                                                {{--                                                    <label class="input-label"></label>--}}
+                                                {{--                                                    <div class="g-recaptcha" data-sitekey="{{ env('GOOGLE_RECAPTCHA_KEY') }}"></div>--}}
 
-                                                    @error('g-recaptcha-response')
-                                                    <span class="text-danger text-wrap">{{ $message }}</span>
-                                                    @enderror
-                                                </div>
+                                                {{--                                                    @error('g-recaptcha-response')--}}
+                                                {{--                                                    <span class="text-danger text-wrap">{{ $message }}</span>--}}
+                                                {{--                                                    @enderror--}}
+                                                {{--                                                </div>--}}
 
                                                 <div class="form-account-row form-account-submit">
                                                     <div class="parent-btn">
@@ -217,7 +213,7 @@
 @section('scripts')
     <script src="https://www.google.com/recaptcha/api.js?render={{ env('GOOGLE_RECAPTCHA_KEY') }}"></script>
 
-{{--    @include('front.components.captcha_js')--}}
+    {{--    @include('front.components.captcha_js')--}}
 
     <script>
         app.controller('myCtrl', function ($scope, $http) {

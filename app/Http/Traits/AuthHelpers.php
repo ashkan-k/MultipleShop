@@ -34,8 +34,11 @@ trait AuthHelpers
         $title = 'بازیابی رمز عبور';
         $template = 'email::emails/auth/verify_email';
 
-        Mail::to($user->email)->send(new SendEmailMail($user->email, $title, $message, $template));
-//        dispatch(new SendSmsJob($user->email, $message));
+        try {
+            Mail::to($user->email)->send(new SendEmailMail($user->email, $title, $message, $template));
+        } catch (\Exception $exception) {
+            throw ValidationException::withMessages(['email' => __('Internet error! Please try again.')])->status(400);
+        }
     }
 
     private function check_code_sent($user)

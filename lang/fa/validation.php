@@ -281,5 +281,6 @@ return [
         'captcha' => 'کپچا',
         'color_id.*' => 'رنگ ها',
         'size_id.*' => 'سایط ها',
+        'recaptcha_token' => 'ریکپچا',
     ],
 ];

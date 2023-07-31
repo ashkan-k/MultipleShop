@@ -4,6 +4,7 @@ namespace Modules\Auth\Rules;
 
 use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Validation\ValidationException;
 
 class ReCaptcha implements Rule
 {
@@ -25,11 +26,15 @@ class ReCaptcha implements Rule
      */
     public function passes($attribute, $value)
     {
-        $response = Http::asForm()->post("https://www.google.com/recaptcha/api/siteverify", [
-            'secret' => env('GOOGLE_RECAPTCHA_SECRET'),
-            'response' => $value,
-            'ip' => request()->ip(),
-        ]);
+        try {
+            $response = Http::asForm()->post("https://www.google.com/recaptcha/api/siteverify", [
+                'secret' => env('GOOGLE_RECAPTCHA_SECRET'),
+                'response' => $value,
+                'ip' => request()->ip(),
+            ]);
+        }catch (\Exception $exception){
+            throw ValidationException::withMessages(['recaptcha_token' => __('Internet error! Please try again.')])->status(400);
+        }
 
         if ($response->successful() && $response->json('success')) {
             return true;
