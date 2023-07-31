@@ -113,6 +113,7 @@
                                 <th>متن</th>
                                 <th>کاربر</th>
                                 <th>محصول | مقاله</th>
+                                <th>پاسخ به</th>
                                 <th>نقاط ضعف</th>
                                 <th>نقاط قوت</th>
                                 <th>وضعیت پیشنهاد</th>
@@ -143,6 +144,8 @@
                                     <td>
                                         {{ $item->commentable_type ?  $item->commentable->title  :  '---' }}
                                     </td>
+
+                                    <td>{{ $item->parent ? $item->parent->title : '---' }}</td>
 
                                     <td title="{{ $item->negative_points }}">{{ $item->negative_points ? \Illuminate\Support\Str::limit($item->negative_points, 15) : '---'  }}</td>
 
