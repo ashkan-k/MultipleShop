@@ -13,12 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('settings', function (Blueprint $table) {
-            $table->id();
-            $table->string('key');
-            $table->text('value');
-            $table->boolean('is_active')->default(true);
-            $table->timestamps();
+        Schema::table('comments', function (Blueprint $table) {
+            $table->foreignId('parent_id')->nullable()->constrained('comments')->cascadeOnUpdate()->nullOnDelete();
         });
     }
 
@@ -29,6 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('settings');
+        Schema::table('', function (Blueprint $table) {
+
+        });
     }
 };

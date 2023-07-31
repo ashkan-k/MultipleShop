@@ -129,7 +129,7 @@
                                 <th>قیمت تخفیفی</th>
                                 <th>تاریخ شروع تخفیف</th>
                                 <th>تاریخ پایان تخفیف</th>
-{{--                                <th>شگفت انگیز</th>--}}
+                                {{--                                <th>شگفت انگیز</th>--}}
                                 <th>وضعیت</th>
                                 <th>عملیات</th>
                             </tr>
@@ -153,13 +153,25 @@
 
                                     <td>{{ $item->en_title ?: '---'  }}</td>
 
-                                    <td>{{ $item->price ? number_format($item->price) : '---'  }} تومان</td>
+                                    <td>
+                                        <div ng-click="ChangePriceModal({{ $item->id }}, '{{ $item->price }}')"
+                                             id="item_price_id_{{ $item->id }}"
+                                             class="badge badge-light-dark active_modal_buttons">{{ $item->price ? number_format($item->price) : '---'  }}
+                                            تومان
+                                        </div>
+                                    </td>
 
-                                    @if($item->quantity <= 0)
-                                        <td><span class="text-danger">{{ $item->quantity ?: '0'  }} عدد</span></td>
-                                    @else
-                                        <td>{{ $item->quantity ?: '0'  }} عدد</td>
-                                    @endif
+                                    <td>
+                                        <div ng-click="ChangeQuantityModal({{ $item->id }}, '{{ $item->quantity }}')"
+                                             id="item_quantity_id_{{ $item->id }}"
+                                             class="badge badge-light-dark active_modal_buttons">
+                                            @if($item->quantity <= 0)
+                                                <span class="text-danger">{{ $item->quantity ?: '0'  }} عدد</span>
+                                            @else
+                                                {{ $item->quantity ?: '0'  }} عدد
+                                            @endif
+                                        </div>
+                                    </td>
 
                                     <td>
                                         <div class="symbol symbol-circle symbol-50px overflow-hidden me-3">
@@ -182,19 +194,18 @@
 
                                     <td>{{ $item->discount_end_date ?: '---'  }}</td>
 
-{{--                                    <td>--}}
-{{--                                        <div title="برای تبدیل محصول به شگفت انگیز وارد ویرایش محصول شوید و علاوه بر تیک شگفت انگیزی، قیمت و تاریخ دوره تخفیف را هم وارد کنید."--}}
-{{--                                             class="badge badge-light-{{ $item->get_special_class() }}">{{ $item->get_special() }}</div>--}}
-{{--                                    </td>--}}
-
                                     <td>
                                         <div
                                             class="badge badge-light-{{ $item->get_status_class() }} active_modal_buttons">{{ $item->get_status() }}</div>
                                     </td>
 
                                     <td class="">
-                                        <a href="{{ route('galleries.index', $item->id) }}" class="btn btn-bg-light btn-color-muted btn-active-color-primary btn-sm px-4 me-2">کالری تصاویر</a>
-                                        <a href="{{ route('product-features.index') }}?product={{ $item->id }}" class="btn btn-bg-light btn-color-muted btn-active-color-primary btn-sm px-4 me-2">ویژگی ها</a>
+                                        <a href="{{ route('galleries.index', $item->id) }}"
+                                           class="btn btn-bg-light btn-color-muted btn-active-color-primary btn-sm px-4 me-2">کالری
+                                            تصاویر</a>
+                                        <a href="{{ route('product-features.index') }}?product={{ $item->id }}"
+                                           class="btn btn-bg-light btn-color-muted btn-active-color-primary btn-sm px-4 me-2">ویژگی
+                                            ها</a>
 
                                         <a href="#"
                                            class="btn btn-light btn-active-light-primary btn-flex btn-center btn-sm"
@@ -251,6 +262,118 @@
         </div>
         <!--end::Content-->
     </div>
+
+    <div class="modal fade" id="changePriceModal" tabindex="-1" aria-hidden="true">
+        <!--begin::Modal dialog-->
+        <div class="modal-dialog modal-dialog-centered mw-650px">
+            <!--begin::Modal content-->
+            <div class="modal-content rounded">
+                <!--begin::Modal header-->
+                <div class="modal-header pb-0 border-0 justify-content-end">
+                    <!--begin::Close-->
+                    <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                        <i class="ki-duotone ki-cross fs-1">
+                            <span class="path1"></span>
+                            <span class="path2"></span>
+                        </i>
+                    </div>
+                    <!--end::Close-->
+                </div>
+                <!--begin::Modal header-->
+                <!--begin::Modal body-->
+                <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
+                    <!--begin:Form-->
+                    <form id="changePriceModal_form" class="form" action="#">
+                        <!--begin::Heading-->
+                        <div class="mb-13 text-center">
+                            <h1 class="mb-3">تغییر قیمت</h1>
+                        </div>
+
+                        <div class="d-flex flex-column mb-8 fv-row">
+                            <!--begin::Tags-->
+                            <label for="id_price" class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                <span class="required">قیمت</span>
+                            </label>
+                            <!--end::Tags-->
+                            <input ng-model="price" id="id_price" class="form-control form-control-solid" type="number"
+                                   placeholder="قیمت را وارد کنید">
+                        </div>
+
+                        <div class="text-center">
+                            <button ng-disabled="is_submited" onclick="$('#changePriceModal').modal('hide');"
+                                    type="reset" id="changePriceModal_cancel" class="btn btn-light me-3">انصراف
+                            </button>
+                            <button type="button" ng-click="ChangePrice()" ng-disabled="is_submited"
+                                    class="btn btn-primary">
+                                <span class="indicator-label">ثبت</span>
+                            </button>
+                        </div>
+                        <!--end::Actions-->
+                    </form>
+                    <!--end:Form-->
+                </div>
+                <!--end::Modal body-->
+            </div>
+            <!--end::Modal content-->
+        </div>
+        <!--end::Modal dialog-->
+    </div>
+
+    <div class="modal fade" id="changeQuantityModal" tabindex="-1" aria-hidden="true">
+        <!--begin::Modal dialog-->
+        <div class="modal-dialog modal-dialog-centered mw-650px">
+            <!--begin::Modal content-->
+            <div class="modal-content rounded">
+                <!--begin::Modal header-->
+                <div class="modal-header pb-0 border-0 justify-content-end">
+                    <!--begin::Close-->
+                    <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                        <i class="ki-duotone ki-cross fs-1">
+                            <span class="path1"></span>
+                            <span class="path2"></span>
+                        </i>
+                    </div>
+                    <!--end::Close-->
+                </div>
+                <!--begin::Modal header-->
+                <!--begin::Modal body-->
+                <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
+                    <!--begin:Form-->
+                    <form id="changeQuantityModal_form" class="form" action="#">
+                        <!--begin::Heading-->
+                        <div class="mb-13 text-center">
+                            <h1 class="mb-3">تغییر موجودی</h1>
+                        </div>
+
+                        <div class="d-flex flex-column mb-8 fv-row">
+                            <!--begin::Tags-->
+                            <label for="id_quantity" class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                <span class="required">موجودی</span>
+                            </label>
+                            <!--end::Tags-->
+                            <input ng-model="quantity" id="id_quantity" min="1" class="form-control form-control-solid" type="number"
+                                   placeholder="موجودی را وارد کنید">
+                        </div>
+
+                        <div class="text-center">
+                            <button ng-disabled="is_submited" onclick="$('#changeQuantityModal').modal('hide');"
+                                    type="reset" id="changePriceModal_cancel" class="btn btn-light me-3">انصراف
+                            </button>
+                            <button type="button" ng-click="ChangeQuantity()" ng-disabled="is_submited"
+                                    class="btn btn-primary">
+                                <span class="indicator-label">ثبت</span>
+                            </button>
+                        </div>
+                        <!--end::Actions-->
+                    </form>
+                    <!--end:Form-->
+                </div>
+                <!--end::Modal body-->
+            </div>
+            <!--end::Modal content-->
+        </div>
+        <!--end::Modal dialog-->
+    </div>
 @endsection
 
 @section('Scripts')
@@ -260,6 +383,67 @@
     <script>
         app.controller('myCtrl', function ($scope, $http) {
             @include('dashboard.section.components.bulk_actions.bulk_actions_js', ['items' => $objects, 'model' => \Modules\Product\Entities\Product::class])
+
+                $scope.ChangePriceModal = function (id, price) {
+                $scope.id = id;
+
+                price = $(`#item_price_id_${$scope.id}`).html()
+                $scope.price = parseInt(price.replace(/\D/g, ""));
+
+                $('#changePriceModal').modal('show');
+            }
+
+            $scope.ChangePrice = function () {
+                $scope.is_submited = true;
+
+                var data = {
+                    "price": $scope.price
+                };
+
+                $http.post(`/api/products/update/${$scope.id}`, data).then(res => {
+                    $scope.is_submited = false;
+                    showToast('آیتم مورد نظر با موفقیت تغییر کرد.', 'success');
+                    $(`#item_price_id_${$scope.id}`).html(`${numberWithCommas(res['data']['data']['price'])} تومان`);
+                    $('#changePriceModal').modal('hide');
+                }).catch(err => {
+                    $scope.is_submited = false;
+                    showToast('خطایی رخ داد.', 'error');
+                });
+            }
+
+            //
+
+            $scope.ChangeQuantityModal = function (id, quantity) {
+                $scope.id = id;
+
+                quantity = $(`#item_quantity_id_${$scope.id}`).html()
+                $scope.quantity = parseInt(quantity.replace(/\D/g, ""));
+
+                $('#changeQuantityModal').modal('show');
+            }
+
+            $scope.ChangeQuantity = function () {
+                if (!$scope.quantity || $scope.quantity < 1){
+                    showToast('حداقل موجودی باید 1 باشد!', 'error');
+                    return;
+                }
+
+                $scope.is_submited = true;
+
+                var data = {
+                    "quantity": $scope.quantity
+                };
+
+                $http.post(`/api/products/update/${$scope.id}`, data).then(res => {
+                    $scope.is_submited = false;
+                    showToast('آیتم مورد نظر با موفقیت تغییر کرد.', 'success');
+                    $(`#item_quantity_id_${$scope.id}`).html(`${res['data']['data']['quantity']} عدد`);
+                    $('#changeQuantityModal').modal('hide');
+                }).catch(err => {
+                    $scope.is_submited = false;
+                    showToast('خطایی رخ داد.', 'error');
+                });
+            }
         });
     </script>
 @endsection

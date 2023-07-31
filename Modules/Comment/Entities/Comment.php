@@ -18,7 +18,7 @@ class Comment extends Model
         "title", "body", "like_count",
         "user_id", "status", "commentable_type",
         "negative_points", "positive_points", "suggest_score",
-        "commentable_id"
+        "commentable_id", "parent_id",
     ];
 
     protected $search_fields = [
@@ -30,11 +30,13 @@ class Comment extends Model
         "negative_points",
         "positive_points",
         "suggest_score",
+        'parent.title',
     ];
 
     protected $filter_fields = [
         'status',
         'user_id',
+        'parent_id',
     ];
 
     public function get_status()
@@ -85,6 +87,16 @@ class Comment extends Model
     }
 
     //
+
+    public function parent()
+    {
+        return $this->belongsTo(Comment::class, 'parent_id');
+    }
+
+    public function children()
+    {
+        return $this->hasMany(Comment::class, 'parent_id');
+    }
 
     public function user()
     {

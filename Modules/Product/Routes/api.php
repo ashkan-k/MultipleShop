@@ -42,4 +42,5 @@ Route::middleware('check_admin')->group(function () {
 // Products
 Route::get('categories', [ApiCategoryController::class, 'list'])->name('categories.api.list');
 Route::get('brands', [ApiBrandController::class, 'list'])->name('brands.api.list');
+Route::post('update/{product}', [ApiProductController::class, 'update'])->name('products.api.update');
 Route::get('', [ApiProductController::class, 'list'])->name('products.api.list');

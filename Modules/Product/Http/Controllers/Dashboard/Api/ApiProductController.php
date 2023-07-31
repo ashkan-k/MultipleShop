@@ -4,6 +4,7 @@ namespace Modules\Product\Http\Controllers\Dashboard\Api;
 
 use App\Http\Traits\Responses;
 use App\Http\Traits\Uploader;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Product\Entities\Gallery;
 use Modules\Product\Entities\Product;
@@ -29,5 +30,11 @@ class ApiProductController extends Controller
 
         $objects = $objects->latest()->paginate(\request('pagination', env('PAGINATION_NUMBER', 10)));
         return $this->SuccessResponse($objects);
+    }
+
+    public function update(Request $request, Product $product)
+    {
+        $product->update($request->all());
+        return $this->SuccessResponse(Product::find($product->id));
     }
 }

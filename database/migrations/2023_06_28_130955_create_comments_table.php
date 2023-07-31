@@ -28,6 +28,7 @@ return new class extends Migration
             $table->string('commentable_type');
 
             $table->foreignId('user_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('parent_id')->nullable()->constrained('comments')->cascadeOnUpdate()->nullOnDelete();
 
             $table->timestamps();
         });
