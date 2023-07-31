@@ -17,7 +17,7 @@ class CommentController extends Controller
     {
         $objects = Comment::Search(request('search'))
             ->Filter(\request())
-            ->with(['user', 'commentable'])
+            ->with(['user', 'parent', 'commentable'])
             ->latest()
             ->paginate(\request('pagination', env('PAGINATION_NUMBER', 10)));
 
