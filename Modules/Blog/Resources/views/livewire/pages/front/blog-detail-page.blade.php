@@ -134,7 +134,8 @@
                                                     style="
     border-radius: 50%;
 "> <span class="_item__user--name vcard">
-                                                    <span class="fn">{{ $comment->user->full_name ?: '---' }}</span></span>
+                                                    <span
+                                                        class="fn">{{ $comment->user->full_name ?: '---' }}</span></span>
                                             </div>
 
                                             @if($lang == 'fa')
@@ -206,7 +207,7 @@
                                                                      class="_date">{{ \Hekmatinasser\Verta\Verta:: instance($child_1->created_at)->format('%B %d، %Y') }}</time>
                                                              </span>
                                                         @else
-                                                                <span class="_item__user--date" style="float: left;">
+                                                            <span class="_item__user--date" style="float: left;">
                                                                      <i class="icon-clock-icon"></i>
                                                                      <time
                                                                          datetime="{{ \Hekmatinasser\Verta\Verta:: instance($child_1->created_at)->toCarbon()->isoFormat('MMMM Do YYYY') }}"
@@ -230,9 +231,276 @@
 
                                                 </div>
 
+                                                <ol class="children _item__comment__reply" style="clear: both;">
+
+                                                    @foreach($child_1->children()->where('status', 'approved')->get() as $child_2)
+                                                        <li class="comment byuser comment-author-h-davarian bypostauthor even depth-2 single-comment _item _person"
+                                                            id="li-comment-264585">
+                                                            <div id="comment-264585" class="comment-body">
+
+                                                                <div class="_item__user comment-meta post-author">
+                                                                    <div class="_item__user--data ">
+                                                                        <img
+                                                                            src="{{ $child_2->user->get_avatar() ?: '---' }}"
+                                                                            width="35" height="35"
+                                                                            alt="{{ $child_2->user->full_name() ?: '---' }}"
+                                                                            class="avatar avatar-35 wp-user-avatar wp-user-avatar-35 alignnone photo"
+                                                                            style="border-radius: 50%;">
+                                                                        <span class="_item__user--name vcard">
+                                                                    <span
+                                                                        class="fn">{{ $child_2->user->full_name() ?: '---' }}</span>
+                                                                </span>
+                                                                    </div>
+
+                                                                    @if($lang == 'fa')
+                                                                        <span class="_item__user--date"
+                                                                              style="float: left;">
+                                                                 <i class="icon-clock-icon"></i>
+                                                                 <time
+                                                                     datetime="{{ \Hekmatinasser\Verta\Verta:: instance($child_2->created_at)->format('%B %d، %Y') }}"
+                                                                     class="_date">{{ \Hekmatinasser\Verta\Verta:: instance($child_2->created_at)->format('%B %d، %Y') }}</time>
+                                                             </span>
+                                                                    @else
+                                                                        <span class="_item__user--date"
+                                                                              style="float: left;">
+                                                                     <i class="icon-clock-icon"></i>
+                                                                     <time
+                                                                         datetime="{{ \Hekmatinasser\Verta\Verta:: instance($child_2->created_at)->toCarbon()->isoFormat('MMMM Do YYYY') }}"
+                                                                         class="_date">{{ \Hekmatinasser\Verta\Verta:: instance($child_2->created_at)->toCarbon()->isoFormat('MMMM Do YYYY') }}</time>
+                                                            </span>
+                                                                    @endif
+
+                                                                </div>
+
+                                                                <div class="_item__comment"
+                                                                     style="clear: both; padding: 14px;">
+                                                                    <p>{{ $child_2->body ?: '---' }}</p>
+                                                                    <span class="_btn" style="float: left;">
+                                                              <a rel="nofollow"
+                                                                 style="cursor: pointer !important;"
+                                                                 class="comment-reply-link"
+                                                                 data-respondelement="respond"
+                                                                 data-replyto="پاسخ به Sina"
+                                                                 aria-label="پاسخ به Sina">پاسخ دادن</a>
+                                                        </span>
+                                                                </div>
+
+                                                            </div>
+
+                                                            <ol class="children _item__comment__reply"
+                                                                style="clear: both;">
+
+                                                                @foreach($child_2->children()->where('status', 'approved')->get() as $child_3)
+                                                                    <li class="comment byuser comment-author-h-davarian bypostauthor even depth-2 single-comment _item _person"
+                                                                        id="li-comment-264585">
+                                                                        <div id="comment-264585" class="comment-body">
+
+                                                                            <div
+                                                                                class="_item__user comment-meta post-author">
+                                                                                <div class="_item__user--data ">
+                                                                                    <img
+                                                                                        src="{{ $child_3->user->get_avatar() ?: '---' }}"
+                                                                                        width="35" height="35"
+                                                                                        alt="{{ $child_3->user->full_name() ?: '---' }}"
+                                                                                        class="avatar avatar-35 wp-user-avatar wp-user-avatar-35 alignnone photo"
+                                                                                        style="border-radius: 50%;">
+                                                                                    <span
+                                                                                        class="_item__user--name vcard">
+                                                                    <span
+                                                                        class="fn">{{ $child_3->user->full_name() ?: '---' }}</span>
+                                                                </span>
+                                                                                </div>
+
+                                                                                @if($lang == 'fa')
+                                                                                    <span class="_item__user--date"
+                                                                                          style="float: left;">
+                                                                 <i class="icon-clock-icon"></i>
+                                                                 <time
+                                                                     datetime="{{ \Hekmatinasser\Verta\Verta:: instance($child_3->created_at)->format('%B %d، %Y') }}"
+                                                                     class="_date">{{ \Hekmatinasser\Verta\Verta:: instance($child_3->created_at)->format('%B %d، %Y') }}</time>
+                                                             </span>
+                                                                                @else
+                                                                                    <span class="_item__user--date"
+                                                                                          style="float: left;">
+                                                                     <i class="icon-clock-icon"></i>
+                                                                     <time
+                                                                         datetime="{{ \Hekmatinasser\Verta\Verta:: instance($child_3->created_at)->toCarbon()->isoFormat('MMMM Do YYYY') }}"
+                                                                         class="_date">{{ \Hekmatinasser\Verta\Verta:: instance($child_3->created_at)->toCarbon()->isoFormat('MMMM Do YYYY') }}</time>
+                                                            </span>
+                                                                                @endif
+
+                                                                            </div>
+
+                                                                            <div class="_item__comment"
+                                                                                 style="clear: both; padding: 14px;">
+                                                                                <p>{{ $child_3->body ?: '---' }}</p>
+                                                                                <span class="_btn" style="float: left;">
+                                                              <a rel="nofollow"
+                                                                 style="cursor: pointer !important;"
+                                                                 class="comment-reply-link"
+                                                                 data-respondelement="respond"
+                                                                 data-replyto="پاسخ به Sina"
+                                                                 aria-label="پاسخ به Sina">پاسخ دادن</a>
+                                                        </span>
+                                                                            </div>
+
+                                                                        </div>
+
+                                                                        <ol class="children _item__comment__reply"
+                                                                            style="clear: both;">
+
+                                                                            @foreach($child_3->children()->where('status', 'approved')->get() as $child_4)
+                                                                                <li class="comment byuser comment-author-h-davarian bypostauthor even depth-2 single-comment _item _person"
+                                                                                    id="li-comment-264585">
+                                                                                    <div id="comment-264585"
+                                                                                         class="comment-body">
+
+                                                                                        <div
+                                                                                            class="_item__user comment-meta post-author">
+                                                                                            <div
+                                                                                                class="_item__user--data ">
+                                                                                                <img
+                                                                                                    src="{{ $child_4->user->get_avatar() ?: '---' }}"
+                                                                                                    width="35"
+                                                                                                    height="35"
+                                                                                                    alt="{{ $child_4->user->full_name() ?: '---' }}"
+                                                                                                    class="avatar avatar-35 wp-user-avatar wp-user-avatar-35 alignnone photo"
+                                                                                                    style="border-radius: 50%;">
+                                                                                                <span
+                                                                                                    class="_item__user--name vcard">
+                                                                    <span
+                                                                        class="fn">{{ $child_4->user->full_name() ?: '---' }}</span>
+                                                                </span>
+                                                                                            </div>
+
+                                                                                            @if($lang == 'fa')
+                                                                                                <span
+                                                                                                    class="_item__user--date"
+                                                                                                    style="float: left;">
+                                                                 <i class="icon-clock-icon"></i>
+                                                                 <time
+                                                                     datetime="{{ \Hekmatinasser\Verta\Verta:: instance($child_4->created_at)->format('%B %d، %Y') }}"
+                                                                     class="_date">{{ \Hekmatinasser\Verta\Verta:: instance($child_4->created_at)->format('%B %d، %Y') }}</time>
+                                                             </span>
+                                                                                            @else
+                                                                                                <span
+                                                                                                    class="_item__user--date"
+                                                                                                    style="float: left;">
+                                                                     <i class="icon-clock-icon"></i>
+                                                                     <time
+                                                                         datetime="{{ \Hekmatinasser\Verta\Verta:: instance($child_4->created_at)->toCarbon()->isoFormat('MMMM Do YYYY') }}"
+                                                                         class="_date">{{ \Hekmatinasser\Verta\Verta:: instance($child_4->created_at)->toCarbon()->isoFormat('MMMM Do YYYY') }}</time>
+                                                            </span>
+                                                                                            @endif
+
+                                                                                        </div>
+
+                                                                                        <div class="_item__comment"
+                                                                                             style="clear: both; padding: 14px;">
+                                                                                            <p>{{ $child_4->body ?: '---' }}</p>
+                                                                                            <span class="_btn"
+                                                                                                  style="float: left;">
+                                                              <a rel="nofollow"
+                                                                 style="cursor: pointer !important;"
+                                                                 class="comment-reply-link"
+                                                                 data-respondelement="respond"
+                                                                 data-replyto="پاسخ به Sina"
+                                                                 aria-label="پاسخ به Sina">پاسخ دادن</a>
+                                                        </span>
+                                                                                        </div>
+
+                                                                                    </div>
+
+
+                                                                                    <ol class="children _item__comment__reply"
+                                                                                        style="clear: both;">
+
+                                                                                        @foreach($child_4->children()->where('status', 'approved')->get() as $child_5)
+                                                                                            <li class="comment byuser comment-author-h-davarian bypostauthor even depth-2 single-comment _item _person"
+                                                                                                id="li-comment-264585">
+                                                                                                <div id="comment-264585"
+                                                                                                     class="comment-body">
+
+                                                                                                    <div
+                                                                                                        class="_item__user comment-meta post-author">
+                                                                                                        <div
+                                                                                                            class="_item__user--data ">
+                                                                                                            <img
+                                                                                                                src="{{ $child_5->user->get_avatar() ?: '---' }}"
+                                                                                                                width="35"
+                                                                                                                height="35"
+                                                                                                                alt="{{ $child_5->user->full_name() ?: '---' }}"
+                                                                                                                class="avatar avatar-35 wp-user-avatar wp-user-avatar-35 alignnone photo"
+                                                                                                                style="border-radius: 50%;">
+                                                                                                            <span
+                                                                                                                class="_item__user--name vcard">
+                                                                    <span
+                                                                        class="fn">{{ $child_5->user->full_name() ?: '---' }}</span>
+                                                                </span>
+                                                                                                        </div>
+
+                                                                                                        @if($lang == 'fa')
+                                                                                                            <span
+                                                                                                                class="_item__user--date"
+                                                                                                                style="float: left;">
+                                                                 <i class="icon-clock-icon"></i>
+                                                                 <time
+                                                                     datetime="{{ \Hekmatinasser\Verta\Verta:: instance($child_5->created_at)->format('%B %d، %Y') }}"
+                                                                     class="_date">{{ \Hekmatinasser\Verta\Verta:: instance($child_5->created_at)->format('%B %d، %Y') }}</time>
+                                                             </span>
+                                                                                                        @else
+                                                                                                            <span
+                                                                                                                class="_item__user--date"
+                                                                                                                style="float: left;">
+                                                                     <i class="icon-clock-icon"></i>
+                                                                     <time
+                                                                         datetime="{{ \Hekmatinasser\Verta\Verta:: instance($child_5->created_at)->toCarbon()->isoFormat('MMMM Do YYYY') }}"
+                                                                         class="_date">{{ \Hekmatinasser\Verta\Verta:: instance($child_5->created_at)->toCarbon()->isoFormat('MMMM Do YYYY') }}</time>
+                                                            </span>
+                                                                                                        @endif
+
+                                                                                                    </div>
+
+                                                                                                    <div
+                                                                                                        class="_item__comment"
+                                                                                                        style="clear: both; padding: 14px;">
+                                                                                                        <p>{{ $child_5->body ?: '---' }}</p>
+                                                                                                        <span
+                                                                                                            class="_btn"
+                                                                                                            style="float: left;">
+                                                              <a rel="nofollow"
+                                                                 style="cursor: pointer !important;"
+                                                                 class="comment-reply-link"
+                                                                 data-respondelement="respond"
+                                                                 data-replyto="پاسخ به Sina"
+                                                                 aria-label="پاسخ به Sina">پاسخ دادن</a>
+                                                        </span>
+                                                                                                    </div>
+
+                                                                                                </div>
+
+                                                                                            </li>
+                                                                                        @endforeach
+
+                                                                                    </ol>
+
+                                                                                </li>
+                                                                            @endforeach
+
+                                                                        </ol>
+
+                                                                    </li>
+                                                                @endforeach
+
+                                                            </ol>
+
+                                                        </li>
+                                                    @endforeach
+
+                                                </ol>
+
                                             </li>
                                         @endforeach
-
 
                                     </ol>
 
