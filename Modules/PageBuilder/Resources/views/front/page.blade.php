@@ -38,7 +38,7 @@
                                 @foreach($other_pages as $page)
                                     <a href="{{ route('page', $page->get_slug($lang)) }}"
                                        class="dropdown-item active-menu">
-                                        <i class="now-ui-icons users_single-02"></i>
+                                        <i class="fa fa-{{ $page->get_icon() }}"></i>
                                         {{ $page->get_title($lang) }}
                                     </a>
                                 @endforeach
@@ -53,7 +53,7 @@
                             @foreach($other_pages as $page)
                                 <li>
                                     <a href="{{ route('page', $page->get_slug($lang)) }}">
-                                        <i class="now-ui-icons users_single-02"></i>{{ $page->get_title($lang) }}</a>
+                                        <i class="fa fa-{{ $page->get_icon() }}"></i>{{ $page->get_title($lang) }}</a>
                                 </li>
                             @endforeach
 

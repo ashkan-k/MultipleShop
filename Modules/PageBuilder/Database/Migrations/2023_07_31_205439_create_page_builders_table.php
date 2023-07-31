@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('slug')->nullable();
             $table->string('en_slug')->nullable();
             $table->text('body');
-            $table->text('image')->nullable();
+            $table->string('icon_name')->nullable();
             $table->boolean('is_active')->default(true);
 
             $table->timestamps();

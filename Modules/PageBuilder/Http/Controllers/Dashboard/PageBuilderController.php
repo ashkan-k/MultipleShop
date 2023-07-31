@@ -27,7 +27,8 @@ class PageBuilderController extends Controller
 
     public function create()
     {
-        return view('pagebuilder::dashboard.form');
+        $icons = PageBuilder::GetFontAwesomeIcons();
+        return view('pagebuilder::dashboard.form', compact('icons'));
     }
 
     public function store(PageBuilderRequest $request)
@@ -41,7 +42,8 @@ class PageBuilderController extends Controller
 
     public function edit(PageBuilder $page)
     {
-        return view('pagebuilder::dashboard.form')->with('object', $page);
+        $icons = PageBuilder::GetFontAwesomeIcons();
+        return view('pagebuilder::dashboard.form', compact('icons'))->with('object', $page);
     }
 
     public function update(PageBuilderRequest $request, PageBuilder $page)

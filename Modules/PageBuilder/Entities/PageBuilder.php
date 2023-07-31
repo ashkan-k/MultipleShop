@@ -5,6 +5,7 @@ namespace Modules\PageBuilder\Entities;
 use App\Http\Traits\Searchable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 
 class PageBuilder extends Model
@@ -18,7 +19,7 @@ class PageBuilder extends Model
         'en_title',
         'en_slug',
         'body',
-        'image',
+        'icon_name',
         'is_active',
     ];
 
@@ -29,6 +30,19 @@ class PageBuilder extends Model
         'en_slug',
         'body',
     ];
+
+    public static function GetFontAwesomeIcons()
+    {
+        $icons = File::get(base_path() . '/Modules/Product/Helpers/font-awesome-icons.txt');
+
+        $icons = str_replace("\n", '', $icons);
+        $icons = str_replace("'", '', $icons);
+
+        $icons = explode(',', $icons);
+        array_pop($icons);
+
+        return $icons;
+    }
 
     public function save(array $options = [])
     {
@@ -67,9 +81,9 @@ class PageBuilder extends Model
         return $slug ?: '---';
     }
 
-    public function get_image()
+    public function get_icon()
     {
-        return $this->image ?? 'https://www.hardiagedcare.com.au/wp-content/uploads/2019/02/default-avatar-profile-icon-vector-18942381.jpg';
+        return $this->icon_name ?? 'fa fa-list';
     }
 
     public function scopeFindBySlug($query, $lang, $slug)

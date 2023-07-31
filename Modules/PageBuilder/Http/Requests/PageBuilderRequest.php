@@ -27,7 +27,7 @@ class PageBuilderRequest extends FormRequest
                 'nullable',
                 Rule::unique('page_builders', 'en_slug')->ignore($this->page)
             ],
-            'image' => 'mimes:jpeg,png,bmp,jpg',
+            'icon_name' => 'required_if:is_special,1',
         ];
     }
 

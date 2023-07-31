@@ -187,6 +187,34 @@
                                     </div>
 
                                     <div class="d-flex flex-column mb-8 fv-row">
+                                        <label for="id_icon_name"
+                                               class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                            <span class="required">آیکون</span>
+                                        </label>
+
+                                        <select id="id_icon_name" name="icon_name"
+                                                data-kt-select2="true" required
+                                                class="form-control form-control-solid">
+                                            <option value="">آیکون را انتخاب کنید</option>
+                                            @foreach($icons as $icon)
+                                                <option
+                                                    @if((isset($object->icon_name) && $object->icon_name == $icon) || old('icon_name') == $icon) selected
+                                                    @endif value="{{ $icon }}">{{ $icon }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+
+                                        @error('icon_name')
+                                        <div class="fv-plugins-message-container invalid-feedback">
+                                            <div data-field="meta_title" data-validator="notEmpty">
+                                                {{ $message }}
+                                            </div>
+                                        </div>
+                                        @enderror
+
+                                    </div>
+
+                                    <div class="d-flex flex-column mb-8 fv-row">
                                         <label for="id_is_active"
                                                class="d-flex align-items-center fs-6 fw-semibold mb-2">
                                             <span class="required">وضعیت (فعال / غیرفعال)</span>
