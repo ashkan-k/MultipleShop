@@ -180,7 +180,7 @@
 
                                     <ol class="children _item__comment__reply" style="clear: both;">
 
-                                        @foreach($comment->children()->where('status', 'approved')->get() as $child_1)
+                                        @foreach($comment->children()->where('status', 'approved')->with(['user'])->get() as $child_1)
                                             <li class="comment byuser comment-author-h-davarian bypostauthor even depth-2 single-comment _item _person"
                                                 id="li-comment-264585">
                                                 <div id="comment-264585" class="comment-body">
@@ -233,7 +233,7 @@
 
                                                 <ol class="children _item__comment__reply" style="clear: both;">
 
-                                                    @foreach($child_1->children()->where('status', 'approved')->get() as $child_2)
+                                                    @foreach($child_1->children()->where('status', 'approved')->with(['user'])->get() as $child_2)
                                                         <li class="comment byuser comment-author-h-davarian bypostauthor even depth-2 single-comment _item _person"
                                                             id="li-comment-264585">
                                                             <div id="comment-264585" class="comment-body">
@@ -290,7 +290,7 @@
                                                             <ol class="children _item__comment__reply"
                                                                 style="clear: both;">
 
-                                                                @foreach($child_2->children()->where('status', 'approved')->get() as $child_3)
+                                                                @foreach($child_2->children()->where('status', 'approved')->with(['user'])->get() as $child_3)
                                                                     <li class="comment byuser comment-author-h-davarian bypostauthor even depth-2 single-comment _item _person"
                                                                         id="li-comment-264585">
                                                                         <div id="comment-264585" class="comment-body">
@@ -349,7 +349,7 @@
                                                                         <ol class="children _item__comment__reply"
                                                                             style="clear: both;">
 
-                                                                            @foreach($child_3->children()->where('status', 'approved')->get() as $child_4)
+                                                                            @foreach($child_3->children()->where('status', 'approved')->with(['user'])->get() as $child_4)
                                                                                 <li class="comment byuser comment-author-h-davarian bypostauthor even depth-2 single-comment _item _person"
                                                                                     id="li-comment-264585">
                                                                                     <div id="comment-264585"
@@ -415,7 +415,7 @@
                                                                                     <ol class="children _item__comment__reply"
                                                                                         style="clear: both;">
 
-                                                                                        @foreach($child_4->children()->where('status', 'approved')->get() as $child_5)
+                                                                                        @foreach($child_4->children()->where('status', 'approved')->with(['user'])->get() as $child_5)
                                                                                             <li class="comment byuser comment-author-h-davarian bypostauthor even depth-2 single-comment _item _person"
                                                                                                 id="li-comment-264585">
                                                                                                 <div id="comment-264585"
