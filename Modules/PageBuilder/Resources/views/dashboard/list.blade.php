@@ -127,6 +127,10 @@
 
                                     <td class="text-end">
                                         @if($item->is_active)
+                                            <a onclick="copyToClipboard('{{ route('page', ['locale' => app()->getLocale(), 'slug' => $item->get_slug(app()->getLocale())]) }}')"
+                                               target="_blank"
+                                               class="btn btn-bg-light btn-color-muted btn-active-color-primary btn-sm px-4 me-2">کپی لینک</a>
+
                                             <a href="{{ route('page', ['locale' => app()->getLocale(), 'slug' => $item->get_slug(app()->getLocale())]) }}"
                                                target="_blank"
                                                class="btn btn-bg-light btn-color-muted btn-active-color-primary btn-sm px-4 me-2">نمایش</a>
@@ -250,6 +254,27 @@
 @section('Scripts')
     @include('dashboard.section.components.delete')
     @include('dashboard.section.components.search_box_js')
+
+    <script>
+        function copyToClipboard(text) {
+            // Create a temporary textarea element to hold the text to copy
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+
+            // Make the textarea non-editable and add it to the DOM
+            textarea.setAttribute('readonly', '');
+            document.body.appendChild(textarea);
+
+            // Select the text and copy it to the clipboard
+            textarea.select();
+            document.execCommand('copy');
+
+            // Remove the textarea from the DOM
+            document.body.removeChild(textarea);
+
+            showToast('با موفقیت کپی شد.', 'success');
+        }
+    </script>
 
     <script>
         app.controller('myCtrl', function ($scope, $http) {
