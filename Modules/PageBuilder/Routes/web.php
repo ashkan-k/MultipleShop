@@ -11,6 +11,7 @@
 |
 */
 
-Route::prefix('pagebuilder')->group(function() {
-    Route::get('/', 'PageBuilderController@index');
-});
+use Illuminate\Support\Facades\Route;
+use Modules\PageBuilder\Http\Controllers\Dashboard\PageBuilderController;
+
+Route::resource('pages', PageBuilderController::class);

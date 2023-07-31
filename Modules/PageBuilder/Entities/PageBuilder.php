@@ -2,6 +2,7 @@
 
 namespace Modules\PageBuilder\Entities;
 
+use App\Http\Traits\Searchable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Str;
@@ -9,6 +10,7 @@ use Illuminate\Support\Str;
 class PageBuilder extends Model
 {
     use HasFactory;
+    use Searchable;
 
     protected $fillable = [
         'title',
@@ -16,6 +18,7 @@ class PageBuilder extends Model
         'en_title',
         'en_slug',
         'image',
+        'is_active',
     ];
 
     protected $search_fields = [
