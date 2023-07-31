@@ -63,7 +63,7 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapApiRoutes()
     {
         Route::prefix('api/comments')
-            ->middleware(['web', 'check_admin'])
+            ->middleware(['web', 'auth'])
             ->namespace($this->moduleNamespace)
             ->group(module_path('Comment', '/Routes/api.php'));
     }

@@ -51,10 +51,11 @@ class ProductDetailPage extends Component
         return (new CommentRequest())->rules();
     }
 
-    public function SubmitNewComment()
+    public function SubmitNewComment($parent_id = null)
     {
         $data = $this->validate();
 
+        $data['parent_id'] = $parent_id;
         $data['commentable_id'] = $this->object->id;
         $data['commentable_type'] = get_class($this->object);
         $data['suggest_score'] = $data['suggest_score'] ?: 'no_idea';

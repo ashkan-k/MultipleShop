@@ -7,6 +7,8 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Comment\Entities\Comment;
+use Modules\Comment\Http\Requests\CommentRequest;
+use Modules\Product\Entities\Product;
 use Modules\User\Entities\User;
 
 class ApiCommentController extends Controller
@@ -29,5 +31,18 @@ class ApiCommentController extends Controller
         ]);
 
         return $this->SuccessResponse('کاربر گرامی نظر شما با موفقیت ثبت شد.');
+    }
+
+    public function submit_answer(CommentRequest $request, Comment $comment, $item_type)
+    {
+        $data = $request->validated();
+        $data['parent_id'] = $comment->id;
+        $data['parent_id'] = $item_type;
+
+        auth()->user()->comments()->create($data);
+
+        $comment->children()->create([
+            'title'
+        ]);
     }
 }

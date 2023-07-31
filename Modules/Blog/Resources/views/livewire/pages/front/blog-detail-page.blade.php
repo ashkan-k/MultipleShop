@@ -64,7 +64,6 @@
                     </div>
                 </article>
 
-
                 <div id="comments" style="
     background: white;
     padding: 15px;
@@ -119,6 +118,7 @@
                         <ol class="post-module__comments commentlist">
 
                             @foreach($comments->get() as $comment)
+
                                 <li class="comment even thread-even depth-1 single-comment _item _person"
                                     id="li-comment-312186">
                                     <div id="comment-312186" class="comment-body">
@@ -134,8 +134,7 @@
                                                     style="
     border-radius: 50%;
 "> <span class="_item__user--name vcard">
-                        <span class="fn">{{ $comment->user->full_name ?: '---' }}</span>
-                    </span>
+                                                    <span class="fn">{{ $comment->user->full_name ?: '---' }}</span></span>
                                             </div>
 
                                             @if($lang == 'fa')
@@ -165,21 +164,82 @@
                                              style="clear: both;padding: 14px; word-wrap: break-word;">
                                             <p>{{ $comment->body ?: '---' }}</p>
 
-                                            {{--                                            <span class="_btn" style="--}}
-                                            {{--    float: left;--}}
-                                            {{--">--}}
-                                            {{--                        <a rel="nofollow" class="comment-reply-link" data-respondelement="respond"--}}
-                                            {{--                           data-replyto="پاسخ به Sina"--}}
-                                            {{--                           aria-label="پاسخ به Sina">پاسخ دادن</a>                    </span>--}}
+                                            <span class="_btn" style="float: left;">
+                                                                    <a rel="nofollow"
+                                                                       style="cursor: pointer !important;"
+                                                                       class="comment-reply-link"
+                                                                       data-respondelement="respond"
+                                                                       data-replyto="پاسخ به Sina"
+                                                                       aria-label="پاسخ به Sina">پاسخ دادن</a>
+                                            </span>
                                         </div>
-
 
                                     </div>
 
-                                </li><!-- #comment-## -->
-                        @endforeach
 
-                        <!-- #comment-## -->
+                                    <ol class="children _item__comment__reply" style="clear: both;">
+
+                                        @foreach($comment->children()->where('status', 'approved')->get() as $child_1)
+                                            <li class="comment byuser comment-author-h-davarian bypostauthor even depth-2 single-comment _item _person"
+                                                id="li-comment-264585">
+                                                <div id="comment-264585" class="comment-body">
+
+                                                    <div class="_item__user comment-meta post-author">
+                                                        <div class="_item__user--data ">
+                                                            <img
+                                                                src="{{ $child_1->user->get_avatar() ?: '---' }}"
+                                                                width="35" height="35"
+                                                                alt="{{ $child_1->user->full_name() ?: '---' }}"
+                                                                class="avatar avatar-35 wp-user-avatar wp-user-avatar-35 alignnone photo"
+                                                                style="border-radius: 50%;">
+                                                            <span class="_item__user--name vcard">
+                                                                    <span
+                                                                        class="fn">{{ $child_1->user->full_name() ?: '---' }}</span>
+                                                                </span>
+                                                        </div>
+
+                                                        @if($lang == 'fa')
+                                                            <span class="_item__user--date" style="float: left;">
+                                                                 <i class="icon-clock-icon"></i>
+                                                                 <time
+                                                                     datetime="{{ \Hekmatinasser\Verta\Verta:: instance($child_1->created_at)->format('%B %d، %Y') }}"
+                                                                     class="_date">{{ \Hekmatinasser\Verta\Verta:: instance($child_1->created_at)->format('%B %d، %Y') }}</time>
+                                                             </span>
+                                                        @else
+                                                                <span class="_item__user--date" style="float: left;">
+                                                                     <i class="icon-clock-icon"></i>
+                                                                     <time
+                                                                         datetime="{{ \Hekmatinasser\Verta\Verta:: instance($child_1->created_at)->toCarbon()->isoFormat('MMMM Do YYYY') }}"
+                                                                         class="_date">{{ \Hekmatinasser\Verta\Verta:: instance($child_1->created_at)->toCarbon()->isoFormat('MMMM Do YYYY') }}</time>
+                                                            </span>
+                                                        @endif
+
+                                                    </div>
+
+                                                    <div class="_item__comment" style="clear: both; padding: 14px;">
+                                                        <p>{{ $child_1->body ?: '---' }}</p>
+                                                        <span class="_btn" style="float: left;">
+                                                              <a rel="nofollow"
+                                                                 style="cursor: pointer !important;"
+                                                                 class="comment-reply-link"
+                                                                 data-respondelement="respond"
+                                                                 data-replyto="پاسخ به Sina"
+                                                                 aria-label="پاسخ به Sina">پاسخ دادن</a>
+                                                        </span>
+                                                    </div>
+
+                                                </div>
+
+                                            </li>
+                                        @endforeach
+
+
+                                    </ol>
+
+                                </li>
+
+                            @endforeach
+
                         </ol>
 
                         <div class="module-title pagination-wrapper"></div>
@@ -218,6 +278,10 @@
                                       wire:model.defer="body"
                                       required name="body"
                                       placeholder="{{ __('Write your text') }}"></textarea>
+                                @error('body')
+                                <span
+                                    class="text-danger text-wrap">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
                         <button type="submit" class="btn btn-primary btn-no-icon" style="

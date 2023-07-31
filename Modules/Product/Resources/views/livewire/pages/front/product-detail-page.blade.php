@@ -539,6 +539,12 @@
                                                                                type="text" id="strengths-points-input"
                                                                                data-addui='tags'
                                                                                data-enter='true'>
+
+                                                                        @error('positive_points')
+                                                                        <span
+                                                                            class="text-danger text-wrap">{{ $message }}</span>
+                                                                        @enderror
+
                                                                         <button id="add-strengths-point"
                                                                                 class="add-points">
                                                                             +
@@ -557,6 +563,12 @@
                                                                                wire:model.defer="negative_points"
                                                                                id="weak-points-input" data-addui='tags'
                                                                                data-enter='true'>
+
+                                                                        @error('negative_points')
+                                                                        <span
+                                                                            class="text-danger text-wrap">{{ $message }}</span>
+                                                                        @enderror
+
                                                                         <button id="add-weak-point" class="add-points">+
                                                                         </button>
                                                                     </div>
@@ -572,6 +584,10 @@
                                                                                    wire:model.defer="body"
                                                                                    required name="body"
                                                                                    placeholder="{{ __('Write your text') }}"></textarea>
+                                                                        @error('body')
+                                                                        <span
+                                                                            class="text-danger text-wrap">{{ $message }}</span>
+                                                                        @enderror
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-12 mt-2 mb-2 px-0">

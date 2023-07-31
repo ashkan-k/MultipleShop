@@ -16,6 +16,10 @@ use Modules\Comment\Http\Controllers\Dashboard\CommentController;
 |
 */
 
-Route::post('status/change/{comment}', [CommentController::class, 'change_status']);
-Route::post('points/get/{comment}/{type}', [ApiCommentController::class, 'get_submit_points'])->name('get_submit_points');
-Route::post('points/submit/{comment}', [ApiCommentController::class, 'submit_point'])->name('submit_comment_point');
+Route::group([], function (){
+    Route::post('status/change/{comment}', [CommentController::class, 'change_status']);
+    Route::post('points/get/{comment}/{type}', [ApiCommentController::class, 'get_submit_points'])->name('get_submit_points');
+    Route::post('points/submit/{comment}', [ApiCommentController::class, 'submit_point'])->name('submit_comment_point');
+})->middleware('check_admin');
+
+Route::post('answer/create/{comment}', [ApiCommentController::class, 'change_status']);
