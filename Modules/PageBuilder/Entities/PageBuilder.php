@@ -17,6 +17,7 @@ class PageBuilder extends Model
         'slug',
         'en_title',
         'en_slug',
+        'body',
         'image',
         'is_active',
     ];
@@ -26,6 +27,7 @@ class PageBuilder extends Model
         'slug',
         'en_title',
         'en_slug',
+        'body',
     ];
 
     public function save(array $options = [])

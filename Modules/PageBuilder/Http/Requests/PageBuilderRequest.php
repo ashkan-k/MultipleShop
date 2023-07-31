@@ -3,6 +3,7 @@
 namespace Modules\PageBuilder\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class PageBuilderRequest extends FormRequest
 {
@@ -14,7 +15,19 @@ class PageBuilderRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'title' => 'required',
+            'en_title' => 'required',
+            'body' => 'required',
+            'is_active' => 'nullable|boolean',
+            'slug' => [
+                'nullable',
+                Rule::unique('page_builders', 'slug')->ignore($this->page)
+            ],
+            'en_slug' => [
+                'nullable',
+                Rule::unique('page_builders', 'en_slug')->ignore($this->page)
+            ],
+            'image' => 'mimes:jpeg,png,bmp,jpg',
         ];
     }
 

@@ -21,7 +21,12 @@ class PageBuilderFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'title' => fake()->title(),
+            'en_title' => fake()->title(),
+            'slug' => fake()->slug(),
+            'en_slug' => fake()->slug(),
+            'image' => fake()->imageUrl(),
+            'is_special' => fake()->boolean(),
         ];
     }
 }

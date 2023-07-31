@@ -249,7 +249,7 @@
 
 @section('Scripts')
     <script>
-        CKEDITOR.replace('id_value', {
+        CKEDITOR.replace('id_body', {
             filebrowserUploadMethod: 'form',
             filebrowserUploadUrl : '{{ route('upload_ckeditor_image') }}',
             filebrowserImageUploadUrl :  '{{ route('upload_ckeditor_image') }}'

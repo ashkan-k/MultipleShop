@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
+use Modules\PageBuilder\Http\Controllers\Dashboard\PageBuilderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +15,4 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/pagebuilder', function (Request $request) {
-    return $request->user();
-});
+Route::post('status/change/{page}', [PageBuilderController::class, 'change_status']);

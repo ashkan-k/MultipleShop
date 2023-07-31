@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('page_builders', function (Blueprint $table) {
             $table->id();
             $table->string('title');
+            $table->string('en_title');
             $table->string('slug')->nullable();
             $table->string('en_slug')->nullable();
             $table->text('body');

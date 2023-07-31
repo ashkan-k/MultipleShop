@@ -32,7 +32,7 @@ class PageBuilderController extends Controller
         $data['is_active'] = $request->has('is_active') ?? false;
         PageBuilder::create($data);
 
-        return $this->SuccessRedirectUrl('آیتم مورد نظر با موفقیت ثبت شد.', 'pagebuilders.index');
+        return $this->SuccessRedirect('آیتم مورد نظر با موفقیت ثبت شد.', 'pages.index');
     }
 
     public function edit(PageBuilder $page)
@@ -46,13 +46,18 @@ class PageBuilderController extends Controller
         $data['is_active'] = $request->has('is_active') ?? false;
         $page->update($data);
 
-        return $this->SuccessRedirectUrl('آیتم مورد نظر با موفقیت ویرایش شد.', 'pagebuilders.index');
+        return $this->SuccessRedirect('آیتم مورد نظر با موفقیت ویرایش شد.', 'pages.index');
     }
 
     public function destroy(PageBuilder $page)
     {
         $page->delete();
-        return $this->SuccessRedirect('آیتم مورد نظر با موفقیت حذف شد.', 'pagebuilders.index');
+        return $this->SuccessRedirect('آیتم مورد نظر با موفقیت حذف شد.', 'pages.index');
     }
 
+    public function change_status(PageBuilder $page)
+    {
+        $page->update(['is_active' => \request('is_active')]);
+        return $this->SuccessResponse('وضعیت آیتم مورد نظر با موفقیت تغییر یافت.');
+    }
 }
