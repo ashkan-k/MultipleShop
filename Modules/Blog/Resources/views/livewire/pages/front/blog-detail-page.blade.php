@@ -171,7 +171,7 @@
                                                                        class="comment-reply-link"
                                                                        data-respondelement="respond"
                                                                        data-replyto="پاسخ به Sina"
-                                                                       aria-label="پاسخ به Sina">پاسخ دادن</a>
+                                                                       aria-label="پاسخ به Sina">{{ __('Answer') }}</a>
                                             </span>
                                         </div>
 
@@ -225,7 +225,7 @@
                                                                  class="comment-reply-link"
                                                                  data-respondelement="respond"
                                                                  data-replyto="پاسخ به Sina"
-                                                                 aria-label="پاسخ به Sina">پاسخ دادن</a>
+                                                                 aria-label="پاسخ به Sina">{{ __('Answer') }}</a>
                                                         </span>
                                                     </div>
 
@@ -281,7 +281,7 @@
                                                                  class="comment-reply-link"
                                                                  data-respondelement="respond"
                                                                  data-replyto="پاسخ به Sina"
-                                                                 aria-label="پاسخ به Sina">پاسخ دادن</a>
+                                                                 aria-label="پاسخ به Sina">{{ __('Answer') }}</a>
                                                         </span>
                                                                 </div>
 
@@ -340,7 +340,7 @@
                                                                  class="comment-reply-link"
                                                                  data-respondelement="respond"
                                                                  data-replyto="پاسخ به Sina"
-                                                                 aria-label="پاسخ به Sina">پاسخ دادن</a>
+                                                                 aria-label="پاسخ به Sina">{{ __('Answer') }}</a>
                                                         </span>
                                                                             </div>
 
@@ -405,7 +405,7 @@
                                                                  class="comment-reply-link"
                                                                  data-respondelement="respond"
                                                                  data-replyto="پاسخ به Sina"
-                                                                 aria-label="پاسخ به Sina">پاسخ دادن</a>
+                                                                 aria-label="پاسخ به Sina">{{ __('Answer') }}</a>
                                                         </span>
                                                                                         </div>
 
