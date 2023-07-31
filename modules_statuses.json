@@ -17,5 +17,6 @@
     "Index": true,
     "Auth": true,
     "Guide": true,
-    "Email": true
+    "Email": true,
+    "PageBuilder": true
 }
