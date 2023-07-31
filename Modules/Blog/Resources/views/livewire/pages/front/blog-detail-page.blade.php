@@ -465,16 +465,6 @@
                                                                                                         class="_item__comment"
                                                                                                         style="clear: both; padding: 14px;">
                                                                                                         <p>{{ $child_5->body ?: '---' }}</p>
-                                                                                                        <span
-                                                                                                            class="_btn"
-                                                                                                            style="float: left;">
-                                                              <a rel="nofollow"
-                                                                 style="cursor: pointer !important;"
-                                                                 class="comment-reply-link"
-                                                                 data-respondelement="respond"
-                                                                 data-replyto="پاسخ به Sina"
-                                                                 aria-label="پاسخ به Sina">پاسخ دادن</a>
-                                                        </span>
                                                                                                     </div>
 
                                                                                                 </div>
