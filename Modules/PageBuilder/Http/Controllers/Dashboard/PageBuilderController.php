@@ -15,6 +15,10 @@ class PageBuilderController extends Controller
 
     public function index()
     {
+        if (session()->get('current_lang')) {
+            app()->setLocale(session('current_lang'));
+        }
+
         $objects = PageBuilder::Search(request('search'))
             ->latest()
             ->paginate(\request('pagination', env('PAGINATION_NUMBER', 10)));

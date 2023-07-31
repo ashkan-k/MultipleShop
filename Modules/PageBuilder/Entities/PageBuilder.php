@@ -75,9 +75,9 @@ class PageBuilder extends Model
     public function scopeFindBySlug($query, $lang, $slug)
     {
         if ($lang == 'fa') {
-            return $query->where('slug', $slug)->firstOrFail();
+            return $query->where('slug', $slug)->where('is_active', 1)->firstOrFail();
         }
-        return $query->where('en_slug', $slug)->firstOrFail();
+        return $query->where('en_slug', $slug)->where('is_active', 1)->firstOrFail();
     }
 
     protected static function newFactory()

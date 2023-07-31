@@ -126,6 +126,12 @@
                                     </td>
 
                                     <td class="text-end">
+                                        @if($item->is_active)
+                                            <a href="{{ route('page', ['locale' => app()->getLocale(), 'slug' => $item->get_slug(app()->getLocale())]) }}"
+                                               target="_blank"
+                                               class="btn btn-bg-light btn-color-muted btn-active-color-primary btn-sm px-4 me-2">نمایش</a>
+                                        @endif
+
                                         <a href="#"
                                            class="btn btn-light btn-active-light-primary btn-flex btn-center btn-sm"
                                            data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">عملیات
