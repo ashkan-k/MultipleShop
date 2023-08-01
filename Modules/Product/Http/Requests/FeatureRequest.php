@@ -25,6 +25,8 @@ class FeatureRequest extends FormRequest
                 'exists:categories,id',
             ],
             'is_filter' => 'boolean',
+            'is_use_cart' => 'boolean',
+            'is_use_cart_required' => 'boolean',
             'filter_type' => 'nullable|in:checkbox,radio,text',
             'filter_items' => 'nullable|string',
         ];

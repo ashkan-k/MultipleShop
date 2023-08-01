@@ -18,6 +18,8 @@ class Feature extends Model
         'is_filter',
         'filter_type',
         'filter_items',
+        'is_use_cart',
+        'is_use_cart_required',
     ];
 
     protected $search_fields  = [
