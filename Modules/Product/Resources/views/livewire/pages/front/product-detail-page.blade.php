@@ -246,38 +246,42 @@
                                     </li>
                                 </ul>
                             </div>
-                            <div class="product-variants default">
-                                <span>{{ __('Color Selection') }}: </span>
 
-                                @foreach($colors as $color)
-                                    <div class="radio">
-                                        <input type="radio" name="color_id" id="id_color_{{ $color->id }}"
-                                               wire:model.defer="cart_color"
-                                               value="{{ $color->id }}">
-                                        <label for="id_color_{{ $color->id }}">
-                                            {{ $color->title ?: '---' }}
-                                        </label>
+                            @if(count($option_features) > 0)
+                                @foreach($option_features as $op_f)
+                                    <div class="product-variants default">
+                                        <span>{{ $op_f->title }}: </span>
+
+                                        @if($op_f->filter_type == 'checkbox')
+
+                                            @foreach(explode('،', $op_f->filter_items) as $item)
+                                                <div class="" style="float: left !important;">
+                                                    <input type="checkbox" name="size_id" id="id_size_{{ $item }}"
+                                                           wire:model.defer="cart_size"
+                                                           value="{{ $item }}">
+                                                    <label for="id_size_{{ $item }}" style="content: '' !important;">
+                                                        {{ $item ?: '---' }}
+                                                    </label>
+                                                </div>
+                                            @endforeach
+
+                                        @else
+
+                                            @foreach(explode('،', $op_f->filter_items) as $item)
+                                                <div class="radio">
+                                                    <input type="radio" name="size_id" id="id_size_{{ $item }}"
+                                                           wire:model.defer="cart_size"
+                                                           value="{{ $item }}">
+                                                    <label for="id_size_{{ $item }}">
+                                                        {{ $item ?: '---' }}
+                                                    </label>
+                                                </div>
+                                            @endforeach
+
+                                        @endif
+
                                     </div>
                                 @endforeach
-
-                            </div>
-
-                            @if(count($sizes) > 0)
-                                <div class="product-variants default">
-                                    <span>{{ __('Size Selection') }}: </span>
-
-                                    @foreach($sizes as $size)
-                                        <div class="radio">
-                                            <input type="radio" name="size_id" id="id_size_{{ $size->id }}"
-                                                   wire:model.defer="cart_size"
-                                                   value="{{ $size->id }}">
-                                            <label for="id_size_{{ $size->id }}">
-                                                {{ $size->title ?: '---' }}
-                                            </label>
-                                        </div>
-                                    @endforeach
-
-                                </div>
                             @endif
 
                             <div class="product-guarantee default">

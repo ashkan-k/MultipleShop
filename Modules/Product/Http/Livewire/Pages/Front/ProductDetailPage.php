@@ -7,6 +7,7 @@ use Livewire\WithPagination;
 use Modules\Comment\Entities\Comment;
 use Modules\Comment\Http\Requests\CommentRequest;
 use Modules\Product\Entities\Color;
+use Modules\Product\Entities\Feature;
 use Modules\Product\Entities\Product;
 use Modules\Product\Entities\Size;
 
@@ -132,8 +133,11 @@ class ProductDetailPage extends Component
     public function render()
     {
         $data = [
-            'colors' => Color::whereIn('id', $this->object->colors_pluck_id())->get(),
-            'sizes' => Size::whereIn('id', $this->object->sizes_pluck_id())->get(),
+//            'colors' => Color::whereIn('id', $this->object->colors_pluck_id())->get(),
+//            'sizes' => Size::whereIn('id', $this->object->sizes_pluck_id())->get(),
+
+            'option_features' => $this->object->category ? $this->object->category->features()
+                ->where('is_use_cart', 1)->get() : [],
 
             'comments' => $this->object->comments()->where('status', 'approved')->withCount(array('comment_points as positive_comments_point' => function ($query) {
                 $query->where('type', 'positive');
