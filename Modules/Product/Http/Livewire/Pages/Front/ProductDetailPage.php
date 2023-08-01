@@ -23,6 +23,7 @@ class ProductDetailPage extends Component
     public $cart_count = 1;
     public $cart_color;
     public $cart_size;
+    public $required_feature_options = [];
 
     public $title;
     public $body;
@@ -101,10 +102,9 @@ class ProductDetailPage extends Component
             }
 
             $key = array_search($filter, $this->selected_features["$feature_id"]);
-            if ($key !== false){
+            if ($key !== false) {
                 unset($this->selected_features["$feature_id"][$key]);
-            }
-            else{
+            } else {
                 $this->selected_features["$feature_id"][] = $filter;
             }
 
@@ -116,7 +116,7 @@ class ProductDetailPage extends Component
 
     public function AddRemoveCart($type)
     {
-        dd($this->selected_features);
+//        dd($this->selected_features);
 
         if ($type == 'add') {
 
@@ -129,6 +129,20 @@ class ProductDetailPage extends Component
                 return;
             }
 
+            foreach ($this->required_feature_options as $option_id => $option_title) {
+                if (!isset($this->selected_features[$option_id]) || !count($this->selected_features[$option_id])) {
+                    $this->dispatchBrowserEvent('addToCartError', ['message' => __('validation.required', ['attribute' => $option_title])]);
+                    return;
+                }
+            }
+
+            $temp_features = [];
+            foreach ($this->selected_features as $key => $value) {
+                if ($value) {
+                    $temp_features[] = ['feature_id' => $key, 'feature_value' => is_array($value) ? implode('،', $value) : $value];
+                }
+            }
+
             $cart = auth()->user()->carts()->create([
                 'product_id' => $this->object->id,
                 'color_id' => $this->cart_color,
@@ -136,6 +150,7 @@ class ProductDetailPage extends Component
                 'count' => $this->cart_count,
             ]);
 
+            $cart->features()->createMany($temp_features);
 
 
             $this->object->decrement('quantity', $this->cart_count);
@@ -162,9 +177,6 @@ class ProductDetailPage extends Component
 //            'colors' => Color::whereIn('id', $this->object->colors_pluck_id())->get(),
 //            'sizes' => Size::whereIn('id', $this->object->sizes_pluck_id())->get(),
 
-            'option_features' => $this->object->category ? $this->object->category->features()
-                ->where('is_use_cart', 1)->get() : [],
-
             'comments' => $this->object->comments()->where('status', 'approved')->withCount(array('comment_points as positive_comments_point' => function ($query) {
                 $query->where('type', 'positive');
             }))->withCount(array('comment_points as negative_comments_point' => function ($query) {
@@ -183,6 +195,11 @@ class ProductDetailPage extends Component
             'may_like_products' => Product::ActiveProducts()->where('brand_id', $this->object->brand_id)->get(),
             'related_products' => Product::ActiveProducts()->where('category_id', $this->object->category_id)->get(),
         ];
+
+        $data['option_features'] = $this->object->category ? $this->object->category->features()
+            ->where('is_use_cart', 1)->get() : [];
+
+        $this->required_feature_options = $data['option_features']->where('is_use_cart_required', 1)->pluck('title', 'id')->toArray();
 
         if (auth()->check()) {
             $this->user_cart = auth()->user()->carts()->where('product_id', $this->object->id)->first();

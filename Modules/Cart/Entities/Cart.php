@@ -21,7 +21,6 @@ class Cart extends Model
         'product_id',
         'color_id',
         'size_id',
-        'feature_value', 'feature_id'
     ];
 
     protected $search_fields  = [
@@ -32,13 +31,11 @@ class Cart extends Model
         'product.title',
         'color.title',
         'size.title',
-        'feature_value',
     ];
 
     protected $filter_fields = [
         'user_id',
         'product_id',
-        'feature_id',
     ];
 
     protected $appends = [
@@ -74,9 +71,9 @@ class Cart extends Model
         return $this->belongsTo(Product::class);
     }
 
-    public function feature()
+    public function features()
     {
-        return $this->belongsTo(Feature::class);
+        return $this->hasMany(CartFeature::class);
     }
 
     public function color()
