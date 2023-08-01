@@ -117,7 +117,7 @@
                                                           class="form-control form-control-solid value_class"
                                                           rows="8" required
                                                           placeholder="{{ $form['title'] }} را وارد کنید"
-                                                          name="value">@if(old('value')){{ old('value') }}@elseif(isset($object->value)){{ $object->value }}@endif</textarea>
+                                                          name="value">@if(old('value')){{ old('value') }}@elseif(isset($form['object'])){{ $form['object']->value }}@endif</textarea>
 
                                                 @error('value')
                                                 <div class="fv-plugins-message-container invalid-feedback">
@@ -134,20 +134,22 @@
 
                                         @if($form['has_active_status'])
                                             <div class="d-flex flex-column mb-8 fv-row">
-                                                <label for="id_is_active"
+                                                <label for="id_is_active_{{ $form['key'] }}"
                                                        class="d-flex align-items-center fs-6 fw-semibold mb-2">
                                                     <span class="required">وضعیت (فعال / غیرفعال)</span>
                                                 </label>
 
                                                 <div
                                                     class="form-check form-check-solid form-switch form-check-custom fv-row">
-                                                    <input @if(isset($form['object']) && $form['object']->is_active) checked
-                                                           @elseif(old('is_active')) checked
-                                                           @elseif(!isset($form['object'])) checked
-                                                           @endif  name="is_active"
-                                                           class="form-check-input w-45px h-30px" type="checkbox"
-                                                           id="id_is_active" value="1">
-                                                    <label class="form-check-label" for="id_is_active"></label>
+                                                    <input
+                                                        @if(isset($form['object']) && $form['object']->is_active) checked
+                                                        @elseif(old('is_active')) checked
+                                                        @elseif(!isset($form['object'])) checked
+                                                        @endif  name="is_active"
+                                                        class="form-check-input w-45px h-30px" type="checkbox"
+                                                        id="id_is_active_{{ $form['key'] }}" value="1">
+                                                    <label class="form-check-label"
+                                                           for="id_is_active_{{ $form['key'] }}"></label>
                                                 </div>
 
                                                 @error('is_active')
@@ -159,13 +161,16 @@
                                                 @enderror
                                             </div>
                                         @else
-                                            <input type="hidden" name="is_active" value="1">
+                                            <input type="hidden" name="is_active" value="1"
+                                                   id="id_is_active_{{ $form['key'] }}">
                                         @endif
 
                                         <div class="row py-5">
                                             <div class="col-md-9 offset-md-3">
                                                 <div class="d-flex" style="float: left !important;">
-                                                    <button type="submit" data-kt-ecommerce-settings-type="submit"
+                                                    <button type="button" data-kt-ecommerce-settings-type="submit"
+                                                            ng-disabled="is_submited"
+                                                            ng-click="SubmitChanges('{{ $form['key'] }}', '{{ $form['field']['type'] }}', '{{ $form['has_active_status'] }}')"
                                                             class="btn btn-primary">
                                                         <span class="indicator-label">ذخیره</span>
                                                         <span class="indicator-progress">لطفا صبر کنید...
@@ -176,7 +181,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    @endforeach
+                                @endforeach
 
                                 <!--end::عملیات buttons-->
                                 </form>
@@ -201,6 +206,40 @@
             filebrowserUploadMethod: 'form',
             filebrowserUploadUrl: '{{ route('upload_ckeditor_image') }}',
             filebrowserImageUploadUrl: '{{ route('upload_ckeditor_image') }}'
+        });
+    </script>
+
+    <script>
+        app.controller('myCtrl', function ($scope, $http) {
+            $scope.SubmitChanges = function (key, type, has_active_status) {
+                if (type == 'textarea') {
+                    var value = CKEDITOR.instances[`id_value_${key}`].getData();
+                } else if (type == 'select') {
+                    var value = $('#id_value_${key}').find(":selected").val();
+                }
+
+                if (has_active_status) {
+                    var is_active = $(`#id_is_active`).is(':checked');
+                } else {
+                    var is_active = $(`#id_is_active`).val();
+                }
+
+                $scope.is_submited = true;
+
+                var data = {
+                    "key": key,
+                    "value": value,
+                    "is_active": is_active,
+                };
+
+                $http.post(`/api/settings/${key}`, data).then(res => {
+                    showToast('آیتم مورد نظر با موفقیت ویرایش شد.', 'success');
+                    $scope.is_submited = false;
+                }).catch(err => {
+                    $scope.is_submited = false;
+                    showToast('خطایی رخ داد.', 'error');
+                });
+            }
         });
     </script>
 @endsection

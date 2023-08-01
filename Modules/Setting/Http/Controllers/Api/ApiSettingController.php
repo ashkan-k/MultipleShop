@@ -16,7 +16,10 @@ class ApiSettingController extends Controller
 
     public function update(Setting $setting, SettingRequest $request)
     {
-        $setting->update($request->validated());
+        $data = $request->validated();
+        $data['is_active'] = \request('is_active');
+
+        $setting->update($data);
         return $this->SuccessResponse('آیتم مورد نظر با موفقیت ذخیره شد.');
     }
 }

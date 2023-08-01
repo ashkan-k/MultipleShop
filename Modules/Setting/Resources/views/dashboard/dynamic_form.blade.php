@@ -138,9 +138,11 @@
                                                 <span class="required">وضعیت (فعال / غیرفعال)</span>
                                             </label>
 
-                                            <div class="form-check form-check-solid form-switch form-check-custom fv-row">
+                                            <div
+                                                class="form-check form-check-solid form-switch form-check-custom fv-row">
                                                 <input @if(isset($object) && $object->is_active) checked
-                                                       @elseif(old('is_active')) checked @elseif(!isset($object)) checked
+                                                       @elseif(old('is_active')) checked
+                                                       @elseif(!isset($object)) checked
                                                        @endif  name="is_active"
                                                        class="form-check-input w-45px h-30px" type="checkbox"
                                                        id="id_is_active" value="1">
@@ -156,7 +158,7 @@
                                             @enderror
                                         </div>
                                     @else
-                                        <input type="hidden" name="is_active" value="1">
+                                        <input type="hidden" id="id_is_active" name="is_active" value="1">
                                     @endif
 
                                     <div class="row py-5">
@@ -169,7 +171,9 @@
                                                 </button>
                                                 <!--end::Button-->
                                                 <!--begin::Button-->
-                                                <button type="submit" data-kt-ecommerce-settings-type="submit"
+                                                <button type="button" data-kt-ecommerce-settings-type="submit"
+                                                        ng-disabled="is_submited"
+                                                        ng-click="SubmitChanges('{{ $form['key'] }}')"
                                                         class="btn btn-primary">
                                                     <span class="indicator-label">ذخیره</span>
                                                     <span class="indicator-progress">لطفا صبر کنید...
@@ -206,6 +210,40 @@
             filebrowserImageUploadUrl: '{{ route('upload_ckeditor_image') }}'
         });
         @endif
+    </script>
+
+    <script>
+        app.controller('myCtrl', function ($scope, $http) {
+            $scope.SubmitChanges = function () {
+                @if($form['field']['type'] == 'textarea')
+                    var value = CKEDITOR.instances[`id_value`].getData();
+                @elseif($form['field']['type'] == 'select')
+                    var value = $('#id_value').find(":selected").val();
+                @endif
+
+                @if($form['has_active_status'])
+                    var is_active = $(`#id_is_active`).is(':checked');
+                @else
+                    var is_active = $(`#id_is_active`).val();
+                @endif
+
+                $scope.is_submited = true;
+
+                var data = {
+                    "key": '{{ $form['key'] }}',
+                    "value": value,
+                    "is_active": is_active,
+                };
+
+                $http.post(`/api/settings/{{ $form['key'] }}`, data).then(res => {
+                    showToast('آیتم مورد نظر با موفقیت ویرایش شد.', 'success');
+                    $scope.is_submited = false;
+                }).catch(err => {
+                    $scope.is_submited = false;
+                    showToast('خطایی رخ داد.', 'error');
+                });
+            }
+        });
     </script>
 @endsection
 

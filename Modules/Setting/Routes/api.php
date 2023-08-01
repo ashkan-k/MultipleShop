@@ -16,5 +16,5 @@ use Modules\Setting\Http\Controllers\Dashboard\SettingController;
 |
 */
 
-Route::apiResource('settings', ApiSettingController::class);
+Route::post('{setting:key}', [ApiSettingController::class, 'update']);
 Route::post('status/change/{setting}', [SettingController::class, 'change_status']);

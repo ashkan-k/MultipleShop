@@ -91,8 +91,8 @@ class SettingController extends Controller
     {
         $select_options = [];
         $forms = SettingHelpers::GetDynamicItem($key, $select_options);
-        foreach ($forms as $item){
-            $item['object'] = Setting::firstOrCreate(['key' => $item['key']], [
+        foreach ($forms as $key => $item){
+            $forms[$key]['object'] = Setting::firstOrCreate(['key' => $item['key']], [
                 'key' => $item['key'],
                 'is_active' => true,
             ]);
