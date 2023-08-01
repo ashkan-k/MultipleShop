@@ -268,6 +268,27 @@
                             </div>
                         </div>
 
+
+                        <div ng-if="(instance.filter_type == 'checkbox' || instance.filter_type == 'radio')" class="d-flex flex-column mb-8 fv-row">
+                            <label for="id_is_use_cart" class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                <span class="required">آیا به عنوان ویژگی خرید استفاده شود؟</span>
+                            </label>
+
+                            <input name="is_use_cart" ng-model="instance.is_use_cart"
+                                   class="form-check-input w-45px h-30px" type="checkbox"
+                                   id="id_is_use_cart">
+                        </div>
+
+                        <div ng-if="instance.is_use_cart" class="d-flex flex-column mb-8 fv-row">
+                            <label for="id_is_use_cart_required" class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                <span class="required">آیا الزامی است؟</span>
+                            </label>
+
+                            <input name="is_use_cart_required" ng-model="instance.is_use_cart_required"
+                                   class="form-check-input w-45px h-30px" type="checkbox"
+                                   id="id_is_use_cart_required">
+                        </div>
+
                         <div class="text-center">
                             <button ng-disabled="is_submited" onclick="$('#addEditFeatureModal').modal('hide');"
                                     type="reset" id="addEditFeatureModal_cancel" class="btn btn-light me-3">انصراف
