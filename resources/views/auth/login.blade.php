@@ -87,7 +87,7 @@
 
                                                 <div class="form-account-agree">
                                                     <label class="checkbox-form checkbox-primary">
-                                                        <input type="checkbox" required id="terms">
+                                                        <input type="checkbox" name="terms" required id="terms">
                                                         <span class="checkbox-check"></span>
                                                     </label>
                                                     <label for="terms">
