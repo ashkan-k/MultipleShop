@@ -134,7 +134,7 @@ class ProductDetailPage extends Component
             }
 
             foreach ($this->required_feature_options as $option_id => $option_title) {
-                if (!isset($this->selected_features[$option_id]) || !count($this->selected_features[$option_id])) {
+                if (!isset($this->selected_features[$option_id]) || !$this->selected_features[$option_id]) {
                     $this->dispatchBrowserEvent('addToCartError', ['message' => __('validation.required', ['attribute' => $option_title])]);
                       $this->is_loading = false;
                     return;

@@ -347,12 +347,18 @@
                     $scope.instance = obj;
                     if (obj.is_filter) {
                         $('#id_is_filter').prop('checked', true);
+                    }else {
+                        $('#id_is_filter').prop('checked', false);
                     }
                     if (obj.is_use_cart) {
                         $('#id_is_use_cart').prop('checked', true);
+                    }else {
+                        $('#id_is_use_cart').prop('checked', false);
                     }
                     if (obj.is_use_cart_required) {
                         $('#id_is_use_cart_required').prop('checked', true);
+                    }else {
+                        $('#id_is_use_cart_required').prop('checked', false);
                     }
 
                     $scope.FormatFilterItems();
