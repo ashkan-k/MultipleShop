@@ -683,6 +683,14 @@
                             <span class="menu-title">تنظیمات زبان</span>
                         </a>
 
+                        <a class="menu-link @if(\Illuminate\Support\Facades\Route::current()->getName() == 'dynamic_form') active @endif"
+                           href="{{ route('dynamic_form', ['key' => 'comment_terms_page']) }}">
+													<span class="menu-bullet">
+														<span class="bullet bullet-dot"></span>
+													</span>
+                            <span class="menu-title">صفحه مقررات نظرات</span>
+                        </a>
+
                         <a class="menu-link @if(\Illuminate\Support\Facades\Route::current()->getName() == 'settings.index') active @endif"
                            href="{{ route('settings.index') }}">
 													<span class="menu-bullet">

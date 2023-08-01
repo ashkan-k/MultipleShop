@@ -6,6 +6,7 @@ use App\Http\Traits\Responses;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\PageBuilder\Entities\PageBuilder;
 use Modules\Setting\Entities\Setting;
 use Modules\Setting\Http\Requests\SettingRequest;
 
@@ -33,7 +34,7 @@ class SettingController extends Controller
         $setting = Setting::create($data);
 
         $next_url = route('settings.index');
-        if (\request('next')){
+        if (\request('next')) {
             $next_url = \request('next') . '/' . $setting->id;
         }
         return $this->SuccessRedirectUrl('آیتم مورد نظر با موفقیت ثبت شد.', $next_url);
@@ -51,7 +52,7 @@ class SettingController extends Controller
         $setting->update($data);
 
         $next_url = route('settings.index');
-        if (\request('next')){
+        if (\request('next')) {
             $next_url = \request('next');
         }
         return $this->SuccessRedirectUrl('آیتم مورد نظر با موفقیت ویرایش شد.', $next_url);
@@ -73,8 +74,12 @@ class SettingController extends Controller
 
     public function dynamic_form($key, Setting $setting = null)
     {
-        $form = Setting::GetDynamicItem($key);
-        $setting = Setting::firstOrCreate(['key' => $form['key']] , [
+        $select_options = [];
+        if ($key == 'comment_terms_page') {
+            $select_options = PageBuilder::all()->pluck('title', 'slug')->toArray();
+        }
+        $form = Setting::GetDynamicItem($key, $select_options);
+        $setting = Setting::firstOrCreate(['key' => $form['key']], [
             'key' => $form['key'],
             'value' => 'fa',
             'is_active' => true,

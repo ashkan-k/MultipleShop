@@ -647,7 +647,7 @@
                                                                     </button>
                                                                     @if($lang == 'fa')
                                                                         <p>با “ثبت نظر” موافقت خود را با <a
-                                                                                href="{{ route('terms', ['locale' => $lang]) }}"
+                                                                                href="{{ route('page', ['slug' => $settings['comment_terms_page'], 'locale' => $lang]) }}"
                                                                                 class="btn-link-spoiler"
                                                                                 target="_blank">قوانین
                                                                                 انتشار محتوا</a> در {{ $website_title }}
@@ -658,7 +658,7 @@
                                                                         <p>
                                                                             By "registering a comment" I declare my
                                                                             agreement with <a
-                                                                                href="{{ route('terms', ['locale' => $lang]) }}"
+                                                                                href="{{ route('page', ['slug' => $settings['comment_terms_page'], 'locale' => $lang]) }}"
                                                                                 class="btn-link-spoiler"
                                                                                 target="_blank">the content publishing
                                                                                 rules</a> in {{ $website_title }}

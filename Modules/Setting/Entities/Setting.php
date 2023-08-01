@@ -5,6 +5,7 @@ namespace Modules\Setting\Entities;
 use App\Http\Traits\Searchable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Modules\PageBuilder\Entities\PageBuilder;
 
 class Setting extends Model
 {
@@ -31,11 +32,25 @@ class Setting extends Model
                 ],
             ],
         ],
+
+        'comment_terms_page' => [
+            'title' => 'صفحه مقررات ثبت نظر',
+            'key' => 'comment_terms_page',
+            'has_active_status' => false,
+            'field' => [
+                'type' => 'select',
+                'options' => [],
+            ],
+        ],
     ];
 
-    public static function GetDynamicItem($key)
+    public static function GetDynamicItem($key, $filed_options = [])
     {
-        return self::$DynamicItems[$key];
+        $item = self::$DynamicItems[$key];
+        if ($filed_options){
+            $item['field']['options'] = $filed_options;
+        }
+        return $item;
     }
 
     //
