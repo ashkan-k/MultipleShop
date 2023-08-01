@@ -257,7 +257,8 @@
                                             @foreach(explode('،', $op_f->filter_items) as $item)
                                                 <div class="" style="float: left !important;">
                                                     <input type="checkbox" name="size_id" id="id_size_{{ $item }}"
-                                                           wire:model.defer="cart_size"
+                                                           wire:click="$emit('triggerAddNewFeatureItem' , {{ $op_f->id }}, '{{ $op_f->filter_type }}', '{{ $item }}')"
+{{--                                                           wire:model.defer="cart_size"--}}
                                                            value="{{ $item }}">
                                                     <label for="id_size_{{ $item }}" style="content: '' !important;">
                                                         {{ $item ?: '---' }}
@@ -270,7 +271,8 @@
                                             @foreach(explode('،', $op_f->filter_items) as $item)
                                                 <div class="radio">
                                                     <input type="radio" name="size_id" id="id_size_{{ $item }}"
-                                                           wire:model.defer="cart_size"
+                                                           wire:click="$emit('triggerAddNewFeatureItem' , {{ $op_f->id }}, '{{ $op_f->filter_type }}', '{{ $item }}')"
+{{--                                                           wire:model.defer="cart_size"--}}
                                                            value="{{ $item }}">
                                                     <label for="id_size_{{ $item }}">
                                                         {{ $item ?: '---' }}
@@ -989,6 +991,15 @@
 @endsection
 
 @push('StackScript')
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function () {
+        @this.on('triggerAddNewFeatureItem', (feature_id, feature_type, filter) => {
+            console.log(@this.selected_filters)
+        @this.call('AddNewFeatureItem', feature_id, feature_type, filter);
+        });
+        })
+    </script>
+
     <script>
         current_tab = 'review';
 

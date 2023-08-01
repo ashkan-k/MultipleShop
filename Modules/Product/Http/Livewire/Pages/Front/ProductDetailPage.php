@@ -29,6 +29,7 @@ class ProductDetailPage extends Component
     public $negative_points;
     public $positive_points;
     public $suggest_score;
+    public $selected_features = [];
 
     public function ChangeTab($new_tab)
     {
@@ -92,6 +93,19 @@ class ProductDetailPage extends Component
         ]);
     }
 
+    public function AddNewFeatureItem($feature_id, $feature_type, $filter)
+    {
+        if ($feature_type == 'checkbox') {
+            if (!isset($this->selected_features["$feature_id"])) {
+                $this->selected_features["$feature_id"] = [];
+            }
+            $this->selected_features["$feature_id"][] = $filter;
+        } else {
+            $this->selected_features["$feature_id"] = [];
+            $this->selected_features["$feature_id"] = $filter;
+        }
+    }
+
     public function AddRemoveCart($type)
     {
         if ($type == 'add') {
@@ -105,12 +119,14 @@ class ProductDetailPage extends Component
                 return;
             }
 
-            auth()->user()->carts()->create([
+            $cart = auth()->user()->carts()->create([
                 'product_id' => $this->object->id,
                 'color_id' => $this->cart_color,
                 'size_id' => $this->cart_size,
                 'count' => $this->cart_count,
             ]);
+
+
 
             $this->object->decrement('quantity', $this->cart_count);
             $this->cart_count = 1;
