@@ -50,43 +50,34 @@
                 <div class="card card-flush">
                     <!--begin::کارت body-->
                     <div class="card-body">
-                        <!--begin:::Tab content-->
-                        <div class="tab-content" id="myTabContent">
-                            <!--begin:::Tab pane-->
-                            <div class="tab-pane fade show active" id="kt_ecommerce_settings_general" role="tabpanel">
-                                <!--begin::Form-->
-                                <form role="form" enctype="multipart/form-data"
-                                      method="post"
-                                      action="@if(isset($object)){{ route('products.update' , $object->id) }}@else{{ route('products.store') }}@endif">
+                        <!--begin:::Tabs-->
+                        <ul class="nav nav-tabs nav-line-tabs nav-line-tabs-2x border-transparent fs-4 fw-semibold mb-15">
+                            <li class="nav-item">
+                                <a class="nav-link text-active-primary d-flex align-items-center pb-5 active"
+                                   data-bs-toggle="tab" href="#kt_ecommerce_settings_general">فارسی</a>
+                            </li>
 
-                                    @csrf
-                                    @if(isset($object))
-                                        @method('PATCH')
-                                    @endif
+                            <li class="nav-item">
+                                <a class="nav-link text-active-primary d-flex align-items-center pb-5"
+                                   data-bs-toggle="tab" href="#kt_ecommerce_settings_store">انگلیسی</a>
+                            </li>
+                        </ul>
+
+                        <form role="form" enctype="multipart/form-data"
+                              method="post"
+                              action="@if(isset($object)){{ route('products.update' , $object->id) }}@else{{ route('products.store') }}@endif">
+
+                            @csrf
+                            @if(isset($object))
+                                @method('PATCH')
+                            @endif
+
+                            <div class="tab-content" id="myTabContent">
+                                <!--begin:::Tab pane-->
+                                <div class="tab-pane fade show active" id="kt_ecommerce_settings_general"
+                                     role="tabpanel">
 
                                     <div class="d-flex flex-column mb-8 fv-row">
-                                        <label for="id_is_english"
-                                               class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                            <span class="required">فیلد های زبان انگلیسی</span>
-                                        </label>
-
-                                        <div class="form-check form-check-solid form-switch form-check-custom fv-row">
-                                            <input name="is_english" ng-model="is_english"
-                                                   class="form-check-input w-45px h-30px" type="checkbox"
-                                                   id="id_is_english" value="1">
-                                            <label class="form-check-label" for="id_is_english"></label>
-                                        </div>
-
-                                        @error('is_english')
-                                        <div class="fv-plugins-message-container invalid-feedback">
-                                            <div data-field="meta_title" data-validator="notEmpty">
-                                                {{ $message }}
-                                            </div>
-                                        </div>
-                                        @enderror
-                                    </div>
-
-                                    <div ng-show="!is_english" class="d-flex flex-column mb-8 fv-row">
                                         <label for="id_title"
                                                class="d-flex align-items-center fs-6 fw-semibold mb-2">
                                             <span class="required">نام</span>
@@ -106,7 +97,7 @@
 
                                     </div>
 
-                                    <div ng-show="!is_english" class="d-flex flex-column mb-8 fv-row">
+                                    <div class="d-flex flex-column mb-8 fv-row">
                                         <label for="id_slug"
                                                class="d-flex align-items-center fs-6 fw-semibold mb-2">
                                             <span>نامک</span>
@@ -117,46 +108,6 @@
                                                placeholder="نامک را وارد کنید" name="slug"/>
 
                                         @error('slug')
-                                        <div class="fv-plugins-message-container invalid-feedback">
-                                            <div data-field="meta_title" data-validator="notEmpty">
-                                                {{ $message }}
-                                            </div>
-                                        </div>
-                                        @enderror
-
-                                    </div>
-
-                                    <div ng-show="is_english" class="d-flex flex-column mb-8 fv-row">
-                                        <label for="id_en_title"
-                                               class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                            <span class="required">نام انگلیسی</span>
-                                        </label>
-
-                                        <input type="text" id="id_en_title" class="form-control form-control-solid"
-                                               value="@if(old('en_title')){{ old('en_title') }}@elseif(isset($object->en_title)){{ $object->en_title }}@endif"
-                                               placeholder="نام انگلیسی را وارد کنید" name="en_title"/>
-
-                                        @error('en_title')
-                                        <div class="fv-plugins-message-container invalid-feedback">
-                                            <div data-field="meta_title" data-validator="notEmpty">
-                                                {{ $message }}
-                                            </div>
-                                        </div>
-                                        @enderror
-
-                                    </div>
-
-                                    <div ng-show="is_english" class="d-flex flex-column mb-8 fv-row">
-                                        <label for="id_en_slug"
-                                               class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                            <span>نامک انگلیسی</span>
-                                        </label>
-
-                                        <input type="text" id="id_en_slug" class="form-control form-control-solid"
-                                               value="@if(old('en_slug')){{ old('en_slug') }}@elseif(isset($object->en_slug)){{ $object->en_slug }}@endif"
-                                               placeholder="نامک انگلیسی را وارد کنید" name="en_slug"/>
-
-                                        @error('en_slug')
                                         <div class="fv-plugins-message-container invalid-feedback">
                                             <div data-field="meta_title" data-validator="notEmpty">
                                                 {{ $message }}
@@ -278,98 +229,6 @@
                                         </select>
 
                                         @error('user_id')
-                                        <div class="fv-plugins-message-container invalid-feedback">
-                                            <div data-field="meta_title" data-validator="notEmpty">
-                                                {{ $message }}
-                                            </div>
-                                        </div>
-                                        @enderror
-
-                                    </div>
-
-                                    <div class="d-flex flex-column mb-8 fv-row">
-                                        <label for="id_brand_id"
-                                               class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                            <span>برند</span>
-                                        </label>
-
-                                        <select id="id_brand_id" name="brand_id"
-                                                data-kt-select2="true"
-                                                class="form-control form-control-solid">
-                                            <option value="">بدون برند</option>
-                                            @foreach($brands as $brand)
-
-                                                <option
-                                                    @if(isset($object->brand_id) && $object->brand_id == $brand->id) selected
-                                                    @endif value="{{ $brand->id }}">{{ $brand->title }}
-                                                </option>
-
-                                            @endforeach
-                                        </select>
-
-                                        @error('brand_id')
-                                        <div class="fv-plugins-message-container invalid-feedback">
-                                            <div data-field="meta_title" data-validator="notEmpty">
-                                                {{ $message }}
-                                            </div>
-                                        </div>
-                                        @enderror
-
-                                    </div>
-
-                                    <div class="d-flex flex-column mb-8 fv-row">
-                                        <label for="id_color_id"
-                                               class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                            <span>رنگ</span>
-                                        </label>
-
-                                        <select id="id_color_id" name="color_id[]"
-                                                data-kt-select2="true" multiple
-                                                class="form-control form-control-solid">
-                                            <option value="">بدون رنگ</option>
-                                            @foreach($colors as $color)
-
-                                                <option
-                                                    @if(isset($object) && in_array($color->id, $object->colors_pluck_id())) selected
-                                                    @elseif(old('color_id') && in_array($color->id, old('color_id'))) selected
-                                                    @endif value="{{ $color->id }}">{{ $color->title }}
-                                                </option>
-
-                                            @endforeach
-                                        </select>
-
-                                        @error('color_id.*')
-                                        <div class="fv-plugins-message-container invalid-feedback">
-                                            <div data-field="meta_title" data-validator="notEmpty">
-                                                {{ $message }}
-                                            </div>
-                                        </div>
-                                        @enderror
-
-                                    </div>
-
-                                    <div class="d-flex flex-column mb-8 fv-row">
-                                        <label for="id_size_id"
-                                               class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                            <span>سایز</span>
-                                        </label>
-
-                                        <select id="id_size_id" name="size_id[]"
-                                                data-kt-select2="true" multiple
-                                                class="form-control form-control-solid">
-                                            <option value="">بدون سایز</option>
-                                            @foreach($sizes as $size)
-
-                                                <option
-                                                    @if(isset($object) && in_array($size->id, $object->sizes_pluck_id())) selected
-                                                    @elseif(old('size_id') && in_array($size->id, old('size_id'))) selected
-                                                    @endif value="{{ $size->id }}">{{ $size->title }}
-                                                </option>
-
-                                            @endforeach
-                                        </select>
-
-                                        @error('size_id.*')
                                         <div class="fv-plugins-message-container invalid-feedback">
                                             <div data-field="meta_title" data-validator="notEmpty">
                                                 {{ $message }}
@@ -533,10 +392,56 @@
                                             </div>
                                         </div>
                                     </div>
-                                </form>
+
+                                </div>
+
+                                <div class="tab-pane fade" id="kt_ecommerce_settings_store" role="tabpanel">
+
+                                    <div class="d-flex flex-column mb-8 fv-row">
+                                        <label for="id_en_title"
+                                               class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                            <span class="required">نام انگلیسی</span>
+                                        </label>
+
+                                        <input type="text" id="id_en_title" class="form-control form-control-solid"
+                                               value="@if(old('en_title')){{ old('en_title') }}@elseif(isset($object->en_title)){{ $object->en_title }}@endif"
+                                               placeholder="نام انگلیسی را وارد کنید" name="en_title"/>
+
+                                        @error('en_title')
+                                        <div class="fv-plugins-message-container invalid-feedback">
+                                            <div data-field="meta_title" data-validator="notEmpty">
+                                                {{ $message }}
+                                            </div>
+                                        </div>
+                                        @enderror
+
+                                    </div>
+
+                                    <div class="d-flex flex-column mb-8 fv-row">
+                                        <label for="id_en_slug"
+                                               class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                            <span>نامک انگلیسی</span>
+                                        </label>
+
+                                        <input type="text" id="id_en_slug" class="form-control form-control-solid"
+                                               value="@if(old('en_slug')){{ old('en_slug') }}@elseif(isset($object->en_slug)){{ $object->en_slug }}@endif"
+                                               placeholder="نامک انگلیسی را وارد کنید" name="en_slug"/>
+
+                                        @error('en_slug')
+                                        <div class="fv-plugins-message-container invalid-feedback">
+                                            <div data-field="meta_title" data-validator="notEmpty">
+                                                {{ $message }}
+                                            </div>
+                                        </div>
+                                        @enderror
+
+                                    </div>
+
+                                </div>
+
                             </div>
 
-                        </div>
+                        </form>
                         <!--end:::Tab content-->
                     </div>
                     <!--end::کارت body-->
@@ -552,8 +457,8 @@
     <script>
         CKEDITOR.replace('id_description', {
             filebrowserUploadMethod: 'form',
-            filebrowserUploadUrl : '{{ route('upload_ckeditor_image') }}',
-            filebrowserImageUploadUrl :  '{{ route('upload_ckeditor_image') }}'
+            filebrowserUploadUrl: '{{ route('upload_ckeditor_image') }}',
+            filebrowserImageUploadUrl: '{{ route('upload_ckeditor_image') }}'
         });
         $('#id_color_id').select2();
         $('#id_size_id').select2();
