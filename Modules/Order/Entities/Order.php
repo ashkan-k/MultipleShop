@@ -139,6 +139,11 @@ class Order extends Model
         return $this->hasMany(OrderProduct::class);
     }
 
+    public function order_features()
+    {
+        return $this->hasMany(OrderFeature::class);
+    }
+
     public function get_order_products()
     {
         $objects = $this->hasMany(OrderProduct::class)->get();

@@ -5,6 +5,7 @@ namespace Modules\Payment\Http\Controllers\Front;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
+use Modules\Cart\Entities\CartFeature;
 use Modules\Coupon\Entities\Coupon;
 use Modules\Order\Entities\Order;
 use Modules\Order\Entities\OrderProduct;
@@ -49,6 +50,10 @@ class ZarinPalPaymentController extends BaseGatewayController
 
         // Add User Products Info To OrderProduct Table(attach size_id, color_id ,...)
         $order->order_products()->createMany($user_carts->toArray());
+
+        // Add Order Features (sync with Cart Features)
+        $user_cart_features = CartFeature::whereIn('cart_id', $user_carts->pluck('id')->toArray())->get()->toArray();
+        $order->order_features()->createMany($user_cart_features);
 
         // Get Transaction Description
         if ($lang == 'fa')
