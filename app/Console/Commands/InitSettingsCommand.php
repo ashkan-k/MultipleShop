@@ -22,7 +22,7 @@ class InitSettingsCommand extends Command
         'copyright' => "کپی رایت بامیز",
         'logo' => "/front/assets/img/14.png",
         'address' => "تهران - بزرگراه امام رضا(ع) - پاکدشت - مامازند - دفتر مرکزی خرید و فروش کالا",
-        'phone' => "۰۹۹۲۰۴۴۳۵۰۷",
+        'phone' => "09396988720",
         'contact_us_phone' => "+982100000000",
         'postal_code' => "۴۸۳۱۱-۱۹۹۷۷",
         'footer_working_time' => "هفت روز هفته (حتی روزهای تعطیل) ، ساعت ۹-۲۴ پاسخگوی شما هستیم.",

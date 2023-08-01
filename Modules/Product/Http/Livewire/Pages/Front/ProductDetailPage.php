@@ -32,6 +32,8 @@ class ProductDetailPage extends Component
     public $suggest_score;
     public $selected_features = [];
 
+    public $is_loading = false;
+
     public function ChangeTab($new_tab)
     {
         $this->current_tab = $new_tab;
@@ -116,22 +118,25 @@ class ProductDetailPage extends Component
 
     public function AddRemoveCart($type)
     {
-//        dd($this->selected_features);
+        $this->is_loading = true;
 
         if ($type == 'add') {
 
             if ($this->cart_count < 1) {
                 $this->dispatchBrowserEvent('addToCartError', ['message' => __('The number of orders must be at least one!')]);
+                  $this->is_loading = false;
                 return;
             }
             if ($this->cart_count > $this->object->quantity) {
                 $this->dispatchBrowserEvent('addToCartError', ['message' => __('The order quantity is more than the available quantity!')]);
+                  $this->is_loading = false;
                 return;
             }
 
             foreach ($this->required_feature_options as $option_id => $option_title) {
                 if (!isset($this->selected_features[$option_id]) || !count($this->selected_features[$option_id])) {
                     $this->dispatchBrowserEvent('addToCartError', ['message' => __('validation.required', ['attribute' => $option_title])]);
+                      $this->is_loading = false;
                     return;
                 }
             }
@@ -156,6 +161,7 @@ class ProductDetailPage extends Component
             $this->object->decrement('quantity', $this->cart_count);
             $this->cart_count = 1;
             $this->cart_color = $this->cart_size = null;
+            $this->selected_features = [];
 
         } else {
 
@@ -166,6 +172,7 @@ class ProductDetailPage extends Component
 
         }
 
+        $this->is_loading = false;
         $this->dispatchBrowserEvent('cartStatusUpdated', ['cart_count' => auth()->user()->carts()->count()]);
     }
 

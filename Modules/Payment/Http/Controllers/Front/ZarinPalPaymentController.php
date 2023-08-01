@@ -4,6 +4,7 @@ namespace Modules\Payment\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 use Modules\Cart\Entities\CartFeature;
 use Modules\Coupon\Entities\Coupon;
@@ -83,14 +84,14 @@ class ZarinPalPaymentController extends BaseGatewayController
         $payment = $result[1];
 
         if ($result[0]) {
-            auth()->user()->carts()->truncate();
+            DB::table('carts')->where('user_id', auth()->id())->delete();
 
             // Send Sms for user who were ordered
             $user_text = sprintf(sms_helper::$SMS_PATTERNS['user_order_message'], auth()->user()->full_name(), $payment->order->order_number);
             dispatch(new SendSmsJob(auth()->user()->phone, $user_text));
 
             // Send Sms for website,s manager
-            $manager_phone = Setting::where('key', 'manager_phone_1')->first()->value;
+            $manager_phone = Setting::where('key', 'phone')->first()->value;
             $manager_text = sprintf(sms_helper::$SMS_PATTERNS['admin_order_message'], $payment->order->order_number, auth()->user()->full_name());
             dispatch(new SendSmsJob($manager_phone, $manager_text));
 

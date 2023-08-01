@@ -256,9 +256,9 @@
 
                                             @foreach(explode('،', $op_f->filter_items) as $item)
                                                 <div class="" style="float: left !important;">
-                                                    <input type="checkbox" name="size_id" id="id_size_{{ $item }}"
+                                                    <input type="checkbox" name="size_id" id="id_size_{{ $item }}" class="feature_options"
                                                            wire:click="$emit('triggerAddNewFeatureItem' , {{ $op_f->id }}, '{{ $op_f->filter_type }}', '{{ $item }}')"
-{{--                                                           wire:model.defer="cart_size"--}}
+                                                           {{--                                                           wire:model.defer="cart_size"--}}
                                                            value="{{ $item }}">
                                                     <label for="id_size_{{ $item }}" style="content: '' !important;">
                                                         {{ $item ?: '---' }}
@@ -270,9 +270,9 @@
 
                                             @foreach(explode('،', $op_f->filter_items) as $item)
                                                 <div class="radio">
-                                                    <input type="radio" name="size_id" id="id_size_{{ $item }}"
+                                                    <input type="radio" name="size_id" id="id_size_{{ $item }}" class="feature_options"
                                                            wire:click="$emit('triggerAddNewFeatureItem' , {{ $op_f->id }}, '{{ $op_f->filter_type }}', '{{ $item }}')"
-{{--                                                           wire:model.defer="cart_size"--}}
+                                                           {{--                                                           wire:model.defer="cart_size"--}}
                                                            value="{{ $item }}">
                                                     <label for="id_size_{{ $item }}">
                                                         {{ $item ?: '---' }}
@@ -354,8 +354,17 @@
 
                                         @if($object->quantity > 0)
 
-                                            <div class="parent-btn">
+                                            <div wire:loading.remove wire:loading.attr="is_loading" class="parent-btn" id="id_add_to_cart_button">
                                                 <a wire:click="AddRemoveCart('add')" class="dk-btn dk-btn-info">
+                                                    {{ __('Add to cart') }}
+                                                    <i class="now-ui-icons shopping_cart-simple"></i>
+                                                </a>
+                                            </div>
+
+                                            <div class="parent-btn" wire:loading="is_loading"
+                                                 id="id_add_to_cart_button_loading">
+                                                <a style="cursor: not-allowed !important;"
+                                                   class="dk-btn dk-btn-info disabled">
                                                     {{ __('Add to cart') }}
                                                     <i class="now-ui-icons shopping_cart-simple"></i>
                                                 </a>
@@ -991,6 +1000,13 @@
 @endsection
 
 @push('StackScript')
+{{--    <script>--}}
+{{--        $('#id_add_to_cart_button').on('click', function () {--}}
+{{--            $('#id_add_to_cart_button').hide();--}}
+{{--            $('#id_add_to_cart_button_loading').show();--}}
+{{--        })--}}
+{{--    </script>--}}
+
     <script type="text/javascript">
         document.addEventListener('DOMContentLoaded', function () {
         @this.on('triggerAddNewFeatureItem', (feature_id, feature_type, filter) => {
@@ -1016,14 +1032,31 @@
     <script type="text/javascript">
         window.addEventListener('newCommentSubmited', event => {
             showToast('{{ __('Dear user, your comment has been registered successfully, and after the approval of the administrator, it will be placed on the site.') }}', 'success');
+
+            $('#id_add_to_cart_button').show();
+            $('#id_add_to_cart_button_loading').hide();
         });
 
         window.addEventListener('addToCartError', event => {
             showToast(event['detail']['message'], 'error');
+            $('#id_add_to_cart_button').show();
+            $('#id_add_to_cart_button_loading').hide();
         });
 
         window.addEventListener('cartStatusUpdated', event => {
-            $('#cart_count_badge').html(event['detail']['cart_count'])
+            console.log(event['detail']['cart_count'])
+            var count = event['detail']['cart_count'];
+            if (count > 0) {
+                $('#cart_count_badge').html(count);
+                $('#cart_count_badge').show();
+            } else {
+                $('#cart_count_badge').hide();
+            }
+
+            $('.feature_options').prop('checked', false);
+
+            $('#id_add_to_cart_button').show();
+            $('#id_add_to_cart_button_loading').hide();
         });
     </script>
 
