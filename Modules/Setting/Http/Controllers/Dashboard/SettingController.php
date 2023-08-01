@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\PageBuilder\Entities\PageBuilder;
 use Modules\Setting\Entities\Setting;
+use Modules\Setting\Helpers\SettingHelpers;
 use Modules\Setting\Http\Requests\SettingRequest;
 
 class SettingController extends Controller
@@ -72,18 +73,34 @@ class SettingController extends Controller
 
     //
 
-    public function dynamic_form($key, Setting $setting = null)
+    public function dynamic_form($key)
     {
         $select_options = [];
         if ($key == 'comment_terms_page') {
             $select_options = PageBuilder::all()->pluck('title', 'slug')->toArray();
         }
-        $form = Setting::GetDynamicItem($key, $select_options);
+        $form = SettingHelpers::GetDynamicItem($key, $select_options);
         $setting = Setting::firstOrCreate(['key' => $form['key']], [
             'key' => $form['key'],
-            'value' => 'fa',
             'is_active' => true,
         ]);
         return view('setting::dashboard.dynamic_form', compact('form'))->with('object', $setting);
+    }
+
+    public function multiple_dynamic_form($key)
+    {
+        $select_options = [];
+        if ($key == 'comment_terms_page') {
+            $select_options = PageBuilder::all()->pluck('title', 'slug')->toArray();
+        }
+        $forms = SettingHelpers::GetDynamicItem($key, $select_options);
+        foreach ($forms as $item){
+            $item['object'] = Setting::firstOrCreate(['key' => $item['key']], [
+                'key' => $item['key'],
+                'is_active' => true,
+            ]);
+        }
+
+        return view('setting::dashboard.dynamic_form', compact('forms'));
     }
 }

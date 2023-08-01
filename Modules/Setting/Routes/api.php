@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Modules\Setting\Http\Controllers\Api\ApiSettingController;
 use Modules\Setting\Http\Controllers\Dashboard\SettingController;
 
 /*
@@ -15,4 +16,5 @@ use Modules\Setting\Http\Controllers\Dashboard\SettingController;
 |
 */
 
+Route::apiResource('settings', ApiSettingController::class);
 Route::post('status/change/{setting}', [SettingController::class, 'change_status']);
