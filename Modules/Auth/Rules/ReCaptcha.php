@@ -33,7 +33,7 @@ class ReCaptcha implements Rule
                 'ip' => request()->ip(),
             ]);
         }catch (\Exception $exception){
-            throw ValidationException::withMessages(['recaptcha_token' => __('Internet error! Please try again.')])->status(400);
+            throw ValidationException::withMessages([$attribute => __('Internet error! Please try again.')])->status(400);
         }
 
         if ($response->successful() && $response->json('success')) {

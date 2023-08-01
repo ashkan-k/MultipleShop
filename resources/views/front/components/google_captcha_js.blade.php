@@ -5,9 +5,10 @@
             grecaptcha.execute('{{ env('GOOGLE_RECAPTCHA_KEY') }}', { action: 'register' })
                 .then(function (token) {
                     document.getElementById("{{ $field_id }}").value = token;
-                    console.log(token)
                     if (token){
                         document.getElementById('{{ $form_id }}').submit();
+                    }else {
+                        alert(__('Invalid captcha! Reload the page and try again.'))
                     }
                 });
         });

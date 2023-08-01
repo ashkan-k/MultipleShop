@@ -213,8 +213,6 @@
 @section('scripts')
     <script src="https://www.google.com/recaptcha/api.js?render={{ env('GOOGLE_RECAPTCHA_KEY') }}"></script>
 
-    {{--    @include('front.components.captcha_js')--}}
-
     <script>
         app.controller('myCtrl', function ($scope, $http) {
             $scope.current_page = 'register';
