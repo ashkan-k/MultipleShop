@@ -7,6 +7,7 @@ use App\Http\Traits\Searchable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\Product\Entities\Color;
+use Modules\Product\Entities\Feature;
 use Modules\Product\Entities\Product;
 use Modules\Product\Entities\Size;
 
@@ -19,6 +20,7 @@ class OrderProduct extends Model
     protected $fillable = [
         'order_id', 'product_id',
         'size_id', 'color_id', 'count',
+        'feature_value', 'feature_id'
     ];
 
     protected $search_fields = [
@@ -26,6 +28,7 @@ class OrderProduct extends Model
         'product.title',
         'size.title',
         'color.title',
+        'feature_value',
         'count',
     ];
 
@@ -34,6 +37,7 @@ class OrderProduct extends Model
         'product_id',
         'size_id',
         'color_id',
+        'feature_id',
     ];
 
     protected $appends = ['short_name'];
@@ -62,6 +66,11 @@ class OrderProduct extends Model
     public function product()
     {
         return $this->belongsTo(Product::class);
+    }
+
+    public function feature()
+    {
+        return $this->belongsTo(Feature::class);
     }
 
     public function size()

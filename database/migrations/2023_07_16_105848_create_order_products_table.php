@@ -20,6 +20,9 @@ return new class extends Migration
             $table->foreignId('size_id')->nullable()->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('color_id')->nullable()->constrained()->onUpdate('cascade')->onDelete('cascade');
 
+            $table->string('feature_value')->nullable();
+            $table->foreignId('feature_id')->nullable()->constrained()->onUpdate('cascade')->onDelete('cascade');
+
             $table->integer('count')->default(1);
 
             $table->timestamps();

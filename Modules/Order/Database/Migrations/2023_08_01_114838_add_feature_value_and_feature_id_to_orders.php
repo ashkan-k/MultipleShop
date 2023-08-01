@@ -13,9 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('carts', function (Blueprint $table) {
-            $table->foreignId('size_id')->nullable()->constrained()->onUpdate('cascade')->onDelete('cascade');
-
+        Schema::table('order_products', function (Blueprint $table) {
+            $table->string('feature_value')->nullable();
+            $table->foreignId('feature_id')->nullable()->constrained()->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

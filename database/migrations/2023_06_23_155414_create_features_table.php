@@ -19,6 +19,8 @@ return new class extends Migration {
             $table->boolean('is_filter')->default(false);
             $table->enum('filter_type', EnumHelpers::$FeatureFilterTypeEnum)->nullable();
             $table->text('filter_items')->nullable();
+            $table->boolean('is_use_cart')->default(false);
+            $table->boolean('is_use_cart_required')->default(false);
             $table->foreignId('category_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->timestamps();
         });

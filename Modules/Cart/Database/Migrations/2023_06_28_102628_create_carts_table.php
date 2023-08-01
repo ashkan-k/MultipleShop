@@ -19,6 +19,9 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('product_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('color_id')->nullable()->constrained()->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('size_id')->nullable()->constrained()->onUpdate('cascade')->onDelete('cascade');
+            $table->string('feature_value')->nullable();
+            $table->foreignId('feature_id')->nullable()->constrained()->onUpdate('cascade')->onDelete('cascade');
 
             $table->timestamps();
         });

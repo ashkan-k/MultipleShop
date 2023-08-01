@@ -6,6 +6,7 @@ use App\Http\Traits\Searchable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\Product\Entities\Color;
+use Modules\Product\Entities\Feature;
 use Modules\Product\Entities\Product;
 use Modules\User\Entities\User;
 
@@ -20,6 +21,7 @@ class Cart extends Model
         'product_id',
         'color_id',
         'size_id',
+        'feature_value', 'feature_id'
     ];
 
     protected $search_fields  = [
@@ -30,11 +32,13 @@ class Cart extends Model
         'product.title',
         'color.title',
         'size.title',
+        'feature_value',
     ];
 
     protected $filter_fields = [
         'user_id',
         'product_id',
+        'feature_id',
     ];
 
     protected $appends = [
@@ -68,6 +72,11 @@ class Cart extends Model
     public function product()
     {
         return $this->belongsTo(Product::class);
+    }
+
+    public function feature()
+    {
+        return $this->belongsTo(Feature::class);
     }
 
     public function color()
