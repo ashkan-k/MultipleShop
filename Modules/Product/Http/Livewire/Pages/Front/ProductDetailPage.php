@@ -99,7 +99,15 @@ class ProductDetailPage extends Component
             if (!isset($this->selected_features["$feature_id"])) {
                 $this->selected_features["$feature_id"] = [];
             }
-            $this->selected_features["$feature_id"][] = $filter;
+
+            $key = array_search($filter, $this->selected_features["$feature_id"]);
+            if ($key !== false){
+                unset($this->selected_features["$feature_id"][$key]);
+            }
+            else{
+                $this->selected_features["$feature_id"][] = $filter;
+            }
+
         } else {
             $this->selected_features["$feature_id"] = [];
             $this->selected_features["$feature_id"] = $filter;
@@ -108,6 +116,8 @@ class ProductDetailPage extends Component
 
     public function AddRemoveCart($type)
     {
+        dd($this->selected_features);
+
         if ($type == 'add') {
 
             if ($this->cart_count < 1) {
