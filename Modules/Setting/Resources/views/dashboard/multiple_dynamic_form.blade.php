@@ -219,9 +219,9 @@
                 }
 
                 if (has_active_status) {
-                    var is_active = $(`#id_is_active`).is(':checked');
+                    var is_active = $(`#id_is_active_${key}`).is(':checked');
                 } else {
-                    var is_active = $(`#id_is_active`).val();
+                    var is_active = $(`#id_is_active_${key}`).val();
                 }
 
                 $scope.is_submited = true;
