@@ -221,6 +221,26 @@
                             <p ng-if="instance.filter_type == 'text'" class="text-danger">تکست باکس امکان فیلتر کردن ندارد. فقط جنبه ی نمایشی خواهد داشت.</p>
                         </div>
 
+                        <div ng-show="(instance.filter_type == 'checkbox' || instance.filter_type == 'radio')" class="d-flex flex-column mb-8 fv-row">
+                            <label for="id_is_use_cart" class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                <span class="required">آیا به عنوان ویژگی خرید استفاده شود؟</span>
+                            </label>
+
+                            <input name="is_use_cart" ng-model="instance.is_use_cart"
+                                   class="form-check-input w-45px h-30px" type="checkbox"
+                                   id="id_is_use_cart">
+                        </div>
+
+                        <div ng-show="instance.is_use_cart" class="d-flex flex-column mb-8 fv-row">
+                            <label for="id_is_use_cart_required" class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                <span class="required">آیا الزامی است؟</span>
+                            </label>
+
+                            <input name="is_use_cart_required" ng-model="instance.is_use_cart_required"
+                                   class="form-check-input w-45px h-30px" type="checkbox"
+                                   id="id_is_use_cart_required">
+                        </div>
+
                         <div ng-if="instance.filter_type != 'text'" class="d-flex flex-column mb-8 fv-row">
                             <label for="id_is_filter" class="d-flex align-items-center fs-6 fw-semibold mb-2">
                                 <span class="required">آیا به عنوان فیلتر استفاده شود؟</span>
@@ -266,27 +286,6 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-
-
-                        <div ng-if="(instance.filter_type == 'checkbox' || instance.filter_type == 'radio')" class="d-flex flex-column mb-8 fv-row">
-                            <label for="id_is_use_cart" class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                <span class="required">آیا به عنوان ویژگی خرید استفاده شود؟</span>
-                            </label>
-
-                            <input name="is_use_cart" ng-model="instance.is_use_cart"
-                                   class="form-check-input w-45px h-30px" type="checkbox"
-                                   id="id_is_use_cart">
-                        </div>
-
-                        <div ng-if="instance.is_use_cart" class="d-flex flex-column mb-8 fv-row">
-                            <label for="id_is_use_cart_required" class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                <span class="required">آیا الزامی است؟</span>
-                            </label>
-
-                            <input name="is_use_cart_required" ng-model="instance.is_use_cart_required"
-                                   class="form-check-input w-45px h-30px" type="checkbox"
-                                   id="id_is_use_cart_required">
                         </div>
 
                         <div class="text-center">
@@ -344,9 +343,16 @@
 
             $scope.AddEditFeatureModal = function (obj) {
                 if (obj) {
+                    console.log(obj)
                     $scope.instance = obj;
                     if (obj.is_filter) {
                         $('#id_is_filter').prop('checked', true);
+                    }
+                    if (obj.is_use_cart) {
+                        $('#id_is_use_cart').prop('checked', true);
+                    }
+                    if (obj.is_use_cart_required) {
+                        $('#id_is_use_cart_required').prop('checked', true);
                     }
 
                     $scope.FormatFilterItems();
@@ -434,6 +440,10 @@
 
                 data['category_id'] = {{ $category->id }};
                 data['filter_items'] = temp_filter_items;
+
+                $scope.instance['is_filter'] = $("#id_is_filter").is(':checked');
+                $scope.instance['is_use_cart'] = $("#id_is_use_cart").is(':checked');
+                $scope.instance['is_use_cart_required'] = $("#id_is_use_cart_required").is(':checked');
 
                 if (data['id']) {
                     var url = `/api/products/features/${data['id']}`

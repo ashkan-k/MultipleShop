@@ -29,6 +29,9 @@ class Feature extends Model
 
     public function save(array $options = [])
     {
+        if (!$this->is_use_cart){
+            $this->is_use_cart_required = 0;
+        }
         return parent::save($options);
     }
 

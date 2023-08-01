@@ -43,7 +43,9 @@ class FeatureController extends Controller
 
     public function update(FeatureRequest $request, Feature $feature)
     {
-        $feature->update($request->validated());
+        $data = $request->validated();
+
+        $feature->update($data);
         return $this->SuccessResponse('آیتم مورد نظر با موفقیت ویرایش شد.');
     }
 
