@@ -27,6 +27,26 @@ class SettingHelpers
                 'options' => [],
             ],
         ],
+
+        'footer_copyright' => [
+            [
+                'title' => 'متن فارسی کپی رایت',
+                'key' => 'footer_copyright',
+                'has_active_status' => true,
+                'field' => [
+                    'type' => 'textarea',
+                ],
+            ],
+
+            [
+                'title' => 'متن انگلیسی کپی رایت',
+                'key' => 'footer_en_copyright',
+                'has_active_status' => true,
+                'field' => [
+                    'type' => 'textarea',
+                ],
+            ],
+        ],
     ];
 
     public static function GetDynamicItem($key, $filed_options = [])

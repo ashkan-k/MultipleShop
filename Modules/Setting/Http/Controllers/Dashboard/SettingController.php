@@ -90,9 +90,6 @@ class SettingController extends Controller
     public function multiple_dynamic_form($key)
     {
         $select_options = [];
-        if ($key == 'comment_terms_page') {
-            $select_options = PageBuilder::all()->pluck('title', 'slug')->toArray();
-        }
         $forms = SettingHelpers::GetDynamicItem($key, $select_options);
         foreach ($forms as $item){
             $item['object'] = Setting::firstOrCreate(['key' => $item['key']], [
@@ -101,6 +98,6 @@ class SettingController extends Controller
             ]);
         }
 
-        return view('setting::dashboard.dynamic_form', compact('forms'));
+        return view('setting::dashboard.multiple_dynamic_form', compact('forms'));
     }
 }

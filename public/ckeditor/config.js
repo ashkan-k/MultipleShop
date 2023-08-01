@@ -9,5 +9,5 @@ CKEDITOR.editorConfig = function( config ) {
 	// config.uiColor = '#AADC6E';
     config.language = 'fa';
     config.contentsLangDirection = 'rtl';
-    config.height = '40em';
+    config.height = '20em';
 };

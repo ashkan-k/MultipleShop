@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 use Modules\Setting\Http\Controllers\Dashboard\SettingController;
 
 Route::get('settings/dynamic/form/{key}', [SettingController::class, 'dynamic_form'])->name('dynamic_form');
+Route::get('settings/dynamic/multiple/form/{key}', [SettingController::class, 'multiple_dynamic_form'])->name('multiple_dynamic_form');
 Route::get('settings/dynamic/form/{key}/{setting}', [SettingController::class, 'dynamic_form']);
 
 Route::resource('settings', SettingController::class);

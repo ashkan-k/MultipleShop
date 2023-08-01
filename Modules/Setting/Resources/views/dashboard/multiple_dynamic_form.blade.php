@@ -110,13 +110,13 @@
                                                 <!--begin::Tags-->
                                                 <label for="id_value_{{ $form['key'] }}"
                                                        class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                                    <span class="required">$key_label</span>
+                                                    <span class="required">{{ $form['title'] }}</span>
                                                 </label>
                                                 <!--end::Tags-->
                                                 <textarea type="text" id="id_value_{{ $form['key'] }}"
                                                           class="form-control form-control-solid value_class"
                                                           rows="8" required
-                                                          placeholder="$key_label را وارد کنید"
+                                                          placeholder="{{ $form['title'] }} را وارد کنید"
                                                           name="value">@if(old('value')){{ old('value') }}@elseif(isset($object->value)){{ $object->value }}@endif</textarea>
 
                                                 @error('value')
@@ -165,14 +165,6 @@
                                         <div class="row py-5">
                                             <div class="col-md-9 offset-md-3">
                                                 <div class="d-flex" style="float: left !important;">
-                                                    <!--begin::Button-->
-                                                    <button
-                                                        onclick="window.location.href='{{ route('settings.index') }}'"
-                                                        type="reset" data-kt-ecommerce-settings-type="cancel"
-                                                        class="btn btn-light me-3">انصراف
-                                                    </button>
-                                                    <!--end::Button-->
-                                                    <!--begin::Button-->
                                                     <button type="submit" data-kt-ecommerce-settings-type="submit"
                                                             class="btn btn-primary">
                                                         <span class="indicator-label">ذخیره</span>

@@ -691,6 +691,14 @@
                             <span class="menu-title">صفحه مقررات نظرات</span>
                         </a>
 
+                        <a class="menu-link @if(\Illuminate\Support\Facades\Route::current()->getName() == 'multiple_dynamic_form') active @endif"
+                           href="{{ route('multiple_dynamic_form', ['key' => 'footer_copyright']) }}">
+													<span class="menu-bullet">
+														<span class="bullet bullet-dot"></span>
+													</span>
+                            <span class="menu-title">تنظیمات متن کپی رایت</span>
+                        </a>
+
                         <a class="menu-link @if(\Illuminate\Support\Facades\Route::current()->getName() == 'settings.index') active @endif"
                            href="{{ route('settings.index') }}">
 													<span class="menu-bullet">
