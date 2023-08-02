@@ -10,6 +10,6 @@
                                                         role="button"
                                                         aria-expanded="false"
                                                         aria-controls="user2-replie"
-                                                        id="collapse-toggle">{{ __('Answer') }}</a>
+                                                        id="collapse-toggle-{{ $comment->id }}">{{ __('Answer') }}</a>
                                                 </span>
 @endif

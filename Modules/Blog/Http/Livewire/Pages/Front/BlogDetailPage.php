@@ -2,6 +2,7 @@
 
 namespace Modules\Blog\Http\Livewire\Pages\Front;
 
+use Illuminate\Support\Facades\Validator;
 use Livewire\Component;
 use Modules\Blog\Entities\Blog;
 use Modules\Comment\Http\Requests\CommentRequest;
@@ -18,20 +19,35 @@ class BlogDetailPage extends Component
     public $negative_points;
     public $positive_points;
     public $suggest_score;
+    public $parent_id;
 
-    protected function rules()
-    {
-        return (new CommentRequest())->rules();
-    }
+//    protected function rules()
+//    {
+//        return (new CommentRequest())->rules();
+//    }
+
+    protected $rules = [
+        'title' => 'required|string|max:50',
+        'body' => 'required|string|max:300',
+    ];
 
     public function SubmitNewComment($parent_id = null)
     {
-        $data = $this->validate();
+        $validation = Validator::make([
+            'title' => $this->title,
+            'body' => $this->body,
+        ], $this->rules);
+
+        if ($validation->fails()) {
+            $this->dispatchBrowserEvent('focusErrorInput', ['parent_id' => $parent_id]);
+            $validation->validate();
+        }
+
+        $data = $validation->validated();
 
         $data['parent_id'] = $parent_id;
         $data['commentable_id'] = $this->object->id;
         $data['commentable_type'] = get_class($this->object);
-        $data['suggest_score'] = $data['suggest_score'] ?: 'no_idea';
 
         auth()->user()->comments()->create($data);
 

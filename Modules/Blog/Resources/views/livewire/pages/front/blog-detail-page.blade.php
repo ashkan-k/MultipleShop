@@ -645,4 +645,12 @@
             showToast('{{ __('Dear user, your comment has been registered successfully, and after the approval of the administrator, it will be placed on the site.') }}', 'success');
         });
     </script>
+
+    <script type="text/javascript">
+        window.addEventListener('focusErrorInput', event => {
+            if (event['detail']['parent_id']) {
+                $(`#collapse-toggle-${event['detail']['parent_id']}`).click();
+            }
+        });
+    </script>
 @endpush
