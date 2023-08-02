@@ -8,6 +8,9 @@ use App\Http\Traits\Uploader;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Mail;
+use Modules\Email\Emails\SendEmailMail;
+use Modules\Setting\Entities\Setting;
 use Modules\Sms\Helpers\sms_helper;
 use Modules\Sms\Jobs\SendSmsJob;
 use Modules\Ticket\Entities\Ticket;
@@ -37,15 +40,26 @@ class TicketAnswerController extends Controller
         ];
 
         $ticket->answers()->create($data);
+
         if (auth()->id() != $ticket->user_id) {
             $ticket->update(['status' => 'answered']);
-            $manager_text = sprintf(sms_helper::$SMS_PATTERNS['user_ticket_answer_submit'], $ticket->title, $ticket->ticket_number);
+            $email_pattern = 'user_ticket_answer_submit';
         } else {
             $ticket->update(['status' => 'waiting']);
-            $manager_text = sprintf(sms_helper::$SMS_PATTERNS['admin_ticket_answer_submit'], $ticket->title, $ticket->ticket_number);
+            $email_pattern = 'admin_ticket_answer_submit';
         }
 
-        dispatch(new SendSmsJob(auth()->user()->phone, $manager_text));
+        $message = [
+            $ticket,
+            sprintf(sms_helper::$SMS_PATTERNS[$email_pattern], $ticket->title, $ticket->ticket_number),
+            route('front.ticket-answers.show', ['locale' => app()->getLocale(), 'ticket' => $ticket->ticket_number]),
+        ];
+
+        $title = __('Ticket :title (:number)', ['title' => $ticket->title, 'number' => $ticket->ticket_number]);
+        $template = 'email::emails/ticket/ticket_notification';
+        $admin_email = Setting::where('key', 'email')->first()->value;
+
+        Mail::to(strip_tags($admin_email))->send(new SendEmailMail($admin_email, $title, $message, $template));
 
         return $this->SuccessRedirect(__('Your answer has been successfully registered.'), 'ticket-answers.show', [], $ticket->id);
     }
