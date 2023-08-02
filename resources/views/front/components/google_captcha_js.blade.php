@@ -8,7 +8,7 @@
                     if (token){
                         document.getElementById('{{ $form_id }}').submit();
                     }else {
-                        alert(__('Invalid captcha! Reload the page and try again.'))
+                        alert('{{ __('Invalid captcha! Reload the page and try again.') }}')
                     }
                 });
         });
