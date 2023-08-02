@@ -15,5 +15,9 @@ class email_helpers
         'admin_ticket_delete' => "مدیریت گرامی تیکت شماره %s توسط کاربر %s حذف شد.",
         'user_ticket_answer_submit' => "کاربر گرامی تیکت شما با عنوان %s شماره %s توسط مدیریت پاسخ داده شد.",
         'admin_ticket_answer_submit' => "مدیریت گرامی برای تیکت %s با شماره %s پیام جدید ثبت شد.",
+
+        'admin_comment_submit' => "مدیریت گرامی برای %s %s توسط کاربر %s یک نظر جدید ثبت شد.",
+        'user_comment_change_status_approved' => "کاربر گرامی نظر ثبت شده شما برای %s %s توسط مدیریت تایید شد.",
+        'user_comment_change_status_rejected' => "کاربر گرامی نظر ثبت شده شما برای %s %s توسط مدیریت تایید شد.",
     ];
 }

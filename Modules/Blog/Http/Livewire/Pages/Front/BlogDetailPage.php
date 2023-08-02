@@ -2,10 +2,14 @@
 
 namespace Modules\Blog\Http\Livewire\Pages\Front;
 
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Livewire\Component;
 use Modules\Blog\Entities\Blog;
 use Modules\Comment\Http\Requests\CommentRequest;
+use Modules\Email\Emails\SendEmailMail;
+use Modules\Email\Helpers\email_helpers;
+use Modules\Setting\Entities\Setting;
 
 class BlogDetailPage extends Component
 {
@@ -50,6 +54,21 @@ class BlogDetailPage extends Component
         $data['commentable_type'] = get_class($this->object);
 
         auth()->user()->comments()->create($data);
+
+        $message = [
+            'ثبت نظر جدید',
+            sprintf(email_helpers::$EMAIL_PATTERNS['admin_comment_submit'], 'مقاله', $this->object->title, auth()->user()->full_name()),
+            route('comments.index') . '?status=pending',
+        ];
+        $title = __('Comment Submited');
+        $template = 'email::emails/comment/comment_notification';
+
+        $admin_email = Setting::where('key', 'email')->first()->value;
+
+        try {
+            Mail::to(strip_tags($admin_email))->send(new SendEmailMail($admin_email, $title, $message, $template));
+        } catch (\Exception $exception) {
+        }
 
         $this->title = $this->body = null;
 

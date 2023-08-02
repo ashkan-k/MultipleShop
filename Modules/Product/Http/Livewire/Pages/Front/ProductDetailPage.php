@@ -2,14 +2,18 @@
 
 namespace Modules\Product\Http\Livewire\Pages\Front;
 
+use Illuminate\Support\Facades\Mail;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Modules\Comment\Entities\Comment;
 use Modules\Comment\Http\Requests\CommentRequest;
+use Modules\Email\Emails\SendEmailMail;
+use Modules\Email\Helpers\email_helpers;
 use Modules\Product\Entities\Color;
 use Modules\Product\Entities\Feature;
 use Modules\Product\Entities\Product;
 use Modules\Product\Entities\Size;
+use Modules\Setting\Entities\Setting;
 
 class ProductDetailPage extends Component
 {
@@ -66,6 +70,21 @@ class ProductDetailPage extends Component
         $data['suggest_score'] = $data['suggest_score'] ?: 'no_idea';
 
         auth()->user()->comments()->create($data);
+
+        $message = [
+            'ثبت نظر جدید',
+            sprintf(email_helpers::$EMAIL_PATTERNS['admin_comment_submit'], 'محصول', $this->object->title, auth()->user()->full_name()),
+            route('comments.index') . '?status=pending',
+        ];
+        $title = __('Comment Submited');
+        $template = 'email::emails/comment/comment_notification';
+
+        $admin_email = Setting::where('key', 'email')->first()->value;
+
+        try {
+            Mail::to(strip_tags($admin_email))->send(new SendEmailMail($admin_email, $title, $message, $template));
+        } catch (\Exception $exception) {
+        }
 
         $this->title = $this->body = $this->negative_points = $this->positive_points = $this->suggest_score = null;
 
