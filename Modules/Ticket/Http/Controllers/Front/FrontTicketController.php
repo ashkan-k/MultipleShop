@@ -8,6 +8,9 @@ use App\Http\Traits\Uploader;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Mail;
+use Modules\Email\Emails\SendEmailMail;
+use Modules\Setting\Entities\Setting;
 use Modules\Sms\Helpers\sms_helper;
 use Modules\Sms\Jobs\SendSmsJob;
 use Modules\Ticket\Entities\Ticket;
@@ -43,8 +46,22 @@ class FrontTicketController extends Controller
         $file = $this->UploadFile($request, 'file', 'ticket_files', auth()->id());
         $ticket = auth()->user()->tickets()->create(array_merge($request->validated(), ['file' => $file]));
 
-        $manager_text = sprintf(sms_helper::$SMS_PATTERNS['admin_ticket_submit'], $ticket->ticket_number, auth()->user()->full_name());
-        dispatch(new SendSmsJob(auth()->user()->phone, $manager_text));
+        $ticket = Ticket::create(array_merge($data, ['file' => $file]));
+        $admin_email = Setting::where('key', 'email')->first()->value;
+
+        $user = User::findOrFail($data['user_id']);
+        $message = [
+            $ticket,
+            sprintf(sms_helper::$SMS_PATTERNS['admin_ticket_submit'], $ticket->ticket_number, $user->full_name()),
+            route('front.ticket-answers.show', ['locale' => app()->getLocale(), 'ticket' => $ticket->ticket_number]),
+        ];
+        $title = __('Ticket :title (:number)', ['title' => $ticket->title, 'number' => $ticket->ticket_number]);
+        $template = 'email::emails/ticket/ticket_notification';
+
+        try {
+            Mail::to(strip_tags($admin_email))->send(new SendEmailMail($admin_email, $title, $message, $template));
+        } catch (\Exception $exception) {
+        }
 
         return $this->SuccessRedirect(__('Your ticket has been successfully registered.'), 'tickets.index');
     }
@@ -68,8 +85,20 @@ class FrontTicketController extends Controller
         $data['user_id'] = auth()->id();
         $ticket->update(array_merge($data, ['file' => $file]));
 
-        $manager_text = sprintf(sms_helper::$SMS_PATTERNS['admin_ticket_edit'], $ticket->ticket_number, auth()->user()->full_name());
-        dispatch(new SendSmsJob(auth()->user()->phone, $manager_text));
+        $message = [
+            $ticket,
+            sprintf(sms_helper::$SMS_PATTERNS['admin_ticket_edit'], $ticket->ticket_number, $ticket->user->full_name()),
+            route('front.ticket-answers.show', ['locale' => app()->getLocale(), 'ticket' => $ticket->ticket_number]),
+        ];
+        $title = __('Ticket :title (:number)', ['title' => $ticket->title, 'number' => $ticket->ticket_number]);
+        $template = 'email::emails/ticket/ticket_notification';
+
+        $admin_email = Setting::where('key', 'email')->first()->value;
+
+        try {
+            Mail::to(strip_tags($admin_email))->send(new SendEmailMail($admin_email, $title, $message, $template));
+        } catch (\Exception $exception) {
+        }
 
         return $this->SuccessRedirect(__('Your ticket has been edited successfully.'), 'tickets.index');
     }
@@ -77,11 +106,23 @@ class FrontTicketController extends Controller
     public function destroy(Ticket $ticket)
     {
         $this->check_myself_queryset($ticket, 'web');
+
+        $message = [
+            $ticket,
+            sprintf(sms_helper::$SMS_PATTERNS['admin_ticket_delete'], $ticket->ticket_number, $ticket->user->full_name()),
+            route('front.ticket-answers.show', ['locale' => app()->getLocale(), 'ticket' => $ticket->ticket_number]),
+        ];
+        $title = __('Ticket :title (:number)', ['title' => $ticket->title, 'number' => $ticket->ticket_number]);
+        $template = 'email::emails/ticket/ticket_notification';
+
+        $admin_email = Setting::where('key', 'email')->first()->value;
+
+        try {
+            Mail::to(strip_tags($admin_email))->send(new SendEmailMail($admin_email, $title, $message, $template));
+        } catch (\Exception $exception) {
+        }
+
         $ticket->delete();
-
-        $manager_text = sprintf(sms_helper::$SMS_PATTERNS['admin_ticket_delete'], $ticket->ticket_number, auth()->user()->full_name());
-        dispatch(new SendSmsJob(auth()->user()->phone, $manager_text));
-
         return $this->SuccessRedirect(__('The desired item was successfully deleted.'), 'tickets.index');
     }
 }

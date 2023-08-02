@@ -100,7 +100,7 @@ class TicketController extends Controller
 
         $message = [
             $ticket,
-            sprintf(sms_helper::$SMS_PATTERNS['admin_ticket_submit'], $ticket->ticket_number, $ticket->user->full_name()),
+            sprintf(sms_helper::$SMS_PATTERNS['admin_ticket_edit'], $ticket->ticket_number, $ticket->user->full_name()),
             route('front.ticket-answers.show', ['locale' => app()->getLocale(), 'ticket' => $ticket->ticket_number]),
         ];
         $title = __('Ticket :title (:number)', ['title' => $ticket->title, 'number' => $ticket->ticket_number]);
@@ -118,6 +118,21 @@ class TicketController extends Controller
 
     public function destroy(Ticket $ticket)
     {
+        $message = [
+            $ticket,
+            sprintf(sms_helper::$SMS_PATTERNS['admin_ticket_delete'], $ticket->ticket_number, $ticket->user->full_name()),
+            route('front.ticket-answers.show', ['locale' => app()->getLocale(), 'ticket' => $ticket->ticket_number]),
+        ];
+        $title = __('Ticket :title (:number)', ['title' => $ticket->title, 'number' => $ticket->ticket_number]);
+        $template = 'email::emails/ticket/ticket_notification';
+
+        $admin_email = Setting::where('key', 'email')->first()->value;
+
+        try {
+            Mail::to(strip_tags($admin_email))->send(new SendEmailMail($admin_email, $title, $message, $template));
+        } catch (\Exception $exception) {
+        }
+
         $ticket->delete();
         return $this->SuccessRedirect('آیتم مورد نظر با موفقیت حذف شد.', 'tickets.index');
     }
