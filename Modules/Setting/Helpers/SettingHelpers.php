@@ -246,12 +246,21 @@ class SettingHelpers
                 ],
             ],
         ],
+
+        'footer_social_medias' => [
+            'title' => 'شبکه های اجتماعی',
+            'key' => 'footer_social_section',
+            'has_active_status' => true,
+            'field' => [
+                'type' => 'textarea',
+            ],
+        ],
     ];
 
     public static function GetDynamicItem($key, $filed_options = [])
     {
         $item = self::$DynamicItems[$key];
-        if ($filed_options){
+        if ($filed_options) {
             $item['field']['options'] = $filed_options;
         }
         return $item;

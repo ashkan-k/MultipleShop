@@ -453,11 +453,7 @@
                             <div class="socials">
                                 <p>{{ __('Follow us on social networks.') }}</p>
                                 <div class="footer-social">
-                                    @if($lang == 'fa')
-                                        {!! $settings['footer_social_section'] !!}
-                                    @else
-                                        {!! $settings['footer_en_social_section'] !!}
-                                    @endif
+                                    {!! $settings['footer_social_section'] !!}
                                 </div>
                             </div>
                         </div>

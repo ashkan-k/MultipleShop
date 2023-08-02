@@ -691,6 +691,14 @@
                             <span class="menu-title">تنظیم لوگو</span>
                         </a>
 
+                        <a class="menu-link @if(\Illuminate\Support\Facades\Route::current()->getName() == 'dynamic_form' && str_contains(request()->url(), 'footer_social_medias')) active @endif"
+                           href="{{ route('dynamic_form', ['key' => 'footer_social_medias']) }}">
+													<span class="menu-bullet">
+														<span class="bullet bullet-dot"></span>
+													</span>
+                            <span class="menu-title">تنظیم باکس شبکه های احتماعی</span>
+                        </a>
+
                         <a class="menu-link @if(\Illuminate\Support\Facades\Route::current()->getName() == 'multiple_dynamic_form' && str_contains(request()->url(), 'footer_about_us')) active @endif"
                            href="{{ route('multiple_dynamic_form', ['key' => 'footer_about_us']) }}">
 													<span class="menu-bullet">
