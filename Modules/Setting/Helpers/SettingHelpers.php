@@ -273,6 +273,26 @@ class SettingHelpers
                 'type' => 'textarea',
             ],
         ],
+
+        'website_title' => [
+            [
+                'title' => 'متن فارسی عنوان سایت',
+                'key' => 'website_title',
+                'has_active_status' => false,
+                'field' => [
+                    'type' => 'text',
+                ],
+            ],
+
+            [
+                'title' => 'متن انگلیسی عنوان سایت',
+                'key' => 'website_en_title',
+                'has_active_status' => false,
+                'field' => [
+                    'type' => 'text',
+                ],
+            ],
+        ],
     ];
 
     public static function GetDynamicItem($key, $filed_options = [])

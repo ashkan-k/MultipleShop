@@ -675,6 +675,14 @@
                 <div class="menu-sub menu-sub-accordion">
 
                     <div class="menu-item">
+                        <a class="menu-link @if(\Illuminate\Support\Facades\Route::current()->getName() == 'multiple_dynamic_form' && str_contains(request()->url(), 'website_title')) active @endif"
+                           href="{{ route('multiple_dynamic_form', ['key' => 'website_title']) }}">
+													<span class="menu-bullet">
+														<span class="bullet bullet-dot"></span>
+													</span>
+                            <span class="menu-title">تنظیمات عنوان سایت</span>
+                        </a>
+
                         <a class="menu-link @if(\Illuminate\Support\Facades\Route::current()->getName() == 'dynamic_form' && str_contains(request()->url(), 'lang')) active @endif"
                            href="{{ route('dynamic_form', ['key' => 'lang']) }}">
 													<span class="menu-bullet">

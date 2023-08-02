@@ -104,6 +104,30 @@
 
                                         </div>
 
+                                    @elseif($form['field']['type'] == 'text')
+
+                                        <div class="d-flex flex-column mb-8 fv-row">
+                                            <!--begin::Tags-->
+                                            <label for="id_value"
+                                                   class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                                <span class="required">{{ $form['title'] }}</span>
+                                            </label>
+                                            <!--end::Tags-->
+                                            <input type="text" id="id_value" class="form-control form-control-solid"
+                                                   required placeholder="{{ $form['title'] }} را وارد کنید"
+                                                   value="@if(old('value')){{ old('value') }}@elseif(isset($object->value)){{ $object->value }}@endif"
+                                                   name="value">
+
+                                            @error('value')
+                                            <div class="fv-plugins-message-container invalid-feedback">
+                                                <div data-field="meta_title" data-validator="notEmpty">
+                                                    {{ $message }}
+                                                </div>
+                                            </div>
+                                            @enderror
+
+                                        </div>
+
                                     @elseif($form['field']['type'] == 'textarea')
 
                                         <div class="d-flex flex-column mb-8 fv-row">
@@ -259,25 +283,27 @@
 
             $scope.SubmitChanges = function () {
                 @if($form['field']['type'] == 'textarea')
-                    var value = CKEDITOR.instances[`id_value`].getData();
+                var value = CKEDITOR.instances[`id_value`].getData();
                 @elseif($form['field']['type'] == 'select')
-                    var value = $('#id_value').find(":selected").val();
+                var value = $('#id_value').find(":selected").val();
+                @elseif($form['field']['type'] == 'text')
+                var value = $('#id_value').val();
                 @elseif($form['field']['type'] == 'file')
-                    var value = $("#id_value")[0].files[0];
+                var value = $("#id_value")[0].files[0];
                 @endif
 
-                if(!value){
+                if (!value) {
                     showToast('فیلد {{ $form['title'] }} الزامی است!', 'error');
                     return;
                 }
 
                 @if($form['has_active_status'])
-                    var is_active = $(`#id_is_active`).is(':checked');
+                var is_active = $(`#id_is_active`).is(':checked');
                 @else
-                    var is_active = $(`#id_is_active`).val();
+                var is_active = $(`#id_is_active`).val();
                 @endif
 
-                $scope.is_submited = true;
+                    $scope.is_submited = true;
 
                 fd = new FormData();
                 fd.append('key', '{{ $form['key'] }}');

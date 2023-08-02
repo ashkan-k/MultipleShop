@@ -61,7 +61,7 @@
                                 <!--begin::Form-->
                                 <form role="form" enctype="multipart/form-data"
                                       method="post"
-                                      action="@if(isset($object)){{ route('settings.update' , $object->id) }}@else{{ route('settings.store') }}@endif?next=/{{ request()->path() }}">
+                                      action="@if(isset($form['object'])){{ route('settings.update' , $form['object']->id) }}@else{{ route('settings.store') }}@endif?next=/{{ request()->path() }}">
 
                                     @csrf
                                     @method('PATCH')
@@ -87,12 +87,36 @@
                                                     @foreach($form['field']['options'] as $key => $value)
 
                                                         <option
-                                                            @if(isset($object->value) && $object->value == $key) selected
+                                                            @if(isset($form['object']->value) && $form['object']->value == $key) selected
                                                             @endif value="{{ $key }}">{{ $value }}
                                                         </option>
 
                                                     @endforeach
                                                 </select>
+
+                                                @error('value')
+                                                <div class="fv-plugins-message-container invalid-feedback">
+                                                    <div data-field="meta_title" data-validator="notEmpty">
+                                                        {{ $message }}
+                                                    </div>
+                                                </div>
+                                                @enderror
+
+                                            </div>
+
+                                        @elseif($form['field']['type'] == 'text')
+
+                                            <div class="d-flex flex-column mb-8 fv-row">
+                                                <!--begin::Tags-->
+                                                <label for="id_value_{{ $form['key'] }}"
+                                                       class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                                    <span class="required">{{ $form['title'] }}</span>
+                                                </label>
+                                                <!--end::Tags-->
+                                                <input type="text" id="id_value_{{ $form['key'] }}" class="form-control form-control-solid"
+                                                       required placeholder="{{ $form['title'] }} را وارد کنید"
+                                                       value="@if(old('value')){{ old('value') }}@elseif(isset($form['object']->value)){{ $form['object']->value }}@endif"
+                                                       name="value">
 
                                                 @error('value')
                                                 <div class="fv-plugins-message-container invalid-feedback">
@@ -215,7 +239,9 @@
                 if (type == 'textarea') {
                     var value = CKEDITOR.instances[`id_value_${key}`].getData();
                 } else if (type == 'select') {
-                    var value = $('#id_value_${key}').find(":selected").val();
+                    var value = $(`#id_value_${key}`).find(":selected").val();
+                } else if (type == 'text') {
+                    var value = $(`#id_value_${key}`).val();
                 }
 
                 if (has_active_status) {
