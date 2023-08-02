@@ -265,17 +265,13 @@
                                                                 <div class="_item__comment"
                                                                      style="clear: both; padding: 14px;">
                                                                     <p>{{ $child_2->body ?: '---' }}</p>
-                                                                    <span class="_btn" style="float: left;">
-                                                              <a rel="nofollow"
-                                                                 style="cursor: pointer !important;"
-                                                                 class="comment-reply-link"
-                                                                 data-respondelement="respond"
-                                                                 data-replyto="پاسخ به Sina"
-                                                                 aria-label="پاسخ به Sina">{{ __('Answer') }}</a>
-                                                        </span>
+
+                                                                    @include('blog::livewire.pages.front.components.response_button', ['comment' => $child_2 ])
                                                                 </div>
 
                                                             </div>
+
+                                                            @include('blog::livewire.pages.front.components.response_form', ['comment' => $child_2 ])
 
                                                             <ol class="children _item__comment__reply"
                                                                 style="clear: both;">
@@ -324,17 +320,13 @@
                                                                             <div class="_item__comment"
                                                                                  style="clear: both; padding: 14px;">
                                                                                 <p>{{ $child_3->body ?: '---' }}</p>
-                                                                                <span class="_btn" style="float: left;">
-                                                              <a rel="nofollow"
-                                                                 style="cursor: pointer !important;"
-                                                                 class="comment-reply-link"
-                                                                 data-respondelement="respond"
-                                                                 data-replyto="پاسخ به Sina"
-                                                                 aria-label="پاسخ به Sina">{{ __('Answer') }}</a>
-                                                        </span>
+
+                                                                                @include('blog::livewire.pages.front.components.response_button', ['comment' => $child_3 ])
                                                                             </div>
 
                                                                         </div>
+
+                                                                        @include('blog::livewire.pages.front.components.response_form', ['comment' => $child_3 ])
 
                                                                         <ol class="children _item__comment__reply"
                                                                             style="clear: both;">
@@ -388,19 +380,13 @@
                                                                                         <div class="_item__comment"
                                                                                              style="clear: both; padding: 14px;">
                                                                                             <p>{{ $child_4->body ?: '---' }}</p>
-                                                                                            <span class="_btn"
-                                                                                                  style="float: left;">
-                                                              <a rel="nofollow"
-                                                                 style="cursor: pointer !important;"
-                                                                 class="comment-reply-link"
-                                                                 data-respondelement="respond"
-                                                                 data-replyto="پاسخ به Sina"
-                                                                 aria-label="پاسخ به Sina">{{ __('Answer') }}</a>
-                                                        </span>
+
+                                                                                            @include('blog::livewire.pages.front.components.response_button', ['comment' => $child_4 ])
                                                                                         </div>
 
                                                                                     </div>
 
+                                                                                    @include('blog::livewire.pages.front.components.response_form', ['comment' => $child_4 ])
 
                                                                                     <ol class="children _item__comment__reply"
                                                                                         style="clear: both;">
