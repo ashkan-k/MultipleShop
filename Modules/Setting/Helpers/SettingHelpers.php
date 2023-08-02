@@ -255,6 +255,15 @@ class SettingHelpers
                 'type' => 'textarea',
             ],
         ],
+
+        'footer_app_links' => [
+            'title' => 'نماد های الکترونیکی',
+            'key' => 'footer_app_links',
+            'has_active_status' => true,
+            'field' => [
+                'type' => 'textarea',
+            ],
+        ],
     ];
 
     public static function GetDynamicItem($key, $filed_options = [])
