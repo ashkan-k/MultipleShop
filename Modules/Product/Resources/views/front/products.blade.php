@@ -2,7 +2,7 @@
 
 @section('title'){{ __('Products') }} {{ $category->get_title($lang) ?: '---' }}@endsection
 
-<?php $website_title = $lang == 'fa' ? $settings['website_title'] : $settings['website_en_title'];  ?>
+<?php $website_title = $lang == 'fa' ? $settings['website_title']->value : $settings['website_en_title']->value;  ?>
 
 @section('content')
     @livewire('product::pages.front.products-page' , [

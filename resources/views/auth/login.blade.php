@@ -3,7 +3,7 @@
 @section('title'){{ __('Login / Sign up') }}@endsection
 
 @section('content')
-    <?php $website_title = $lang == 'fa' ? $settings['website_title'] : $settings['website_en_title'];  ?>
+    <?php $website_title = $lang == 'fa' ? $settings['website_title']->value : $settings['website_en_title']->value;  ?>
 
     <div class="wrapper default mt-5" ng-init="init()">
         <main class="cart-page default">
@@ -103,9 +103,9 @@
                                                     <div class="parent-btn">
                                                         <button type="submit" class="dk-btn dk-btn-info">
                                                             @if($lang == 'fa')
-                                                                ثبت نام در {!! $settings['website_title'] !!}
+                                                                ثبت نام در {!! $settings['website_title']->value !!}
                                                             @else
-                                                                Register in {!! $settings['website_en_title'] !!}
+                                                                Register in {!! $settings['website_en_title']->value !!}
                                                             @endif
                                                             <i class="now-ui-icons users_circle-08"></i>
                                                         </button>
@@ -173,9 +173,9 @@
                                                     <div class="parent-btn">
                                                         <button type="submit" class="dk-btn dk-btn-info">
                                                             @if($lang == 'fa')
-                                                                ورود به {!! $settings['website_title'] !!}
+                                                                ورود به {!! $settings['website_title']->value !!}
                                                             @else
-                                                                Login to {!! $settings['website_en_title'] !!}
+                                                                Login to {!! $settings['website_en_title']->value !!}
                                                             @endif
                                                             <i class="fa fa-sign-in"></i>
                                                         </button>

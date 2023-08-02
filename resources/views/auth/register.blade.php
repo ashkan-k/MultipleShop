@@ -49,7 +49,7 @@
                 <a onclick="$('#id_frm').submit()" class="btn_1 rounded full-width">ثبت نام</a>
                 <div class="text-center add_top_10">قبلا ثبت نام کردید؟ <strong><a href="{{ route('login') }}">وارد شوید</a></strong></div>
             </form>
-            <div class="copy">{{ $settings['copyright'] }}</div>
+            <div class="copy">{{ $settings['copyright']->value }}</div>
         </aside>
     </div>
 

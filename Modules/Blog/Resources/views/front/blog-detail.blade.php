@@ -2,7 +2,7 @@
 
 @section('title'){{ __('Blog') }} {{ $blog->get_title($lang) ?: '---' }}@endsection
 
-<?php $website_title = $lang == 'fa' ? $settings['website_title'] : $settings['website_en_title'];  ?>
+<?php $website_title = $lang == 'fa' ? $settings['website_title']->value : $settings['website_en_title']->value;  ?>
 
 @section('content')
     @livewire('blog::pages.front.blog-detail-page' , [

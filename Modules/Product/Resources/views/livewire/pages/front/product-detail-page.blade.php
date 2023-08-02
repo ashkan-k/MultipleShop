@@ -647,7 +647,7 @@
                                                                     </button>
                                                                     @if($lang == 'fa')
                                                                         <p>با “ثبت نظر” موافقت خود را با <a
-                                                                                href="{{ route('page', ['slug' => $settings['comment_terms_page'], 'locale' => $lang]) }}"
+                                                                                href="{{ route('page', ['slug' => $settings['comment_terms_page']->value, 'locale' => $lang]) }}"
                                                                                 class="btn-link-spoiler"
                                                                                 target="_blank">قوانین
                                                                                 انتشار محتوا</a> در {{ $website_title }}
@@ -658,7 +658,7 @@
                                                                         <p>
                                                                             By "registering a comment" I declare my
                                                                             agreement with <a
-                                                                                href="{{ route('page', ['slug' => $settings['comment_terms_page'], 'locale' => $lang]) }}"
+                                                                                href="{{ route('page', ['slug' => $settings['comment_terms_page']->value, 'locale' => $lang]) }}"
                                                                                 class="btn-link-spoiler"
                                                                                 target="_blank">the content publishing
                                                                                 rules</a> in {{ $website_title }}
@@ -687,18 +687,18 @@
                                                 <div class="col-md-6 col-sm-12">
                                                     <div class="pl-5">
                                                         @if($lang == 'fa')
-                                                            <h3>{{ $settings['comment_terms_title'] }}</h3>
+                                                            <h3>{{ $settings['comment_terms_title']->value }}</h3>
                                                         @else
-                                                            <h3>{{ $settings['comment_terms_en_title'] }}</h3>
+                                                            <h3>{{ $settings['comment_terms_en_title']->value }}</h3>
                                                         @endif
 
                                                         @if($lang == 'fa')
                                                             <div>
-                                                                {!! $settings['comment_terms_text'] !!}
+                                                                {!! $settings['comment_terms_text']->value !!}
                                                             </div>
                                                         @else
                                                             <div>
-                                                                {!! $settings['comment_terms_en_text'] !!}
+                                                                {!! $settings['comment_terms_en_text']->value !!}
                                                             </div>
                                                         @endif
                                                     </div>

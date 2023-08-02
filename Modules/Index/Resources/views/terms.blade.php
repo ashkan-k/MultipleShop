@@ -14,9 +14,9 @@
                             <div class="col-12">
                                 <h1 class="title-tab-content" style="margin-top: 44px;">
                                     @if($lang == 'fa')
-                                        {!! $settings['terms_title'] !!}
+                                        {!! $settings['terms_title']->value !!}
                                     @else
-                                        {!! $settings['terms_en_title'] !!}
+                                        {!! $settings['terms_en_title']->value !!}
                                     @endif
                                 </h1>
                             </div>
@@ -25,9 +25,9 @@
                                     <div class="col-12">
                                         <h1 class="title-tab-content">
                                             @if($lang == 'fa')
-                                                {!! $settings['terms_text'] !!}
+                                                {!! $settings['terms_text']->value !!}
                                             @else
-                                                {!! $settings['terms_en_text'] !!}
+                                                {!! $settings['terms_en_text']->value !!}
                                             @endif
                                         </h1>
                                     </div>

@@ -2,7 +2,7 @@
 
 @section('title') {{ __('My favorites') }} @endsection
 
-<?php $website_title = $lang == 'fa' ? $settings['website_title'] : $settings['website_en_title'];  ?>
+<?php $website_title = $lang == 'fa' ? $settings['website_title']->value : $settings['website_en_title']->value;  ?>
 
 @section('content')
     @livewire('wishlist::pages.front.wishlist-page' , [

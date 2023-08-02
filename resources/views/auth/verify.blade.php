@@ -38,7 +38,7 @@
                 <div class="text-center add_top_10">رمز عبور خود را به یاد می آورید؟! <strong><a
                             href="{{ route('login') }}">وارد شوید</a></strong></div>
             </form>
-            <div class="copy">{{ $settings['copyright'] }}</div>
+            <div class="copy">{{ $settings['copyright']->value }}</div>
         </aside>
     </div>
 
