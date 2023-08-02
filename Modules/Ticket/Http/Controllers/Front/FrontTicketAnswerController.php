@@ -10,8 +10,8 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Mail;
 use Modules\Email\Emails\SendEmailMail;
+use Modules\Email\Helpers\email_helpers;
 use Modules\Setting\Entities\Setting;
-use Modules\Sms\Helpers\sms_helper;
 use Modules\Ticket\Entities\Ticket;
 use Modules\Ticket\Http\Requests\TicketAnswerRequest;
 
@@ -50,7 +50,7 @@ class FrontTicketAnswerController extends Controller
 
         $message = [
             $ticket,
-            sprintf(sms_helper::$SMS_PATTERNS[$email_pattern], $ticket->title, $ticket->ticket_number),
+            sprintf(email_helpers::$EMAIL_PATTERNS[$email_pattern], $ticket->title, $ticket->ticket_number),
             route('front.ticket-answers.show', ['locale' => app()->getLocale(), 'ticket' => $ticket->ticket_number]),
         ];
 

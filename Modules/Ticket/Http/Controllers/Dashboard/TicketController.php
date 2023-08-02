@@ -11,8 +11,8 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\ValidationException;
 use Modules\Email\Emails\SendEmailMail;
+use Modules\Email\Helpers\email_helpers;
 use Modules\Setting\Entities\Setting;
-use Modules\Sms\Helpers\sms_helper;
 use Modules\Ticket\Entities\Ticket;
 use Modules\Ticket\Entities\TicketCategory;
 use Modules\Ticket\Http\Requests\TicketRequest;
@@ -67,7 +67,7 @@ class TicketController extends Controller
         $user = User::findOrFail($data['user_id']);
         $message = [
             $ticket,
-            sprintf(sms_helper::$SMS_PATTERNS['admin_ticket_submit'], $ticket->ticket_number, $user->full_name()),
+            sprintf(email_helpers::$EMAIL_PATTERNS['admin_ticket_submit'], $ticket->ticket_number, $user->full_name()),
             route('front.ticket-answers.show', ['locale' => app()->getLocale(), 'ticket' => $ticket->ticket_number]),
         ];
         $title = __('Ticket :title (:number)', ['title' => $ticket->title, 'number' => $ticket->ticket_number]);
@@ -100,7 +100,7 @@ class TicketController extends Controller
 
         $message = [
             $ticket,
-            sprintf(sms_helper::$SMS_PATTERNS['admin_ticket_edit'], $ticket->ticket_number, $ticket->user->full_name()),
+            sprintf(email_helpers::$EMAIL_PATTERNS['admin_ticket_edit'], $ticket->ticket_number, $ticket->user->full_name()),
             route('front.ticket-answers.show', ['locale' => app()->getLocale(), 'ticket' => $ticket->ticket_number]),
         ];
         $title = __('Ticket :title (:number)', ['title' => $ticket->title, 'number' => $ticket->ticket_number]);
@@ -120,7 +120,7 @@ class TicketController extends Controller
     {
         $message = [
             $ticket,
-            sprintf(sms_helper::$SMS_PATTERNS['admin_ticket_delete'], $ticket->ticket_number, $ticket->user->full_name()),
+            sprintf(email_helpers::$EMAIL_PATTERNS['admin_ticket_delete'], $ticket->ticket_number, $ticket->user->full_name()),
             route('front.ticket-answers.show', ['locale' => app()->getLocale(), 'ticket' => $ticket->ticket_number]),
         ];
         $title = __('Ticket :title (:number)', ['title' => $ticket->title, 'number' => $ticket->ticket_number]);
