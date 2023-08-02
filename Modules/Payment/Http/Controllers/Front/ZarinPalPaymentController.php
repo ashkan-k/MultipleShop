@@ -8,12 +8,12 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 use Modules\Cart\Entities\CartFeature;
 use Modules\Coupon\Entities\Coupon;
+use Modules\Email\Helpers\email_helpers;
 use Modules\Order\Entities\Order;
 use Modules\Order\Entities\OrderProduct;
 use Modules\Order\Http\Requests\OrderRequest;
 use Modules\Payment\Http\Controllers\BaseGatewayController;
 use Modules\Setting\Entities\Setting;
-use Modules\Sms\Helpers\sms_helper;
 use Modules\Sms\Jobs\SendSmsJob;
 use SoapClient;
 
@@ -87,13 +87,13 @@ class ZarinPalPaymentController extends BaseGatewayController
             DB::table('carts')->where('user_id', auth()->id())->delete();
 
             // Send Sms for user who were ordered
-            $user_text = sprintf(sms_helper::$SMS_PATTERNS['user_order_message'], auth()->user()->full_name(), $payment->order->order_number);
+            $user_text = sprintf(email_helpers::$EMAIL_PATTERNS['user_order_message'], auth()->user()->full_name(), $payment->order->order_number);
             dispatch(new SendSmsJob(auth()->user()->phone, $user_text));
 
             // Send Sms for website,s manager
-            $manager_phone = Setting::where('key', 'phone')->first()->value;
-            $manager_text = sprintf(sms_helper::$SMS_PATTERNS['admin_order_message'], $payment->order->order_number, auth()->user()->full_name());
-            dispatch(new SendSmsJob($manager_phone, $manager_text));
+            $admin_phone = Setting::where('key', 'email')->first()->value;
+            $manager_text = sprintf(email_helpers::$EMAIL_PATTERNS['admin_order_message'], $payment->order->order_number, auth()->user()->full_name());
+            dispatch(new SendSmsJob($admin_phone, $manager_text));
 
             return view('payment::front.success', compact('payment'));
         }

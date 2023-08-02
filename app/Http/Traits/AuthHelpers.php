@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\ValidationException;
 use Modules\Auth\Entities\ActivationCode;
 use Modules\Email\Emails\SendEmailMail;
-use Modules\Sms\Helpers\sms_helper;
+use Modules\Email\Helpers\email_helpers;
 use Modules\Sms\Jobs\SendSmsJob;
 
 trait AuthHelpers
@@ -27,7 +27,7 @@ trait AuthHelpers
         $code = $this->CreateNewCode($user);
 
         $message = [
-//            sprintf(sms_helper::$SMS_PATTERNS['verify_user'], $code->code),
+//            sprintf(email_helpers::$EMAIL_PATTERNS['verify_user'], $code->code),
             __('Dear user, your verification code'),
             $code->code
         ];
