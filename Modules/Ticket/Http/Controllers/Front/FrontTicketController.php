@@ -8,6 +8,8 @@ use App\Http\Traits\Uploader;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Sms\Helpers\sms_helper;
+use Modules\Sms\Jobs\SendSmsJob;
 use Modules\Ticket\Entities\Ticket;
 use Modules\Ticket\Entities\TicketCategory;
 use Modules\Ticket\Http\Requests\TicketRequest;
@@ -39,7 +41,11 @@ class FrontTicketController extends Controller
     public function store(TicketRequest $request)
     {
         $file = $this->UploadFile($request, 'file', 'ticket_files', auth()->id());
-        auth()->user()->tickets()->create(array_merge($request->validated(), ['file' => $file]));
+        $ticket = auth()->user()->tickets()->create(array_merge($request->validated(), ['file' => $file]));
+
+        $manager_text = sprintf(sms_helper::$SMS_PATTERNS['admin_ticket_submit'], $ticket->ticket_number, auth()->user()->full_name());
+        dispatch(new SendSmsJob(auth()->user()->phone, $manager_text));
+
         return $this->SuccessRedirect(__('Your ticket has been successfully registered.'), 'tickets.index');
     }
 
@@ -61,6 +67,10 @@ class FrontTicketController extends Controller
         $data = $request->validated();
         $data['user_id'] = auth()->id();
         $ticket->update(array_merge($data, ['file' => $file]));
+
+        $manager_text = sprintf(sms_helper::$SMS_PATTERNS['admin_ticket_edit'], $ticket->ticket_number, auth()->user()->full_name());
+        dispatch(new SendSmsJob(auth()->user()->phone, $manager_text));
+
         return $this->SuccessRedirect(__('Your ticket has been edited successfully.'), 'tickets.index');
     }
 
@@ -68,6 +78,10 @@ class FrontTicketController extends Controller
     {
         $this->check_myself_queryset($ticket, 'web');
         $ticket->delete();
+
+        $manager_text = sprintf(sms_helper::$SMS_PATTERNS['admin_ticket_delete'], $ticket->ticket_number, auth()->user()->full_name());
+        dispatch(new SendSmsJob(auth()->user()->phone, $manager_text));
+
         return $this->SuccessRedirect(__('The desired item was successfully deleted.'), 'tickets.index');
     }
 }

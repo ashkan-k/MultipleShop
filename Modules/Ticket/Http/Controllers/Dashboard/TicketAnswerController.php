@@ -8,6 +8,8 @@ use App\Http\Traits\Uploader;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Sms\Helpers\sms_helper;
+use Modules\Sms\Jobs\SendSmsJob;
 use Modules\Ticket\Entities\Ticket;
 use Modules\Ticket\Http\Requests\TicketAnswerRequest;
 
@@ -37,10 +39,14 @@ class TicketAnswerController extends Controller
         $ticket->answers()->create($data);
         if (auth()->id() != $ticket->user_id) {
             $ticket->update(['status' => 'answered']);
-        }else{
+            $manager_text = sprintf(sms_helper::$SMS_PATTERNS['user_ticket_answer_submit'], $ticket->title, $ticket->ticket_number);
+        } else {
             $ticket->update(['status' => 'waiting']);
+            $manager_text = sprintf(sms_helper::$SMS_PATTERNS['admin_ticket_answer_submit'], $ticket->title, $ticket->ticket_number);
         }
 
-        return $this->SuccessRedirect('پاسخ شما با موفقیت ثبت شد.', 'ticket-answers.show', [], $ticket->id);
+        dispatch(new SendSmsJob(auth()->user()->phone, $manager_text));
+
+        return $this->SuccessRedirect(__('Your answer has been successfully registered.'), 'ticket-answers.show', [], $ticket->id);
     }
 }
