@@ -128,6 +128,36 @@
 
                                             </div>
 
+                                        @elseif($form['field']['type'] == 'radio')
+
+                                            <div class="d-flex flex-column mb-8 fv-row">
+                                                <label for="id_value_{{ $form['key'] }}"
+                                                       class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                                    <span>{{ $form['title'] }}</span>
+                                                </label>
+
+                                                <div
+                                                    class="form-check form-check-solid form-switch form-check-custom fv-row">
+                                                    <input
+                                                        @if(isset($form['object']) && $form['object']->value == '1') checked
+                                                        @elseif(old('value')) checked
+                                                        @elseif(!isset($form['object'])) checked
+                                                        @endif  name="value"
+                                                        class="form-check-input w-45px h-30px" type="checkbox"
+                                                        id="id_value_{{ $form['key'] }}" value="1">
+                                                    <label class="form-check-label"
+                                                           for="id_is_active_{{ $form['key'] }}"></label>
+                                                </div>
+
+                                                @error('value')
+                                                <div class="fv-plugins-message-container invalid-feedback">
+                                                    <div data-field="meta_title" data-validator="notEmpty">
+                                                        {{ $message }}
+                                                    </div>
+                                                </div>
+                                                @enderror
+                                            </div>
+
                                         @elseif($form['field']['type'] == 'textarea')
 
                                             <div class="d-flex flex-column mb-8 fv-row">

@@ -293,6 +293,18 @@ class SettingHelpers
                 ],
             ],
         ],
+
+        'sections' => [
+            [
+                'title' => 'وضعیت نمایش بخش محصولات شگفت انگیز',
+                'key' => 'show_special_products',
+                'has_active_status' => false,
+                'field' => [
+                    'type' => 'radio',
+                    'title' => 'نمایش / مخفی',
+                ],
+            ],
+        ],
     ];
 
     public static function GetDynamicItem($key, $filed_options = [])
