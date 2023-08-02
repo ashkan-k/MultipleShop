@@ -20,8 +20,8 @@ class ApiSettingController extends Controller
         $data = $request->validated();
         $data['is_active'] = \request('is_active');
 
-        $data['value'] = $this->UploadFile($request, 'value', 'settings', $setting->key, $setting->value);
-
+        $data['value'] = $this->UploadFile($request, 'value', 'settings', $setting->key, $request->value);
+        
         $setting->update($data);
         return $this->SuccessResponse(Setting::find($setting->id));
     }

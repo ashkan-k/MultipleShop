@@ -691,6 +691,22 @@
                             <span class="menu-title">تنظیم لوگو</span>
                         </a>
 
+                        <a class="menu-link @if(\Illuminate\Support\Facades\Route::current()->getName() == 'multiple_dynamic_form' && str_contains(request()->url(), 'footer_about_us')) active @endif"
+                           href="{{ route('multiple_dynamic_form', ['key' => 'footer_about_us']) }}">
+													<span class="menu-bullet">
+														<span class="bullet bullet-dot"></span>
+													</span>
+                            <span class="menu-title">تنظیمات درباره ما</span>
+                        </a>
+
+                        <a class="menu-link @if(\Illuminate\Support\Facades\Route::current()->getName() == 'multiple_dynamic_form' && str_contains(request()->url(), 'communication')) active @endif"
+                           href="{{ route('multiple_dynamic_form', ['key' => 'communication']) }}">
+													<span class="menu-bullet">
+														<span class="bullet bullet-dot"></span>
+													</span>
+                            <span class="menu-title">تنظیمات ره های ارتباطی</span>
+                        </a>
+
                         <a class="menu-link @if(\Illuminate\Support\Facades\Route::current()->getName() == 'dynamic_form' && str_contains(request()->url(), 'comment_terms_page')) active @endif"
                            href="{{ route('dynamic_form', ['key' => 'comment_terms_page']) }}">
 													<span class="menu-bullet">

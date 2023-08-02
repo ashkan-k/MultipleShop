@@ -306,6 +306,7 @@
                                                class="d-flex align-items-center fs-6 fw-semibold mb-2">
                                             <span>آیا ویژه است؟</span>
                                         </label>
+                                        <p class="text-danger">نمایش محصول در قسمت محصولات ویژه پایین اسلایدر</p>
 
                                         <div class="form-check form-check-solid form-switch form-check-custom fv-row">
                                             <input @if(isset($object) && $object->is_special) checked
@@ -328,7 +329,9 @@
                                         <label for="id_is_active"
                                                class="d-flex align-items-center fs-6 fw-semibold mb-2">
                                             <span>وضعیت فعال</span>
+
                                         </label>
+                                        <p class="text-danger">فعال / غیرفعال کردن وضعیت نمایش محصول در سایت</p>
 
                                         <div class="form-check form-check-solid form-switch form-check-custom fv-row">
                                             <input @if(isset($object) && $object->is_active) checked

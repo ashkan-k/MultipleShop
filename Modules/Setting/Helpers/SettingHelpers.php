@@ -56,6 +56,82 @@ class SettingHelpers
                 ],
             ],
         ],
+
+        'footer_about_us' => [
+            [
+                'title' => 'متن فارسی عنوان درباره ما',
+                'key' => 'footer_about_us_title',
+                'has_active_status' => true,
+                'field' => [
+                    'type' => 'textarea',
+                ],
+            ],
+
+            [
+                'title' => 'متن انگلیسی عنوان درباره ما',
+                'key' => 'footer_about_us_en_title',
+                'has_active_status' => true,
+                'field' => [
+                    'type' => 'textarea',
+                ],
+            ],
+
+            [
+                'title' => 'متن فارسی درباره ما',
+                'key' => 'footer_about_us_text',
+                'has_active_status' => true,
+                'field' => [
+                    'type' => 'textarea',
+                ],
+            ],
+
+            [
+                'title' => 'متن انگلیسی درباره ما',
+                'key' => 'footer_about_us_en_text',
+                'has_active_status' => true,
+                'field' => [
+                    'type' => 'textarea',
+                ],
+            ],
+        ],
+
+        'communication' => [
+            [
+                'title' => 'متن فارسی شعار ما',
+                'key' => 'footer_chant',
+                'has_active_status' => true,
+                'field' => [
+                    'type' => 'textarea',
+                ],
+            ],
+
+            [
+                'title' => 'متن انگلیسی شعار ما',
+                'key' => 'footer_en_chant',
+                'has_active_status' => true,
+                'field' => [
+                    'type' => 'textarea',
+                ],
+            ],
+
+            [
+                'title' => 'شماره موبایل',
+                'key' => 'footer_phone',
+                'has_active_status' => true,
+                'field' => [
+                    'type' => 'textarea',
+                ],
+            ],
+
+            [
+                'title' => 'ایمیل',
+                'key' => 'footer_email',
+                'has_active_status' => true,
+                'field' => [
+                    'type' => 'textarea',
+                ],
+            ],
+        ],
     ];
 
     public static function GetDynamicItem($key, $filed_options = [])
