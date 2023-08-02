@@ -165,17 +165,83 @@
                                              style="clear: both;padding: 14px; word-wrap: break-word;">
                                             <p>{{ $comment->body ?: '---' }}</p>
 
-                                            <span class="_btn" style="float: left;">
-                                                                    <a rel="nofollow"
-                                                                       style="cursor: pointer !important;"
-                                                                       class="comment-reply-link"
-                                                                       data-respondelement="respond"
-                                                                       data-replyto="پاسخ به Sina"
-                                                                       aria-label="پاسخ به Sina">{{ __('Answer') }}</a>
-                                            </span>
+                                            @auth
+                                                <span class="_btn" style="float: left;">
+                                                     <a rel="nofollow"
+                                                        class="comment-reply-link"
+                                                        data-respondelement="respond"
+                                                        data-replyto="پاسخ به Sina"
+                                                        aria-label="پاسخ به Sina"
+                                                        data-toggle="collapse"
+                                                        href="#user_reply_{{ $comment->id }}"
+                                                        role="button"
+                                                        aria-expanded="false"
+                                                        aria-controls="user2-replie"
+                                                        id="collapse-toggle">{{ __('Answer') }}</a>
+                                                </span>
+                                            @endif
                                         </div>
 
                                     </div>
+
+                                    @auth
+                                        <div class="collapse py-1" id="user_reply_{{ $comment->id }}">
+                                            <h4>{{ __('In response to') }} {{ $comment->user->full_name ?: '---' }}</h4>
+
+                                            <form class="collapse__content mt-1 px-5" wire:submit.prevent="SubmitNewComment()">
+                                                <div class="w-100">
+                                                    <div class="row">
+                                                        <div class="col-12">
+                                                            <div class="form-account-title">{{ __('The title of your comment') }}
+                                                                ({{ __('Required') }})
+                                                            </div>
+                                                            <div class="form-account-row">
+                                                                <input class="input-field text-right" wire:model.defer="title"
+                                                                       type="text" name="title" required
+                                                                       placeholder="{{ __('Write the title of your comment') }}">
+
+                                                                @error('title')
+                                                                <span
+                                                                    class="text-danger text-wrap">{{ $message }}</span>
+                                                                @enderror
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-6">
+                                                            <div class="form-account-title">
+                                                                ایمیل شما (اجباری)
+                                                            </div>
+                                                            <div class="form-account-row">
+                                                                <input
+                                                                    class="input-field text-right"
+                                                                    type="text"
+                                                                    placeholder="ایمیل خود را بنویسید"
+                                                                />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-account-title">
+                                                        متن نظر شما (اجباری)
+                                                    </div>
+                                                    <div class="form-account-row">
+                              <textarea
+                                  class="input-field text-right"
+                                  rows="5"
+                                  placeholder="نظر خود را بنویسید"
+                              ></textarea>
+                                                    </div>
+                                                </div>
+                                                <button
+                                                    class="btn btn-primary btn-no-icon"
+                                                    style="float: left; margin-left: 5px"
+                                                >
+                                                    ثبت نظر
+                                                </button>
+                                            </form>
+
+                                        </div>
+                                    @endauth
 
 
                                     <ol class="children _item__comment__reply" style="clear: both;">
