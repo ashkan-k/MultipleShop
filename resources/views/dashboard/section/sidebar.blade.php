@@ -704,6 +704,14 @@
 													<span class="menu-bullet">
 														<span class="bullet bullet-dot"></span>
 													</span>
+                            <span class="menu-title">تنظیم باکس اپلیکیشن ها</span>
+                        </a>
+
+                        <a class="menu-link @if(\Illuminate\Support\Facades\Route::current()->getName() == 'dynamic_form' && str_contains(request()->url(), 'footer_electronic_flags')) active @endif"
+                           href="{{ route('dynamic_form', ['key' => 'footer_electronic_flags']) }}">
+													<span class="menu-bullet">
+														<span class="bullet bullet-dot"></span>
+													</span>
                             <span class="menu-title">تنظیم نماد های الکترونیکی</span>
                         </a>
 

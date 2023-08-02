@@ -37,7 +37,8 @@
 
 </head>
 
-<body @if($lang != 'fa') style="direction: ltr !important;" @endif class="index-page sidebar-collapse" ng-app="myApp" ng-controller="myCtrl" ng-init="init()">
+<body @if($lang != 'fa') style="direction: ltr !important;" @endif class="index-page sidebar-collapse" ng-app="myApp"
+      ng-controller="myCtrl" ng-init="init()">
 
 <!-- responsive-header -->
 <nav class="navbar direction-rtl fixed-top header-responsive">
@@ -238,19 +239,21 @@
                         <button onclick="window.location.href='{{ route('cart') }}'" class="style-user-button">
                             <div class="bg-color user-style" style="position: relative;display: inline-block;">
                                 <i class="fa fa-shopping-basket style-icon-head"></i>
-                                    <span style="@if($cart_count = auth()->user()->carts()->count()) display: block !important; @else display: none !important; @endif
-                                      position: absolute;
-                                      top: -10px;
-                                      left: -10px;
-                                      background-color: #ef5661;
-                                      color: white;
-                                      border-radius: 50%;
-                                      padding: 4px 8px;
-                                      font-size: 14px;
-                                      font-weight: bold;
-                                      text-align: center;
-                                      line-height: 1;
-                                      transition: all 0.3s ease-in-out;" id="cart_count_badge" class="badge">{{ $cart_count }}</span>
+                                <span
+                                    style="@if($cart_count = auth()->user()->carts()->count()) display: block !important; @else display: none !important; @endif
+                                        position: absolute;
+                                        top: -10px;
+                                        left: -10px;
+                                        background-color: #ef5661;
+                                        color: white;
+                                        border-radius: 50%;
+                                        padding: 4px 8px;
+                                        font-size: 14px;
+                                        font-weight: bold;
+                                        text-align: center;
+                                        line-height: 1;
+                                        transition: all 0.3s ease-in-out;" id="cart_count_badge"
+                                    class="badge">{{ $cart_count }}</span>
                             </div>
                         </button>
                     @else
@@ -423,7 +426,7 @@
             </a>
         </div>
 
-        @if($settings['show_guides'])
+        @if($settings['show_guides']->is_active)
             <div class="container">
                 <div class="footer-services">
                     <div class="row">
@@ -450,12 +453,14 @@
                             {{--                                    <input type="submit" class="btn btn-primary" value="ارسال">--}}
                             {{--                                </form>--}}
                             {{--                            </div>--}}
-                            <div class="socials">
-                                <p>{{ __('Follow us on social networks.') }}</p>
-                                <div class="footer-social">
-                                    {!! $settings['footer_social_section'] !!}
+                            @if($settings['footer_social_section']->is_active)
+                                <div class="socials">
+                                    <p>{{ __('Follow us on social networks.') }}</p>
+                                    <div class="footer-social">
+                                        {!! $settings['footer_social_section']->value !!}
+                                    </div>
                                 </div>
-                            </div>
+                            @endif
                         </div>
 
                         <div class="col-12 col-md-6 col-lg-3">
@@ -463,17 +468,25 @@
                                 <header class="card-header ">
                                     <h3 class="card-title style-border-bottom pb-3">
                                         @if($lang == 'fa')
-                                            {!! $settings['footer_right_links_title'] !!}
-                                        @else
-                                            {!! $settings['footer_right_links_en_title'] !!}
+                                            @if($settings['footer_right_links_title']->is_active)
+                                                {!! $settings['footer_right_links_title']->value !!}
+                                            @endif
+                                        @elseif($lang == 'en')
+                                            @if($settings['footer_right_links_en_title']->is_active)
+                                                {!! $settings['footer_right_links_en_title']->value !!}
+                                            @endif
                                         @endif
                                     </h3>
                                 </header>
                                 <ul class="footer-menu">
                                     @if($lang == 'fa')
-                                        {!! $settings['footer_right_links'] !!}
-                                    @else
-                                        {!! $settings['footer_en_right_links'] !!}
+                                        @if($settings['footer_right_links']->is_active)
+                                            {!! $settings['footer_right_links']->value !!}
+                                        @endif
+                                    @elseif($lang == 'en')
+                                        @if($settings['footer_en_right_links']->is_active)
+                                            {!! $settings['footer_en_right_links']->value !!}
+                                        @endif
                                     @endif
                                 </ul>
                             </div>
@@ -483,17 +496,25 @@
                                 <header class="card-header">
                                     <h3 class="card-title style-border-bottom pb-3">
                                         @if($lang == 'fa')
-                                            {!! $settings['footer_center_links_title'] !!}
-                                        @else
-                                            {!! $settings['footer_center_links_en_title'] !!}
+                                            @if($settings['footer_center_links_title']->is_active)
+                                                {!! $settings['footer_center_links_title']->value !!}
+                                            @endif
+                                        @elseif($lang == 'en')
+                                            @if($settings['footer_center_links_en_title']->is_active)
+                                                {!! $settings['footer_center_links_en_title']->value !!}
+                                            @endif
                                         @endif
                                     </h3>
                                 </header>
                                 <ul class="footer-menu">
                                     @if($lang == 'fa')
-                                        {!! $settings['footer_center_links'] !!}
-                                    @else
-                                        {!! $settings['footer_en_center_links'] !!}
+                                        @if($settings['footer_center_links']->is_active)
+                                            {!! $settings['footer_center_links']->value !!}
+                                        @endif
+                                    @elseif($lang == 'en')
+                                        @if($settings['footer_en_center_links']->is_active)
+                                            {!! $settings['footer_en_center_links']->value !!}
+                                        @endif
                                     @endif
                                 </ul>
                             </div>
@@ -503,17 +524,25 @@
                                 <header class="card-header">
                                     <h3 class="card-title style-border-bottom pb-3">
                                         @if($lang == 'fa')
-                                            {!! $settings['footer_left_links_title'] !!}
-                                        @else
-                                            {!! $settings['footer_left_links_en_title'] !!}
+                                            @if($settings['footer_left_links_title']->is_active)
+                                                {!! $settings['footer_left_links_title']->value !!}
+                                            @endif
+                                        @elseif($lang == 'en')
+                                            @if($settings['footer_left_links_en_title']->is_active)
+                                                {!! $settings['footer_left_links_en_title']->value !!}
+                                            @endif
                                         @endif
                                     </h3>
                                 </header>
                                 <ul class="footer-menu">
                                     @if($lang == 'fa')
-                                        {!! $settings['footer_left_links'] !!}
-                                    @else
-                                        {!! $settings['footer_en_left_links'] !!}
+                                        @if($settings['footer_left_links']->is_active)
+                                            {!! $settings['footer_left_links']->value !!}
+                                        @endif
+                                    @elseif($lang == 'en')
+                                        @if($settings['footer_en_left_links']->is_active)
+                                            {!! $settings['footer_en_left_links']->value !!}
+                                        @endif
                                     @endif
                                 </ul>
                             </div>
@@ -525,19 +554,34 @@
                     <div class="row">
                         <div class="col-12 col-lg-4">
                             <span>
-                                @if($lang == 'fa')
-                                    {!! $settings['footer_chant'] !!}
-                                @else
-                                    {!! $settings['footer_en_chant'] !!}
+                                 @if($lang == 'fa')
+                                    @if($settings['footer_chant']->is_active)
+                                        {!! $settings['footer_chant']->value !!}
+                                    @endif
+                                @elseif($lang == 'en')
+                                    @if($settings['footer_en_chant']->is_active)
+                                        {!! $settings['footer_en_chant']->value !!}
+                                    @endif
                                 @endif
                             </span>
                         </div>
-                        <div class="col-12 col-lg-2">{{ __('Phone Number') }}: {!! $settings['footer_phone'] !!}</div>
-                        <div class="col-12 col-lg-2">{{ __('Email') }}:<a href="mailto:{!! $settings['footer_email'] !!}">{!! $settings['footer_email'] !!}</a>
-                        </div>
-                        <div class="col-12 col-lg-4 text-center">
-                            {!! $settings['footer_app_links'] !!}
-                        </div>
+
+                        @if($settings['footer_phone']->is_active)
+                            <div class="col-12 col-lg-2">{{ __('Phone Number') }}
+                                : {!! $settings['footer_phone']->value !!}</div>
+                        @endif
+
+                        @if($settings['footer_email']->is_active)
+                            <div class="col-12 col-lg-2">{{ __('Email') }}:<a
+                                    href="mailto:{!! $settings['footer_email']->value !!}">{!! $settings['footer_email']->value !!}</a>
+                            </div>
+                        @endif
+
+                        @if($settings['footer_app_links']->is_active)
+                            <div class="col-12 col-lg-4 text-center">
+                                {!! $settings['footer_app_links']->value !!}
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -549,22 +593,31 @@
                     <div class="site-description col-12 col-lg-7">
                         <h1 class="site-title">
                             @if($lang == 'fa')
-                                {!! $settings['footer_about_us_title'] !!}
-                            @else
-                                {!! $settings['footer_about_us_en_title'] !!}
+                                @if($settings['footer_about_us_title']->is_active)
+                                    {!! $settings['footer_about_us_title']->value !!}
+                                @endif
+                            @elseif($lang == 'en')
+                                @if($settings['footer_about_us_en_title']->is_active)
+                                    {!! $settings['footer_about_us_en_title']->value !!}
+                                @endif
                             @endif
                         </h1>
                         <p style="text-align: justify;line-height: 30px;">
                             @if($lang == 'fa')
-                                {!! $settings['footer_about_us_text'] !!}
-                            @else
-                                {!! $settings['footer_about_us_en_text'] !!}
+                                @if($settings['footer_about_us_text']->is_active)
+                                    {!! $settings['footer_about_us_text']->value !!}
+                                @endif
+                            @elseif($lang == 'en')
+                                @if($settings['footer_about_us_en_text']->is_active)
+                                    {!! $settings['footer_about_us_en_text']->value !!}
+                                @endif
                             @endif
                         </p>
                     </div>
                     <div class="symbol col-12 col-lg-5">
-                        <a href="#" target="_blank"><img src="/front/assets/img/symbol-01.png" alt=""></a>
-                        <a href="#" target="_blank"><img src="/front/assets/img/symbol-02.png" alt=""></a>
+                        @if($settings['footer_electronic_flags']->is_active)
+                            {!! $settings['footer_electronic_flags']->value !!}
+                        @endif
                     </div>
 
                 </div>
@@ -574,9 +627,13 @@
             <div class="container">
                 <p>
                     @if($lang == 'fa')
-                        {!! $settings['footer_copyright'] !!}
-                    @else
-                        {!! $settings['footer_en_copyright'] !!}
+                        @if($settings['footer_copyright']->is_active)
+                            {!! $settings['footer_copyright']->value !!}
+                        @endif
+                    @elseif($lang == 'en')
+                        @if($settings['footer_en_copyright']->is_active)
+                            {!! $settings['footer_en_copyright']->value !!}
+                        @endif
                     @endif
                 </p>
                 <div class="row">

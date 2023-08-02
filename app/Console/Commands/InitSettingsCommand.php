@@ -159,6 +159,8 @@ class InitSettingsCommand extends Command
                                                              alt=""></a>
                             <a href="#" target="_blank"><img src="/front/assets/img/sibapp.png" width="159" height="48"
                                                              alt=""></a>',
+        'footer_electronic_flags' => '<a href="#" target="_blank"><img src="/front/assets/img/symbol-01.png" alt=""></a>
+                        <a href="#" target="_blank"><img src="/front/assets/img/symbol-02.png" alt=""></a>',
 
         'footer_right_links' => '<li>
                                         <a href="#">نحوه ثبت سفارش</a>

@@ -257,8 +257,17 @@ class SettingHelpers
         ],
 
         'footer_app_links' => [
-            'title' => 'نماد های الکترونیکی',
+            'title' => 'اپلیکیشن ها',
             'key' => 'footer_app_links',
+            'has_active_status' => true,
+            'field' => [
+                'type' => 'textarea',
+            ],
+        ],
+
+        'footer_electronic_flags' => [
+            'title' => 'نماد های الکترونیکی',
+            'key' => 'footer_electronic_flags',
             'has_active_status' => true,
             'field' => [
                 'type' => 'textarea',
