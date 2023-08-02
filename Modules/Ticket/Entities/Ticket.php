@@ -73,6 +73,11 @@ class Ticket extends Model
         $query->update(['status' => $new_status]);
     }
 
+    public function scopeFindByTicketNumber($query, $ticket_number)
+    {
+        return $query->where('ticket_number', $ticket_number)->firstOrFail();
+    }
+
     public function save(array $options = [])
     {
         if (!$this->ticket_number) {

@@ -17,5 +17,5 @@ use Modules\Ticket\Http\Controllers\Front\FrontTicketController;
 
 Route::resource('tickets', FrontTicketController::class, ['as' => 'front']);
 
-Route::get('ticket-answers/{ticket}', [FrontTicketAnswerController::class, 'show'])->name('front.ticket-answers.show');
-Route::post('ticket-answers/{ticket}/store', [FrontTicketAnswerController::class, 'store'])->name('front.ticket-answers.store');
+Route::get('ticket-answers/{ticket:ticket_number}', [FrontTicketAnswerController::class, 'show'])->name('front.ticket-answers.show');
+Route::post('ticket-answers/{ticket:ticket_number}/store', [FrontTicketAnswerController::class, 'store'])->name('front.ticket-answers.store');

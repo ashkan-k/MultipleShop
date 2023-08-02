@@ -8,6 +8,11 @@ use App\Http\Traits\Uploader;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Validation\ValidationException;
+use Modules\Email\Emails\SendEmailMail;
+use Modules\Setting\Entities\Setting;
+use Modules\Sms\Helpers\sms_helper;
 use Modules\Ticket\Entities\Ticket;
 use Modules\Ticket\Entities\TicketCategory;
 use Modules\Ticket\Http\Requests\TicketRequest;
@@ -56,7 +61,22 @@ class TicketController extends Controller
             $data['user_id'] = auth()->id();
         }
 
-        Ticket::create(array_merge($data, ['file' => $file]));
+        $ticket = Ticket::create(array_merge($data, ['file' => $file]));
+        $admin_email = Setting::where('key', 'email')->first()->value;
+
+        $user = User::findOrFail($data['user_id']);
+        $message = [
+            $ticket,
+            sprintf(sms_helper::$SMS_PATTERNS['admin_ticket_submit'], $ticket->ticket_number, $user->full_name()),
+            route('front.ticket-answers.show', ['locale' => app()->getLocale(), 'ticket' => $ticket->ticket_number]),
+        ];
+        $title = __('Ticket :title (:number)', ['title' => $ticket->title, 'number' => $ticket->ticket_number]);
+        $template = 'email::emails/ticket/ticket_notification';
+
+        try {
+            Mail::to(strip_tags($admin_email))->send(new SendEmailMail($admin_email, $title, $message, $template));
+        } catch (\Exception $exception) {}
+
         return $this->SuccessRedirect('تیکت شما با موفقیت ثبت شد.', 'tickets.index');
     }
 
@@ -77,6 +97,22 @@ class TicketController extends Controller
         $file = $this->UploadFile($request, 'file', 'ticket_files', auth()->id(), $ticket->file);
 
         $ticket->update(array_merge($request->validated(), ['file' => $file]));
+
+        $message = [
+            $ticket,
+            sprintf(sms_helper::$SMS_PATTERNS['admin_ticket_submit'], $ticket->ticket_number, $ticket->user->full_name()),
+            route('front.ticket-answers.show', ['locale' => app()->getLocale(), 'ticket' => $ticket->ticket_number]),
+        ];
+        $title = __('Ticket :title (:number)', ['title' => $ticket->title, 'number' => $ticket->ticket_number]);
+        $template = 'email::emails/ticket/ticket_notification';
+
+        $admin_email = Setting::where('key', 'email')->first()->value;
+
+        try {
+            Mail::to(strip_tags($admin_email))->send(new SendEmailMail($admin_email, $title, $message, $template));
+        } catch (\Exception $exception) {}
+
+
         return $this->SuccessRedirect('تیکت شما با موفقیت ویرایش شد.', 'tickets.index');
     }
 
