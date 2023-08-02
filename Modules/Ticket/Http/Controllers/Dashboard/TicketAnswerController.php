@@ -59,7 +59,10 @@ class TicketAnswerController extends Controller
         $template = 'email::emails/ticket/ticket_notification';
         $admin_email = Setting::where('key', 'email')->first()->value;
 
-        Mail::to(strip_tags($admin_email))->send(new SendEmailMail($admin_email, $title, $message, $template));
+        try {
+            Mail::to(strip_tags($admin_email))->send(new SendEmailMail($admin_email, $title, $message, $template));
+        } catch (\Exception $exception) {
+        }
 
         return $this->SuccessRedirect(__('Your answer has been successfully registered.'), 'ticket-answers.show', [], $ticket->id);
     }
