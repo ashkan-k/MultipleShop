@@ -132,6 +132,120 @@ class SettingHelpers
                 ],
             ],
         ],
+
+        'footer_right_links' => [
+            [
+                'title' => 'متن فارسی عنوان لینک',
+                'key' => 'footer_right_links_title',
+                'has_active_status' => true,
+                'field' => [
+                    'type' => 'textarea',
+                ],
+            ],
+
+            [
+                'title' => 'متن انگلیسی عنوان لینک',
+                'key' => 'footer_right_links_en_title',
+                'has_active_status' => true,
+                'field' => [
+                    'type' => 'textarea',
+                ],
+            ],
+
+            [
+                'title' => 'متن فارسی لینک ها',
+                'key' => 'footer_right_links',
+                'has_active_status' => true,
+                'field' => [
+                    'type' => 'textarea',
+                ],
+            ],
+
+            [
+                'title' => 'متن انگلیسی لینک ها',
+                'key' => 'footer_en_right_links',
+                'has_active_status' => true,
+                'field' => [
+                    'type' => 'textarea',
+                ],
+            ],
+        ],
+
+        'footer_center_links' => [
+            [
+                'title' => 'متن فارسی عنوان لینک',
+                'key' => 'footer_center_links_title',
+                'has_active_status' => true,
+                'field' => [
+                    'type' => 'textarea',
+                ],
+            ],
+
+            [
+                'title' => 'متن انگلیسی عنوان لینک',
+                'key' => 'footer_center_links_en_title',
+                'has_active_status' => true,
+                'field' => [
+                    'type' => 'textarea',
+                ],
+            ],
+
+            [
+                'title' => 'متن فارسی لینک ها',
+                'key' => 'footer_center_links',
+                'has_active_status' => true,
+                'field' => [
+                    'type' => 'textarea',
+                ],
+            ],
+
+            [
+                'title' => 'متن انگلیسی لینک ها',
+                'key' => 'footer_en_center_links',
+                'has_active_status' => true,
+                'field' => [
+                    'type' => 'textarea',
+                ],
+            ],
+        ],
+
+        'footer_left_links' => [
+            [
+                'title' => 'متن فارسی عنوان لینک',
+                'key' => 'footer_left_links_title',
+                'has_active_status' => true,
+                'field' => [
+                    'type' => 'textarea',
+                ],
+            ],
+
+            [
+                'title' => 'متن انگلیسی عنوان لینک',
+                'key' => 'footer_left_links_en_title',
+                'has_active_status' => true,
+                'field' => [
+                    'type' => 'textarea',
+                ],
+            ],
+
+            [
+                'title' => 'متن فارسی لینک ها',
+                'key' => 'footer_left_links',
+                'has_active_status' => true,
+                'field' => [
+                    'type' => 'textarea',
+                ],
+            ],
+
+            [
+                'title' => 'متن انگلیسی لینک ها',
+                'key' => 'footer_en_left_links',
+                'has_active_status' => true,
+                'field' => [
+                    'type' => 'textarea',
+                ],
+            ],
+        ],
     ];
 
     public static function GetDynamicItem($key, $filed_options = [])

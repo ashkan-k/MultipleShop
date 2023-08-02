@@ -699,6 +699,30 @@
                             <span class="menu-title">تنظیمات درباره ما</span>
                         </a>
 
+                        <a class="menu-link @if(\Illuminate\Support\Facades\Route::current()->getName() == 'multiple_dynamic_form' && str_contains(request()->url(), 'footer_right_links')) active @endif"
+                           href="{{ route('multiple_dynamic_form', ['key' => 'footer_right_links']) }}">
+													<span class="menu-bullet">
+														<span class="bullet bullet-dot"></span>
+													</span>
+                            <span class="menu-title">تنظیمات لینک های سمت راست فوتر</span>
+                        </a>
+
+                        <a class="menu-link @if(\Illuminate\Support\Facades\Route::current()->getName() == 'multiple_dynamic_form' && str_contains(request()->url(), 'footer_center_links')) active @endif"
+                           href="{{ route('multiple_dynamic_form', ['key' => 'footer_center_links']) }}">
+													<span class="menu-bullet">
+														<span class="bullet bullet-dot"></span>
+													</span>
+                            <span class="menu-title">تنظیمات لینک های وسط فوتر</span>
+                        </a>
+
+                        <a class="menu-link @if(\Illuminate\Support\Facades\Route::current()->getName() == 'multiple_dynamic_form' && str_contains(request()->url(), 'footer_left_links')) active @endif"
+                           href="{{ route('multiple_dynamic_form', ['key' => 'footer_left_links']) }}">
+													<span class="menu-bullet">
+														<span class="bullet bullet-dot"></span>
+													</span>
+                            <span class="menu-title">تنظیمات لینک های سمت چپ فوتر</span>
+                        </a>
+
                         <a class="menu-link @if(\Illuminate\Support\Facades\Route::current()->getName() == 'multiple_dynamic_form' && str_contains(request()->url(), 'communication')) active @endif"
                            href="{{ route('multiple_dynamic_form', ['key' => 'communication']) }}">
 													<span class="menu-bullet">
