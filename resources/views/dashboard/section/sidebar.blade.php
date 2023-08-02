@@ -659,7 +659,7 @@
             </div>
 
             <div data-kt-menu-trigger="click"
-                 class="menu-item @if(str_starts_with(\Illuminate\Support\Facades\Route::current()->getName(), 'settings.')) show @endif menu-accordion">
+                 class="menu-item @if(str_starts_with(\Illuminate\Support\Facades\Route::current()->getName(), 'settings.') || (\Illuminate\Support\Facades\Route::current()->getName() == 'dynamic_form') || (\Illuminate\Support\Facades\Route::current()->getName() == 'multiple_dynamic_form')) show @endif menu-accordion">
                 <span class="menu-link">
 											<span class="menu-icon">
 												<i class="ki-duotone ki-switch fs-2">
@@ -675,7 +675,7 @@
                 <div class="menu-sub menu-sub-accordion">
 
                     <div class="menu-item">
-                        <a class="menu-link @if(\Illuminate\Support\Facades\Route::current()->getName() == 'dynamic_form') active @endif"
+                        <a class="menu-link @if(\Illuminate\Support\Facades\Route::current()->getName() == 'dynamic_form' && str_contains(request()->url(), 'lang')) active @endif"
                            href="{{ route('dynamic_form', ['key' => 'lang']) }}">
 													<span class="menu-bullet">
 														<span class="bullet bullet-dot"></span>
@@ -683,7 +683,15 @@
                             <span class="menu-title">تنظیمات زبان</span>
                         </a>
 
-                        <a class="menu-link @if(\Illuminate\Support\Facades\Route::current()->getName() == 'dynamic_form') active @endif"
+                        <a class="menu-link @if(\Illuminate\Support\Facades\Route::current()->getName() == 'dynamic_form' && str_contains(request()->url(), 'logo')) active @endif"
+                           href="{{ route('dynamic_form', ['key' => 'logo']) }}">
+													<span class="menu-bullet">
+														<span class="bullet bullet-dot"></span>
+													</span>
+                            <span class="menu-title">تنظیم لوگو</span>
+                        </a>
+
+                        <a class="menu-link @if(\Illuminate\Support\Facades\Route::current()->getName() == 'dynamic_form' && str_contains(request()->url(), 'comment_terms_page')) active @endif"
                            href="{{ route('dynamic_form', ['key' => 'comment_terms_page']) }}">
 													<span class="menu-bullet">
 														<span class="bullet bullet-dot"></span>
@@ -691,7 +699,7 @@
                             <span class="menu-title">صفحه مقررات نظرات</span>
                         </a>
 
-                        <a class="menu-link @if(\Illuminate\Support\Facades\Route::current()->getName() == 'multiple_dynamic_form') active @endif"
+                        <a class="menu-link @if(\Illuminate\Support\Facades\Route::current()->getName() == 'multiple_dynamic_form' && str_contains(request()->url(), 'footer_copyright')) active @endif"
                            href="{{ route('multiple_dynamic_form', ['key' => 'footer_copyright']) }}">
 													<span class="menu-bullet">
 														<span class="bullet bullet-dot"></span>

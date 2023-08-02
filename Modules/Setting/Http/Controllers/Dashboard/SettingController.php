@@ -3,6 +3,7 @@
 namespace Modules\Setting\Http\Controllers\Dashboard;
 
 use App\Http\Traits\Responses;
+use App\Http\Traits\Uploader;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -13,7 +14,7 @@ use Modules\Setting\Http\Requests\SettingRequest;
 
 class SettingController extends Controller
 {
-    use Responses;
+    use Responses, Uploader;
 
     public function index()
     {

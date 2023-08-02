@@ -18,6 +18,15 @@ class SettingHelpers
             ],
         ],
 
+        'logo' => [
+            'title' => 'لوگو',
+            'key' => 'logo',
+            'has_active_status' => false,
+            'field' => [
+                'type' => 'file',
+            ],
+        ],
+
         'comment_terms_page' => [
             'title' => 'صفحه مقررات ثبت نظر',
             'key' => 'comment_terms_page',

@@ -127,9 +127,13 @@ Like: www.facebook.com/keenthemes
                 </div>
                 <!--end::Sidebar mobile toggle-->
                 <!--begin::Mobile logo-->
+
+                <?php $logo_setting = \Modules\Setting\Entities\Setting::where('key', 'logo')->first() ?>
+
                 <div class="d-flex align-items-center flex-grow-1 flex-lg-grow-0">
                     <a href="/" class="d-lg-none">
-                        <img alt="Logo" src="/admin/src/assets/media/logos/default-small.svg" class="h-30px">
+{{--                        <img alt="Logo" src="/admin/src/assets/media/logos/default-small.svg" class="h-30px">--}}
+                        <img alt="Logo" src="@if($logo_setting){{ $logo_setting->value }}@endif" class="h-30px">
                     </a>
                 </div>
                 <!--end::Mobile logo-->
@@ -323,9 +327,9 @@ Like: www.facebook.com/keenthemes
                 <div class="app-sidebar-logo px-6" id="kt_app_sidebar_logo">
                     <!--begin::Logo image-->
                     <a href="/">
-                        <img alt="Logo" src="/admin/src/assets/media/logos/default-dark.svg"
+                        <img alt="Logo" src="@if($logo_setting){{ $logo_setting->value }}@endif"
                              class="h-25px app-sidebar-logo-default"/>
-                        <img alt="Logo" src="/admin/src/assets/media/logos/default-small.svg"
+                        <img alt="Logo" src="@if($logo_setting){{ $logo_setting->value }}@endif"
                              class="h-20px app-sidebar-logo-minimize"/>
                     </a>
                     <!--end::Logo image-->

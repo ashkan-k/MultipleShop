@@ -4,7 +4,7 @@
 
 @endsection
 @section('content')
-    <div class="d-flex flex-column flex-column-fluid">
+    <div class="d-flex flex-column flex-column-fluid" ng-init="init()">
         <!--begin::Toolbar-->
         <div id="kt_app_toolbar" class="app-toolbar py-3 py-lg-6">
             <!--begin::Toolbar container-->
@@ -110,12 +110,12 @@
                                             <!--begin::Tags-->
                                             <label for="id_value"
                                                    class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                                <span class="required">$key_label</span>
+                                                <span class="required">{{ $form['title'] }}</span>
                                             </label>
                                             <!--end::Tags-->
                                             <textarea type="text" id="id_value" class="form-control form-control-solid"
                                                       rows="8" required
-                                                      placeholder="$key_label را وارد کنید"
+                                                      placeholder="{{ $form['title'] }} را وارد کنید"
                                                       name="value">@if(old('value')){{ old('value') }}@elseif(isset($object->value)){{ $object->value }}@endif</textarea>
 
                                             @error('value')
@@ -125,6 +125,41 @@
                                                 </div>
                                             </div>
                                             @enderror
+
+                                        </div>
+
+                                    @elseif($form['field']['type'] == 'file')
+
+                                        <div class="d-flex flex-column mb-8 fv-row">
+                                            <!--begin::Tags-->
+                                            <label for="id_value"
+                                                   class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                                <span class="required">{{ $form['title'] }}</span>
+                                            </label>
+                                            <!--end::Tags-->
+                                            <input type="file" id="id_value" class="form-control form-control-solid"
+                                                   required placeholder="{{ $form['title'] }} را وارد کنید"
+                                                   value="@if(old('value')){{ old('value') }}@elseif(isset($object->value)){{ $object->value }}@endif"
+                                                   name="value">
+
+                                            @error('value')
+                                            <div class="fv-plugins-message-container invalid-feedback">
+                                                <div data-field="meta_title" data-validator="notEmpty">
+                                                    {{ $message }}
+                                                </div>
+                                            </div>
+                                            @enderror
+
+                                            @if(isset($object) && $object->value)
+                                                <div class="input-field col s12 mt-3">
+                                                    <p>فایل قبلی:</p>
+
+                                                    <a href="[[ file_value ]]" target="_blank"
+                                                       class="btn btn-sm btn-warning">
+                                                        مشاهده فایل
+                                                    </a>
+                                                </div>
+                                            @endif
 
                                         </div>
 
@@ -214,12 +249,27 @@
 
     <script>
         app.controller('myCtrl', function ($scope, $http) {
+            $scope.file_value = '';
+
+            $scope.init = function () {
+                @if($form['field']['type'] == 'file' && isset($object->value))
+                    $scope.file_value = '{{ $object->value }}';
+                @endif
+            }
+
             $scope.SubmitChanges = function () {
                 @if($form['field']['type'] == 'textarea')
                     var value = CKEDITOR.instances[`id_value`].getData();
                 @elseif($form['field']['type'] == 'select')
                     var value = $('#id_value').find(":selected").val();
+                @elseif($form['field']['type'] == 'file')
+                    var value = $("#id_value")[0].files[0];
                 @endif
+
+                if(!value){
+                    showToast('فیلد {{ $form['title'] }} الزامی است!', 'error');
+                    return;
+                }
 
                 @if($form['has_active_status'])
                     var is_active = $(`#id_is_active`).is(':checked');
@@ -229,15 +279,21 @@
 
                 $scope.is_submited = true;
 
-                var data = {
-                    "key": '{{ $form['key'] }}',
-                    "value": value,
-                    "is_active": is_active,
-                };
+                fd = new FormData();
+                fd.append('key', '{{ $form['key'] }}');
+                fd.append('is_active', is_active);
+                fd.append('value', value);
 
-                $http.post(`/api/settings/{{ $form['key'] }}`, data).then(res => {
+                $http.post(`/api/settings/{{ $form['key'] }}`, fd, {
+                    headers: {
+                        'Content-Type': undefined
+                    },
+                }).then(res => {
                     showToast('آیتم مورد نظر با موفقیت ویرایش شد.', 'success');
                     $scope.is_submited = false;
+                    @if($form['field']['type'] == 'file')
+                        $scope.file_value = res['data']['data']['value'];
+                    @endif
                 }).catch(err => {
                     $scope.is_submited = false;
                     showToast('خطایی رخ داد.', 'error');
