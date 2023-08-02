@@ -51,6 +51,12 @@ class RouteServiceProvider extends ServiceProvider
             ->namespace($this->moduleNamespace)
             ->prefix('dashboard')
             ->group(module_path('Ticket', '/Routes/web.php'));
+
+        Route::middleware(['web', 'auth', 'setlocale'])
+            ->namespace($this->moduleNamespace)
+            ->prefix('{locale}')
+            ->where(['locale' => '[a-zA-Z]{2}'])
+            ->group(module_path('Ticket', '/Routes/front.php'));
     }
 
     /**
