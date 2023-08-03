@@ -34,19 +34,4 @@ class ProductFeatureController extends Controller
         $next_url = \request('next_url');
         return $this->SuccessRedirectUrl('آیتم مورد نظر با موفقیت حذف شد.', $next_url);
     }
-    //
-
-    // Web Apis Routes
-    public function store(ProductFeatureRequest $request)
-    {
-        ProductFeature::create($request->validated());
-        return $this->SuccessResponse('آیتم مورد نظر با موفقیت ثبت شد.');
-    }
-
-    public function update(ProductFeatureRequest $request, ProductFeature $product_feature)
-    {
-        $product_feature->update($request->validated());
-        return $this->SuccessResponse('آیتم مورد نظر با موفقیت ویرایش شد.');
-    }
-    //
 }

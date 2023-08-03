@@ -6,8 +6,8 @@ use Modules\Product\Http\Controllers\Dashboard\Api\ApiBrandController;
 use Modules\Product\Http\Controllers\Dashboard\Api\ApiCategoryController;
 use Modules\Product\Http\Controllers\Dashboard\Api\ApiGalleryController;
 use Modules\Product\Http\Controllers\Dashboard\Api\ApiProductController;
+use Modules\Product\Http\Controllers\Dashboard\Api\ApiProductFeatureController;
 use Modules\Product\Http\Controllers\Dashboard\FeatureController;
-use Modules\Product\Http\Controllers\Dashboard\ProductFeatureController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,9 +34,10 @@ Route::middleware('check_admin')->group(function () {
     Route::get('features/items/{feature}', [FeatureController::class, 'feature_filter_items']);
 
     // Product Features
-    Route::get('products-features', [ProductFeatureController::class, 'store']);
-    Route::post('products-features', [ProductFeatureController::class, 'store']);
-    Route::post('products-features/{product_feature}', [ProductFeatureController::class, 'update']);
+    Route::resource('products-features', ApiProductFeatureController::class);
+//    Route::get('products-features', [ApiProductFeatureController::class, 'index']);
+//    Route::post('products-features', [ApiProductFeatureController::class, 'store']);
+//    Route::post('products-features/{product_feature}', [ApiProductFeatureController::class, 'update']);
 });
 
 

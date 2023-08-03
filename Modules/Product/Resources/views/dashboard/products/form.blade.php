@@ -720,7 +720,7 @@
             }
 
             $scope.GetProductFeatures = function () {
-                var url = `/api/products/features/items/{{ $object->id }}/`
+                var url = `/api/products/products-features?product_id={{ $object->id }}`
 
                 $http.get(url).then(res => {
                     $scope.is_submited = false;
@@ -773,34 +773,51 @@
                     return;
                 }
 
-                $scope.is_submited = true;
-
                 $scope.obj['product_id'] = {{ $object->id }};
 
-                if ($scope.obj['id']) {
-                    var url = `/api/products/products-features/${$scope.obj['id']}`
-                } else {
-                    var url = `/api/products/products-features`
-                }
+                $scope.is_submited = true;
 
-                $http.post(url, $scope.obj).then(res => {
-                    showToast(res['data']['data'], 'success');
-                    $scope.is_submited = false;
-                    setTimeout(() => {
-                        location.reload()
-                    }, 500)
-                }).catch(err => {
-                    $scope.is_submited = false;
-                    if (err['data']['errors']['feature_id']) {
-                        showToast(err['data']['errors']['feature_id'][0], 'error');
-                        return;
-                    }
-                    if (err['data']['errors']['product_id']) {
-                        showToast(err['data']['errors']['product_id'][0], 'error');
-                        return;
-                    }
-                    showToast('خطایی رخ داد.', 'error');
-                });
+                if ($scope.obj['id']) {
+                    var url = `/api/products/products-features/${$scope.obj['id']}`;
+
+                    $http.patch(url, $scope.obj).then(res => {
+                        showToast(res['data']['data'], 'success');
+                        $scope.is_submited = false;
+                        $scope.GetProductFeatures();
+                    }).catch(err => {
+                        $scope.is_submited = false;
+                        if (err['data']['errors']['feature_id']) {
+                            showToast(err['data']['errors']['feature_id'][0], 'error');
+                            return;
+                        }
+                        if (err['data']['errors']['product_id']) {
+                            showToast(err['data']['errors']['product_id'][0], 'error');
+                            return;
+                        }
+                        showToast('خطایی رخ داد.', 'error');
+                    });
+
+                } else {
+                    var url = `/api/products/products-features`;
+
+                    $http.post(url, $scope.obj).then(res => {
+                        showToast(res['data']['data'], 'success');
+                        $scope.is_submited = false;
+                        $scope.GetProductFeatures();
+                    }).catch(err => {
+                        $scope.is_submited = false;
+                        if (err['data']['errors']['feature_id']) {
+                            showToast(err['data']['errors']['feature_id'][0], 'error');
+                            return;
+                        }
+                        if (err['data']['errors']['product_id']) {
+                            showToast(err['data']['errors']['product_id'][0], 'error');
+                            return;
+                        }
+                        showToast('خطایی رخ داد.', 'error');
+                    });
+
+                }
             }
         });
     </script>
