@@ -523,7 +523,7 @@
                                         ویرایش
                                     </a>
 
-                                    <a ng-click="AddEditFeatureModal(item)" class="btn btn-bg-light btn-color-muted btn-active-color-primary btn-sm px-4 me-2">
+                                    <a ng-click="RemoveFeature(item.id)" class="btn btn-bg-light btn-color-muted btn-active-color-primary btn-sm px-4 me-2">
                                         حذف
                                     </a>
                                 </td>
@@ -747,6 +747,22 @@
                     showToast('خطایی رخ داد.', 'error');
                 });
             }
+
+            $scope.RemoveFeature = function (itemId) {
+                let title = 'حذف آیتم';
+                let description = 'آیا از حذف این آیتم مطمئن هستید؟ این عملیات غیرقابل بازگشت است.';
+                let url = '/api/products/products-features/';
+                createSwal("warning", description, title).then((result) => {
+                    if (result.value) {
+                        $http.delete(`${url}${itemId}/`).then(function () {
+                            $scope.GetProductFeatures();
+                            showToast('آیتم مورد نظر با موفقیت حذف شد.', 'success');
+                        }).catch(function (err) {
+                            parseError(err);
+                        })
+                    }
+                });
+            };
 
             $scope.SubmitAddEditFeature = function (type = 'create') {
                 if (!$scope.obj['feature_id']) {

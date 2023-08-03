@@ -38,4 +38,10 @@ class ApiProductFeatureController extends Controller
         $products_feature->update($request->validated());
         return $this->SuccessResponse('آیتم مورد نظر با موفقیت ویرایش شد.');
     }
+
+    public function destroy(ProductFeature $products_feature)
+    {
+        $products_feature->delete();
+        return $this->SuccessResponse('آیتم مورد نظر با موفقیت حذف شد.');
+    }
 }
