@@ -1,5 +1,13 @@
 @extends('layouts.admin-master')
-@section('title','کاربر ها')
+
+@section('title')
+    @if(isset($object))
+        ویرایش کاربر {{ $object->full_name() }}
+    @else
+        افزودن کاربر
+    @endif
+@endsection
+
 @section('Styles')
 
 @endsection
@@ -13,7 +21,12 @@
                 <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
                     <!--begin::Title-->
                     <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">
-                        افزودن کاربر</h1>
+                        @if(isset($object))
+                            ویرایش کاربر {{ $object->full_name() }}
+                        @else
+                            افزودن کاربر
+                        @endif
+                    </h1>
                     <!--end::Title-->
                     <!--begin::Breadcrumb-->
                     <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1">

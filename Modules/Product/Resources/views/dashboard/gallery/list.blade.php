@@ -1,5 +1,9 @@
 @extends('layouts.admin-master')
-@section('title','گالری تصاویر')
+
+@section('title')
+    گالری تصاویر {{ $product->title }}
+@endsection
+
 @section('Styles')
 
 @endsection

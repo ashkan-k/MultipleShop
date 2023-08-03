@@ -1,5 +1,9 @@
 @extends('layouts.admin-master')
-@section('title','ویژگی ها')
+
+@section('title')
+    ویژگی ها محصول {{ $product->title }}
+@endsection
+
 @section('Styles')
 
 @endsection

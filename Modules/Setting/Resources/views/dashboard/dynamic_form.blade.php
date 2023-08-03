@@ -1,5 +1,13 @@
 @extends('layouts.admin-master')
-@section('title','تنظیمات ها')
+
+@section('title')
+    @if($form)
+        تغغیر تنظیمات {{ $form['title'] }}
+    @else
+        افزودن تنظیمات
+    @endif
+@endsection
+
 @section('Styles')
 
 @endsection
