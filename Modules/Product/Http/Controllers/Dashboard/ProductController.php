@@ -11,6 +11,7 @@ use Modules\Product\Entities\Brand;
 use Modules\Product\Entities\Category;
 use Modules\Product\Entities\Color;
 use Modules\Product\Entities\Product;
+use Modules\Product\Entities\ProductFeature;
 use Modules\Product\Entities\Size;
 use Modules\Product\Http\Requests\ProductRequest;
 use Modules\User\Entities\User;
@@ -69,7 +70,10 @@ class ProductController extends Controller
         $brands = Brand::all();
         $colors = Color::all();
         $sizes = Size::all();
-        return view('product::dashboard.products.form', compact('users', 'categories', 'brands', 'colors', 'sizes'))->with('object', $product);
+
+        $features = $product->category->features()->get(['id', 'title', 'filter_type'])->toArray();
+
+        return view('product::dashboard.products.form', compact('users', 'categories', 'brands', 'colors', 'sizes', 'features'))->with('object', $product);
     }
 
     public function update(ProductRequest $request, Product $product)

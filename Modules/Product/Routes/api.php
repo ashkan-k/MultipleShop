@@ -34,6 +34,7 @@ Route::middleware('check_admin')->group(function () {
     Route::get('features/items/{feature}', [FeatureController::class, 'feature_filter_items']);
 
     // Product Features
+    Route::get('products-features', [ProductFeatureController::class, 'store']);
     Route::post('products-features', [ProductFeatureController::class, 'store']);
     Route::post('products-features/{product_feature}', [ProductFeatureController::class, 'update']);
 });
