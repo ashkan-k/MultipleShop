@@ -41,6 +41,14 @@ class Coupon extends Model
         return \Modules\Coupon\Database\factories\CouponFactory::new();
     }
 
+    public function save(array $options = [])
+    {
+        if (!$this->uses_number){
+            $this->uses_number = 1;
+        }
+        return parent::save($options);
+    }
+
     public static function CheckCoupon($code, $user_id)
     {
         $coupon = Coupon::where('code', $code)->first();

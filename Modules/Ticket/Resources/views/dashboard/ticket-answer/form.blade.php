@@ -1,7 +1,7 @@
 @extends('layouts.admin-master')
 
 @section('title')
-    ثبت پاسخ برای تیکت {{ $object->ticket->title }}
+    ثبت پاسخ برای تیکت {{ $ticket->title }}
 @endsection
 
 @section('Styles')
@@ -17,7 +17,7 @@
                 <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
                     <!--begin::Title-->
                     <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">
-                        ثبت پاسخ برای تیکت {{ $object->ticket->title }}
+                        ثبت پاسخ برای تیکت {{ $ticket->title }}
                     </h1>
                     <!--end::Title-->
                     <!--begin::Breadcrumb-->

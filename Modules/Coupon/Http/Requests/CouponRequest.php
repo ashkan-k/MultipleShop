@@ -20,7 +20,7 @@ class CouponRequest extends FormRequest
                 Rule::unique('coupons', 'code')->ignore($this->coupon)
             ],
             'percent' => 'required|numeric',
-            'uses_number' => 'numeric',
+            'uses_number' => 'nullable|numeric',
             'expiration' => 'nullable|jdate:Y-m-d|after:' . \verta()->formatDate(),
             'user_id' => 'nullable|exists:users,id',
         ];
