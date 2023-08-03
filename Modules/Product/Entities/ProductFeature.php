@@ -25,6 +25,15 @@ class ProductFeature extends Model
         'feature.title',
     ];
 
+    protected $appends = [
+        'get_place'
+    ];
+
+    public function getGetPlaceAttribute()
+    {
+       return $this->get_place();
+    }
+
     public function get_place()
     {
         if ($this->place == 'up'){

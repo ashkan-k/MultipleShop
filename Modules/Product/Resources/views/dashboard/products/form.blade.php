@@ -507,38 +507,25 @@
                             </thead>
                             <tbody class="text-gray-600 fw-semibold">
 
-                                <tr ng-repeat="item in feature_items track by $index">
-                                <td>[[ $index + 1 ]]</td>
+                                <tr ng-repeat="(key, item) in feature_items">
+                                <td>[[ key + 1 ]]</td>
 
-                                <td></td>
+                                <td>[[ item['product']['title'] ]]</td>
 
-                                <td></td>
+                                <td>[[ item['feature']['title'] ]]</td>
 
-                                <td></td>
+                                <td>[[ item['value'] ]]</td>
 
-                                <td></td>
+                                <td>[[ item['get_place'] ]]</td>
 
                                 <td class="">
-                                    <a href="#"
-                                       class="btn btn-light btn-active-light-primary btn-flex btn-center btn-sm"
-                                       data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">عملیات
-                                        <i class="ki-duotone ki-down fs-5 ms-1"></i></a>
-                                    <!--begin::Menu-->
-                                    <div
-                                        class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4"
-                                        data-kt-menu="true">
-                                        <div class="menu-item px-3">
-                                            <a ng-click="AddEditFeatureModal()" class="menu-link px-3"
-                                               data-kt-features-table-filter="delete_row">ویرایش</a>
-                                        </div>
-                                        <div class="menu-item px-3">
+                                    <a ng-click="AddEditFeatureModal(item)" class="btn btn-bg-light btn-color-muted btn-active-color-primary btn-sm px-4 me-2">
+                                        ویرایش
+                                    </a>
 
-                                            <a class="menu-link px-3"
-                                               data-kt-features-table-filter="delete_row">حذف</a>
-
-                                        </div>
-                                    </div>
-                                    <!--end::Menu-->
+                                    <a ng-click="AddEditFeatureModal(item)" class="btn btn-bg-light btn-color-muted btn-active-color-primary btn-sm px-4 me-2">
+                                        حذف
+                                    </a>
                                 </td>
                             </tr>
 
@@ -740,10 +727,12 @@
             }
 
             $scope.$watch('obj.feature_id', function (newValue, oldValue) {
+                console.log('aaaaaaaaaaa')
+                console.log(newValue)
                 if (newValue) {
                     $scope.feature = $scope.features.filter(element => element['id'] == newValue)[0];
                     $scope.GetFeatureFilterItems(newValue);
-                    $scope.obj['value'] = '';
+                    // $scope.obj['value'] = '';
                 }
             });
 
@@ -781,9 +770,10 @@
                     var url = `/api/products/products-features/${$scope.obj['id']}`;
 
                     $http.patch(url, $scope.obj).then(res => {
-                        showToast(res['data']['data'], 'success');
                         $scope.is_submited = false;
                         $scope.GetProductFeatures();
+                        showToast(res['data']['data'], 'success');
+                        $('#addEditFeatureModal').modal('hide');
                     }).catch(err => {
                         $scope.is_submited = false;
                         if (err['data']['errors']['feature_id']) {
@@ -801,9 +791,10 @@
                     var url = `/api/products/products-features`;
 
                     $http.post(url, $scope.obj).then(res => {
-                        showToast(res['data']['data'], 'success');
                         $scope.is_submited = false;
                         $scope.GetProductFeatures();
+                        showToast(res['data']['data'], 'success');
+                        $('#addEditFeatureModal').modal('hide');
                     }).catch(err => {
                         $scope.is_submited = false;
                         if (err['data']['errors']['feature_id']) {

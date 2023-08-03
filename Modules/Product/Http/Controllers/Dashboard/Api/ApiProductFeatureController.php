@@ -22,8 +22,7 @@ class ApiProductFeatureController extends Controller
 
     public function index()
     {
-        $product = Product::findOrFail(\request('product_id'));
-        $objects = ProductFeature::whereBelongsTo($product)
+        $objects = ProductFeature::where('product_id', \request('product_id'))
             ->with($this->relations)->get();
         return $this->SuccessResponse($objects);
     }
@@ -34,9 +33,9 @@ class ApiProductFeatureController extends Controller
         return $this->SuccessResponse('آیتم مورد نظر با موفقیت ثبت شد.');
     }
 
-    public function update(ProductFeatureRequest $request, ProductFeature $product_feature)
+    public function update(ProductFeatureRequest $request, ProductFeature $products_feature)
     {
-        $product_feature->update($request->validated());
+        $products_feature->update($request->validated());
         return $this->SuccessResponse('آیتم مورد نظر با موفقیت ویرایش شد.');
     }
 }

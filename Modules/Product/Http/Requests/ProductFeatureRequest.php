@@ -30,7 +30,7 @@ class ProductFeatureRequest extends FormRequest
                 'exists:products,id',
 //                Rule::in(auth()->user()->products()->pluck('id')->toArray())
             ],
-            'value' => 'required|string',
+            'value' => 'required',
             'place' => 'nullable|in:up,down,both',
         ];
     }
