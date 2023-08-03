@@ -4,6 +4,8 @@ namespace Modules\Setting\Providers;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
+use Modules\Setting\Entities\Setting;
+use Modules\Setting\Observers\SettingObserver;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -24,6 +26,7 @@ class RouteServiceProvider extends ServiceProvider
     public function boot()
     {
         parent::boot();
+        Setting::observe(SettingObserver::class);
     }
 
     /**

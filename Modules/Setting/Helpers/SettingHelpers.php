@@ -357,6 +357,15 @@ class SettingHelpers
                     'type' => 'checkbox',
                 ],
             ],
+
+            [
+                'title' => 'وضعیت نمایش بخش تصاویر راهنما',
+                'key' => 'show_guides',
+                'has_active_status' => false,
+                'field' => [
+                    'type' => 'checkbox',
+                ],
+            ],
         ],
     ];
 

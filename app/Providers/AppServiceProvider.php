@@ -24,15 +24,19 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         if (Schema::hasTable('settings') && !str_contains('dashboard', request()->url())){
-            $settings = [];
-            foreach (Setting::all() as $item){
-                $settings[$item->key] = $item;
+            if (!$settings = GetCache('all_settings')) {
+                foreach (Setting::all() as $item){
+                    $settings[$item->key] = $item;
+                }
+                AddCache('all_settings', $settings);
             }
             View::share('settings', $settings);
         }
 
         if (Schema::hasTable('guides') && !str_contains('dashboard', request()->url())){
-            $guides = Guide::all();
+            if (!$guides = GetCache('index_guides')) {
+                $guides = AddCache('index_guides', Guide::all());
+            }
             View::share('guides', $guides);
         }
     }

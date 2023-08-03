@@ -426,7 +426,7 @@
             </a>
         </div>
 
-        @if($settings['show_guides']->is_active)
+        @if($settings['show_guides']->value)
             <div class="container">
                 <div class="footer-services">
                     <div class="row">
