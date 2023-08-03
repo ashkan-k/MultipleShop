@@ -467,82 +467,85 @@
             <!--end::Content container-->
         </div>
 
-        <!--begin::Content-->
-        <div id="kt_app_content" class="app-content flex-column-fluid">
-            <!--begin::Content container-->
-            <div id="kt_app_content_container" class="app-container container-xxl">
-                <!--begin::کارت-->
-                <div class="card">
-                    <!--begin::کارت header-->
-                    <div class="card-header border-0 pt-6">
-                        <div class="card-toolbar">
-                            <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
+      @if(isset($object))
+          <!--begin::Content-->
+              <div id="kt_app_content" class="app-content flex-column-fluid">
+                  <!--begin::Content container-->
+                  <div id="kt_app_content_container" class="app-container container-xxl">
+                      <!--begin::کارت-->
+                      <div class="card">
+                          <!--begin::کارت header-->
+                          <div class="card-header border-0 pt-6">
+                              <div class="card-toolbar">
+                                  <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
 
-                                <button type="button" ng-click="AddEditFeatureModal()"
-                                        class="btn btn-primary" data-bs-toggle="modal"
-                                        data-bs-target="#kt_modal_add_user">
-                                    <i class="ki-duotone ki-plus fs-2"></i>افزودن ویژگی جدید به
-                                    محصول {{ $object->title }}
-                                </button>
-                                <!--end::Add user-->
-                            </div>
-                            <!--end::Toolbar-->
-                        </div>
-                        <!--end::کارت toolbar-->
-                    </div>
-                    <!--end::کارت header-->
-                    <!--begin::کارت body-->
-                    <div class="card-body py-4">
-                        <!--begin::Table-->
-                        <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_table_items">
-                            <thead>
-                            <tr class="text-start text-muted fw-bold fs-7 text-uppercase gs-0">
-                                <th>شناسه</th>
-                                <th>محصول</th>
-                                <th>ویزگی</th>
-                                <th>مقدار</th>
-                                <th>جایگاه</th>
-                                <th>عملیات</th>
-                            </tr>
-                            </thead>
-                            <tbody class="text-gray-600 fw-semibold">
+                                      <button type="button" ng-click="AddEditFeatureModal()"
+                                              class="btn btn-primary" data-bs-toggle="modal"
+                                              data-bs-target="#kt_modal_add_user">
+                                          <i class="ki-duotone ki-plus fs-2"></i>افزودن ویژگی جدید به
+                                          محصول {{ $object->title }}
+                                      </button>
+                                      <!--end::Add user-->
+                                  </div>
+                                  <!--end::Toolbar-->
+                              </div>
+                              <!--end::کارت toolbar-->
+                          </div>
+                          <!--end::کارت header-->
+                          <!--begin::کارت body-->
+                          <div class="card-body py-4">
+                              <!--begin::Table-->
+                              <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_table_items">
+                                  <thead>
+                                  <tr class="text-start text-muted fw-bold fs-7 text-uppercase gs-0">
+                                      <th>شناسه</th>
+                                      <th>محصول</th>
+                                      <th>ویزگی</th>
+                                      <th>مقدار</th>
+                                      <th>جایگاه</th>
+                                      <th>عملیات</th>
+                                  </tr>
+                                  </thead>
+                                  <tbody class="text-gray-600 fw-semibold">
 
-                                <tr ng-repeat="(key, item) in feature_items">
-                                <td>[[ key + 1 ]]</td>
+                                  <tr ng-repeat="(key, item) in feature_items">
+                                      <td>[[ key + 1 ]]</td>
 
-                                <td>[[ item['product']['title'] ]]</td>
+                                      <td>[[ item['product']['title'] ]]</td>
 
-                                <td>[[ item['feature']['title'] ]]</td>
+                                      <td>[[ item['feature']['title'] ]]</td>
 
-                                <td>[[ item['value'] ]]</td>
+                                      <td>[[ item['value'] ]]</td>
 
-                                <td>[[ item['get_place'] ]]</td>
+                                      <td>[[ item['get_place'] ]]</td>
 
-                                <td class="">
-                                    <a ng-click="AddEditFeatureModal(item)" class="btn btn-bg-light btn-color-muted btn-active-color-primary btn-sm px-4 me-2">
-                                        ویرایش
-                                    </a>
+                                      <td class="">
+                                          <a ng-click="AddEditFeatureModal(item)" class="btn btn-bg-light btn-color-muted btn-active-color-primary btn-sm px-4 me-2">
+                                              ویرایش
+                                          </a>
 
-                                    <a ng-click="RemoveFeature(item.id)" class="btn btn-bg-light btn-color-muted btn-active-color-primary btn-sm px-4 me-2">
-                                        حذف
-                                    </a>
-                                </td>
-                            </tr>
+                                          <a ng-click="RemoveFeature(item.id)" class="btn btn-bg-light btn-color-muted btn-active-color-primary btn-sm px-4 me-2">
+                                              حذف
+                                          </a>
+                                      </td>
+                                  </tr>
 
-                            </tbody>
-                        </table>
-                        <!--end::Table-->
-                    </div>
-                    <!--end::کارت body-->
-                </div>
-                <!--end::کارت-->
-            </div>
-            <!--end::Content container-->
-        </div>
-        <!--end::Content-->
+                                  </tbody>
+                              </table>
+                              <!--end::Table-->
+                          </div>
+                          <!--end::کارت body-->
+                      </div>
+                      <!--end::کارت-->
+                  </div>
+                  <!--end::Content container-->
+              </div>
+              <!--end::Content-->
+      @endif
     </div>
 
-    <div class="modal fade" id="addEditFeatureModal" tabindex="-1" aria-hidden="true">
+    @if(isset($object))
+        <div class="modal fade" id="addEditFeatureModal" tabindex="-1" aria-hidden="true">
         <!--begin::Modal dialog-->
         <div class="modal-dialog modal-dialog-centered mw-650px">
             <!--begin::Modal content-->
@@ -634,6 +637,7 @@
         </div>
         <!--end::Modal dialog-->
     </div>
+    @endif
 @endsection
 
 @section('Scripts')
@@ -696,7 +700,8 @@
     </script>
 
     <script>
-        app.controller('myCtrl', function ($scope, $http) {
+        @if(isset($object))
+            app.controller('myCtrl', function ($scope, $http) {
 
             $scope.feature_items = [];
             $scope.filter_items = [];
@@ -827,6 +832,7 @@
                 }
             }
         });
+        @endif
     </script>
 @endsection
 
