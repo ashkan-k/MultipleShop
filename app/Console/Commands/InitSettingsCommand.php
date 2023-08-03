@@ -28,6 +28,7 @@ class InitSettingsCommand extends Command
         'footer_working_time' => "هفت روز هفته (حتی روزهای تعطیل) ، ساعت ۹-۲۴ پاسخگوی شما هستیم.",
 
         # Website Sections handler
+        'show_special_categories' => 1,
         'show_special_categories_products_count' => 1,
         'show_special_products' => 1,
         'show_latest_products' => 1,

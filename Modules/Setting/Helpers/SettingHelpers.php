@@ -300,8 +300,61 @@ class SettingHelpers
                 'key' => 'show_special_products',
                 'has_active_status' => false,
                 'field' => [
-                    'type' => 'radio',
-                    'title' => 'نمایش / مخفی',
+                    'type' => 'checkbox',
+                ],
+            ],
+
+            [
+                'title' => 'وضعیت نمایش بخش جدیدترین محصولات',
+                'key' => 'show_latest_products',
+                'has_active_status' => false,
+                'field' => [
+                    'type' => 'checkbox',
+                ],
+            ],
+
+            [
+                'title' => 'وضعیت نمایش بخش محبوب ترین محصولات',
+                'key' => 'show_most_favorite_products',
+                'has_active_status' => false,
+                'field' => [
+                    'type' => 'checkbox',
+                ],
+            ],
+
+            [
+                'title' => 'وضعیت نمایش بخش دسته بندی های ویژه',
+                'key' => 'show_special_categories',
+                'has_active_status' => false,
+                'field' => [
+                    'type' => 'checkbox',
+                ],
+            ],
+
+            [
+                'title' => 'وضعیت نمایش تعداد محصولات بخش دسته بندی های ویژه',
+                'key' => 'show_special_categories_products_count',
+                'has_active_status' => false,
+                'field' => [
+                    'type' => 'checkbox',
+                ],
+            ],
+
+            [
+                'title' => 'وضعیت نمایش بخش ارزان ترین محصولات',
+                'key' => 'show_cheapest_products',
+                'has_active_status' => false,
+                'field' => [
+                    'type' => 'checkbox',
+                ],
+            ],
+
+            [
+                'title' => 'وضعیت نمایش بخش اخبار و مقالات',
+                'key' => 'show_blogs',
+                'has_active_status' => false,
+                'field' => [
+                    'type' => 'checkbox',
                 ],
             ],
         ],

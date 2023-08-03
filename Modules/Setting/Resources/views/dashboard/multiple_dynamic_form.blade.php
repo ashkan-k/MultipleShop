@@ -128,7 +128,7 @@
 
                                             </div>
 
-                                        @elseif($form['field']['type'] == 'radio')
+                                        @elseif($form['field']['type'] == 'checkbox')
 
                                             <div class="d-flex flex-column mb-8 fv-row">
                                                 <label for="id_value_{{ $form['key'] }}"
@@ -272,6 +272,8 @@
                     var value = $(`#id_value_${key}`).find(":selected").val();
                 } else if (type == 'text') {
                     var value = $(`#id_value_${key}`).val();
+                }else if (type == 'checkbox') {
+                    var value = $(`#id_value_${key}`).is(':checked');
                 }
 
                 if (has_active_status) {

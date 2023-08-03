@@ -35,35 +35,35 @@
         </div>
 
         <div class="container">
-            <div class="row">
-                <div class="col-12 mt-3">
-                    <div class="brand-slider card">
-                        <div class="row">
+            @if($settings['show_special_categories']->value)
+                <div class="row">
+                    <div class="col-12 mt-3">
+                        <div class="brand-slider card">
+                            <div class="row">
+                                @foreach($special_categories as $special_cat)
+                                    <div class="col-lg-2 col-md-4 col-6">
+                                        <div class="text-center style-icon">
+                                            <div>
+                                                <i class="fa fa-{{ $special_cat->icon_name }} "></i>
 
-                            @foreach($special_categories as $special_cat)
-                                <div class="col-lg-2 col-md-4 col-6">
-                                    <div class="text-center style-icon">
-                                        <div>
-                                            <i class="fa fa-{{ $special_cat->icon_name }} "></i>
-
+                                            </div>
+                                            <a>
+                                                {{ $special_cat->get_title($lang) ?: '---' }}
+                                            </a>
+                                            @if($settings['show_special_categories_products_count']->value)
+                                                <p class="color-kala">{{ number_format($special_cat->products_count) }}
+                                                    {{ __('items') }}</p>
+                                            @endif
                                         </div>
-                                        <a>
-                                            {{ $special_cat->get_title($lang) ?: '---' }}
-                                        </a>
-                                        @if($settings['show_special_categories_products_count'])
-                                            <p class="color-kala">{{ number_format($special_cat->products_count) }}
-                                                کالا</p>
-                                        @endif
                                     </div>
-                                </div>
-                            @endforeach
-
+                                @endforeach
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            @endif
 
-            @if($settings['show_special_products'])
+            @if($settings['show_special_products']->value)
                 <div class="mt-2 mb-3 ">
                     <div class="row">
                         <div class="col-12">
@@ -135,7 +135,7 @@
                 </div>
             </div>
 
-            @if($settings['show_latest_products'])
+            @if($settings['show_latest_products']->value)
                 <div class="row">
                     <div class="col-12">
                         <div class="widget widget-product card">
@@ -210,7 +210,7 @@
                 </div>
             </div>
 
-            @if($settings['show_most_favorite_products'])
+            @if($settings['show_most_favorite_products']->value)
                 <div class="row">
                     <div class="col-12">
                         <div class="widget widget-product card">
@@ -281,7 +281,7 @@
                 </div>
             </div>
 
-            @if($settings['show_cheapest_products'])
+            @if($settings['show_cheapest_products']->value)
                 <div class="row">
                     <div class="col-12">
                         <div class="widget widget-product card">
@@ -333,7 +333,7 @@
                 </div>
             @endif
 
-            @if($settings['show_blogs'])
+            @if($settings['show_blogs']->value)
                 <div class="row">
                     <div class="col-12">
                         <div class="brand-slider card">
@@ -403,11 +403,11 @@
                                                         <p class="mt-3">
                                                             @if($prod->quantity)
                                                                 @if($prod->calculate_discount_percent() > 0)
-{{--                                                                    <del style="display: block !important;">--}}
-{{--                                                                        <span>{{ number_format($prod->price) }} <span>{{ __('Toman') }}</span></span>--}}
-{{--                                                                    </del>--}}
-{{--                                                                    <span--}}
-{{--                                                                        class="float-right font_12">{{ number_format($prod->price) }} {{ __('Toman') }}</span>--}}
+                                                                    {{--                                                                    <del style="display: block !important;">--}}
+                                                                    {{--                                                                        <span>{{ number_format($prod->price) }} <span>{{ __('Toman') }}</span></span>--}}
+                                                                    {{--                                                                    </del>--}}
+                                                                    {{--                                                                    <span--}}
+                                                                    {{--                                                                        class="float-right font_12">{{ number_format($prod->price) }} {{ __('Toman') }}</span>--}}
 
                                                                     <span
                                                                         class="float-right font_12">{{ number_format($prod->discount_price) }} {{ __('Toman') }}</span>
@@ -417,7 +417,7 @@
                                                                 @endif
                                                             @else
                                                                 <span class="float-right font_12"
-                                                                    style="color: #979898; font-size: 12px;">{{ __('Unavailable') }}</span>
+                                                                      style="color: #979898; font-size: 12px;">{{ __('Unavailable') }}</span>
                                                             @endif
 
                                                             <span class="float-left font_12">
