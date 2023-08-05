@@ -74,7 +74,7 @@
                                                              aria-label="Ticket operations">
 
                                                             <form
-                                                                action="{{ route('front.tickets.destroy' , $item->id) }}"
+                                                                action="{{ route('front.tickets.destroy' , ['locale' => $lang, 'ticket' => $item->id]) }}"
                                                                 id="delete_form_{{ $loop->index }}" method="post">
                                                                 @csrf
                                                                 @method('DELETE')
@@ -84,7 +84,7 @@
                                                             <a onclick="return Delete('{{ $loop->index }}')"
                                                                type="button" class="btn btn-primary text-white">حذف</a>
 
-                                                            <a href="{{ route('front.ticket-answers.show', $item->ticket_number) }}"
+                                                            <a href="{{ route('front.ticket-answers.show',  ['locale' => $lang, 'ticket' => $item->ticket_number]) }}"
                                                                type="button"
                                                                class="btn btn-info text-white">نمایش</a>
                                                         </div>
@@ -96,15 +96,7 @@
                                         </table>
                                     </div>
 
-                                    <ul class="mt-3 pagination d-flex justify-content-center">
-                                        <li class="page-item"><a class="page-link" href="#">قبلی</a></li>
-                                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">بعدی</a></li>
-                                    </ul>
-
-                                    {{--                                    {{ $objects->onEachSide(3)->links('front.components.front_pagination') }}--}}
+                                    {{ $objects->onEachSide(3)->links('front.components.front_pagination') }}
 
                                 </div>
                             </div>

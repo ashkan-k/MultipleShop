@@ -1,53 +1,35 @@
-
-
 @if ($paginator->hasPages())
-    <div class="pager default text-center">
-        <ul class="pager-items">
+    <ul class="mt-3 pagination d-flex justify-content-center">
 
-            {{-- Start Privious --}}
-            @if ($paginator->onFirstPage())
-                <li id="previousPage_diabled">
-                    <a class="pager-prev"></a>
-                </li>
-            @else
-                <li style="cursor: pointer">
-                    <a id="previousPage" wire:click="previousPage" class="pager-prev"></a>
-                </li>
+        @if ($paginator->onFirstPage())
+            <li class="page-item" id="previousPage_diabled"><a class="page-link">قبلی</a></li>
+        @else
+            <li class="page-item"><a class="page-link" id="previousPage" wire:click="previousPage">قبلی</a></li>
+        @endif
+
+        @foreach ($elements as $element)
+            @if(is_array($element))
+                @foreach($element as $page => $url)
+                    @if($page ==  $paginator->currentPage())
+                        <li class="page-item active"><a class="page-link" wire:loading.attr="disabled"
+                                                        wire:click="gotoPage({{$page}})"
+                                                        id="current">{{$page}}</a></li>
+                    @else
+                        <li class="page-item"><a class="page-link" wire:loading.attr="disabled"
+                                                 wire:click="gotoPage({{$page}})">{{$page}}</a></li>
+                    @endif
+                @endforeach
             @endif
-            {{-- end Previous --}}
+        @endforeach
 
-            @foreach ($elements as $element)
-                @if(is_array($element))
-                    @foreach($element as $page => $url)
-                        @if($page ==  $paginator->currentPage())
-                            <li>
-                                <a wire:loading.attr="disabled" wire:click="gotoPage({{$page}})"
-                                   id="current"
-                                   class="pager-item is-active">{{$page}}</a>
-                            </li>
 
-                        @else
-                            <li style="cursor: pointer">
-                                <a wire:loading.attr="disabled" wire:click="gotoPage({{$page}})"
-                                   class="pager-item">{{$page}}</a>
-                            </li>
-                        @endif
-                    @endforeach
-                @endif
-            @endforeach
+        {{-- Start Next --}}
+        @if ($paginator->hasMorePages())
+            <li class="page-item" id="nextPage"><a class="page-link" wire:click="nextPage">بعدی</a></li>
+        @else
+            <li id="nextPage_disabled" disabled class="page-item"><a class="page-link">بعدی</a></li>
+        @endif
+        {{-- End Next --}}
 
-            {{-- Start Next --}}
-            @if ($paginator->hasMorePages())
-                <li style="cursor: pointer" id="nextPage">
-                    <a wire:click="nextPage" class="pager-next"></a>
-                </li>
-            @else
-                <li id="nextPage_disabled" disabled>
-                    <a class="pager-next"></a>
-                </li>
-            @endif
-            {{-- End Next --}}
-
-        </ul>
-    </div>
+    </ul>
 @endif

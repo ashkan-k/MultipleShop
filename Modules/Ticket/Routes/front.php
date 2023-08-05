@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 use Modules\Ticket\Http\Controllers\Front\FrontTicketAnswerController;
 use Modules\Ticket\Http\Controllers\Front\FrontTicketController;
 
-Route::resource('tickets', FrontTicketController::class, ['as' => 'front']);
+Route::resource('profile/tickets', FrontTicketController::class, ['as' => 'front']);
 
-Route::get('ticket-answers/{ticket:ticket_number}', [FrontTicketAnswerController::class, 'show'])->name('front.ticket-answers.show');
-Route::post('ticket-answers/{ticket:ticket_number}/store', [FrontTicketAnswerController::class, 'store'])->name('front.ticket-answers.store');
+Route::get('profile/ticket-answers/{ticket:ticket_number}', [FrontTicketAnswerController::class, 'show'])->name('front.ticket-answers.show');
+Route::post('profile/ticket-answers/{ticket:ticket_number}/store', [FrontTicketAnswerController::class, 'store'])->name('front.ticket-answers.store');
