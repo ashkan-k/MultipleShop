@@ -19,5 +19,6 @@
     "Guide": true,
     "Email": true,
     "PageBuilder": true,
-    "Schema": true
+    "Schema": true,
+    "Seo": true
 }
