@@ -193,7 +193,7 @@
                                                     <span class="required">{{ $form['title'] }}</span>
                                                 </label>
                                                 <!--end::Tags-->
-                                                <input type="file" id="id_value" class="form-control form-control-solid"
+                                                <input type="file" id="id_value_{{ $form['key'] }}" class="form-control form-control-solid"
                                                        required placeholder="{{ $form['title'] }} را وارد کنید"
                                                        name="value">
 
@@ -259,7 +259,7 @@
                                                 <div class="d-flex" style="float: left !important;">
                                                     <button type="button" data-kt-ecommerce-settings-type="submit"
                                                             ng-disabled="is_submited"
-                                                            ng-click="SubmitChanges('{{ $form['key'] }}', '{{ $form['field']['type'] }}', '{{ $form['has_active_status'] }}')"
+                                                            ng-click="SubmitChanges('{{ $form['key'] }}', '{{ $form['field']['type'] }}', '{{ $form['has_active_status'] }}', '{{ $form['title'] }}')"
                                                             class="btn btn-primary">
                                                         <span class="indicator-label">ذخیره</span>
                                                         <span class="indicator-progress">لطفا صبر کنید...
@@ -304,14 +304,14 @@
 
             $scope.init = function () {
                 @foreach($forms as $form)
-                    @if($form['field']['type'] == 'file' && isset($form['object']->value))
-                        $('#id_file_box_{{ $form['key'] }}').show();
-                        $('#id_file_tag_{{ $form['key'] }}').attr('href', '{{ $form['object']->value }}');
-                    @endif
+                @if($form['field']['type'] == 'file' && isset($form['object']->value))
+                $('#id_file_box_{{ $form['key'] }}').show();
+                $('#id_file_tag_{{ $form['key'] }}').attr('href', '{{ $form['object']->value }}');
+                @endif
                 @endforeach
             }
 
-            $scope.SubmitChanges = function (key, type, has_active_status) {
+            $scope.SubmitChanges = function (key, type, has_active_status, title) {
                 if (type == 'textarea') {
                     var value = CKEDITOR.instances[`id_value_${key}`].getData();
                 } else if (type == 'select') {
@@ -320,6 +320,13 @@
                     var value = $(`#id_value_${key}`).val();
                 } else if (type == 'checkbox') {
                     var value = $(`#id_value_${key}`).is(':checked');
+                } else if (type == 'file' && $(`#id_value_${key}`)[0]) {
+                    var value = $(`#id_value_${key}`)[0].files[0];
+                }
+
+                if (!value) {
+                    showToast(`فیلد ${title} الزامی است!`, 'error');
+                    return;
                 }
 
                 if (has_active_status) {
@@ -330,13 +337,21 @@
 
                 $scope.is_submited = true;
 
-                var data = {
-                    "key": key,
-                    "value": value,
-                    "is_active": is_active,
-                };
+                fd = new FormData();
+                fd.append('key', key);
+                fd.append('is_active', is_active);
+                fd.append('value', value);
 
-                $http.post(`/api/settings/${key}`, data).then(res => {
+                $http.post(`/api/settings/${key}`, fd, {
+                    headers: {
+                        'Content-Type': undefined
+                    },
+                }).then(res => {
+                    if (type == 'file'){
+                        $(`#id_file_box_${key}`).show();
+                        $(`#id_file_tag_${key}`).attr('href', res['data']['data']['value']);
+                    }
+                    $(`#id_value_${key}`).val('');
                     showToast('آیتم مورد نظر با موفقیت ویرایش شد.', 'success');
                     $scope.is_submited = false;
                 }).catch(err => {
