@@ -11,6 +11,8 @@ use Modules\Blog\Entities\BlogCategory;
 use Modules\PageBuilder\Entities\PageBuilder;
 use Modules\Product\Entities\Category;
 use Modules\Product\Entities\Product;
+use Spatie\Sitemap\Sitemap;
+use Spatie\Sitemap\Tags\Url;
 
 class SiteMapController extends Controller
 {
