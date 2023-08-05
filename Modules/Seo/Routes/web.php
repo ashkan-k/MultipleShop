@@ -10,7 +10,3 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::prefix('seo')->group(function() {
-    Route::get('/', 'SeoController@index');
-});
