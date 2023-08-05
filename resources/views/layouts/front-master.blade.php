@@ -225,7 +225,15 @@
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-12 text-left">
-                    @auth
+                @auth
+                    <!-- Send Ticket -->
+                        <button onclick="window.location.href='{{ route('front.tickets.index') }}'"
+                                class="style-user-button">
+                            <div class="bg-color user-style">
+                                <i class="fa fa-send-o style-icon-head"></i>
+                            </div>
+                        </button>
+                        <!-- End Send Ticket -->
                         <button onclick="window.location.href='{{ route('user_profile') }}'" class="style-user-button">
                             <div class="bg-color user-style">
                                 <i class="fa fa-user style-icon-head"></i>

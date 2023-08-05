@@ -14,7 +14,7 @@
                                 <div class="content-section default">
 
                                     <div class="d-flex align-items-center">
-                                        <h1 class="title-tab-content">تیکت های ارسال شده</h1>
+                                        <h1 class="title-tab-content">{{ __('Tickets sent') }}</h1>
                                         <form class="mr-auto position-relative">
                                             <label style="top: 50%;right: 0.2rem;transform: translate(-50%,-50%);"
                                                    class="position-absolute" for="search-ticket">
@@ -31,14 +31,14 @@
                                                class="table table-order table-striped text-center">
                                             <thead class="thead-light">
                                             <tr>
-                                                <th scope="col"># شماره تیکت</th>
-                                                <th scope="col">عنوان</th>
-                                                <th scope="col">کاربر</th>
-                                                <th scope="col">دسته بندی</th>
-                                                <th scope="col">متن</th>
-                                                <th scope="col">وضعیت</th>
-                                                <th scope="col">فایل ضمیمه</th>
-                                                <th scope="col">عملیات</th>
+                                                <th scope="col"># {{ __('Ticket number') }}</th>
+                                                <th scope="col">{{ __('Title') }}</th>
+                                                <th scope="col">{{ __('User') }}</th>
+                                                <th scope="col">{{ __('Category') }}</th>
+                                                <th scope="col">{{ __('Text') }}</th>
+                                                <th scope="col">{{ __('Status') }}</th>
+                                                <th scope="col">{{ __('Attached File') }}</th>
+                                                <th scope="col">{{ __('Operation') }}</th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -63,9 +63,9 @@
                                                         @if($item->file)
                                                             <a href="{{ $item->file }}" target="_blank"
                                                                type="button"
-                                                               class="btn btn-warning text-white">فایل ضمیمه</a>
+                                                               class="btn btn-warning text-white">{{ __('Attached File') }}</a>
                                                         @else
-                                                            ندارد
+                                                            {{ __('no file') }}
                                                         @endif
                                                     </th>
                                                     <th scope="col">
@@ -82,11 +82,11 @@
                                                             </form>
 
                                                             <a onclick="return Delete('{{ $loop->index }}')"
-                                                               type="button" class="btn btn-primary text-white">حذف</a>
+                                                               type="button" class="btn btn-primary text-white">{{ __('Delete') }}</a>
 
                                                             <a href="{{ route('front.ticket-answers.show',  ['locale' => $lang, 'ticket' => $item->ticket_number]) }}"
                                                                type="button"
-                                                               class="btn btn-info text-white">نمایش</a>
+                                                               class="btn btn-info text-white">{{ __('Show') }}</a>
                                                         </div>
                                                     </th>
                                                 </tr>
