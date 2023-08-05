@@ -22,17 +22,9 @@ class FrontTicketController extends Controller
 {
     use Responses, Uploader, Helpers;
 
-    private $relations = ['user', 'category'];
-
     public function index()
     {
-        $objects = auth()->user()->tickets()->with($this->relations)
-            ->Search(request('search'))
-            ->Filter(\request())
-            ->latest()
-            ->paginate(\request('pagination', env('PAGINATION_NUMBER', 10)));
-
-        return view('ticket::front.ticket.list', compact('objects'));
+        return view('ticket::front.tickets');
     }
 
     public function create()
@@ -46,7 +38,6 @@ class FrontTicketController extends Controller
         $file = $this->UploadFile($request, 'file', 'ticket_files', auth()->id());
         $ticket = auth()->user()->tickets()->create(array_merge($request->validated(), ['file' => $file]));
 
-        $ticket = Ticket::create(array_merge($data, ['file' => $file]));
         $admin_email = Setting::where('key', 'email')->first()->value;
 
         $user = User::findOrFail($data['user_id']);
@@ -63,10 +54,10 @@ class FrontTicketController extends Controller
         } catch (\Exception $exception) {
         }
 
-        return $this->SuccessRedirect(__('Your ticket has been successfully registered.'), 'tickets.index');
+        return $this->SuccessRedirect(__('Your ticket has been successfully registered.'), 'front.tickets.index');
     }
 
-    public function edit(Ticket $ticket)
+    public function edit($lang, Ticket $ticket)
     {
         if (auth()->user()->is_staff()) {
             $this->check_myself_queryset($ticket, 'web');
@@ -76,7 +67,7 @@ class FrontTicketController extends Controller
         return view('ticket::front.ticket.form', compact('categories'))->with('object', $ticket);
     }
 
-    public function update(TicketRequest $request, Ticket $ticket)
+    public function update(TicketRequest $request, $lang, Ticket $ticket)
     {
         $this->check_myself_queryset($ticket, 'web');
         $file = $this->UploadFile($request, 'file', 'ticket_files', auth()->id(), $ticket->file);
@@ -100,10 +91,10 @@ class FrontTicketController extends Controller
         } catch (\Exception $exception) {
         }
 
-        return $this->SuccessRedirect(__('Your ticket has been edited successfully.'), 'tickets.index');
+        return $this->SuccessRedirect(__('Your ticket has been edited successfully.'), 'front.tickets.index');
     }
 
-    public function destroy(Ticket $ticket)
+    public function destroy($lang, Ticket $ticket)
     {
         $this->check_myself_queryset($ticket, 'web');
 
@@ -123,6 +114,6 @@ class FrontTicketController extends Controller
         }
 
         $ticket->delete();
-        return $this->SuccessRedirect(__('The desired item was successfully deleted.'), 'tickets.index');
+        return $this->SuccessRedirect(__('Your ticket has been deleted successfully.'), 'front.tickets.index');
     }
 }
