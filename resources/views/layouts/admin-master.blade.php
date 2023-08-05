@@ -29,7 +29,10 @@ Like: www.facebook.com/keenthemes
     <meta property="og:url" content="https://keenthemes.com/metronic"/>
     <meta property="og:site_name" content="ساتراس وب | مترونیک"/>
     <link rel="canonical" href="Https://preview.keenthemes.com/metronic8"/>
-    <link rel="shortcut icon" href="/admin/src/assets/media/logos/favicon.ico"/>
+
+    <?php $favicon_setting = \Modules\Setting\Entities\Setting::where('key', 'favicon')->first() ?>
+    <link rel="shortcut icon" href="@if(isset($favicon_setting)){{ $favicon_setting->value }}@endif"/>
+    <link rel="icon" type="image/x-icon" href="@if(isset($favicon_setting)){{ $favicon_setting->value }}@endif">
     <!--begin::Fonts(mوatory for all pages)-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700"/>
     <!--end::Fonts-->

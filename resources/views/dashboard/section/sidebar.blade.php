@@ -691,12 +691,12 @@
                             <span class="menu-title">تنظیمات زبان</span>
                         </a>
 
-                        <a class="menu-link @if(\Illuminate\Support\Facades\Route::current()->getName() == 'dynamic_form' && str_contains(request()->url(), 'logo')) active @endif"
-                           href="{{ route('dynamic_form', ['key' => 'logo']) }}">
+                        <a class="menu-link @if(\Illuminate\Support\Facades\Route::current()->getName() == 'multiple_dynamic_form' && str_contains(request()->url(), 'logo')) active @endif"
+                           href="{{ route('multiple_dynamic_form', ['key' => 'logo']) }}">
 													<span class="menu-bullet">
 														<span class="bullet bullet-dot"></span>
 													</span>
-                            <span class="menu-title">تنظیم لوگو</span>
+                            <span class="menu-title">تنظیم لوگو و فو آیکن</span>
                         </a>
 
                         <a class="menu-link @if(\Illuminate\Support\Facades\Route::current()->getName() == 'dynamic_form' && str_contains(request()->url(), 'footer_social_medias')) active @endif"
@@ -704,7 +704,7 @@
 													<span class="menu-bullet">
 														<span class="bullet bullet-dot"></span>
 													</span>
-                            <span class="menu-title">تنظیم باکس شبکه های احتماعی</span>
+                            <span class="menu-title">تنظیم باکس شبکه های اجتماعی</span>
                         </a>
 
                         <a class="menu-link @if(\Illuminate\Support\Facades\Route::current()->getName() == 'dynamic_form' && str_contains(request()->url(), 'footer_app_links')) active @endif"

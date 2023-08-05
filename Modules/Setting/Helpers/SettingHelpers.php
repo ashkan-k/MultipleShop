@@ -19,12 +19,23 @@ class SettingHelpers
         ],
 
         'logo' => [
-            'title' => 'لوگو',
-            'key' => 'logo',
-            'has_active_status' => false,
-            'field' => [
-                'type' => 'file',
+            [
+                'title' => 'لوگو',
+                'key' => 'logo',
+                'has_active_status' => false,
+                'field' => [
+                    'type' => 'file',
+                ],
             ],
+
+            [
+                'title' => 'فو آیکن (favicon)',
+                'key' => 'favicon',
+                'has_active_status' => false,
+                'field' => [
+                    'type' => 'file',
+                ],
+            ]
         ],
 
         'comment_terms_page' => [

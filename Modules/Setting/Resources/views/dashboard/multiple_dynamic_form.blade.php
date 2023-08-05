@@ -4,7 +4,7 @@
 
 @endsection
 @section('content')
-    <div class="d-flex flex-column flex-column-fluid">
+    <div class="d-flex flex-column flex-column-fluid" ng-init="init()">
         <!--begin::Toolbar-->
         <div id="kt_app_toolbar" class="app-toolbar py-3 py-lg-6">
             <!--begin::Toolbar container-->
@@ -113,7 +113,8 @@
                                                     <span class="required">{{ $form['title'] }}</span>
                                                 </label>
                                                 <!--end::Tags-->
-                                                <input type="text" id="id_value_{{ $form['key'] }}" class="form-control form-control-solid"
+                                                <input type="text" id="id_value_{{ $form['key'] }}"
+                                                       class="form-control form-control-solid"
                                                        required placeholder="{{ $form['title'] }} را وارد کنید"
                                                        value="@if(old('value')){{ old('value') }}@elseif(isset($form['object']->value)){{ $form['object']->value }}@endif"
                                                        name="value">
@@ -180,6 +181,40 @@
                                                     </div>
                                                 </div>
                                                 @enderror
+
+                                            </div>
+
+                                        @elseif($form['field']['type'] == 'file')
+
+                                            <div class="d-flex flex-column mb-8 fv-row">
+                                                <!--begin::Tags-->
+                                                <label for="id_value"
+                                                       class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                                    <span class="required">{{ $form['title'] }}</span>
+                                                </label>
+                                                <!--end::Tags-->
+                                                <input type="file" id="id_value" class="form-control form-control-solid"
+                                                       required placeholder="{{ $form['title'] }} را وارد کنید"
+                                                       name="value">
+
+                                                @error('value')
+                                                <div class="fv-plugins-message-container invalid-feedback">
+                                                    <div data-field="meta_title" data-validator="notEmpty">
+                                                        {{ $message }}
+                                                    </div>
+                                                </div>
+                                                @enderror
+
+                                                <div id="id_file_box_{{ $form['key'] }}" style="display: none"
+                                                     class="input-field col s12 mt-3">
+                                                    <p>فایل قبلی:</p>
+
+                                                    <a href="" target="_blank"
+                                                       id="id_file_tag_{{ $form['key'] }}"
+                                                       class="btn btn-sm btn-warning">
+                                                        مشاهده فایل
+                                                    </a>
+                                                </div>
 
                                             </div>
 
@@ -265,6 +300,17 @@
 
     <script>
         app.controller('myCtrl', function ($scope, $http) {
+            $scope.file_value = [];
+
+            $scope.init = function () {
+                @foreach($forms as $form)
+                    @if($form['field']['type'] == 'file' && isset($form['object']->value))
+                        $('#id_file_box_{{ $form['key'] }}').show();
+                        $('#id_file_tag_{{ $form['key'] }}').attr('href', '{{ $form['object']->value }}');
+                    @endif
+                @endforeach
+            }
+
             $scope.SubmitChanges = function (key, type, has_active_status) {
                 if (type == 'textarea') {
                     var value = CKEDITOR.instances[`id_value_${key}`].getData();
@@ -272,7 +318,7 @@
                     var value = $(`#id_value_${key}`).find(":selected").val();
                 } else if (type == 'text') {
                     var value = $(`#id_value_${key}`).val();
-                }else if (type == 'checkbox') {
+                } else if (type == 'checkbox') {
                     var value = $(`#id_value_${key}`).is(':checked');
                 }
 

@@ -9,6 +9,8 @@
           name='viewport'/>
 
     <title>@yield('title', __('Shop'))</title>
+    <link rel="shortcut icon" href="{{ $settings['favicon']->value }}"/>
+    <link rel="icon" type="image/x-icon" href="{{ $settings['favicon']->value }}">
     <!--     Fonts and icons     -->
     <link rel="stylesheet" href="/front/assets/fonts/font-awesome/css/font-awesome.min.css"/>
     <!-- CSS Files -->
@@ -52,7 +54,7 @@
                 <span class="navbar-toggler-bar bar3"></span>
             </button>
             <a class="navbar-brand" href="/">
-                <img src="/front/assets/img/14.png" height="24px" alt="">
+                <img src="{{ $settings['logo']->value }}" height="24px" alt="">
             </a>
 
             <div class="search-nav default">
@@ -80,7 +82,7 @@
         <div class="collapse navbar-collapse justify-content-end" id="navigation">
             <div class="logo-nav-res default text-center">
                 <a href="/">
-                    <img src="/front/assets/img/14.png" height="36px" alt="">
+                    <img src="{{ $settings['logo']->value }}" height="36px" alt="">
                 </a>
             </div>
             <ul class="navbar-nav default">
@@ -198,7 +200,7 @@
                 <div class="col-lg-2 col-md-3 col-sm-4 col-5">
                     <div class="logo-area default">
                         <a href="/">
-                            <img src="/front/assets/img/14.png" alt="">
+                            <img src="{{ $settings['logo']->value }}" alt="">
                         </a>
                     </div>
                 </div>
