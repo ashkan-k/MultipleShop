@@ -1,4 +1,4 @@
-<div class="profile-page-aside col-xl-3 col-lg-4 col-md-6 center-section order-1">
+<div class="profile-page-aside col-xl-3 col-lg-4 col-md-6 center-section order-1" wire:ignore>
     <div class="profile-box mt-3">
         <div class="profile-box-header">
             <div class="profile-box-avatar">

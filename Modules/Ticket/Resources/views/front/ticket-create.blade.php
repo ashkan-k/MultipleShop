@@ -21,8 +21,8 @@
                                     <div class="col-12">
                                         <div>
                                             <form class="form-account" enctype="multipart/form-data"
-                                                  method="post"
-                                                  action="@if(isset($object)){{ route('tickets.update' , $object->id) }}@else{{ route('tickets.store') }}@endif">
+                                                  method="post" id="frm_ticket"
+                                                  action="@if(isset($object)){{ route('front.tickets.update' , $object->id) }}@else{{ route('front.tickets.store') }}@endif">
 
                                                 @csrf
                                                 @if(isset($object))
@@ -117,6 +117,13 @@
                                                             @endif
                                                         </div>
                                                     </div>
+
+                                                    <input type="hidden" name="recaptcha_token" id="recaptcha_token">
+                                                    @error('recaptcha_token')
+                                                    <span class="text-danger text-wrap">{{ $message }}</span>
+                                                    @enderror
+
+
                                                     {{--                                                    <!-- GOOGLE RECAPTCHA -->--}}
                                                     {{--                                                    <div class="col-12">--}}
                                                     {{--                                                        <div class="g-recaptcha"--}}
@@ -154,3 +161,11 @@
         </div>
     </main>
 @endsection
+
+@section('scripts')
+    <script src="https://www.google.com/recaptcha/api.js?render={{ env('GOOGLE_RECAPTCHA_KEY') }}"></script>
+@endsection
+
+@push('StackScript')
+    @include('front.components.google_captcha_js', ['form_id' => 'frm_ticket', 'field_id' => 'recaptcha_token'])
+@endpush

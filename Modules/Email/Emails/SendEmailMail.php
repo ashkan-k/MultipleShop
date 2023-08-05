@@ -43,12 +43,12 @@ class SendEmailMail extends Mailable
 
     public function content()
     {
-        return new Content(
-            view: $this->template,
-            with: [
-                'title' => $this->title,
-                'data' => $this->message,
-            ],
-        );
+//        return new Content(
+//            view: $this->template,
+//            with: [
+//                'title' => $this->title,
+//                'data' => $this->message,
+//            ],
+//        );
     }
 }

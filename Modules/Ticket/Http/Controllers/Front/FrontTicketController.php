@@ -15,6 +15,7 @@ use Modules\Setting\Entities\Setting;
 use Modules\Sms\Jobs\SendSmsJob;
 use Modules\Ticket\Entities\Ticket;
 use Modules\Ticket\Entities\TicketCategory;
+use Modules\Ticket\Http\Requests\TicketFrontRequest;
 use Modules\Ticket\Http\Requests\TicketRequest;
 use Modules\User\Entities\User;
 
@@ -33,17 +34,16 @@ class FrontTicketController extends Controller
         return view('ticket::front.ticket-create', compact('categories'));
     }
 
-    public function store(TicketRequest $request)
+    public function store(TicketFrontRequest $request)
     {
         $file = $this->UploadFile($request, 'file', 'ticket_files', auth()->id());
         $ticket = auth()->user()->tickets()->create(array_merge($request->validated(), ['file' => $file]));
 
         $admin_email = Setting::where('key', 'email')->first()->value;
 
-        $user = User::findOrFail($data['user_id']);
         $message = [
             $ticket,
-            sprintf(email_helpers::$EMAIL_PATTERNS['admin_ticket_submit'], $ticket->ticket_number, $user->full_name()),
+            sprintf(email_helpers::$EMAIL_PATTERNS['admin_ticket_submit'], $ticket->ticket_number, auth()->user()->full_name()),
             route('front.ticket-answers.show', ['locale' => app()->getLocale(), 'ticket' => $ticket->ticket_number]),
         ];
         $title = __('Ticket :title (:number)', ['title' => $ticket->title, 'number' => $ticket->ticket_number]);
@@ -67,7 +67,7 @@ class FrontTicketController extends Controller
         return view('ticket::front.ticket.form', compact('categories'))->with('object', $ticket);
     }
 
-    public function update(TicketRequest $request, $lang, Ticket $ticket)
+    public function update(TicketFrontRequest $request, $lang, Ticket $ticket)
     {
         $this->check_myself_queryset($ticket, 'web');
         $file = $this->UploadFile($request, 'file', 'ticket_files', auth()->id(), $ticket->file);
