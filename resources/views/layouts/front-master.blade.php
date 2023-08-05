@@ -454,7 +454,7 @@
 
                 <div class="footer-widgets">
                     <div class="row">
-                        <div class="col-12 col-md-6 col-lg-3">
+                        <div class="col-12 col-md-6 col-lg-3" @if(isset($lang) && $lang != 'fa') style="text-align: left !important;" @endif>
                             {{--                            <div class="newsletter">--}}
                             {{--                                <p>از تخفیف‌ها و جدیدترین‌های فروشگاه باخبر شوید:</p>--}}
                             {{--                                <form action="">--}}
@@ -464,16 +464,11 @@
                             {{--                                </form>--}}
                             {{--                            </div>--}}
                             @if($settings['footer_social_section']->is_active)
-                                <div class="socials">
-                                    <p>{{ __('Follow us on social networks.') }}</p>
-                                    <div class="footer-social">
-                                        {!! $settings['footer_social_section']->value !!}
-                                    </div>
-                                </div>
+                                {!! $settings['footer_social_section']->value !!}
                             @endif
                         </div>
 
-                        <div class="col-12 col-md-6 col-lg-3">
+                        <div class="col-12 col-md-6 col-lg-3" @if(isset($lang) && $lang != 'fa') style="text-align: left !important;" @endif>
                             <div class="widget-menu widget card">
                                 <header class="card-header ">
                                     <h3 class="card-title style-border-bottom pb-3">
@@ -501,7 +496,7 @@
                                 </ul>
                             </div>
                         </div>
-                        <div class="col-12 col-md-6 col-lg-3">
+                        <div class="col-12 col-md-6 col-lg-3" @if(isset($lang) && $lang != 'fa') style="text-align: left !important;" @endif>
                             <div class="widget-menu widget card">
                                 <header class="card-header">
                                     <h3 class="card-title style-border-bottom pb-3">
@@ -529,7 +524,7 @@
                                 </ul>
                             </div>
                         </div>
-                        <div class="col-12 col-md-6 col-lg-3">
+                        <div class="col-12 col-md-6 col-lg-3" @if(isset($lang) && $lang != 'fa') style="text-align: left !important;" @endif>
                             <div class="widget-menu widget card">
                                 <header class="card-header">
                                     <h3 class="card-title style-border-bottom pb-3">

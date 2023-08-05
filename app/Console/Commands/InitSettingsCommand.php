@@ -122,7 +122,12 @@ class InitSettingsCommand extends Command
                                                                 کنید.</p>',
 
         # Footer section
-        'footer_social_section' => '<a href="#" target="_blank"><i class="fa fa-instagram"></i>اینستاگرام جی تی کالا</a>',
+        'footer_social_section' => '<div class="socials">
+                                    <p>ما را در شبکه های اجتماعی دنبال کنید.</p>
+                                    <div class="footer-social">
+                                        <a href="#" target="_blank"><i class="fa fa-instagram"></i>اینستاگرام جی تی کالا</a>
+                                    </div>
+                                </div>',
         'footer_en_social_section' => '<a href="#" target="_blank"><i class="fa fa-instagram"></i>Instagram GT Kala</a>',
         'footer_right_links_title' => "راهنمای خرید جی تی کالا",
         'footer_right_links_en_title' => "GT Kala buying guide",
