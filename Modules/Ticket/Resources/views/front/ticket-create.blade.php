@@ -43,7 +43,7 @@
                                                                    class="input-field text-right"
                                                                    type="text"
                                                                    required
-                                                                   value="@if(old('title')){{ old('title') }}@endif"
+                                                                   value="@if(old('title')){{ old('title') }}@elseif(isset($object->title)){{ $object->title }}@endif"
                                                                    placeholder="عنوان تیکت را وارد نمایید"
                                                             />
                                                             @error('title')
@@ -65,6 +65,7 @@
 
                                                                     <option
                                                                         @if(old('ticket_category_id') && $category->id == old('ticket_category_id')) selected
+                                                                        @elseif(isset($object->ticket_category_id) && $object->ticket_category_id == $category->id)
                                                                         @endif value="{{ $category->id }}">{{ $category->title }}
                                                                     </option>
 
@@ -84,7 +85,7 @@
                                                                   rows="8"
                                                                   required name="text"
                                                                   style="resize: none"
-                                                                  class="input-field text-right">@if(old('title')){{ old('text') }}@endif</textarea>
+                                                                  class="input-field text-right">@if(old('text')){{ old('text') }}@elseif(isset($object->text)){{ $object->text }}@endif</textarea>
                                                             @error('text')
                                                             <span
                                                                 class="text-danger text-wrap">{{ $message }}</span>
