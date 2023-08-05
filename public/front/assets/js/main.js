@@ -32,7 +32,8 @@ $(document).ready(function () {
     rtl: true,
     margin: 10,
     nav: true,
-    loop: true,
+    loop: false,
+    rewind: true,
     navText: [
       '<i class="now-ui-icons arrows-1_minimal-right"></i>',
       '<i class="now-ui-icons arrows-1_minimal-left"></i>',
