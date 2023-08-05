@@ -13,24 +13,25 @@ use Modules\Email\Emails\SendEmailMail;
 use Modules\Email\Helpers\email_helpers;
 use Modules\Setting\Entities\Setting;
 use Modules\Ticket\Entities\Ticket;
+use Modules\Ticket\Http\Requests\TicketAnswerFrontRequest;
 use Modules\Ticket\Http\Requests\TicketAnswerRequest;
 
 class FrontTicketAnswerController extends Controller
 {
     use Responses, Helpers, Uploader;
 
-    public function show(Ticket $ticket)
+    public function show($lang, Ticket $ticket)
     {
-        if (!auth()->user()->is_staff()) {
-            $this->check_myself_queryset($ticket, 'web');
-        }
+        $this->check_myself_queryset($ticket, 'web');
 
         $answers = $ticket->answers()->with('user')->get();
-        return view('ticket::front.ticket-answer.form', compact('ticket', 'answers'));
+        return view('ticket::front.ticket-answer', compact('ticket', 'answers'));
     }
 
-    public function store(TicketAnswerRequest $request, Ticket $ticket)
+    public function store(TicketAnswerFrontRequest $request, $lang, Ticket $ticket)
     {
+        $this->check_myself_queryset($ticket, 'web');
+
         $file = $this->UploadFile($request, 'file', 'ticket_answers_files', auth()->id());
         $data = [
             'user_id' => auth()->id(),
@@ -63,6 +64,6 @@ class FrontTicketAnswerController extends Controller
         } catch (\Exception $exception) {
         }
 
-        return $this->SuccessRedirect(__('Your answer has been successfully registered.'), 'front.ticket-answers.show', [], $ticket->id);
+        return $this->SuccessRedirect(__('Your answer has been successfully registered.'), 'front.ticket-answers.show', [], $ticket->ticket_number);
     }
 }
