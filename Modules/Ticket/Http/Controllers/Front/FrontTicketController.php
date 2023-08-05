@@ -30,7 +30,7 @@ class FrontTicketController extends Controller
     public function create()
     {
         $categories = TicketCategory::all();
-        return view('ticket::front.ticket.form', compact('categories'));
+        return view('ticket::front.ticket-create', compact('categories'));
     }
 
     public function store(TicketRequest $request)
