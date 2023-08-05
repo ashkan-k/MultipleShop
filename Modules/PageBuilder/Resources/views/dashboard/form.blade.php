@@ -267,6 +267,27 @@
 
                                     </div>
 
+                                    <div class="d-flex flex-column mb-8 fv-row">
+                                        <!--begin::Tags-->
+                                        <label for="id_en_body" class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                            <span>محتوا انگلیسی</span>
+                                        </label>
+                                        <!--end::Tags-->
+                                        <textarea type="text" id="id_en_body" class="form-control form-control-solid"
+                                                  rows="8"
+                                                  placeholder="محتوا را وارد کنید"
+                                                  name="en_body">@if(old('en_body')){{ old('en_body') }}@elseif(isset($object->en_body)){{ $object->en_body }}@endif</textarea>
+
+                                        @error('en_body')
+                                        <div class="fv-plugins-message-container invalid-feedback">
+                                            <div data-field="meta_title" data-validator="notEmpty">
+                                                {{ $message }}
+                                            </div>
+                                        </div>
+                                        @enderror
+
+                                    </div>
+
                                 </div>
 
                             </div>
@@ -286,6 +307,12 @@
 @section('Scripts')
     <script>
         CKEDITOR.replace('id_body', {
+            filebrowserUploadMethod: 'form',
+            filebrowserUploadUrl : '{{ route('upload_ckeditor_image') }}',
+            filebrowserImageUploadUrl :  '{{ route('upload_ckeditor_image') }}'
+        });
+
+        CKEDITOR.replace('id_en_body', {
             filebrowserUploadMethod: 'form',
             filebrowserUploadUrl : '{{ route('upload_ckeditor_image') }}',
             filebrowserImageUploadUrl :  '{{ route('upload_ckeditor_image') }}'

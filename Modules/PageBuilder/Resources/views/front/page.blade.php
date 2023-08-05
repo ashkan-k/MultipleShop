@@ -17,7 +17,7 @@
                             <div class="content-section default">
                                 <div class="row">
                                     <div class="col-12">
-                                        <h1 class="title-tab-content">{!! $object->body !!}</h1>
+                                        <h1 class="title-tab-content">{!! $object->get_body($lang) !!}</h1>
                                     </div>
                                 </div>
 
