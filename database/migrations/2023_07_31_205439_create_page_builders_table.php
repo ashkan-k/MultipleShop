@@ -19,7 +19,8 @@ return new class extends Migration
             $table->string('en_title');
             $table->string('slug')->nullable();
             $table->string('en_slug')->nullable();
-            $table->text('body');
+            $table->text('body')->nullable();
+            $table->text('en_body')->nullable();
             $table->string('icon_name')->nullable();
             $table->boolean('is_active')->default(true);
 

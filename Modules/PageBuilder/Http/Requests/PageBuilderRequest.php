@@ -18,6 +18,7 @@ class PageBuilderRequest extends FormRequest
             'title' => 'required',
             'en_title' => 'required',
             'body' => 'required',
+            'en_body' => 'nullable',
             'is_active' => 'nullable|boolean',
             'slug' => [
                 'nullable',

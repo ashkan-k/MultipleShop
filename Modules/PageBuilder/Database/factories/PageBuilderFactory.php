@@ -25,6 +25,8 @@ class PageBuilderFactory extends Factory
             'en_title' => fake()->title(),
             'slug' => fake()->slug(),
             'en_slug' => fake()->slug(),
+            'body' => fake()->realText(),
+            'en_body' => fake()->realText(),
             'image' => fake()->imageUrl(),
             'is_special' => fake()->boolean(),
         ];

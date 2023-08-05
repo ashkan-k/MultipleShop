@@ -19,6 +19,7 @@ class PageBuilder extends Model
         'en_title',
         'en_slug',
         'body',
+        'en_body',
         'icon_name',
         'is_active',
     ];
@@ -29,6 +30,7 @@ class PageBuilder extends Model
         'en_title',
         'en_slug',
         'body',
+        'en_body',
     ];
 
     public static function GetFontAwesomeIcons()
@@ -68,6 +70,11 @@ class PageBuilder extends Model
     public function get_title($lang)
     {
         return $lang == 'fa' ? $this->title : $this->en_title;
+    }
+
+    public function get_body($lang)
+    {
+        return $lang == 'fa' ? $this->body : $this->en_body;
     }
 
     public function get_slug($lang)
