@@ -74,7 +74,7 @@ class SettingHelpers
                 'key' => 'footer_about_us_title',
                 'has_active_status' => true,
                 'field' => [
-                    'type' => 'textarea',
+                    'type' => 'text',
                 ],
             ],
 
@@ -83,7 +83,7 @@ class SettingHelpers
                 'key' => 'footer_about_us_en_title',
                 'has_active_status' => true,
                 'field' => [
-                    'type' => 'textarea',
+                    'type' => 'text',
                 ],
             ],
 
@@ -150,7 +150,7 @@ class SettingHelpers
                 'key' => 'footer_right_links_title',
                 'has_active_status' => true,
                 'field' => [
-                    'type' => 'textarea',
+                    'type' => 'text',
                 ],
             ],
 
@@ -159,7 +159,7 @@ class SettingHelpers
                 'key' => 'footer_right_links_en_title',
                 'has_active_status' => true,
                 'field' => [
-                    'type' => 'textarea',
+                    'type' => 'text',
                 ],
             ],
 
@@ -188,7 +188,7 @@ class SettingHelpers
                 'key' => 'footer_center_links_title',
                 'has_active_status' => true,
                 'field' => [
-                    'type' => 'textarea',
+                    'type' => 'text',
                 ],
             ],
 
@@ -197,7 +197,7 @@ class SettingHelpers
                 'key' => 'footer_center_links_en_title',
                 'has_active_status' => true,
                 'field' => [
-                    'type' => 'textarea',
+                    'type' => 'text',
                 ],
             ],
 
@@ -226,7 +226,7 @@ class SettingHelpers
                 'key' => 'footer_left_links_title',
                 'has_active_status' => true,
                 'field' => [
-                    'type' => 'textarea',
+                    'type' => 'text',
                 ],
             ],
 
@@ -235,7 +235,7 @@ class SettingHelpers
                 'key' => 'footer_left_links_en_title',
                 'has_active_status' => true,
                 'field' => [
-                    'type' => 'textarea',
+                    'type' => 'text',
                 ],
             ],
 

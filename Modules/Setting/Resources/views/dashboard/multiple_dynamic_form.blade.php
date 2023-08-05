@@ -350,8 +350,8 @@
                     if (type == 'file'){
                         $(`#id_file_box_${key}`).show();
                         $(`#id_file_tag_${key}`).attr('href', res['data']['data']['value']);
+                        $(`#id_value_${key}`).val('');
                     }
-                    $(`#id_value_${key}`).val('');
                     showToast('آیتم مورد نظر با موفقیت ویرایش شد.', 'success');
                     $scope.is_submited = false;
                 }).catch(err => {

@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="fa">
 
+<?php $website_title = $lang == 'fa' ? $settings['website_title']->value : $settings['website_en_title']->value;  ?>
+
 <head>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
@@ -8,7 +10,7 @@
           main_content
           name='viewport'/>
 
-    <title>@yield('title', __('Shop'))</title>
+    <title>@yield('title', $website_title)</title>
     <link rel="shortcut icon" href="{{ $settings['favicon']->value }}"/>
     <link rel="icon" type="image/x-icon" href="{{ $settings['favicon']->value }}">
     <!--     Fonts and icons     -->
