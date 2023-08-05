@@ -60,6 +60,18 @@
                     <i class="now-ui-icons business_badge"></i>
                     {{ __('Personal Information') }}
                 </a>
+
+                <a href="{{ route('front.tickets.index', ['locale' => $lang]) }}"
+                   class="dropdown-item @if(\Illuminate\Support\Facades\Route::currentRouteName() == 'front.tickets.index') active-menu @endif">
+                    <i class="now-ui-icons business_badge"></i>
+                    {{ __('Tickets List') }}
+                </a>
+
+                <a href="{{ route('front.tickets.create', ['locale' => $lang]) }}"
+                   class="dropdown-item @if(\Illuminate\Support\Facades\Route::currentRouteName() == 'front.tickets.create') active-menu @endif">
+                    <i class="now-ui-icons business_badge"></i>
+                    {{ __('Send Ticket') }}
+                </a>
             </div>
         </div>
     </div>
@@ -99,6 +111,44 @@
                     <i class="now-ui-icons business_badge"></i>
                     {{ __('Personal Information') }}
                 </a>
+            </li>
+
+            <li>
+                <a
+                    class="@if(str_starts_with(\Illuminate\Support\Facades\Route::currentRouteName(), 'front.tickets.')) active @endif"
+                    id="ticket-menu"
+                    data-toggle="collapse"
+                    href="#ticketCollapse"
+                    role="button"
+                    aria-expanded="false"
+                    aria-controls="collapseExample"
+                >
+                      <span>
+                        <i
+                            id="ticket-arrow-icon"
+                            class="now-ui-icons arrows-1_minimal-left"
+                        ></i>
+                      </span>
+                    {{ __('Tickets') }}&zwnj;
+                </a>
+            </li>
+            <li>
+                <!-- Ticket Pages Links-->
+                <div class="collapse p-0 m-0 @if(str_starts_with(\Illuminate\Support\Facades\Route::currentRouteName(), 'front.tickets.')) show @endif" id="ticketCollapse">
+                    <div class="p-0 m-0 d-flex flex-column gap-0 pr-3">
+                        <a href="{{ route('front.tickets.index', ['locale' => $lang]) }}"
+                           class="@if(\Illuminate\Support\Facades\Route::currentRouteName() == 'front.tickets.index') active @endif">
+                            <i class="now-ui-icons design_bullet-list-67"></i>
+                            <span class="now-ui-icons">{{ __('Tickets List') }}</span>
+                        </a>
+                        <a href="{{ route('front.tickets.create', ['locale' => $lang]) }}"
+                           class="@if(\Illuminate\Support\Facades\Route::currentRouteName() == 'front.tickets.create') active @endif">
+                            <i class="now-ui-icons ui-1_send"></i>
+                            <span class="now-ui-icons">{{ __('Send Ticket') }}</span>
+                        </a>
+                    </div>
+                </div>
+                <!-- End Ticket Pages Links-->
             </li>
         </ul>
     </div>
