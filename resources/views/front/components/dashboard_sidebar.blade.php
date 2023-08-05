@@ -137,11 +137,13 @@
                 <div class="collapse p-0 m-0 @if(str_starts_with(\Illuminate\Support\Facades\Route::currentRouteName(), 'front.tickets.')) show @endif" id="ticketCollapse">
                     <div class="p-0 m-0 d-flex flex-column gap-0 pr-3">
                         <a href="{{ route('front.tickets.index', ['locale' => $lang]) }}"
+                           style="line-height: 0px !important;"
                            class="@if(\Illuminate\Support\Facades\Route::currentRouteName() == 'front.tickets.index') active @endif">
                             <i class="now-ui-icons design_bullet-list-67"></i>
                             <span class="now-ui-icons">{{ __('Tickets List') }}</span>
                         </a>
                         <a href="{{ route('front.tickets.create', ['locale' => $lang]) }}"
+                           style="line-height: 0px !important;"
                            class="@if(\Illuminate\Support\Facades\Route::currentRouteName() == 'front.tickets.create') active @endif">
                             <i class="now-ui-icons ui-1_send"></i>
                             <span class="now-ui-icons">{{ __('Send Ticket') }}</span>
