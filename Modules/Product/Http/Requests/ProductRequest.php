@@ -26,6 +26,7 @@ class ProductRequest extends FormRequest
                 Rule::unique('categories', 'en_slug')->ignore($this->category)
             ],
            'description' => 'required',
+           'en_description' => 'nullable',
            'price' => 'required|numeric',
            'quantity' => 'required|numeric|min:0',
            'discount_price' => 'nullable|numeric',

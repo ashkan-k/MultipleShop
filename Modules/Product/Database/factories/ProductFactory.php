@@ -31,6 +31,7 @@ class ProductFactory extends Factory
             'is_active' => fake()->boolean(),
             'is_special' => fake()->boolean(),
             'description' => fake()->realText(),
+            'en_description' => fake()->realText(),
             'view_count' => fake()->randomNumber(),
             'image' => fake()->imageUrl(),
             'price' => fake()->randomNumber(),

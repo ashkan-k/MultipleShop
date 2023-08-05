@@ -28,6 +28,7 @@ class Product extends Model
         'en_slug',
         'is_active',
         'description',
+        'en_description',
         'view_count',
         'image',
         'price',
@@ -49,6 +50,7 @@ class Product extends Model
         'en_title',
         'en_slug',
         'description',
+        'en_description',
         'price',
         'quantity',
         'barcode',
@@ -161,6 +163,11 @@ class Product extends Model
     public function get_title($lang)
     {
         return $lang == 'fa' ? $this->title : $this->en_title;
+    }
+
+    public function get_description($lang)
+    {
+        return $lang == 'fa' ? $this->description : $this->en_description;
     }
 
     public function get_price()

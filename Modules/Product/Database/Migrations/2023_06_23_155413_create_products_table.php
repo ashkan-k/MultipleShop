@@ -23,6 +23,7 @@ return new class extends Migration
             $table->boolean('is_active')->default(true);
 //            $table->enum('status', EnumHelpers::$PlaceTypesEnum)->default('restaurant');
             $table->text('description');
+            $table->text('en_description')->nullable();
             $table->integer('view_count')->default(0);
             $table->text('image');
             $table->string('price');

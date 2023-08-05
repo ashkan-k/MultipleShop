@@ -275,7 +275,7 @@
                                         <!--end::Tags-->
                                         <textarea type="text" id="id_en_body" class="form-control form-control-solid"
                                                   rows="8"
-                                                  placeholder="محتوا را وارد کنید"
+                                                  placeholder="محتوا انگلیسی را وارد کنید"
                                                   name="en_body">@if(old('en_body')){{ old('en_body') }}@elseif(isset($object->en_body)){{ $object->en_body }}@endif</textarea>
 
                                         @error('en_body')

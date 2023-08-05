@@ -463,14 +463,14 @@
                                             </h2>
                                             <div class="parent-expert default">
                                                 <div class="content-expert active">
-                                                    <p>{!! $object->description !!}</p>
+                                                    <p>{!! $object->get_description($lang) !!}</p>
                                                 </div>
                                                 <div class="sum-more">
                                                         <span class="show-more btn-link-border"
                                                               style="display: none !important;">
                                                                 {{ __('Show more') }}
                                                             </span>
-                                                    @if(\Illuminate\Support\Str::length($object->description) > 300)
+                                                    @if(\Illuminate\Support\Str::length($object->get_description($lang)) > 300)
                                                         <span class="show-less btn-link-border"
                                                               style="display: block !important;">
                                                                 {{ __('Show less') }}

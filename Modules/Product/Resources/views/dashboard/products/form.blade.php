@@ -453,6 +453,27 @@
 
                                     </div>
 
+                                    <div class="d-flex flex-column mb-8 fv-row">
+                                        <label for="id_en_description"
+                                               class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                            <span>توضیحات انگلیسی</span>
+                                        </label>
+
+                                        <textarea type="text" id="id_en_description"
+                                                  class="form-control form-control-solid"
+                                                  placeholder="توضیحات انگلیسی را وارد کنید" name="en_description" rows="18"
+                                                  required>@if(old('en_description')){{ old('en_description') }}@elseif(isset($object->en_description)){{ $object->en_description }}@endif</textarea>
+
+                                        @error('en_description')
+                                        <div class="fv-plugins-message-container invalid-feedback">
+                                            <div data-field="meta_title" data-validator="notEmpty">
+                                                {{ $message }}
+                                            </div>
+                                        </div>
+                                        @enderror
+
+                                    </div>
+
                                 </div>
 
                             </div>
@@ -647,6 +668,13 @@
             filebrowserUploadUrl: '{{ route('upload_ckeditor_image') }}',
             filebrowserImageUploadUrl: '{{ route('upload_ckeditor_image') }}'
         });
+
+        CKEDITOR.replace('id_en_description', {
+            filebrowserUploadMethod: 'form',
+            filebrowserUploadUrl: '{{ route('upload_ckeditor_image') }}',
+            filebrowserImageUploadUrl: '{{ route('upload_ckeditor_image') }}'
+        });
+
         $('#id_color_id').select2();
         $('#id_size_id').select2();
     </script>
