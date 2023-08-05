@@ -26,6 +26,7 @@ class BlogRequest extends FormRequest
                 Rule::unique('blogs', 'en_slug')->ignore($this->blog)
             ],
             'text' => 'required',
+            'en_text' => 'nullable',
             'status' => 'in:draft,publish,done',
             'image' => 'mimes:jpeg,png,bmp,jpg',
             'category_id' => 'required|exists:blog_categories,id',

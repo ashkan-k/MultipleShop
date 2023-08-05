@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('en_slug')->nullable();
 
             $table->text('text');
+            $table->text('en_text')->nullable();
             $table->integer('like_count')->default(0);
             $table->integer('view_count')->default(0);
             $table->text('image');

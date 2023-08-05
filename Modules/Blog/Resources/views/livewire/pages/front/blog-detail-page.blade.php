@@ -56,7 +56,7 @@
                             </div>
 
                             <div class="product-params default">
-                                {!! $object->text !!}
+                                {!! $object->get_text($lang) !!}
                             </div>
                         </div>
 

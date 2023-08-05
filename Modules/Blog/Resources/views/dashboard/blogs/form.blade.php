@@ -306,6 +306,26 @@
 
                                     </div>
 
+                                    <div class="d-flex flex-column mb-8 fv-row">
+                                        <label for="id_en_text"
+                                               class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                            <span class="required">متن انگلیسی</span>
+                                        </label>
+
+                                        <textarea type="en_text" id="id_en_text" class="form-control form-control-solid"
+                                                  placeholder="متن انگلیسی را وارد کنید" name="en_text" rows="18"
+                                                  required>@if(old('en_text')){{ old('en_text') }}@elseif(isset($object->en_text)){{ $object->en_text }}@endif</textarea>
+
+                                        @error('en_text')
+                                        <div class="fv-plugins-message-container invalid-feedback">
+                                            <div data-field="meta_title" data-validator="notEmpty">
+                                                {{ $message }}
+                                            </div>
+                                        </div>
+                                        @enderror
+
+                                    </div>
+
                                 </div>
 
                             </div>
@@ -325,6 +345,12 @@
 @section('Scripts')
     <script>
         CKEDITOR.replace('id_text', {
+            filebrowserUploadMethod: 'form',
+            filebrowserUploadUrl: '{{ route('upload_ckeditor_image') }}',
+            filebrowserImageUploadUrl: '{{ route('upload_ckeditor_image') }}'
+        });
+
+        CKEDITOR.replace('id_en_text', {
             filebrowserUploadMethod: 'form',
             filebrowserUploadUrl: '{{ route('upload_ckeditor_image') }}',
             filebrowserImageUploadUrl: '{{ route('upload_ckeditor_image') }}'

@@ -19,7 +19,7 @@ class Blog extends Model
         'slug',
         'en_title',
         'en_slug',
-        "text", "status",
+        "text", "en_text", "status",
         "like_count", "view_count", "image", "user_id", "category_id"
     ];
 
@@ -28,6 +28,8 @@ class Blog extends Model
         'slug',
         'en_title',
         'en_slug',
+        'text',
+        'en_text',
         'user.first_name',
         'user.last_name',
         'user.username',
@@ -91,6 +93,11 @@ class Blog extends Model
     public function get_title($lang)
     {
         return $lang == 'fa' ? $this->title : $this->en_title;
+    }
+
+    public function get_text($lang)
+    {
+        return $lang == 'fa' ? $this->text : $this->en_text;
     }
 
     public function get_slug($lang)

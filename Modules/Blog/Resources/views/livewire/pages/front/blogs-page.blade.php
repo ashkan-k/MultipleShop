@@ -59,7 +59,7 @@
                                                         <div class="product-box-title" style="
     text-align: right;
 ">
-                                                            {!! \Illuminate\Support\Str::limit($object->text, 250) !!}
+                                                            {!! \Illuminate\Support\Str::limit($object->get_text($lang), 250) !!}
                                                         </div>
                                                     </div>
 
