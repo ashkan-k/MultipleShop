@@ -18,5 +18,6 @@
     "Auth": true,
     "Guide": true,
     "Email": true,
-    "PageBuilder": true
+    "PageBuilder": true,
+    "Schema": true
 }

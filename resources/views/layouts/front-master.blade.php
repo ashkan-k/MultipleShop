@@ -473,7 +473,7 @@
                         <div class="col-12 col-md-6 col-lg-3" @if(isset($lang) && $lang != 'fa') style="text-align: left !important;" @endif>
                             <div class="widget-menu widget card">
                                 <header class="card-header ">
-                                    <h3 class="card-title style-border-bottom pb-3">
+                                    <h3 class="card-title style-border-bottom pb-3" @if(isset($lang) && $lang != 'fa') style="text-align: left !important;" @endif>
                                         @if($lang == 'fa')
                                             @if($settings['footer_right_links_title']->is_active)
                                                 {!! $settings['footer_right_links_title']->value !!}
@@ -501,7 +501,7 @@
                         <div class="col-12 col-md-6 col-lg-3" @if(isset($lang) && $lang != 'fa') style="text-align: left !important;" @endif>
                             <div class="widget-menu widget card">
                                 <header class="card-header">
-                                    <h3 class="card-title style-border-bottom pb-3">
+                                    <h3 class="card-title style-border-bottom pb-3" @if(isset($lang) && $lang != 'fa') style="text-align: left !important;" @endif>
                                         @if($lang == 'fa')
                                             @if($settings['footer_center_links_title']->is_active)
                                                 {!! $settings['footer_center_links_title']->value !!}
@@ -529,7 +529,7 @@
                         <div class="col-12 col-md-6 col-lg-3" @if(isset($lang) && $lang != 'fa') style="text-align: left !important;" @endif>
                             <div class="widget-menu widget card">
                                 <header class="card-header">
-                                    <h3 class="card-title style-border-bottom pb-3">
+                                    <h3 class="card-title style-border-bottom pb-3" @if(isset($lang) && $lang != 'fa') style="text-align: left !important;" @endif>
                                         @if($lang == 'fa')
                                             @if($settings['footer_left_links_title']->is_active)
                                                 {!! $settings['footer_left_links_title']->value !!}

@@ -29,7 +29,7 @@ class SettingHelpers
             ],
 
             [
-                'title' => 'فو آیکن (favicon)',
+                'title' => 'فاو آیکن (favicon)',
                 'key' => 'favicon',
                 'has_active_status' => false,
                 'field' => [

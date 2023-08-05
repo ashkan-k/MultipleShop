@@ -81,8 +81,8 @@
 
                                                             </form>
 
-                                                            <a onclick="return Delete('{{ $loop->index }}')"
-                                                               type="button" class="btn btn-primary text-white">{{ __('Delete') }}</a>
+{{--                                                            <a onclick="return Delete('{{ $loop->index }}')"--}}
+{{--                                                               type="button" class="btn btn-primary text-white">{{ __('Delete') }}</a>--}}
 
                                                             <a href="{{ route('front.ticket-answers.show',  ['locale' => $lang, 'ticket' => $item->ticket_number]) }}"
                                                                type="button"

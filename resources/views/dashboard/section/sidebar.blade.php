@@ -696,7 +696,7 @@
 													<span class="menu-bullet">
 														<span class="bullet bullet-dot"></span>
 													</span>
-                            <span class="menu-title">تنظیم لوگو و فو آیکن</span>
+                            <span class="menu-title">تنظیم لوگو و فاو آیکن</span>
                         </a>
 
                         <a class="menu-link @if(\Illuminate\Support\Facades\Route::current()->getName() == 'dynamic_form' && str_contains(request()->url(), 'footer_social_medias')) active @endif"
@@ -760,7 +760,7 @@
 													<span class="menu-bullet">
 														<span class="bullet bullet-dot"></span>
 													</span>
-                            <span class="menu-title">تنظیمات ره های ارتباطی</span>
+                            <span class="menu-title">تنظیمات راه های ارتباطی</span>
                         </a>
 
                         <a class="menu-link @if(\Illuminate\Support\Facades\Route::current()->getName() == 'dynamic_form' && str_contains(request()->url(), 'comment_terms_page')) active @endif"
@@ -779,13 +779,13 @@
                             <span class="menu-title">تنظیمات متن کپی رایت</span>
                         </a>
 
-                        <a class="menu-link @if(\Illuminate\Support\Facades\Route::current()->getName() == 'settings.index') active @endif"
-                           href="{{ route('settings.index') }}">
-													<span class="menu-bullet">
-														<span class="bullet bullet-dot"></span>
-													</span>
-                            <span class="menu-title">سایر تنظیمات</span>
-                        </a>
+{{--                        <a class="menu-link @if(\Illuminate\Support\Facades\Route::current()->getName() == 'settings.index') active @endif"--}}
+{{--                           href="{{ route('settings.index') }}">--}}
+{{--													<span class="menu-bullet">--}}
+{{--														<span class="bullet bullet-dot"></span>--}}
+{{--													</span>--}}
+{{--                            <span class="menu-title">سایر تنظیمات</span>--}}
+{{--                        </a>--}}
                     </div>
 
                 </div>
