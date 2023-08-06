@@ -17,8 +17,8 @@ use Modules\Ticket\Http\Controllers\Front\FrontTicketAnswerController;
 use Modules\Ticket\Http\Controllers\Front\FrontTicketController;
 
 // SiteMap
-Route::view('/sitemap', 'seo::sitemap-links')->name('sitemap-links');
-Route::get('sitemap-links', [SiteMapController::class, 'sitemapLinks'])->name('sitemap');
+Route::view('sitemap-links', 'seo::sitemap-links')->name('sitemap-links');
+Route::get('sitemap.xml', [SiteMapController::class, 'sitemapLinks'])->name('sitemap');
 Route::get('sitemap-products.xml', [SiteMapController::class, 'sitemapProducts'])->name('sitemap.products');
 Route::get('sitemap-product-categories.xml', [SiteMapController::class, 'sitemapProductCategories'])->name('sitemap.product.categories');
 Route::get('sitemap-blog.xml', [SiteMapController::class, 'sitemapBlogs'])->name('sitemap.blog');

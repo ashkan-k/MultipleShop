@@ -6,7 +6,7 @@
 <body>
 <h1>Sitemap Links</h1>
 <ul>
-    <li><a href="{{ route('sitemap-links') }}">All Sitemaps</a></li>
+    <li><a href="{{ route('sitemap') }}">All Sitemaps</a></li>
     <li><a href="{{ route('sitemap.products') }}">Product Sitemap</a></li>
     <li><a href="{{ route('sitemap.product.categories') }}">Product Categories Sitemap</a></li>
     <li><a href="{{ route('sitemap.blog') }}">Blog Sitemap</a></li>
