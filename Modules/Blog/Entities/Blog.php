@@ -19,7 +19,7 @@ class Blog extends Model
         'slug',
         'en_title',
         'en_slug',
-        "text", "en_text", "status",
+        "text", "en_text", "status", "schema_type",
         "like_count", "view_count", "image", "user_id", "category_id"
     ];
 
@@ -39,6 +39,20 @@ class Blog extends Model
     protected $filter_fields = [
         'status',
     ];
+
+    public static $SCHEMA_TYPES = [
+        'default' => 'پیشفرض (انتخاب شده در تنظیمات)',
+        'generic_article' => 'مقاله', 'news_article' => 'مقاله خبری',
+        'blog_posting' => 'پست وبلاگ', 'scholarly_article' => 'مقاله علمی',
+        'tech_article' => 'مقاله آموزشی', 'report' => 'گزارش',
+        'social_media' => 'نوشته رسانه اجتماعی', 'live_blog' => 'ارسال کننده زنده بلاگ',
+        'satirical_article' => 'مقاله طنز', 'medical_scholarly' => 'مقاله علمی پزشکی'
+    ];
+
+    public function get_schema_type()
+    {
+        return self::$SCHEMA_TYPES[$this->schema_type];
+    }
 
     public function get_image()
     {

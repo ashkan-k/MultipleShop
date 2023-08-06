@@ -17,5 +17,11 @@ class EnumHelpers
     static $PaymentTypeEnum = ['online', 'cash'];
     static $OrderStatusEnum = ['sending', 'posted', 'delivered'];
     static $PosterLocationEnum = ['top', 'center', 'bottom'];
-    static $GoogleShcemaEnum = ['article', 'review', 'product', 'recipe', 'event', 'faq', 'video', 'local_business', 'organization', 'breadcrumb_list'];
+    static $GoogleShcemaEnum = [
+        'generic_article', 'news_article',
+        'blog_posting', 'scholarly_article',
+        'tech_article', 'report',
+        'social_media', 'live_blog',
+        'satirical_article', 'medical_scholarly'
+    ];
 }
