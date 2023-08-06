@@ -18,6 +18,7 @@ class EnumHelpers
     static $OrderStatusEnum = ['sending', 'posted', 'delivered'];
     static $PosterLocationEnum = ['top', 'center', 'bottom'];
     static $GoogleShcemaEnum = [
+        'default',
         'generic_article', 'news_article',
         'blog_posting', 'scholarly_article',
         'tech_article', 'report',

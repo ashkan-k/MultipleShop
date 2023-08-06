@@ -2,6 +2,7 @@
 
 namespace Modules\Blog\Http\Requests;
 
+use App\Enums\EnumHelpers;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -30,6 +31,7 @@ class BlogRequest extends FormRequest
             'status' => 'in:draft,publish,done',
             'image' => 'mimes:jpeg,png,bmp,jpg',
             'category_id' => 'required|exists:blog_categories,id',
+            'schema_type' => 'required|in:' . implode(',', EnumHelpers::$GoogleShcemaEnum),
         ];
 
         if (request()->method == 'POST'){
