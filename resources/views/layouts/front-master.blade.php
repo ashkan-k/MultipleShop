@@ -37,6 +37,8 @@
 
     @livewireStyles
 
+    @yield('schema_org')
+
     @yield('styles')
 
 </head>

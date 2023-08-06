@@ -4,6 +4,12 @@
 
 <?php $website_title = $lang == 'fa' ? $settings['website_title']->value : $settings['website_en_title']->value;  ?>
 
+@section('schema_org')
+    @if($product_schema)
+        {!! $product_schema->toScript() !!}
+    @endif
+@endsection
+
 @section('content')
     @livewire('product::pages.front.product-detail-page' , [
 
