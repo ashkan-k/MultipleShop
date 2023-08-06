@@ -30,7 +30,7 @@ class FrontBlogController extends Controller
     {
         $blog = Blog::FindBySlug($lang, $slug);
         $blog_schema = SchemaHelper::GetArticleSchema($blog);
-        return view('livewire.test-product');
+        return view('blog::livewire.test-product');
         return view('blog::front.blog-detail', compact('blog', 'blog_schema'));
     }
 }
