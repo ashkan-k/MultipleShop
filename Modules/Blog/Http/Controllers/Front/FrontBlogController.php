@@ -30,7 +30,6 @@ class FrontBlogController extends Controller
     {
         $blog = Blog::FindBySlug($lang, $slug);
         $blog_schema = SchemaHelper::GetArticleSchema($blog);
-        return view('blog::aaa');
         return view('blog::front.blog-detail', compact('blog', 'blog_schema'));
     }
 }
