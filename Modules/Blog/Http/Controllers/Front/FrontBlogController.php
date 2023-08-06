@@ -14,6 +14,7 @@ use Modules\Product\Entities\Color;
 use Modules\Product\Entities\Product;
 use Modules\Product\Entities\Size;
 use Modules\Product\Http\Requests\ProductRequest;
+use Modules\Seo\Helpers\SchemaHelper;
 use Modules\User\Entities\User;
 
 class FrontBlogController extends Controller
@@ -28,6 +29,7 @@ class FrontBlogController extends Controller
     public function blog_detail($lang, $slug)
     {
         $blog = Blog::FindBySlug($lang, $slug);
-        return view('blog::front.blog-detail', compact('blog'));
+        $blog_schema = SchemaHelper::GetArticleSchema($blog);
+        return view('blog::front.blog-detail', compact('blog', 'blog_schema'));
     }
 }

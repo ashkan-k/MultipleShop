@@ -4,6 +4,13 @@
 
 <?php $website_title = $lang == 'fa' ? $settings['website_title']->value : $settings['website_en_title']->value;  ?>
 
+
+@section('schema_org')
+    @if($blog_schema)
+        {!! $blog_schema->toScript() !!}
+    @endif
+@endsection
+
 @section('content')
     @livewire('blog::pages.front.blog-detail-page' , [
 

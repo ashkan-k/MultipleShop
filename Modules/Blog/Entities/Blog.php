@@ -51,7 +51,7 @@ class Blog extends Model
 
     public function get_schema_type()
     {
-        return self::$SCHEMA_TYPES[$this->schema_type];
+        return $this->schema_type ? self::$SCHEMA_TYPES[$this->schema_type] : '---';
     }
 
     public function get_image()

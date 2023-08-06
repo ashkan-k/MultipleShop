@@ -39,6 +39,9 @@ class InitSettingsCommand extends Command
         'show_guides' => 1,
         'show_footer_help_links' => 1,
 
+        # Seo
+        'default_blog_schema_type' => 'generic_article',
+
         # Payment Description
         'gateway_description' => "خرید محصول از وبسایت جی تی کالا",
         'en_gateway_description' => "Buy the product from the GT Kala website",

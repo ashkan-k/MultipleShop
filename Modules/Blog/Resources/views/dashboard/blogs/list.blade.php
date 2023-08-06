@@ -121,6 +121,7 @@
                                 <th>کاربر</th>
                                 <th>تعداد بازدید</th>
                                 <th>تعداد لایک</th>
+                                <th>نوع مقاله</th>
                                 <th>وضعیت</th>
                                 <th>عکس</th>
                                 <th>عملیات</th>
@@ -148,6 +149,8 @@
                                     <td>{{ $item->view_count ? : '0' }}</td>
 
                                     <td>{{ $item->like_count ? : '0' }}</td>
+
+                                    <td>{{ $item->get_schema_type() ?: '---'  }}</td>
 
                                     <td>
                                         <div ng-click="ChangeStatusModal({{ $item->id }}, '{{ $item->status }}')"
