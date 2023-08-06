@@ -4,10 +4,12 @@ namespace Modules\Blog\Http\Controllers\Front;
 
 use App\Http\Traits\Responses;
 use App\Http\Traits\Uploader;
+use Artesaos\SEOTools\Facades\SEOMeta;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Blog\Entities\Blog;
+use Modules\Blog\Entities\BlogCategory;
 use Modules\Product\Entities\Brand;
 use Modules\Product\Entities\Category;
 use Modules\Product\Entities\Color;
@@ -23,6 +25,15 @@ class FrontBlogController extends Controller
 
     public function blogs($lang, $category_slug = null)
     {
+        if ($category_slug){
+            $blog_category = BlogCategory::FindBySlug($lang, $category_slug);
+
+            SEOMeta::setTitle($blog_category->get_title($lang));
+            SEOMeta::setDescription(__('Category articles of :cat', ['cat' => $blog_category->get_title($lang)]));
+        }else{
+            SEOMeta::setTitle(__('Blogs'));
+            SEOMeta::setDescription(__('Our Website Blog'));
+        }
         return view('blog::front.blogs', compact('category_slug'));
     }
 

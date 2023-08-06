@@ -38,6 +38,7 @@
     @livewireStyles
 
     @yield('schema_org')
+    @yield('seo_meta_tags')
 
     @yield('styles')
 

@@ -4,6 +4,7 @@ namespace Modules\Index\Http\Controllers;
 
 use App\Http\Traits\Responses;
 use App\Http\Traits\Uploader;
+use Artesaos\SEOTools\Facades\SEOMeta;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -13,6 +14,7 @@ use Modules\Dashboard\Http\Requests\ProfileRequest;
 use Modules\Poster\Entities\Poster;
 use Modules\Product\Entities\Category;
 use Modules\Product\Entities\Product;
+use Modules\Setting\Entities\Setting;
 use Modules\Slider\Entities\Slider;
 
 class IndexController extends Controller
@@ -44,6 +46,16 @@ class IndexController extends Controller
         $top_posters = Poster::where('location', 'top')->get();
         $center_posters = Poster::where('location', 'center')->get();
         $bottom_posters = Poster::where('location', 'bottom')->get();
+
+        if (app()->getLocale() == 'fa'){
+            $website_title = Setting::where('key', 'website_title')->first()->value;
+            $website_chant = Setting::where('key', 'footer_chant')->first()->value;
+        }else if (app()->getLocale() == 'en'){
+            $website_title = Setting::where('key', 'website_en_title')->first()->value;
+            $website_chant = Setting::where('key', 'footer_en_chant')->first()->value;
+        }
+        SEOMeta::setTitle($website_title);
+        SEOMeta::setDescription($website_chant);
 
         return view('index::index', compact('sliders', 'special_categories', 'special_products', 'top_posters', 'center_posters', 'bottom_posters', 'latest_products', 'most_favorite_products', 'cheapest_products', 'blogs', 'best_category'));
     }

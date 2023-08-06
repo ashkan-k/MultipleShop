@@ -1,5 +1,9 @@
 @extends('layouts.front-master')
 
+@section('seo_meta_tags')
+    {!! SEOMeta::generate() !!}
+@endsection
+
 @section('content')
     <main class="main default ">
         <!-- banner -->
