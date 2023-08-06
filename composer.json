@@ -19,8 +19,7 @@
         "mews/captcha": "^3.3",
         "mhmiton/laravel-modules-livewire": "^1.6",
         "nwidart/laravel-modules": "^10.0",
-        "spatie/laravel-sitemap": "^6.3",
-        "spatie/schema-org": "^3.14"
+        "spatie/laravel-sitemap": "^6.3"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.8",
