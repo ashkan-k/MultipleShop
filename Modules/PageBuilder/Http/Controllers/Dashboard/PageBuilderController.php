@@ -3,6 +3,7 @@
 namespace Modules\PageBuilder\Http\Controllers\Dashboard;
 
 use App\Http\Traits\Responses;
+use App\Http\Traits\Uploader;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -11,7 +12,7 @@ use Modules\PageBuilder\Http\Requests\PageBuilderRequest;
 
 class PageBuilderController extends Controller
 {
-    use Responses;
+    use Responses, Uploader;
 
     public function index()
     {
@@ -33,9 +34,11 @@ class PageBuilderController extends Controller
 
     public function store(PageBuilderRequest $request)
     {
+        $image = $this->UploadFile($request, 'image', 'pages_images', $request->title);
+
         $data = $request->validated();
         $data['is_active'] = $request->has('is_active') ?? false;
-        PageBuilder::create($data);
+        PageBuilder::create(array_merge($data, ['image' => $image]));
 
         return $this->SuccessRedirect('آیتم مورد نظر با موفقیت ثبت شد.', 'pages.index');
     }
@@ -48,9 +51,11 @@ class PageBuilderController extends Controller
 
     public function update(PageBuilderRequest $request, PageBuilder $page)
     {
+        $image = $this->UploadFile($request, 'image', 'pages_images', $page->title, $page->image);
+
         $data = $request->validated();
         $data['is_active'] = $request->has('is_active') ?? false;
-        $page->update($data);
+        $page->update(array_merge($data, ['image' => $image]));
 
         return $this->SuccessRedirect('آیتم مورد نظر با موفقیت ویرایش شد.', 'pages.index');
     }

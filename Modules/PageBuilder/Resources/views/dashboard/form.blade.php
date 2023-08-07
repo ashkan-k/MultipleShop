@@ -204,7 +204,7 @@
 
                                     <div class="d-flex flex-column mb-8 fv-row">
                                         <label for="id_image" class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                            <span class="required">عکس</span>
+                                            <span>عکس</span>
                                         </label>
 
                                         <input type="file" id="id_image" class="form-control form-control-solid"
