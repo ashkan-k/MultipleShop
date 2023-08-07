@@ -2,6 +2,16 @@
 
 @section('title') {{ $object->get_title($lang) }} @endsection
 
+@section('schema_org')
+    @if($page_schema)
+        {!! $page_schema->toScript() !!}
+    @endif
+@endsection
+
+@section('seo_meta_tags')
+    {!! SEOMeta::generate() !!}
+@endsection
+
 @section('content')
     <div class="overlay-search-box"></div>
 
