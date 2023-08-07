@@ -72,7 +72,7 @@
                                             </li>
 
                                             @foreach($answers as $answer)
-                                                <li class="chats__chat border p-3">
+                                                <li @if($answer->user_id != auth()->id()) style="background-color: #effafc" @endif class="chats__chat @if($answer->user_id != auth()->id()) chats__chat--reply @endif border p-3">
                                                     <div
                                                         style="gap: 0.8rem"
                                                         class="user d-flex align-items-center"
