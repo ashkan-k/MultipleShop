@@ -305,6 +305,28 @@ class SettingHelpers
             ],
         ],
 
+        'schema_defaults' => [
+            [
+                'title' => 'نوع پیشفرض مقالات',
+                'key' => 'default_blog_schema_type',
+                'has_active_status' => false,
+                'field' => [
+                    'type' => 'select',
+                    'options' => [],
+                ],
+            ],
+
+            [
+                'title' => 'نوع پیشفرض صفحات',
+                'key' => 'default_pages_schema_type',
+                'has_active_status' => false,
+                'field' => [
+                    'type' => 'select',
+                    'options' => [],
+                ],
+            ],
+        ],
+
         'sections' => [
             [
                 'title' => 'وضعیت نمایش بخش محصولات شگفت انگیز',

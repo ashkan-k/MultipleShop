@@ -41,7 +41,7 @@ class Blog extends Model
     ];
 
     public static $SCHEMA_TYPES = [
-        'default' => 'پیشفرض (انتخاب شده در تنظیمات)',
+        'default' => "پیشفرض (انتخاب شده در تنظیمات)",
         'generic_article' => 'مقاله', 'news_article' => 'مقاله خبری',
         'blog_posting' => 'پست وبلاگ', 'scholarly_article' => 'مقاله علمی',
         'tech_article' => 'مقاله آموزشی', 'report' => 'گزارش',

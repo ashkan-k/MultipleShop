@@ -7,6 +7,7 @@ use App\Http\Traits\Uploader;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Blog\Entities\Blog;
 use Modules\PageBuilder\Entities\PageBuilder;
 use Modules\Setting\Entities\Setting;
 use Modules\Setting\Helpers\SettingHelpers;
@@ -83,6 +84,7 @@ class SettingController extends Controller
         $form = SettingHelpers::GetDynamicItem($key, $select_options);
         $setting = Setting::firstOrCreate(['key' => $form['key']], [
             'key' => $form['key'],
+            'value' => 'test',
             'is_active' => true,
         ]);
         return view('setting::dashboard.dynamic_form', compact('form'))->with('object', $setting);
@@ -93,8 +95,16 @@ class SettingController extends Controller
         $select_options = [];
         $forms = SettingHelpers::GetDynamicItem($key, $select_options);
         foreach ($forms as $key => $item){
+            if ($item['key'] == 'default_blog_schema_type') {
+                $forms[$key]['field']['options'] = array_slice(Blog::$SCHEMA_TYPES, 1);
+            }
+            if ($item['key'] == 'default_pages_schema_type') {
+                $forms[$key]['field']['options'] = array_slice(PageBuilder::$SCHEMA_TYPES, 1);
+            }
+
             $forms[$key]['object'] = Setting::firstOrCreate(['key' => $item['key']], [
                 'key' => $item['key'],
+                'value' => 'test',
                 'is_active' => true,
             ]);
         }
