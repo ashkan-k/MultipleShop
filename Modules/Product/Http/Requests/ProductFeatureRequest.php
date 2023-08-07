@@ -23,7 +23,7 @@ class ProductFeatureRequest extends FormRequest
             'feature_id' => [
                 'required',
                 'exists:features,id',
-                Rule::unique('product_features', 'feature_id')->ignore($product_feature)
+//                Rule::unique('product_features', 'feature_id')->ignore($product_feature)
             ],
             'product_id' => [
                 'required',

@@ -461,7 +461,8 @@
 
                                         <textarea type="text" id="id_en_description"
                                                   class="form-control form-control-solid"
-                                                  placeholder="توضیحات انگلیسی را وارد کنید" name="en_description" rows="18"
+                                                  placeholder="توضیحات انگلیسی را وارد کنید" name="en_description"
+                                                  rows="18"
                                                   required>@if(old('en_description')){{ old('en_description') }}@elseif(isset($object->en_description)){{ $object->en_description }}@endif</textarea>
 
                                         @error('en_description')
@@ -488,176 +489,317 @@
             <!--end::Content container-->
         </div>
 
-      @if(isset($object))
-          <!--begin::Content-->
-              <div id="kt_app_content" class="app-content flex-column-fluid">
-                  <!--begin::Content container-->
-                  <div id="kt_app_content_container" class="app-container container-xxl">
-                      <!--begin::کارت-->
-                      <div class="card">
-                          <!--begin::کارت header-->
-                          <div class="card-header border-0 pt-6">
-                              <div class="card-toolbar">
-                                  <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
+    @if(isset($object))
+        <!--begin::Content-->
+            <div id="kt_app_content" class="app-content flex-column-fluid">
+                <!--begin::Content container-->
+                <div id="kt_app_content_container" class="app-container container-xxl">
+                    <!--begin::کارت-->
+                    <div class="card">
+                        <!--begin::کارت header-->
+                        <div class="card-header border-0 pt-6">
+                            <div class="card-toolbar">
+                                <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
 
-                                      <button type="button" ng-click="AddEditFeatureModal()"
-                                              class="btn btn-primary" data-bs-toggle="modal"
-                                              data-bs-target="#kt_modal_add_user">
-                                          <i class="ki-duotone ki-plus fs-2"></i>افزودن ویژگی جدید به
-                                          محصول {{ $object->title }}
-                                      </button>
-                                      <!--end::Add user-->
-                                  </div>
-                                  <!--end::Toolbar-->
-                              </div>
-                              <!--end::کارت toolbar-->
-                          </div>
-                          <!--end::کارت header-->
-                          <!--begin::کارت body-->
-                          <div class="card-body py-4">
-                              <!--begin::Table-->
-                              <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_table_items">
-                                  <thead>
-                                  <tr class="text-start text-muted fw-bold fs-7 text-uppercase gs-0">
-                                      <th>شناسه</th>
-                                      <th>محصول</th>
-                                      <th>ویزگی</th>
-                                      <th>مقدار</th>
-                                      <th>جایگاه</th>
-                                      <th>عملیات</th>
-                                  </tr>
-                                  </thead>
-                                  <tbody class="text-gray-600 fw-semibold">
+                                    <button type="button" ng-click="AddEditFeatureModal()"
+                                            class="btn btn-primary" data-bs-toggle="modal"
+                                            data-bs-target="#kt_modal_add_user">
+                                        <i class="ki-duotone ki-plus fs-2"></i>افزودن ویژگی جدید به
+                                        محصول {{ $object->title }}
+                                    </button>
+                                    <!--end::Add user-->
+                                </div>
+                                <!--end::Toolbar-->
+                            </div>
+                            <!--end::کارت toolbar-->
+                        </div>
+                        <!--end::کارت header-->
+                        <!--begin::کارت body-->
+                        <div class="card-body py-4">
+                            <!--begin::Table-->
+                            <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_table_items">
+                                <thead>
+                                <tr class="text-start text-muted fw-bold fs-7 text-uppercase gs-0">
+                                    <th>شناسه</th>
+                                    <th>محصول</th>
+                                    <th>ویزگی</th>
+                                    <th>مقدار</th>
+                                    <th>جایگاه</th>
+                                    <th>عملیات</th>
+                                </tr>
+                                </thead>
+                                <tbody class="text-gray-600 fw-semibold">
 
-                                  <tr ng-repeat="(key, item) in feature_items">
-                                      <td>[[ key + 1 ]]</td>
+                                <tr ng-repeat="(key, item) in feature_items">
+                                    <td>[[ key + 1 ]]</td>
 
-                                      <td>[[ item['product']['title'] ]]</td>
+                                    <td>[[ item['product']['title'] ]]</td>
 
-                                      <td>[[ item['feature']['title'] ]]</td>
+                                    <td>[[ item['feature']['title'] ]]</td>
 
-                                      <td>[[ item['value'] ]]</td>
+                                    <td>[[ item['value'] ]]</td>
 
-                                      <td>[[ item['get_place'] ]]</td>
+                                    <td>[[ item['get_place'] ]]</td>
 
-                                      <td class="">
-                                          <a ng-click="AddEditFeatureModal(item)" class="btn btn-bg-light btn-color-muted btn-active-color-primary btn-sm px-4 me-2">
-                                              ویرایش
-                                          </a>
+                                    <td class="">
+                                        <a ng-click="AddEditFeatureModal(item)"
+                                           class="btn btn-bg-light btn-color-muted btn-active-color-primary btn-sm px-4 me-2">
+                                            ویرایش
+                                        </a>
 
-                                          <a ng-click="RemoveFeature(item.id)" class="btn btn-bg-light btn-color-muted btn-active-color-primary btn-sm px-4 me-2">
-                                              حذف
-                                          </a>
-                                      </td>
-                                  </tr>
+                                        <a ng-click="RemoveFeature(item.id)"
+                                           class="btn btn-bg-light btn-color-muted btn-active-color-primary btn-sm px-4 me-2">
+                                            حذف
+                                        </a>
+                                    </td>
+                                </tr>
 
-                                  </tbody>
-                              </table>
-                              <!--end::Table-->
-                          </div>
-                          <!--end::کارت body-->
-                      </div>
-                      <!--end::کارت-->
-                  </div>
-                  <!--end::Content container-->
-              </div>
-              <!--end::Content-->
-      @endif
+                                </tbody>
+                            </table>
+                            <!--end::Table-->
+                        </div>
+                        <!--end::کارت body-->
+                    </div>
+                    <!--end::کارت-->
+                </div>
+                <!--end::Content container-->
+            </div>
+            <!--end::Content-->
+
+
+            <!--begin::Content-->
+            <div id="kt_app_content" class="app-content flex-column-fluid">
+                <!--begin::Content container-->
+                <div id="kt_app_content_container" class="app-container container-xxl">
+                    <!--begin::کارت-->
+                    <div class="card">
+                        <!--begin::کارت header-->
+                        <div class="card-header border-0 pt-6">
+                            <div class="card-toolbar">
+                                <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
+
+                                    <button type="button" ng-click="AddEditGalleryModal()"
+                                            class="btn btn-primary" data-bs-toggle="modal"
+                                            data-bs-target="#kt_modal_add_user">
+                                        <i class="ki-duotone ki-plus fs-2"></i>افزودن تصویر جدید به
+                                        محصول {{ $object->title }}
+                                    </button>
+                                    <!--end::Add user-->
+                                </div>
+                                <!--end::Toolbar-->
+                            </div>
+                            <!--end::کارت toolbar-->
+                        </div>
+                        <!--end::کارت header-->
+                        <!--begin::کارت body-->
+                        <div class="card-body py-4">
+                            <!--begin::Table-->
+                            <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_table_items">
+                                <thead>
+                                <tr class="text-start text-muted fw-bold fs-7 text-uppercase gs-0">
+                                    <th>محصول</th>
+                                    <th>عکس</th>
+                                    <th>عملیات</th>
+                                </tr>
+                                </thead>
+                                <tbody class="text-gray-600 fw-semibold">
+
+                                <tr ng-repeat="item in gallery_items">
+                                    <td>[[ item.product.title ]]</td>
+
+                                    <td>
+                                        <div class="symbol symbol-circle symbol-50px overflow-hidden me-3">
+                                            <a href="[[ item.image ]]" target="_blank">
+                                                <div class="symbol-label">
+                                                    <img src="[[ item.image ]]" alt="[[ item.title ]]"
+                                                         class="w-100">
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </td>
+
+                                    <td class="">
+                                        <a ng-click="removeGallery([[item.id]])"
+                                           class="btn btn-bg-light btn-color-muted btn-active-color-primary btn-sm px-4 me-2">حذف</a>
+                                    </td>
+                                </tr>
+
+                                </tbody>
+                            </table>
+                            <!--end::Table-->
+                        </div>
+                        <!--end::کارت body-->
+                    </div>
+                    <!--end::کارت-->
+                </div>
+                <!--end::Content container-->
+            </div>
+            <!--end::Content-->
+        @endif
     </div>
 
     @if(isset($object))
         <div class="modal fade" id="addEditFeatureModal" tabindex="-1" aria-hidden="true">
-        <!--begin::Modal dialog-->
-        <div class="modal-dialog modal-dialog-centered mw-650px">
-            <!--begin::Modal content-->
-            <div class="modal-content rounded">
-                <!--begin::Modal header-->
-                <div class="modal-header pb-0 border-0 justify-content-end">
-                    <!--begin::Close-->
-                    <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
-                        <i class="ki-duotone ki-cross fs-1">
-                            <span class="path1"></span>
-                            <span class="path2"></span>
-                        </i>
+            <!--begin::Modal dialog-->
+            <div class="modal-dialog modal-dialog-centered mw-650px">
+                <!--begin::Modal content-->
+                <div class="modal-content rounded">
+                    <!--begin::Modal header-->
+                    <div class="modal-header pb-0 border-0 justify-content-end">
+                        <!--begin::Close-->
+                        <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                            <i class="ki-duotone ki-cross fs-1">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                            </i>
+                        </div>
+                        <!--end::Close-->
                     </div>
-                    <!--end::Close-->
+                    <!--begin::Modal header-->
+                    <!--begin::Modal body-->
+                    <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
+                        <!--begin:Form-->
+                        <form id="addEditFeatureModal_form" class="form" action="#">
+                            <!--begin::Heading-->
+                            <div class="mb-13 text-center">
+                                <h1 class="mb-3">الحاق ویژگی به محصول ({{ $object->title }})</h1>
+                            </div>
+
+                            <div class="d-flex flex-column mb-8 fv-row">
+                                <!--begin::Tags-->
+                                <label for="id_feature_id" class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                    <span class="required">ویژگی</span>
+                                </label>
+
+                                <select ng-model="obj.feature_id" id="id_feature_id" name="contents"
+                                        data-kt-select2="true"
+                                        ng-options="item.id as item.title for item in features"
+                                        class="form-control">
+                                </select>
+
+                            </div>
+
+                            <div class="d-flex flex-column mb-8 fv-row">
+                                <!--begin::Tags-->
+                                <label for="id_value" class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                    <span class="required">مقدار</span>
+                                </label>
+
+                                <select ng-model="obj.value" id="id_value" name="contents"
+                                        ng-if="feature['filter_type'] == 'checkbox' || feature['filter_type'] == 'radio'"
+                                        ng-options="item as item for item in filter_items"
+                                        class="form-control">
+                                    <option value="" disabled>مقدار را انتخاب کنید</option>
+                                </select>
+
+                                <textarea ng-model="obj.value" id="id_value" name="value"
+                                          ng-if="!feature['filter_type'] || feature['filter_type'] == 'text'"
+                                          class="form-control" rows="4"></textarea>
+                            </div>
+
+                            <div class="d-flex flex-column mb-8 fv-row">
+                                <!--begin::Tags-->
+                                <label for="id_place" class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                    <span class="required">جایگاه</span>
+                                </label>
+
+                                <select ng-model="obj.place" id="id_place" name="contents"
+                                        class="form-control">
+                                    <option value="" disabled>جایگاه را انتخاب کنید</option>
+                                    <option value="up">بالا</option>
+                                    <option value="down">پایین</option>
+                                    <option value="both">هر دو</option>
+                                </select>
+                            </div>
+
+                            <div class="text-center">
+                                <button ng-disabled="is_submited" onclick="$('#addEditFeatureModal').modal('hide');"
+                                        type="reset" id="addEditFeatureModal_cancel" class="btn btn-light me-3">انصراف
+                                </button>
+                                <button type="button" ng-click="SubmitAddEditFeature()" ng-disabled="is_submited"
+                                        class="btn btn-primary">
+                                    <span class="indicator-label">ثبت</span>
+                                </button>
+                            </div>
+                            <!--end::Actions-->
+                        </form>
+                        <!--end:Form-->
+                    </div>
+                    <!--end::Modal body-->
                 </div>
-                <!--begin::Modal header-->
-                <!--begin::Modal body-->
-                <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
-                    <!--begin:Form-->
-                    <form id="addEditFeatureModal_form" class="form" action="#">
-                        <!--begin::Heading-->
-                        <div class="mb-13 text-center">
-                            <h1 class="mb-3">الحاق ویژگی به محصول ({{ $object->title }})</h1>
-                        </div>
-
-                        <div class="d-flex flex-column mb-8 fv-row">
-                            <!--begin::Tags-->
-                            <label for="id_feature_id" class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                <span class="required">ویژگی</span>
-                            </label>
-
-                            <select ng-model="obj.feature_id" id="id_feature_id" name="contents"
-                                    data-kt-select2="true"
-                                    ng-options="item.id as item.title for item in features"
-                                    class="form-control">
-                            </select>
-
-                        </div>
-
-                        <div class="d-flex flex-column mb-8 fv-row">
-                            <!--begin::Tags-->
-                            <label for="id_value" class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                <span class="required">مقدار</span>
-                            </label>
-
-                            <select ng-model="obj.value" id="id_value" name="contents"
-                                    ng-if="feature['filter_type'] == 'checkbox' || feature['filter_type'] == 'radio'"
-                                    ng-options="item as item for item in filter_items"
-                                    class="form-control">
-                                <option value="" disabled>مقدار را انتخاب کنید</option>
-                            </select>
-
-                            <textarea ng-model="obj.value" id="id_value" name="value"
-                                      ng-if="!feature['filter_type'] || feature['filter_type'] == 'text'"
-                                      class="form-control" rows="4"></textarea>
-                        </div>
-
-                        <div class="d-flex flex-column mb-8 fv-row">
-                            <!--begin::Tags-->
-                            <label for="id_place" class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                <span class="required">جایگاه</span>
-                            </label>
-
-                            <select ng-model="obj.place" id="id_place" name="contents"
-                                    class="form-control">
-                                <option value="" disabled>جایگاه را انتخاب کنید</option>
-                                <option value="up">بالا</option>
-                                <option value="down">پایین</option>
-                                <option value="both">هر دو</option>
-                            </select>
-                        </div>
-
-                        <div class="text-center">
-                            <button ng-disabled="is_submited" onclick="$('#addEditFeatureModal').modal('hide');"
-                                    type="reset" id="addEditFeatureModal_cancel" class="btn btn-light me-3">انصراف
-                            </button>
-                            <button type="button" ng-click="SubmitAddEditFeature()" ng-disabled="is_submited"
-                                    class="btn btn-primary">
-                                <span class="indicator-label">ثبت</span>
-                            </button>
-                        </div>
-                        <!--end::Actions-->
-                    </form>
-                    <!--end:Form-->
-                </div>
-                <!--end::Modal body-->
+                <!--end::Modal content-->
             </div>
-            <!--end::Modal content-->
+            <!--end::Modal dialog-->
         </div>
-        <!--end::Modal dialog-->
-    </div>
+
+        <div class="modal fade" id="addEditGalleyModal" tabindex="-1" aria-hidden="true">
+            <!--begin::Modal dialog-->
+            <div class="modal-dialog modal-dialog-centered mw-650px">
+                <!--begin::Modal content-->
+                <div class="modal-content rounded">
+                    <!--begin::Modal header-->
+                    <div class="modal-header pb-0 border-0 justify-content-end">
+                        <!--begin::Close-->
+                        <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                            <i class="ki-duotone ki-cross fs-1">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                            </i>
+                        </div>
+                        <!--end::Close-->
+                    </div>
+                    <!--begin::Modal header-->
+                    <!--begin::Modal body-->
+                    <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
+                        <!--begin:Form-->
+                        <form id="addEditGalleyModal_form" class="form" action="#">
+                            <!--begin::Heading-->
+                            <div class="mb-13 text-center">
+                                <h1 class="mb-3">الحاق تصویر به محصول ({{ $object->title }})</h1>
+                            </div>
+
+                            <div class="d-flex flex-column mb-8 fv-row">
+                                <!--begin::Tags-->
+                                <label for="id_gallery_image" class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                    <span class="required">تصویر</span>
+                                </label>
+
+                                <input type="file" id="id_gallery_image" accept="image/*" multiple class="form-control">
+                                <div class="fv-plugins-message-container invalid-feedback">
+                                    <div data-field="meta_title" data-validator="notEmpty">
+                                        <h5 class="text-danger">امکان آپلود چند تصویر به صورت همزمان وجود دارد.</h5>
+                                    </div>
+                                </div>
+
+                                <div ng-if="obj.image" class="input-field col s12 mt-3">
+                                    <p>تصویر قبلی:</p>
+                                    <a href="[[ obj.image]]" target="_blank"><img
+                                            src="[[ obj.image]]"
+                                            width="70"
+                                            alt="[[ obj.title ]]"></a>
+                                </div>
+
+                            </div>
+
+                            <div class="text-center">
+                                <button ng-disabled="is_submited" onclick="$('#addEditGalleyModal').modal('hide');"
+                                        type="reset" id="addEditGalleyModal_cancel" class="btn btn-light me-3">انصراف
+                                </button>
+                                <button type="button" ng-click="SubmitAddEditGallery()" ng-disabled="is_submited"
+                                        class="btn btn-primary">
+                                    <span class="indicator-label">آپلود</span>
+                                </button>
+                            </div>
+                            <!--end::Actions-->
+                        </form>
+                        <!--end:Form-->
+                    </div>
+                    <!--end::Modal body-->
+                </div>
+                <!--end::Modal content-->
+            </div>
+            <!--end::Modal dialog-->
+        </div>
     @endif
 @endsection
 
@@ -729,7 +871,9 @@
 
     <script>
         @if(isset($object))
-            app.controller('myCtrl', function ($scope, $http) {
+        app.controller('myCtrl', function ($scope, $http) {
+
+            $scope.gallery_items = [];
 
             $scope.feature_items = [];
             $scope.filter_items = [];
@@ -737,6 +881,7 @@
 
             $scope.init = function () {
                 $scope.GetProductFeatures();
+                $scope.GetGallery();
             }
 
             $scope.GetProductFeatures = function () {
@@ -760,8 +905,6 @@
             }
 
             $scope.$watch('obj.feature_id', function (newValue, oldValue) {
-                console.log('aaaaaaaaaaa')
-                console.log(newValue)
                 if (newValue) {
                     $scope.feature = $scope.features.filter(element => element['id'] == newValue)[0];
                     $scope.GetFeatureFilterItems(newValue);
@@ -858,6 +1001,83 @@
                     });
 
                 }
+            }
+
+            //
+
+            $scope.AddEditGalleryModal = function (obj) {
+                $scope.obj = {};
+                if (obj) {
+                    $scope.obj = obj;
+                }
+                $('#addEditGalleyModal').modal('show');
+            }
+
+            $scope.GetGallery = function () {
+                var url = `{{ route('galleries.api.index', $object->id) }}`
+
+                $http.get(url).then(res => {
+                    $scope.is_submited = false;
+                    $scope.gallery_items = res['data']['data'];
+                }).catch(err => {
+                    $scope.is_submited = false;
+                    showToast('خطایی رخ داد.', 'error');
+                });
+            }
+
+            $scope.removeGallery = function (itemId) {
+                let title = 'حذف آیتم';
+                let description = 'آیا از حذف این آیتم مطمئن هستید؟ این عملیات غیرقابل بازگشت است.';
+                let url = '/api/products/galleries/';
+                createSwal("warning", description, title).then((result) => {
+                    if (result.value) {
+                        $http.delete(`${url}${itemId}/`).then(function () {
+                            showToast('آیتم مورد نظر با موفقیت حذف شد.', 'success');
+                            $scope.GetGallery();
+                        }).catch(function (err) {
+                            parseError(err);
+                        })
+                    }
+                });
+            };
+
+            $scope.SubmitAddEditGallery = function (type = 'create') {
+                if (!$("#id_gallery_image")[0].files[0]) {
+                    showToast('فیلد تصویر اجباری است!', 'error');
+                    return;
+                }
+
+                fd = new FormData();
+                for (item = 0; item < $("#id_gallery_image")[0].files.length; item++) {
+                    fd.append('image[]', $("#id_gallery_image")[0].files[item]);
+                }
+
+                $scope.is_submited = true;
+
+                var url = `{{ route('galleries.api.store', $object->id) }}`
+
+                $http.post(url, fd, {
+                    headers: {
+                        'Content-Type': undefined
+                    },
+                }).then(res => {
+                    showToast(res['data']['data'], 'success');
+                    $scope.is_submited = false;
+                    $scope.obj = {};
+
+                    $('#id_gallery_image').val('');
+                    $('#addEditGalleyModal').modal('hide');
+                    $scope.GetGallery();
+
+                }).catch(err => {
+                    $scope.is_submited = false;
+                    if (err['data']['errors']['image']) {
+                        showToast(err['data']['errors']['image'][0], 'error');
+                        showToast(err['data']['errors']['image'][1], 'error');
+                        return;
+                    }
+                    showToast('خطایی رخ داد.', 'error');
+                });
             }
         });
         @endif
