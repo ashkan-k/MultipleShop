@@ -40,7 +40,12 @@ class FrontBlogController extends Controller
     public function blog_detail($lang, $slug)
     {
         $blog = Blog::FindBySlug($lang, $slug);
+
+        // Seo
         $blog_schema = SchemaHelper::GetArticleSchema($blog);
+        SEOMeta::setTitle($blog->get_title($lang));
+        SEOMeta::setDescription(strip_tags($blog->get_text($lang)));
+
         return view('blog::front.blog-detail', compact('blog', 'blog_schema'));
     }
 }
