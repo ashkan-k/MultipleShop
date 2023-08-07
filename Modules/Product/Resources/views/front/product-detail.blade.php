@@ -10,6 +10,10 @@
     @endif
 @endsection
 
+@section('seo_meta_tags')
+    {!! SEOMeta::generate() !!}
+@endsection
+
 @section('content')
     @livewire('product::pages.front.product-detail-page' , [
 
