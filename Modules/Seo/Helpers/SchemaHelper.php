@@ -154,14 +154,148 @@ class SchemaHelper
         }
 
         switch ($schema_type) {
-            case 'generic_article':
-                // Generic Article
+            case 'article':
+                // Article
                 return Schema::article()
-                    ->name($page->get_title($lang))
-                    ->description(strip_tags($page->get_text($lang)))
-                    ->url(route('blog_detail', $page->get_slug($lang)))
-                    ->author($author)
+                    ->name($page->get_title($page))
+                    ->description(strip_tags($page->get_body($lang)))
+                    ->url(route('page', $page->get_slug($lang)))
+                    ->datePublished($page->created_at)
                     ->image($image);
+
+            case 'blog_posting':
+                // Blog Posting
+                return Schema::blogPosting()
+                    ->headline($page->get_title($page))
+                    ->articleBody(strip_tags($page->get_body($lang)))
+                    ->datePublished($page->created_at)
+                    ->url(route('page', $page->get_slug($lang)))
+                    ->image($image);
+
+            case 'news_article':
+                // News Article
+                return Schema::newsArticle()
+                    ->headline($page->get_title($page))
+                    ->articleBody(strip_tags($page->get_body($lang)))
+                    ->datePublished($page->created_at)
+                    ->url(route('page', $page->get_slug($lang)));
+
+            case 'web_page':
+                // Web Page
+                return Schema::webPage()
+                    ->name($page->get_title($page))
+                    ->description(strip_tags($page->get_body($lang)))
+                    ->url(route('page', $page->get_slug($lang)));
+
+            case 'about_page':
+                // About Page
+                return Schema::aboutPage()
+                    ->name($page->get_title($page))
+                    ->description(strip_tags($page->get_body($lang)))
+                    ->url(route('page', $page->get_slug($lang)));
+
+            case 'contact_page':
+                // Contact Page
+                return Schema::aboutPage()
+                    ->name($page->get_title($page))
+                    ->url(route('page', $page->get_slug($lang)));
+
+            case 'FAQ_page':
+                // FAQ Page
+                return Schema::faqPage()
+                    ->name($page->get_title($page))
+                    ->description(strip_tags($page->get_body($lang)))
+                    ->mainEntity([
+                        Schema::question()
+                            ->name('Question 1')
+                            ->acceptedAnswer(Schema::answer()->text('Answer 1')),
+                        Schema::question()
+                            ->name('Question 2')
+                            ->acceptedAnswer(Schema::answer()->text('Answer 2')),
+                    ])
+                    ->url(route('page', $page->get_slug($lang)));
+
+            case 'product_page':
+                // Product Page
+                return Schema::product()
+                    ->name($page->get_title($page))
+                    ->description(strip_tags($page->get_body($lang)))
+                    ->image($image)
+                    ->url(route('page', $page->get_slug($lang)));
+
+            case 'event':
+                // Event
+                return Schema::event()
+                    ->name($page->get_title($page))
+                    ->description(strip_tags($page->get_body($lang)))
+                    ->startDate($page->created_at)
+                    ->endDate($page->updated_at)
+                    ->location(Schema::place()->name($page->get_title($page)))
+                    ->url(route('page', $page->get_slug($lang)));
+
+            case 'video_object':
+                // Page Object
+                return Schema::videoObject()
+                    ->name($page->get_title($page))
+                    ->description(strip_tags($page->get_body($lang)))
+                    ->thumbnailUrl($image)
+                    ->contentUrl(strip_tags($page->get_body($lang)))
+                    ->uploadDate($page->created_at)
+                    ->url(route('page', $page->get_slug($lang)));
+
+            case 'recipe':
+                // Recipe
+                return Schema::recipe()
+                    ->name($page->get_title($page))
+                    ->description(strip_tags($page->get_body($lang)))
+                    ->recipeInstructions(strip_tags($page->get_body($lang)))
+                    ->url(route('page', $page->get_slug($lang)));
+
+            case 'review':
+                // Review
+                return Schema::review()
+                    ->name($page->get_title($page))
+                    ->description(strip_tags($page->get_body($lang)))
+                    ->reviewRating(Schema::rating()->ratingValue(5))
+                    ->url(route('page', $page->get_slug($lang)));
+
+            case 'search_results_page':
+                // SearchResultsPage
+                return Schema::searchResultsPage()
+                    ->mainEntity([strip_tags($page->get_body($lang))])
+                    ->url(route('page', $page->get_slug($lang)));
+
+            case 'profile_page':
+                // ProfilePage
+                return Schema::profilePage()
+                    ->name($page->get_title($page))
+                    ->url(route('page', $page->get_slug($lang)));
+
+            case 'collection_page':
+                // CollectionPage
+                return Schema::collectionPage()
+                    ->name($page->get_title($page))
+                    ->description(strip_tags($page->get_body($lang)))
+                    ->url(route('page', $page->get_slug($lang)));
+
+            case 'job_posting':
+                // JobPosting
+                return Schema::jobPosting()
+                    ->title($page->get_title($page))
+                    ->description(strip_tags($page->get_body($lang)))
+                    ->hiringOrganization(Schema::organization()->name($page->get_title($page)))
+                    ->jobLocation(Schema::place()->name($page->get_body($lang)))
+                    ->validThrough($page->created_at)
+                    ->employmentType('Full-time')
+                    ->url(route('page', $page->get_slug($lang)));
+
+            case 'course':
+                // Course
+                return Schema::course()
+                    ->name($page->get_title($page))
+                    ->description(strip_tags($page->get_body($lang)))
+                    ->provider(Schema::organization()->name($page->get_title($page)))
+                    ->url(route('page', $page->get_slug($lang)));
 
             default:
                 return null;
