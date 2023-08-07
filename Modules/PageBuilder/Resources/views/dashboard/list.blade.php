@@ -87,6 +87,7 @@
                                 <th>عنوان انگلیسی</th>
                                 <th>نامک</th>
                                 <th>نامک انگلیسی</th>
+                                <th>نوع صفحه</th>
                                 <th>وضعیت</th>
                                 <th>عکس</th>
                                 <th class="text-end min-w-100px">عملیات</th>
@@ -112,6 +113,8 @@
                                     <td>{{ $item->slug ?: '---' }}</td>
 
                                     <td>{{ $item->en_slug ?: '---' }}</td>
+
+                                    <td>{{ $item->get_schema_type() ?: '---'  }}</td>
 
                                     <td>
                                         <div

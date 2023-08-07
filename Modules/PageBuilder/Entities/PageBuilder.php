@@ -73,7 +73,7 @@ class PageBuilder extends Model
         'default' => 'پیشفرض (انتخاب شده در تنظیمات)',
         'article' => 'مقاله', 'news_article' => 'مقاله خبری',
         'blog_posting' => 'ارسال وبلاگ', 'web_page' => 'صفحه وب',
-        'about_page' => 'صفحه درباره با ما', 'contact_page' => 'صفحه تماس با ما',
+        'about_page' => 'صفحه درباره ما', 'contact_page' => 'صفحه تماس با ما',
         'FAQ_page' => 'صفحه سوالات متداول', 'product_page' => 'صفحه محصول',
         'event' => 'رویداد', 'video_object' => 'ویدیو',
         'recipe' => 'دستور العمل', 'review' => 'نقد و بررسی',

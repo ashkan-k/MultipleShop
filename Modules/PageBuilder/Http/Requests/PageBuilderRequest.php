@@ -2,6 +2,7 @@
 
 namespace Modules\PageBuilder\Http\Requests;
 
+use App\Enums\EnumHelpers;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -30,6 +31,7 @@ class PageBuilderRequest extends FormRequest
             ],
             'icon_name' => 'required_if:is_special,1',
             'image' => 'nullable|image|mimes:jpeg,png,bmp,jpg',
+            'schema_type' => 'required|in:' . implode(',', EnumHelpers::$PageGoogleShcemaEnum),
         ];
     }
 

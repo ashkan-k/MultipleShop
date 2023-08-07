@@ -230,6 +230,37 @@
 
                                     </div>
 
+                                    <div class="d-flex flex-column mb-8 fv-row">
+                                        <label for="id_schema_type"
+                                               class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                            <span class="required">نوع مقاله (schema)</span>
+                                        </label>
+
+                                        <select id="id_schema_type" name="schema_type"
+                                                data-kt-select2="true" required
+                                                class="form-control form-control-solid">
+
+                                            @foreach(\Modules\PageBuilder\Entities\PageBuilder::$SCHEMA_TYPES as $key => $schema_type)
+
+                                                <option
+                                                    @if(isset($object->schema_type) && $object->schema_type == $key) selected
+                                                    @endif value="{{ $key }}">{{ $schema_type }}
+                                                </option>
+
+                                            @endforeach
+
+                                        </select>
+
+                                        @error('schema_type')
+                                        <div class="fv-plugins-message-container invalid-feedback">
+                                            <div data-field="meta_title" data-validator="notEmpty">
+                                                {{ $message }}
+                                            </div>
+                                        </div>
+                                        @enderror
+
+                                    </div>
+
                                     <div class="row py-5">
                                         <div class="col-md-9 offset-md-3">
                                             <div class="d-flex" style="float: left !important;">
