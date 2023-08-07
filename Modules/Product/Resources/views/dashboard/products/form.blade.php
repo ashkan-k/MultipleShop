@@ -672,7 +672,7 @@
                                 </label>
 
                                 <select ng-model="obj.feature_id" id="id_feature_id" name="contents"
-                                        data-kt-select2="true"
+{{--                                        data-kt-select2="true"--}}
                                         ng-options="item.id as item.title for item in features"
                                         class="form-control">
                                 </select>
@@ -900,14 +900,17 @@
                 $scope.obj = {};
                 if (obj) {
                     $scope.obj = obj;
+                    $scope.feature_id = obj['feature_id'];
                 }
+                console.log($scope.obj)
                 $('#addEditFeatureModal').modal('show');
             }
 
-            $scope.$watch('obj.feature_id', function (newValue, oldValue) {
+            $scope.$watch('feature_id', function (newValue, oldValue) {
                 if (newValue) {
                     $scope.feature = $scope.features.filter(element => element['id'] == newValue)[0];
                     $scope.GetFeatureFilterItems(newValue);
+                    $scope.obj['feature_id'] = newValue;
                     // $scope.obj['value'] = '';
                 }
             });
@@ -1006,9 +1009,9 @@
             //
 
             $scope.AddEditGalleryModal = function (obj) {
-                $scope.obj = {};
+                $scope.gallery_obj = {};
                 if (obj) {
-                    $scope.obj = obj;
+                    $scope.gallery_obj = obj;
                 }
                 $('#addEditGalleyModal').modal('show');
             }
@@ -1063,7 +1066,7 @@
                 }).then(res => {
                     showToast(res['data']['data'], 'success');
                     $scope.is_submited = false;
-                    $scope.obj = {};
+                    $scope.gallery_obj = {};
 
                     $('#id_gallery_image').val('');
                     $('#addEditGalleyModal').modal('hide');
