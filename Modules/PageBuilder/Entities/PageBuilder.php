@@ -21,6 +21,7 @@ class PageBuilder extends Model
         'body',
         'en_body',
         'icon_name',
+        'image',
         'is_active',
     ];
 
@@ -86,6 +87,11 @@ class PageBuilder extends Model
         }
 
         return $slug ?: '---';
+    }
+
+    public function get_image()
+    {
+        return $this->image ?? 'https://www.hardiagedcare.com.au/wp-content/uploads/2019/02/default-avatar-profile-icon-vector-18942381.jpg';
     }
 
     public function get_icon()

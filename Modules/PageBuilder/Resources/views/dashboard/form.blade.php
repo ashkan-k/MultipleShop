@@ -186,7 +186,8 @@
 
                                         <div class="form-check form-check-solid form-switch form-check-custom fv-row">
                                             <input @if(isset($object) && $object->is_active) checked
-                                                   @elseif(old('is_active')) checked @else checked @endif  name="is_active"
+                                                   @elseif(old('is_active')) checked @else checked
+                                                   @endif  name="is_active"
                                                    class="form-check-input w-45px h-30px" type="checkbox"
                                                    id="id_is_active" value="1">
                                             <label class="form-check-label" for="id_is_active"></label>
@@ -199,6 +200,34 @@
                                             </div>
                                         </div>
                                         @enderror
+                                    </div>
+
+                                    <div class="d-flex flex-column mb-8 fv-row">
+                                        <label for="id_image" class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                            <span class="required">عکس</span>
+                                        </label>
+
+                                        <input type="file" id="id_image" class="form-control form-control-solid"
+                                               value="{{ old('image') }}" name="image"/>
+
+                                        @error('image')
+                                        <div class="fv-plugins-message-container invalid-feedback">
+                                            <div data-field="meta_title" data-validator="notEmpty">
+                                                {{ $message }}
+                                            </div>
+                                        </div>
+                                        @enderror
+
+                                        @if(isset($object) && $object->image)
+                                            <div class="input-field col s12 mt-3">
+                                                <p>تصویر قبلی:</p>
+                                                <a href="{{ $object->image }}" target="_blank"><img
+                                                        src="{{ $object->image }}"
+                                                        width="70"
+                                                        alt="{{ $object->title }}"></a>
+                                            </div>
+                                        @endif
+
                                     </div>
 
                                     <div class="row py-5">
@@ -308,14 +337,14 @@
     <script>
         CKEDITOR.replace('id_body', {
             filebrowserUploadMethod: 'form',
-            filebrowserUploadUrl : '{{ route('upload_ckeditor_image') }}',
-            filebrowserImageUploadUrl :  '{{ route('upload_ckeditor_image') }}'
+            filebrowserUploadUrl: '{{ route('upload_ckeditor_image') }}',
+            filebrowserImageUploadUrl: '{{ route('upload_ckeditor_image') }}'
         });
 
         CKEDITOR.replace('id_en_body', {
             filebrowserUploadMethod: 'form',
-            filebrowserUploadUrl : '{{ route('upload_ckeditor_image') }}',
-            filebrowserImageUploadUrl :  '{{ route('upload_ckeditor_image') }}'
+            filebrowserUploadUrl: '{{ route('upload_ckeditor_image') }}',
+            filebrowserImageUploadUrl: '{{ route('upload_ckeditor_image') }}'
         });
     </script>
 

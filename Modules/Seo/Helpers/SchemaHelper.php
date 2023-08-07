@@ -133,4 +133,39 @@ class SchemaHelper
 
         }
     }
+
+    public static function GetPageSchema($page)
+    {
+        $lang = app()->getLocale();
+
+        $schema_type = $page->schema_type;
+
+        // Create image
+        $image = Schema::imageObject()
+            ->url($page->get_image())
+            ->width(800)
+            ->height(600);
+
+        if ($schema_type == 'default') {
+            $schema_type = Setting::firstOrCreate(['key' => 'default_pages_schema_type'], [
+                'key' => 'default_pages_schema_type',
+                'value' => 'article'
+            ])->value;
+        }
+
+        switch ($schema_type) {
+            case 'generic_article':
+                // Generic Article
+                return Schema::article()
+                    ->name($page->get_title($lang))
+                    ->description(strip_tags($page->get_text($lang)))
+                    ->url(route('blog_detail', $page->get_slug($lang)))
+                    ->author($author)
+                    ->image($image);
+
+            default:
+                return null;
+
+        }
+    }
 }

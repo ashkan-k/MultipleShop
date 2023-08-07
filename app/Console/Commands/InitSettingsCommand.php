@@ -41,6 +41,7 @@ class InitSettingsCommand extends Command
 
         # Seo
         'default_blog_schema_type' => 'generic_article',
+        'default_pages_schema_type' => 'article',
 
         # Payment Description
         'gateway_description' => "خرید محصول از وبسایت جی تی کالا",

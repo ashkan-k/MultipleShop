@@ -13,8 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('products', function (Blueprint $table) {
-            $table->text('en_description')->nullable();
+        Schema::table('page_builders', function (Blueprint $table) {
+            $table->text('image')->nullable();
         });
     }
 

@@ -22,6 +22,7 @@ return new class extends Migration
             $table->text('body')->nullable();
             $table->text('en_body')->nullable();
             $table->string('icon_name')->nullable();
+            $table->text('image')->nullable();
             $table->boolean('is_active')->default(true);
 
             $table->timestamps();

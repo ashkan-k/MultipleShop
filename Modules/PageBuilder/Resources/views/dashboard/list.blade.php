@@ -88,6 +88,7 @@
                                 <th>نامک</th>
                                 <th>نامک انگلیسی</th>
                                 <th>وضعیت</th>
+                                <th>عکس</th>
                                 <th class="text-end min-w-100px">عملیات</th>
                             </tr>
                             </thead>
@@ -122,6 +123,17 @@
 
                                                 غیر فعال
                                             @endif
+                                        </div>
+                                    </td>
+
+                                    <td>
+                                        <div class="symbol symbol-circle symbol-50px overflow-hidden me-3">
+                                            <a href="{{ $item->get_image() }}" target="_blank">
+                                                <div class="symbol-label">
+                                                    <img src="{{ $item->get_image() }}" alt="{{ $item->title }}"
+                                                         class="w-100">
+                                                </div>
+                                            </a>
                                         </div>
                                     </td>
 
