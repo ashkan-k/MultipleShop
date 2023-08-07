@@ -22,6 +22,7 @@ class PageBuilder extends Model
         'en_body',
         'icon_name',
         'image',
+        'schema_type',
         'is_active',
     ];
 
@@ -66,6 +67,24 @@ class PageBuilder extends Model
             $saved = parent::save($options);
         }
         return $saved;
+    }
+
+    public static $SCHEMA_TYPES = [
+        'default' => 'پیشفرض (انتخاب شده در تنظیمات)',
+        'article' => 'مقاله', 'news_article' => 'مقاله خبری',
+        'blog_posting' => 'ارسال وبلاگ', 'web_page' => 'صفحه وب',
+        'about_page' => 'صفحه درباره با ما', 'contact_page' => 'صفحه تماس با ما',
+        'FAQ_page' => 'صفحه سوالات متداول', 'product_page' => 'صفحه محصول',
+        'event' => 'رویداد', 'video_object' => 'ویدیو',
+        'recipe' => 'دستور العمل', 'review' => 'نقد و بررسی',
+        'search_results_page' => 'صفحه نتایج جستجو', 'profile_page' => 'صفحه پروفایل',
+        'collection_page' => 'صفحه مجموعه', 'job_posting' => 'آگهی استخدام',
+        'course' => 'دوره آموزشی'
+    ];
+
+    public function get_schema_type()
+    {
+        return $this->schema_type ? self::$SCHEMA_TYPES[$this->schema_type] : '---';
     }
 
     public function get_title($lang)

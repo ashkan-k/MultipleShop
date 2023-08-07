@@ -34,7 +34,7 @@ class BlogFactory extends Factory
             'like_count' => fake()->randomNumber(),
             'view_count' => fake()->randomNumber(),
             'status' => fake()->randomElement(EnumHelpers::$BlogStatusEnum),
-            'schema_type' => fake()->randomElement(EnumHelpers::$GoogleShcemaEnum),
+            'schema_type' => fake()->randomElement(EnumHelpers::$BlogGoogleShcemaEnum),
         ];
     }
 }

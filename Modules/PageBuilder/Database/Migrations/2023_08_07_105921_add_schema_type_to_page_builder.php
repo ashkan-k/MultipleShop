@@ -14,8 +14,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('blogs', function (Blueprint $table) {
-            $table->enum('schema_type', EnumHelpers::$BlogGoogleShcemaEnum)->nullable();
+        Schema::table('page_builders', function (Blueprint $table) {
+            $table->enum('schema_type', EnumHelpers::$PageGoogleShcemaEnum)->nullable();
         });
     }
 

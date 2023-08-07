@@ -28,7 +28,7 @@ return new class extends Migration
             $table->text('image');
             $table->enum('status', EnumHelpers::$BlogStatusEnum)->default('draft');
 
-            $table->enum('schema_type', EnumHelpers::$GoogleShcemaEnum)->nullable();
+            $table->enum('schema_type', EnumHelpers::$BlogGoogleShcemaEnum)->nullable();
 
             $table->foreignId('user_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('category_id')->constrained('blog_categories')->onUpdate('cascade')->onDelete('cascade');

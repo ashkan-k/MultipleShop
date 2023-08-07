@@ -31,7 +31,7 @@ class BlogRequest extends FormRequest
             'status' => 'in:draft,publish,done',
             'image' => 'mimes:jpeg,png,bmp,jpg',
             'category_id' => 'required|exists:blog_categories,id',
-            'schema_type' => 'required|in:' . implode(',', EnumHelpers::$GoogleShcemaEnum),
+            'schema_type' => 'required|in:' . implode(',', EnumHelpers::$BlogGoogleShcemaEnum),
         ];
 
         if (request()->method == 'POST'){
