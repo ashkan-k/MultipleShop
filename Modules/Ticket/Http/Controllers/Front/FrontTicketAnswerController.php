@@ -44,23 +44,26 @@ class FrontTicketAnswerController extends Controller
         if (auth()->id() != $ticket->user_id) {
             $ticket->update(['status' => 'answered']);
             $email_pattern = 'user_ticket_answer_submit';
+            $receiver = $ticket->user ? $ticket->user->phone : '---';
+            $ticket_link = route('front.ticket-answers.show', ['locale' => app()->getLocale(), 'ticket' => $ticket->ticket_number]);
         } else {
             $ticket->update(['status' => 'waiting']);
             $email_pattern = 'admin_ticket_answer_submit';
+            $receiver = Setting::where('key', 'email')->first()->value;
+            $ticket_link = route('front.ticket-answers.show', ['locale' => app()->getLocale(), 'ticket' => $ticket->ticket_number]);
         }
 
         $message = [
             $ticket,
             sprintf(email_helpers::$EMAIL_PATTERNS[$email_pattern], $ticket->title, $ticket->ticket_number),
-            route('front.ticket-answers.show', ['locale' => app()->getLocale(), 'ticket' => $ticket->ticket_number]),
+            $ticket_link,
         ];
 
         $title = __('Ticket :title (:number)', ['title' => $ticket->title, 'number' => $ticket->ticket_number]);
         $template = 'email::emails/ticket/ticket_notification';
-        $admin_email = Setting::where('key', 'email')->first()->value;
 
         try {
-            Mail::to(strip_tags($admin_email))->send(new SendEmailMail($admin_email, $title, $message, $template));
+            Mail::to(strip_tags($receiver))->send(new SendEmailMail($receiver, $title, $message, $template));
         } catch (\Exception $exception) {
         }
 
