@@ -16,7 +16,7 @@ $app = new Illuminate\Foundation\Application(
 );
 
 //$app->usePublicPath($app->basePath('public_html'));
-$app->usePublicPath('/home/tehranco/test.faradownload.com');
+ $app->usePublicPath('/home/tehranco/shop.p65.ir');
 
 /*
 |--------------------------------------------------------------------------
