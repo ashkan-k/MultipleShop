@@ -671,7 +671,7 @@
                                     <span class="required">ویژگی</span>
                                 </label>
 
-                                <select ng-model="obj.feature_id" id="id_feature_id" name="contents"
+                                <select ng-model="feature_id" id="id_feature_id" name="contents"
 {{--                                        data-kt-select2="true"--}}
                                         ng-options="item.id as item.title for item in features"
                                         class="form-control">
