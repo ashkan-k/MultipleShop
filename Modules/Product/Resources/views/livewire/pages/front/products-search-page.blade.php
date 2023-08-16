@@ -72,39 +72,39 @@
                     </div>
                 </div>
 
-                <div class="box">
-                    <div class="box-header">
-                        <div class="box-toggle" data-toggle="collapse" href="#collapseExample2" role="button"
-                             aria-expanded="true" aria-controls="collapseExample2">
-                            {{ __('Brand') }}
-                            <i class="now-ui-icons arrows-1_minimal-down"></i>
-                        </div>
-                    </div>
-                    <div class="box-content">
-                        <div class="collapse show" id="collapseExample2">
-                            <div class="ui-input ui-input--quick-search">
-                                <input type="text" class="ui-input-field ui-input-field--cleanable"
-                                       ng-model="search_brands" wire:model.debounce.300ms="brand_search"
-                                       placeholder="{{ __('Write the desired brand name...') }}">
-                                <span class="ui-input-cleaner"></span>
-                            </div>
-                            <div class="filter-option">
+{{--                <div class="box">--}}
+{{--                    <div class="box-header">--}}
+{{--                        <div class="box-toggle" data-toggle="collapse" href="#collapseExample2" role="button"--}}
+{{--                             aria-expanded="true" aria-controls="collapseExample2">--}}
+{{--                            {{ __('Brand') }}--}}
+{{--                            <i class="now-ui-icons arrows-1_minimal-down"></i>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                    <div class="box-content">--}}
+{{--                        <div class="collapse show" id="collapseExample2">--}}
+{{--                            <div class="ui-input ui-input--quick-search">--}}
+{{--                                <input type="text" class="ui-input-field ui-input-field--cleanable"--}}
+{{--                                       ng-model="search_brands" wire:model.debounce.300ms="brand_search"--}}
+{{--                                       placeholder="{{ __('Write the desired brand name...') }}">--}}
+{{--                                <span class="ui-input-cleaner"></span>--}}
+{{--                            </div>--}}
+{{--                            <div class="filter-option">--}}
 
-                                @foreach($brands as $brand)
-                                    <div class="checkbox">
-                                        <input id="brands_checkbox_{{ $brand->id }}" value="{{ $brand->id }}"
-                                               wire:model.debounce.1000ms="brands_filter.{{ $brand->id }}"
-                                               type="checkbox">
-                                        <label for="brands_checkbox_{{ $brand->id }}">
-                                            {{ $brand->title }}
-                                        </label>
-                                    </div>
-                                @endforeach
+{{--                                @foreach($brands as $brand)--}}
+{{--                                    <div class="checkbox">--}}
+{{--                                        <input id="brands_checkbox_{{ $brand->id }}" value="{{ $brand->id }}"--}}
+{{--                                               wire:model.debounce.1000ms="brands_filter.{{ $brand->id }}"--}}
+{{--                                               type="checkbox">--}}
+{{--                                        <label for="brands_checkbox_{{ $brand->id }}">--}}
+{{--                                            {{ $brand->title }}--}}
+{{--                                        </label>--}}
+{{--                                    </div>--}}
+{{--                                @endforeach--}}
 
-                            </div>
-                        </div>
-                    </div>
-                </div>
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
 
                 <div class="box" wire:ignore>
                     <div class="box-content">

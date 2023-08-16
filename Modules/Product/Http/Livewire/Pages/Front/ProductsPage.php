@@ -131,7 +131,7 @@ class ProductsPage extends Component
 
         $data = [
             'products' => $this->products->paginate($this->pagination),
-            'filters' => $this->object->features()->get(),
+            'filters' => $this->object->features()->whereIn('filter_type', ['checkbox', 'radio'])->get(),
         ];
 
         return view('product::livewire.pages.front.products-page', $data);

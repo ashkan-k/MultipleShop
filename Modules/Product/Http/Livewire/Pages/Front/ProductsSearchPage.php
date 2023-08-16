@@ -108,7 +108,7 @@ class ProductsSearchPage extends Component
         $data = [
             'products' => $this->products->paginate($this->pagination),
             'categories' => $this->GetCategories(),
-            'brands' => $this->GetBrands(),
+//            'brands' => $this->GetBrands(),
         ];
 
         return view('product::livewire.pages.front.products-search-page', $data);
