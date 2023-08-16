@@ -156,7 +156,7 @@
                             @include('dashboard.section.components.filters.limit_select_box')
 
 
-                            {{ $objects->onEachSide(3)->links('dashboard.section.components.pagination') }}
+                            {{ $objects->onEachSide(3)->withQueryString()->links('dashboard.section.components.pagination') }}
 
                         </div>
 
