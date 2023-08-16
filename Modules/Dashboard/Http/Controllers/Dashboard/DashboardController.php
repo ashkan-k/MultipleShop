@@ -8,6 +8,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\File;
 use Modules\Dashboard\Http\Requests\ProfileRequest;
 use Modules\Order\Entities\Order;
 use Modules\Payment\Entities\Payment;
@@ -82,6 +83,41 @@ class DashboardController extends Controller
     }
 
     //
+
+    public function images()
+    {
+        $publicPath = public_path('uploads');
+        $file_paths = [];
+        $files = File::allFiles($publicPath);
+
+        foreach ($files as $key => $file) {
+            $file_paths[$key] = [
+                'id' => $key,
+                'file_name' => $file->getFilename(),
+                'mime_type' => mime_content_type($file->getPathname()),
+                'path' => str_replace('\\', '/', str_replace(public_path(), '', $file))
+            ];
+        }
+
+        if (\request('search')){
+            $file_paths =  array_filter($file_paths, function($v) use ($file_paths){
+                try {
+                    return str_contains($v['file_name'], \request('search'));
+                }catch (\Exception $exception){
+                    return $file_paths;
+                }
+            });
+        }
+
+        $file_paths = collect($file_paths);
+        return view('dashboard::all_images', compact('file_paths'));
+    }
+
+    public function image_delete()
+    {
+        $this->DeleteFile(\request('file_path'));
+        return $this->SuccessRedirect('آیتم مورد نظر با موفقیت حذف شد.', 'images');
+    }
 
     public function upload_ckeditor_image(Request $request)
     {

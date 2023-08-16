@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Traits\Helpers;
 use App\Http\Traits\Responses;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
 class BulkActionController extends Controller
 {
-    use Responses;
+    use Responses, Helpers;
 
     public function admin_bulk(Request $request)
     {
@@ -18,6 +20,18 @@ class BulkActionController extends Controller
         try {
             if ($action == 'delete'){
                 $model::whereIn('id', $items)->delete();
+            }
+
+            if ($action == 'delete_image') {
+                $publicPath = public_path('uploads');
+                $files = File::allFiles($publicPath);
+
+                foreach ($items as $item){
+                    if ($item !== null){
+                        $file_path = str_replace('\\', '/', str_replace(public_path(), '', $files[$item]));
+                        $this->DeleteFile($file_path);
+                    }
+                }
             }
 
             else if (in_array($action, [

@@ -19,4 +19,9 @@ Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 Route::get('profile', [DashboardController::class, 'profile'])->name('profile');
 Route::post('profile', [DashboardController::class, 'profile'])->name('profile_store');
 
-Route::post('/ckeditor/CK' , [DashboardController::class , 'upload_ckeditor_image'])->name('upload_ckeditor_image');
+## All Images
+Route::get('images', [DashboardController::class, 'images'])->name('images');
+Route::delete('images/delete', [DashboardController::class, 'image_delete'])->name('image_delete');
+
+## Ckeditor
+Route::post('/ckeditor/CK', [DashboardController::class, 'upload_ckeditor_image'])->name('upload_ckeditor_image');
