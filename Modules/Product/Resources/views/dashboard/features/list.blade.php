@@ -224,7 +224,18 @@
                                     گزینه های فیتلر
                                 </label>
                             </div>
+
+                            <div class="col-12 text-justify mt-5">
+                                <h5 ng-click="temp_filter_items.unshift({ text: '', index: id+1 })" style="cursor: pointer">
+
+                                    افزودن مورد جدید به اول لیست &nbsp;<a class="text-center" type="button" style="cursor: pointer"
+                                       ng-click="temp_filter_items.push({ text: '', index: id+1 })"><i
+                                            class="text-center  fa fa-plus trash-custom text-success"></i></a>
+                                </h5>
+                            </div>
+
                             <div class="col-12 text-justify mt-3" ng-repeat="(id, j) in temp_filter_items">
+
                                 <div class="row">
                                     <div class="col-lg-1 col-sm-1 col-md-1 col-xs-1 pl-0 ">
                                         <div class="arrow-v mt-1 modal-body">
@@ -250,6 +261,7 @@
                                         </a>
                                     </div>
                                 </div>
+
                             </div>
                         </div>
 
