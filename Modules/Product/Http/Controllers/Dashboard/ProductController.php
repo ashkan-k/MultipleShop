@@ -148,6 +148,6 @@ class ProductController extends Controller
 
         $new_product->save();
 
-        return $this->SuccessRedirect('آیتم مورد نظر با موفقیت کپی گرفته و ثبت شد.', 'products.edit', [], $new_product->id);
+        return $this->SuccessRedirect('آیتم مورد نظر با موفقیت کپی گرفته و ذخیره شد.', 'products.edit', [], $new_product->id);
     }
 }

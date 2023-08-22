@@ -398,6 +398,12 @@
                                                         type="reset" data-kt-ecommerce-settings-type="cancel"
                                                         class="btn btn-light me-3">انصراف
                                                 </button>
+                                               @if(isset($object->id))
+                                                    <button onclick="window.location.href='{{ route('products.duplicate', $object->id) }}'"
+                                                            type="button" data-kt-ecommerce-settings-type="cancel"
+                                                            class="btn btn-primary me-3">کپی
+                                                    </button>
+                                               @endif
                                                 <button type="submit" data-kt-ecommerce-settings-type="submit"
                                                         class="btn btn-primary">
                                                     <span class="indicator-label">ذخیره</span>
