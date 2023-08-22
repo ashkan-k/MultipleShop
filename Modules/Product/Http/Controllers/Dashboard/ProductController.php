@@ -7,6 +7,7 @@ use App\Http\Traits\Uploader;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\File;
 use Modules\Product\Entities\Brand;
 use Modules\Product\Entities\Category;
 use Modules\Product\Entities\Color;
@@ -101,5 +102,49 @@ class ProductController extends Controller
         $product->delete();
         $this->DeleteFile($product->image);
         return $this->SuccessRedirect('آیتم مورد نظر با موفقیت حذف شد.', 'products.index');
+    }
+
+    public function duplicate(Product $product)
+    {
+        $new_product = $product->replicate();
+        $new_product->save();
+
+        // Duplicate the associated files
+        $originalCoverPath = public_path($product->image);
+        $new_object_name = 'new_' . $new_product->id . '_' . basename($originalCoverPath);
+        $new_object_path = str_replace(basename($originalCoverPath), $new_object_name, $product->image);
+
+        $newCoverPath = dirname($originalCoverPath) . '/' . $new_object_name;
+        File::copy($originalCoverPath, $newCoverPath);
+
+        $new_product->image = $new_object_path;
+
+
+        // Duplicate Relations
+        foreach ($product->galleries as $relatedModel) {
+            $newRelatedModel = $relatedModel->replicate();
+
+            // Duplicate the associated files
+            $originalGalleryPath = public_path($relatedModel->image);
+            $new_object_name = 'new_' . $new_product->id . '_' . basename($originalGalleryPath);
+            $new_object_path = str_replace(basename($originalGalleryPath), $new_object_name, $relatedModel->image);
+
+            $newGalleryPath = dirname($originalGalleryPath) . '/' . $new_object_name;
+            File::copy($originalGalleryPath, $newGalleryPath);
+
+            $newRelatedModel->image = $new_object_path;
+
+            $new_product->galleries()->save($newRelatedModel);
+        }
+
+        foreach ($product->product_features as $relatedModel) {
+            $newRelatedModel = $relatedModel->replicate();
+            $newRelatedModel->product_id = $new_product->id;
+            $newRelatedModel->save();
+        }
+
+        $new_product->save();
+
+        return $this->SuccessRedirect('آیتم مورد نظر با موفقیت کپی گرفته و ثبت شد.', 'products.edit', [], $new_product->id);
     }
 }

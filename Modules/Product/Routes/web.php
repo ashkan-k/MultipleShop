@@ -30,3 +30,5 @@ Route::resource('features', FeatureController::class)->only(['index', 'destroy']
 Route::resource('product-features', ProductFeatureController::class, ['prefix' => 'product-features'])->only(['index', 'destroy']);
 
 Route::get('galleries/{product}', [GalleryController::class, 'index'])->name('galleries.index');
+
+Route::get('products/duplicate/{product}', [ProductController::class, 'duplicate'])->name('products.duplicate');
