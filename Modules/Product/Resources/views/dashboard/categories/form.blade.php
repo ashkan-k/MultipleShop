@@ -9,7 +9,11 @@
 @endsection
 
 @section('Styles')
-
+    <style>
+        .select2-results__option--selectable {
+            font-family: 'PhpDebugbarFontAwesome' !important;
+        }
+    </style>
 @endsection
 @section('content')
     <div class="d-flex flex-column flex-column-fluid" ng-init="init()">
@@ -216,12 +220,13 @@
 
                                         <select id="id_icon_name" name="icon_name"
                                                 data-kt-select2="true"
+                                                style="font-style: normal !important; font-family: FontAwesome !important;"
                                                 class="form-control form-control-solid">
-                                            <option value="">آیکون را انتخاب کنید</option>
                                             @foreach($icons as $icon)
                                                 <option
-                                                    @if((isset($object->icon_name) && $object->icon_name == $icon) || old('icon_name') == $icon) selected
-                                                    @endif value="{{ $icon }}">{{ $icon }}
+                                                    @if((isset($object->icon_name) && $object->icon_name == $icon['name']) || old('icon_name') == $icon['name']) selected
+                                                    @endif value="{{ $icon['name'] }}">&#x{{ $icon['unicode'] }}
+                                                    ; {{ $icon['name'] }}
                                                 </option>
                                             @endforeach
                                         </select>
@@ -368,7 +373,7 @@
                     $scope.is_special = true;
                 @endif
 
-                @if((isset($object) && $object->is_best) || old('is_best'))
+                    @if((isset($object) && $object->is_best) || old('is_best'))
                     $scope.is_best = true;
                 @endif
             }

@@ -104,17 +104,32 @@ class Category extends Model
         return \Modules\Product\Database\factories\CategoryFactory::new();
     }
 
+//    public static function GetFontAwesomeIcons()
+//    {
+//        $icons = File::get(base_path() . '/Modules/Product/Helpers/font-awesome-icons.txt');
+//
+//        $icons = str_replace("\n", '', $icons);
+//        $icons = str_replace("'", '', $icons);
+//
+//        $icons = explode(',', $icons);
+//        array_pop($icons);
+//
+//        return $icons;
+//    }
+
     public static function GetFontAwesomeIcons()
     {
-        $icons = File::get(base_path() . '/Modules/Product/Helpers/font-awesome-icons.txt');
+        $data = File::get(base_path() . '/Modules/Product/Helpers/font-awesome-icons-json.json');
 
-        $icons = str_replace("\n", '', $icons);
-        $icons = str_replace("'", '', $icons);
+        $icons = json_decode($data, true);
 
-        $icons = explode(',', $icons);
-        array_pop($icons);
+//        $icons = str_replace("\n", '', $icons);
+//        $icons = str_replace("'", '', $icons);
+//
+//        $icons = explode(',', $icons);
+//        array_pop($icons);
 
-        return $icons;
+        return $icons['solid'];
     }
 
     public function scopeFindBySlug($query, $lang, $slug)
