@@ -2939,12 +2939,14 @@ textarea.form-control-lg {
   border-bottom-left-radius: 0;
 }
 
-.valid-feedback {
-  display: none;
-  width: 100%;
-  margin-top: 0.5rem;
-  font-size: 0.95rem;
-  color: var(--bs-success-text);
+.invalid-feedback {
+    display: none;
+    width: 100%;
+    margin-top: 0.5rem;
+    font-size: 1rem;
+    /*color: var(--bs-danger-text);*/
+    color: var(--bs-text-danger);
+    font-weight: bold !important;
 }
 
 .valid-tooltip {

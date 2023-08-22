@@ -155,8 +155,6 @@
 
                                     </div>
 
-                                    <p>ss <i class="fa fa-atom"></i></p>
-
                                     <div class="d-flex flex-column mb-8 fv-row">
                                         <label for="id_icon_name"
                                                class="d-flex align-items-center fs-6 fw-semibold mb-2">
