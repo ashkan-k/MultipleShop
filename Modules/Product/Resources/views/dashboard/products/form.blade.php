@@ -689,7 +689,8 @@
                                         ng-if="feature['filter_type'] == 'checkbox' || feature['filter_type'] == 'radio'"
                                         ng-options="item as item for item in filter_items"
                                         class="form-control">
-                                    <option value="" disabled>مقدار را انتخاب کنید</option>
+{{--                                    <option value="" disabled>مقدار را انتخاب کنید</option>--}}
+                                    <option value="">هیچ</option>
                                 </select>
 
                                 <textarea ng-model="obj.value" id="id_value" name="value"
@@ -897,7 +898,9 @@
             }
 
             $scope.AddEditFeatureModal = function (obj) {
-                $scope.obj = {};
+                $scope.obj = {
+                    'place': 'down'
+                };
                 if (obj) {
                     $scope.obj = obj;
                     $scope.feature_id = obj['feature_id'];
