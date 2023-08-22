@@ -50,7 +50,7 @@ class Feature extends Model
         }
         if (!$this->index) {
             $index = 1;
-            if ($last_obj = Feature::latest()->first()) {
+            if ($last_obj = Feature::where('category_id', $this->category_id)->latest()->first()) {
                 $index = $last_obj->index + 1;
             }
             $this->index = $index;
