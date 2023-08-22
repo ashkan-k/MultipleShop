@@ -31,11 +31,11 @@ class ProductController extends Controller
             ->paginate(\request('pagination', env('PAGINATION_NUMBER', 10)));
 
         $filter_categories = [];
-        foreach (Category::all()->pluck('title', 'id') as $key => $item){
+        foreach (Category::all()->pluck('title', 'id') as $key => $item) {
             $filter_categories[] = [$key, $item];
         }
         $filter_users = [];
-        foreach (User::all() as $item){
+        foreach (User::all() as $item) {
             $filter_users[] = [$item->id, $item->full_name()];
         }
         $status_filters = [['1', 'فعال'], ['0', 'غیر فعال']];
@@ -81,7 +81,7 @@ class ProductController extends Controller
     {
         $image = $this->UploadFile($request, 'image', 'product_images', $product->title, $product->image);
 
-        if ($image != $product->image){
+        if ($image != $product->image) {
             $this->DeleteFile($product->image);
         }
 
@@ -99,6 +99,9 @@ class ProductController extends Controller
 
     public function destroy(Product $product)
     {
+        foreach ($product->galleries as $gallery) {
+            $this->DeleteFile($gallery->image);
+        }
         $product->delete();
         $this->DeleteFile($product->image);
         return $this->SuccessRedirect('آیتم مورد نظر با موفقیت حذف شد.', 'products.index');
