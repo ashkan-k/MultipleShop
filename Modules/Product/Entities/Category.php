@@ -122,13 +122,6 @@ class Category extends Model
         $data = File::get(base_path() . '/Modules/Product/Helpers/font-awesome-icons-json.json');
 
         $icons = json_decode($data, true);
-
-//        $icons = str_replace("\n", '', $icons);
-//        $icons = str_replace("'", '', $icons);
-//
-//        $icons = explode(',', $icons);
-//        array_pop($icons);
-
         return $icons['solid'];
     }
 

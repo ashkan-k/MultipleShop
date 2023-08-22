@@ -11,7 +11,8 @@
 @section('Styles')
     <style>
         .select2-results__option--selectable {
-            font-family: 'PhpDebugbarFontAwesome' !important;
+            font-family: FontAwesome !important;
+            font-style: normal !important;
         }
     </style>
 @endsection
@@ -220,13 +221,11 @@
 
                                         <select id="id_icon_name" name="icon_name"
                                                 data-kt-select2="true"
-                                                style="font-style: normal !important; font-family: FontAwesome !important;"
                                                 class="form-control form-control-solid">
                                             @foreach($icons as $icon)
                                                 <option
                                                     @if((isset($object->icon_name) && $object->icon_name == $icon['name']) || old('icon_name') == $icon['name']) selected
-                                                    @endif value="{{ $icon['name'] }}">&#x{{ $icon['unicode'] }}
-                                                    ; {{ $icon['name'] }}
+                                                    @endif value="{{ $icon['name'] }}">&#x{{ $icon['unicode'] }};  {{ $icon['name'] }}
                                                 </option>
                                             @endforeach
                                         </select>

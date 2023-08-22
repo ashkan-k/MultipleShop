@@ -9,7 +9,12 @@
 @endsection
 
 @section('Styles')
-
+    <style>
+        .select2-results__option--selectable {
+            font-family: FontAwesome !important;
+            font-style: normal !important;
+        }
+    </style>
 @endsection
 @section('content')
     <div class="d-flex flex-column flex-column-fluid">
@@ -150,6 +155,8 @@
 
                                     </div>
 
+                                    <p>ss <i class="fa fa-atom"></i></p>
+
                                     <div class="d-flex flex-column mb-8 fv-row">
                                         <label for="id_icon_name"
                                                class="d-flex align-items-center fs-6 fw-semibold mb-2">
@@ -157,13 +164,12 @@
                                         </label>
 
                                         <select id="id_icon_name" name="icon_name"
-                                                data-kt-select2="true" required
+                                                data-kt-select2="true"
                                                 class="form-control form-control-solid">
-                                            <option value="">آیکون را انتخاب کنید</option>
                                             @foreach($icons as $icon)
                                                 <option
-                                                    @if((isset($object->icon_name) && $object->icon_name == $icon) || old('icon_name') == $icon) selected
-                                                    @endif value="{{ $icon }}">{{ $icon }}
+                                                    @if((isset($object->icon_name) && $object->icon_name == $icon['name']) || old('icon_name') == $icon['name']) selected
+                                                    @endif value="{{ $icon['name'] }}">&#x{{ $icon['unicode'] }};  {{ $icon['name'] }}
                                                 </option>
                                             @endforeach
                                         </select>

@@ -37,15 +37,10 @@ class PageBuilder extends Model
 
     public static function GetFontAwesomeIcons()
     {
-        $icons = File::get(base_path() . '/Modules/Product/Helpers/font-awesome-icons.txt');
+        $data = File::get(base_path() . '/Modules/Product/Helpers/font-awesome-icons-json.json');
 
-        $icons = str_replace("\n", '', $icons);
-        $icons = str_replace("'", '', $icons);
-
-        $icons = explode(',', $icons);
-        array_pop($icons);
-
-        return $icons;
+        $icons = json_decode($data, true);
+        return $icons['solid'];
     }
 
     public function save(array $options = [])
