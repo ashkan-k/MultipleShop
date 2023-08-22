@@ -305,56 +305,56 @@
                 </div>
             </div>
 
-{{--            <div data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="left-start"--}}
-{{--                 class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention">--}}
-{{--                <!--begin:Menu link-->--}}
-{{--                <span--}}
-{{--                    class="menu-link @if(str_starts_with(\Illuminate\Support\Facades\Route::current()->getName(), 'colors.') || str_starts_with(\Illuminate\Support\Facades\Route::current()->getName(), 'sizes.') || str_starts_with(\Illuminate\Support\Facades\Route::current()->getName(), 'brands.')) active @endif">--}}
-{{--											<span class="menu-icon">--}}
-{{--												<i class="ki-duotone ki-file fs-2">--}}
-{{--													<span class="path1"></span>--}}
-{{--													<span class="path2"></span>--}}
-{{--												</i>--}}
-{{--											</span>--}}
-{{--											<span class="menu-title">ویژگی ها</span>--}}
-{{--											<span class="menu-arrow"></span>--}}
-{{--										</span>--}}
-{{--                <!--end:Menu link-->--}}
-{{--                <!--begin:Menu sub-->--}}
-{{--                <div--}}
-{{--                    class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown px-2 py-4 w-200px mh-75 overflow-auto">--}}
-{{--                    <div class="menu-item">--}}
-{{--                        <a class="menu-link @if(str_starts_with(\Illuminate\Support\Facades\Route::current()->getName(), 'colors.')) active @endif"--}}
-{{--                           href="{{ route('colors.index') }}">--}}
-{{--													<span class="menu-bullet">--}}
-{{--														<span class="bullet bullet-dot"></span>--}}
-{{--													</span>--}}
-{{--                            <span class="menu-title">رنگ ها</span>--}}
-{{--                        </a>--}}
-{{--                    </div>--}}
+            {{--            <div data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="left-start"--}}
+            {{--                 class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention">--}}
+            {{--                <!--begin:Menu link-->--}}
+            {{--                <span--}}
+            {{--                    class="menu-link @if(str_starts_with(\Illuminate\Support\Facades\Route::current()->getName(), 'colors.') || str_starts_with(\Illuminate\Support\Facades\Route::current()->getName(), 'sizes.') || str_starts_with(\Illuminate\Support\Facades\Route::current()->getName(), 'brands.')) active @endif">--}}
+            {{--											<span class="menu-icon">--}}
+            {{--												<i class="ki-duotone ki-file fs-2">--}}
+            {{--													<span class="path1"></span>--}}
+            {{--													<span class="path2"></span>--}}
+            {{--												</i>--}}
+            {{--											</span>--}}
+            {{--											<span class="menu-title">ویژگی ها</span>--}}
+            {{--											<span class="menu-arrow"></span>--}}
+            {{--										</span>--}}
+            {{--                <!--end:Menu link-->--}}
+            {{--                <!--begin:Menu sub-->--}}
+            {{--                <div--}}
+            {{--                    class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown px-2 py-4 w-200px mh-75 overflow-auto">--}}
+            {{--                    <div class="menu-item">--}}
+            {{--                        <a class="menu-link @if(str_starts_with(\Illuminate\Support\Facades\Route::current()->getName(), 'colors.')) active @endif"--}}
+            {{--                           href="{{ route('colors.index') }}">--}}
+            {{--													<span class="menu-bullet">--}}
+            {{--														<span class="bullet bullet-dot"></span>--}}
+            {{--													</span>--}}
+            {{--                            <span class="menu-title">رنگ ها</span>--}}
+            {{--                        </a>--}}
+            {{--                    </div>--}}
 
-{{--                    <div class="menu-item">--}}
-{{--                        <a class="menu-link @if(str_starts_with(\Illuminate\Support\Facades\Route::current()->getName(), 'sizes.')) active @endif"--}}
-{{--                           href="{{ route('sizes.index') }}">--}}
-{{--													<span class="menu-bullet">--}}
-{{--														<span class="bullet bullet-dot"></span>--}}
-{{--													</span>--}}
-{{--                            <span class="menu-title">سایز ها</span>--}}
-{{--                        </a>--}}
-{{--                    </div>--}}
+            {{--                    <div class="menu-item">--}}
+            {{--                        <a class="menu-link @if(str_starts_with(\Illuminate\Support\Facades\Route::current()->getName(), 'sizes.')) active @endif"--}}
+            {{--                           href="{{ route('sizes.index') }}">--}}
+            {{--													<span class="menu-bullet">--}}
+            {{--														<span class="bullet bullet-dot"></span>--}}
+            {{--													</span>--}}
+            {{--                            <span class="menu-title">سایز ها</span>--}}
+            {{--                        </a>--}}
+            {{--                    </div>--}}
 
-{{--                    <div class="menu-item">--}}
-{{--                        <a class="menu-link @if(str_starts_with(\Illuminate\Support\Facades\Route::current()->getName(), 'brands.')) active @endif"--}}
-{{--                           href="{{ route('brands.index') }}">--}}
-{{--													<span class="menu-bullet">--}}
-{{--														<span class="bullet bullet-dot"></span>--}}
-{{--													</span>--}}
-{{--                            <span class="menu-title">برند ها</span>--}}
-{{--                        </a>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--                <!--end:Menu sub-->--}}
-{{--            </div>--}}
+            {{--                    <div class="menu-item">--}}
+            {{--                        <a class="menu-link @if(str_starts_with(\Illuminate\Support\Facades\Route::current()->getName(), 'brands.')) active @endif"--}}
+            {{--                           href="{{ route('brands.index') }}">--}}
+            {{--													<span class="menu-bullet">--}}
+            {{--														<span class="bullet bullet-dot"></span>--}}
+            {{--													</span>--}}
+            {{--                            <span class="menu-title">برند ها</span>--}}
+            {{--                        </a>--}}
+            {{--                    </div>--}}
+            {{--                </div>--}}
+            {{--                <!--end:Menu sub-->--}}
+            {{--            </div>--}}
 
             <div data-kt-menu-trigger="click"
                  class="menu-item @if(str_starts_with(\Illuminate\Support\Facades\Route::current()->getName(), 'orders.')) show @endif menu-accordion">
@@ -460,43 +460,6 @@
             </div>
 
             <div data-kt-menu-trigger="click"
-                 class="menu-item @if(str_starts_with(\Illuminate\Support\Facades\Route::current()->getName(), 'posters.')) show @endif menu-accordion">
-                <span class="menu-link">
-											<span class="menu-icon">
-												<i class="ki-duotone ki-abstract-26 fs-2">
-													<span class="path1"></span>
-													<span class="path2"></span>
-													<span class="path3"></span>
-													<span class="path4"></span>
-												</i>
-											</span>
-											<span class="menu-title">پوستر ها</span>
-											<span class="menu-arrow"></span>
-										</span>
-                <div class="menu-sub menu-sub-accordion">
-
-                    <div class="menu-item">
-                        <a class="menu-link @if(\Illuminate\Support\Facades\Route::current()->getName() == 'posters.index') active @endif"
-                           href="{{ route('posters.index') }}">
-													<span class="menu-bullet">
-														<span class="bullet bullet-dot"></span>
-													</span>
-                            <span class="menu-title">لیست پوستر ها</span>
-                        </a>
-
-                        <a class="menu-link @if(\Illuminate\Support\Facades\Route::current()->getName() == 'posters.create') active @endif"
-                           href="{{ route('posters.create') }}">
-													<span class="menu-bullet">
-														<span class="bullet bullet-dot"></span>
-													</span>
-                            <span class="menu-title">افزودن پوستر</span>
-                        </a>
-                    </div>
-
-                </div>
-            </div>
-
-            <div data-kt-menu-trigger="click"
                  class="menu-item @if(str_starts_with(\Illuminate\Support\Facades\Route::current()->getName(), 'carts.')) show @endif menu-accordion">
                 <span class="menu-link">
 											<span class="menu-icon">
@@ -558,45 +521,6 @@
             <div class="menu-item pt-5">
                 <div class="menu-content">
                     <span class="menu-heading fw-bold text-uppercase fs-7">کانفیگ</span>
-                </div>
-            </div>
-
-            <div data-kt-menu-trigger="click"
-                 class="menu-item @if(str_starts_with(\Illuminate\Support\Facades\Route::current()->getName(), 'guides.')) show @endif menu-accordion">
-                <span class="menu-link">
-											<span class="menu-icon">
-												<i class="ki-duotone ki-handcart fs-2">
-													<span class="path1"></span>
-													<span class="path2"></span>
-													<span class="path3"></span>
-													<span class="path4"></span>
-												</i>
-											</span>
-											<span class="menu-title">تصاویر راهنما</span>
-											<span class="menu-arrow"></span>
-										</span>
-                <div class="menu-sub menu-sub-accordion">
-
-                    <div class="menu-item">
-                        <a class="menu-link @if(\Illuminate\Support\Facades\Route::current()->getName() == 'guides.index') active @endif"
-                           href="{{ route('guides.index') }}">
-													<span class="menu-bullet">
-														<span class="bullet bullet-dot"></span>
-													</span>
-                            <span class="menu-title">لیست تصاویر راهنما</span>
-                        </a>
-                    </div>
-
-                    <div class="menu-item">
-                        <a class="menu-link @if(\Illuminate\Support\Facades\Route::current()->getName() == 'guides.create') active @endif"
-                           href="{{ route('guides.create') }}">
-													<span class="menu-bullet">
-														<span class="bullet bullet-dot"></span>
-													</span>
-                            <span class="menu-title">افزودن تصویر راهنما</span>
-                        </a>
-                    </div>
-
                 </div>
             </div>
 
@@ -688,7 +612,7 @@
             </div>
 
             <div data-kt-menu-trigger="click"
-                 class="menu-item @if(str_starts_with(\Illuminate\Support\Facades\Route::current()->getName(), 'settings.') || (\Illuminate\Support\Facades\Route::current()->getName() == 'dynamic_form') || (\Illuminate\Support\Facades\Route::current()->getName() == 'multiple_dynamic_form')) show @endif menu-accordion">
+                 class="menu-item @if(str_starts_with(\Illuminate\Support\Facades\Route::current()->getName(), 'settings.') || str_starts_with(\Illuminate\Support\Facades\Route::current()->getName(), 'guides.') || str_starts_with(\Illuminate\Support\Facades\Route::current()->getName(), 'posters.') || (\Illuminate\Support\Facades\Route::current()->getName() == 'dynamic_form') || (\Illuminate\Support\Facades\Route::current()->getName() == 'multiple_dynamic_form')) show @endif menu-accordion">
                 <span class="menu-link">
 											<span class="menu-icon">
 												<i class="ki-duotone ki-switch fs-2">
@@ -704,6 +628,22 @@
                 <div class="menu-sub menu-sub-accordion">
 
                     <div class="menu-item">
+                        <a class="menu-link @if(str_starts_with(\Illuminate\Support\Facades\Route::current()->getName(), 'guides.')) active @endif"
+                           href="{{ route('guides.index') }}">
+													<span class="menu-bullet">
+														<span class="bullet bullet-dot"></span>
+													</span>
+                            <span class="menu-title">تصاویر راهنما</span>
+                        </a>
+
+                        <a class="menu-link @if(str_starts_with(\Illuminate\Support\Facades\Route::current()->getName(), 'posters.')) active @endif"
+                           href="{{ route('posters.index') }}">
+													<span class="menu-bullet">
+														<span class="bullet bullet-dot"></span>
+													</span>
+                            <span class="menu-title">پوستر ها</span>
+                        </a>
+
                         <a class="menu-link @if(\Illuminate\Support\Facades\Route::current()->getName() == 'multiple_dynamic_form' && str_contains(request()->url(), 'website_title')) active @endif"
                            href="{{ route('multiple_dynamic_form', ['key' => 'website_title']) }}">
 													<span class="menu-bullet">
@@ -816,13 +756,13 @@
                             <span class="menu-title">تنظیمات اسکیما (schema)</span>
                         </a>
 
-{{--                        <a class="menu-link @if(\Illuminate\Support\Facades\Route::current()->getName() == 'settings.index') active @endif"--}}
-{{--                           href="{{ route('settings.index') }}">--}}
-{{--													<span class="menu-bullet">--}}
-{{--														<span class="bullet bullet-dot"></span>--}}
-{{--													</span>--}}
-{{--                            <span class="menu-title">سایر تنظیمات</span>--}}
-{{--                        </a>--}}
+                        {{--                        <a class="menu-link @if(\Illuminate\Support\Facades\Route::current()->getName() == 'settings.index') active @endif"--}}
+                        {{--                           href="{{ route('settings.index') }}">--}}
+                        {{--													<span class="menu-bullet">--}}
+                        {{--														<span class="bullet bullet-dot"></span>--}}
+                        {{--													</span>--}}
+                        {{--                            <span class="menu-title">سایر تنظیمات</span>--}}
+                        {{--                        </a>--}}
                     </div>
 
                 </div>
