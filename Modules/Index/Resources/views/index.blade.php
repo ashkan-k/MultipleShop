@@ -86,9 +86,9 @@
                                                              class="img-fluid"
                                                              alt="{{ $special_pr->get_title($lang) ?: '---' }}">
                                                     </a>
-                                                    <h2 class="post-title">
-                                                        <a href="{{ route('product_detail', $special_pr->get_slug($lang)) }}">{{ $special_pr->get_title($lang) ?: '---' }}</a>
-                                                    </h2>
+{{--                                                    <h2 class="post-title">--}}
+{{--                                                        <a href="{{ route('product_detail', $special_pr->get_slug($lang)) }}">{{ $special_pr->get_title($lang) ?: '---' }}</a>--}}
+{{--                                                    </h2>--}}
                                                     <div class="price">
                                                         @if($special_pr->quantity)
                                                             @if($special_pr->calculate_discount_percent() > 0)
