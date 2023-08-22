@@ -213,7 +213,7 @@
                                         @enderror
                                     </div>
 
-                                    <div class="d-flex flex-column mb-8 fv-row" ng-show="is_special">
+                                    <div class="d-flex flex-column mb-8 fv-row">
                                         <label for="id_icon_name"
                                                class="d-flex align-items-center fs-6 fw-semibold mb-2">
                                             <span class="required">آیکون</span>

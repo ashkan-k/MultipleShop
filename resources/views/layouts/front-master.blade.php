@@ -97,7 +97,8 @@
                     @if(count($main_cat->children))
 
                         <li class="sub-menu">
-                            <a href="#">{{ $main_cat->get_title($lang) ?: '---' }}</a>
+                            <a href="#"><i class="fa-{{ $main_cat->get_icon() }}"
+                                           style="font: normal normal normal 20px/1 FontAwesome;"></i> {{ $main_cat->get_title($lang) ?: '---' }}</a>
                             <ul>
                                 <li>
                                     <a href="#"></a>
@@ -114,7 +115,8 @@
                                     @if(count($child_1->children))
 
                                         <li class="sub-menu">
-                                            <a href="#">{{ $child_1->get_title($lang) ?: '---' }}</a>
+                                            <a href="#"><i class="fa-{{ $child_1->get_icon() }}"
+                                                           style="font: normal normal normal 20px/1 FontAwesome;"></i> {{ $child_1->get_title($lang) ?: '---' }}</a>
                                             <ul>
                                                 <li>
                                                     <a href="#"></a>
@@ -131,7 +133,8 @@
                                                     @if(count($child_2->children))
 
                                                         <li class="sub-menu">
-                                                            <a href="#">{{ $child_2->get_title($lang) ?: '---' }}</a>
+                                                            <a href="#"><i class="fa-{{ $child_2->get_icon() }}"
+                                                                           style="font: normal normal normal 20px/1 FontAwesome;"></i> {{ $child_2->get_title($lang) ?: '---' }}</a>
                                                             <ul>
                                                                 <li>
                                                                     <a href="#"></a>
@@ -146,7 +149,8 @@
                                                                 @foreach($children_3 as $child_3)
 
                                                                     <li>
-                                                                        <a href="{{ route('category.products', $child_3->get_slug($lang)) }}">{{ $child_3->get_title($lang) ?: '---' }}</a>
+                                                                        <a href="{{ route('category.products', $child_3->get_slug($lang)) }}"><i class="fa-{{ $child_3->get_icon() }}"
+                                                                                                                                                 style="font: normal normal normal 20px/1 FontAwesome;"></i> {{ $child_3->get_title($lang) ?: '---' }}</a>
                                                                     </li>
 
                                                                 @endforeach
@@ -157,7 +161,8 @@
                                                     @else
 
                                                         <li>
-                                                            <a href="{{ route('category.products', $child_2->get_slug($lang)) }}">{{ $child_2->get_title($lang) ?: '---' }}</a>
+                                                            <a href="{{ route('category.products', $child_2->get_slug($lang)) }}"><i class="fa-{{ $child_2->get_icon() }}"
+                                                                                                                                     style="font: normal normal normal 20px/1 FontAwesome;"></i> {{ $child_2->get_title($lang) ?: '---' }}</a>
                                                         </li>
 
                                                     @endif
@@ -170,7 +175,8 @@
                                     @else
 
                                         <li>
-                                            <a href="{{ route('category.products', $child_1->get_slug($lang)) }}">{{ $child_1->get_title($lang) ?: '---' }}</a>
+                                            <a href="{{ route('category.products', $child_1->get_slug($lang)) }}"><i class="fa-{{ $child_1->get_icon() }}"
+                                                                                                                     style="font: normal normal normal 20px/1 FontAwesome;"></i> {{ $child_1->get_title($lang) ?: '---' }}</a>
                                         </li>
 
                                     @endif
@@ -183,7 +189,8 @@
                     @else
 
                         <li>
-                            <a href="{{ route('category.products', $main_cat->get_slug($lang)) }}">{{ $main_cat->get_title($lang) ?: '---' }}</a>
+                            <a href="{{ route('category.products', $main_cat->get_slug($lang)) }}"><i class="fa-{{ $main_cat->get_icon() }}"
+                                                                                                      style="font: normal normal normal 20px/1 FontAwesome;"></i> {{ $main_cat->get_title($lang) ?: '---' }}</a>
                         </li>
 
                     @endif
@@ -299,7 +306,9 @@
                         @if(count($main_cat->children))
                             <li class="list-item list-item-has-children mega-menu mega-menu-col-5">
                                 <a class="nav-link"
-                                   href="#">{{ $main_cat->get_title($lang) ?: '---' }}</a>
+                                   href="#"><i class="fa-{{ $main_cat->get_icon() }}"
+                                               style="font: normal normal normal 20px/1 FontAwesome;"></i> {{ $main_cat->get_title($lang) ?: '---' }}
+                                </a>
                                 <ul class="sub-menu nav">
 
                                     @php
@@ -333,7 +342,8 @@
                                             <li class="list-item list-item-has-children">
                                                 <i class="now-ui-icons arrows-1_minimal-left"></i><a
                                                     class="main-list-item nav-link"
-                                                    href="#">{{ $child_1->get_title($lang) ?: '---' }}</a>
+                                                    href="#"><i class="fa-{{ $child_1->get_icon() }}"
+                                                                style="font: normal normal normal 20px/1 FontAwesome;"></i> {{ $child_1->get_title($lang) ?: '---' }}</a>
 
                                                 <ul class="sub-menu nav">
 
@@ -350,7 +360,8 @@
                                                             <li class="list-item list-item-has-children">
                                                                 <i class="now-ui-icons arrows-1_minimal-left"></i><a
                                                                     class="main-list-item nav-link"
-                                                                    href="#">{{ $child_2->get_title($lang) ?: '---' }}</a>
+                                                                    href="#"><i class="fa-{{ $child_2->get_icon() }}"
+                                                                                style="font: normal normal normal 20px/1 FontAwesome;"></i> {{ $child_2->get_title($lang) ?: '---' }}</a>
                                                                 <ul class="sub-menu nav">
 
                                                                     @php
@@ -363,7 +374,8 @@
 
                                                                         <li class="list-item">
                                                                             <a class="nav-link"
-                                                                               href="{{ route('category.products', $child_3->get_slug($lang)) }}">{{ $child_3->get_title($lang) ?: '---' }}</a>
+                                                                               href="{{ route('category.products', $child_3->get_slug($lang)) }}"><i class="fa-{{ $child_3->get_icon() }}"
+                                                                                                                                                     style="font: normal normal normal 20px/1 FontAwesome;"></i> {{ $child_3->get_title($lang) ?: '---' }}</a>
                                                                         </li>
 
                                                                     @endforeach
@@ -375,7 +387,8 @@
 
                                                             <li class="list-item">
                                                                 <a class="nav-link"
-                                                                   href="{{ route('category.products', $child_2->get_slug($lang)) }}">{{ $child_2->get_title($lang) ?: '---' }}</a>
+                                                                   href="{{ route('category.products', $child_2->get_slug($lang)) }}"><i class="fa-{{ $child_2->get_icon() }}"
+                                                                                                                                         style="font: normal normal normal 20px/1 FontAwesome;"></i> {{ $child_2->get_title($lang) ?: '---' }}</a>
                                                             </li>
 
                                                         @endif
@@ -390,7 +403,8 @@
                                             <li class="list-item list-item-has-children">
                                                 <i class="now-ui-icons arrows-1_minimal-left"></i><a
                                                     class="main-list-item nav-link"
-                                                    href="{{ route('category.products', $child_1->get_slug($lang)) }}">{{ $child_1->get_title($lang) ?: '---' }}</a>
+                                                    href="{{ route('category.products', $child_1->get_slug($lang)) }}"><i class="fa-{{ $child_1->get_icon() }}"
+                                                                                                                          style="font: normal normal normal 20px/1 FontAwesome;"></i> {{ $child_1->get_title($lang) ?: '---' }}</a>
                                             </li>
 
                                         @endif
@@ -405,7 +419,8 @@
                         @else
                             <li class="list-item">
                                 <a class="nav-link"
-                                   href="{{ route('category.products', $main_cat->get_slug($lang)) }}">{{ $main_cat->get_title($lang) ?: '---' }}</a>
+                                   href="{{ route('category.products', $main_cat->get_slug($lang)) }}"><i class="fa-{{ $main_cat->get_icon() }}"
+                                                                                                          style="font: normal normal normal 20px/1 FontAwesome;"></i> {{ $main_cat->get_title($lang) ?: '---' }}</a>
                             </li>
                         @endif
 
@@ -459,7 +474,8 @@
 
                 <div class="footer-widgets">
                     <div class="row">
-                        <div class="col-12 col-md-6 col-lg-3" @if(isset($lang) && $lang != 'fa') style="text-align: left !important;" @endif>
+                        <div class="col-12 col-md-6 col-lg-3"
+                             @if(isset($lang) && $lang != 'fa') style="text-align: left !important;" @endif>
                             {{--                            <div class="newsletter">--}}
                             {{--                                <p>از تخفیف‌ها و جدیدترین‌های فروشگاه باخبر شوید:</p>--}}
                             {{--                                <form action="">--}}
@@ -473,10 +489,12 @@
                             @endif
                         </div>
 
-                        <div class="col-12 col-md-6 col-lg-3" @if(isset($lang) && $lang != 'fa') style="text-align: left !important;" @endif>
+                        <div class="col-12 col-md-6 col-lg-3"
+                             @if(isset($lang) && $lang != 'fa') style="text-align: left !important;" @endif>
                             <div class="widget-menu widget card">
                                 <header class="card-header ">
-                                    <h3 class="card-title style-border-bottom pb-3" @if(isset($lang) && $lang != 'fa') style="text-align: left !important;" @endif>
+                                    <h3 class="card-title style-border-bottom pb-3"
+                                        @if(isset($lang) && $lang != 'fa') style="text-align: left !important;" @endif>
                                         @if($lang == 'fa')
                                             @if($settings['footer_right_links_title']->is_active)
                                                 {!! $settings['footer_right_links_title']->value !!}
@@ -501,10 +519,12 @@
                                 </ul>
                             </div>
                         </div>
-                        <div class="col-12 col-md-6 col-lg-3" @if(isset($lang) && $lang != 'fa') style="text-align: left !important;" @endif>
+                        <div class="col-12 col-md-6 col-lg-3"
+                             @if(isset($lang) && $lang != 'fa') style="text-align: left !important;" @endif>
                             <div class="widget-menu widget card">
                                 <header class="card-header">
-                                    <h3 class="card-title style-border-bottom pb-3" @if(isset($lang) && $lang != 'fa') style="text-align: left !important;" @endif>
+                                    <h3 class="card-title style-border-bottom pb-3"
+                                        @if(isset($lang) && $lang != 'fa') style="text-align: left !important;" @endif>
                                         @if($lang == 'fa')
                                             @if($settings['footer_center_links_title']->is_active)
                                                 {!! $settings['footer_center_links_title']->value !!}
@@ -529,10 +549,12 @@
                                 </ul>
                             </div>
                         </div>
-                        <div class="col-12 col-md-6 col-lg-3" @if(isset($lang) && $lang != 'fa') style="text-align: left !important;" @endif>
+                        <div class="col-12 col-md-6 col-lg-3"
+                             @if(isset($lang) && $lang != 'fa') style="text-align: left !important;" @endif>
                             <div class="widget-menu widget card">
                                 <header class="card-header">
-                                    <h3 class="card-title style-border-bottom pb-3" @if(isset($lang) && $lang != 'fa') style="text-align: left !important;" @endif>
+                                    <h3 class="card-title style-border-bottom pb-3"
+                                        @if(isset($lang) && $lang != 'fa') style="text-align: left !important;" @endif>
                                         @if($lang == 'fa')
                                             @if($settings['footer_left_links_title']->is_active)
                                                 {!! $settings['footer_left_links_title']->value !!}

@@ -70,7 +70,7 @@ class Category extends Model
 
     public function get_icon()
     {
-        return $this->icon_name ?? 'fa fa-list';
+        return $this->icon_name ?? 'list';
     }
 
     public function get_type()
