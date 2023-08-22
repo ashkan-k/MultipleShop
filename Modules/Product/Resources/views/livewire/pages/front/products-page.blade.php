@@ -59,27 +59,36 @@
                                     <div class="filter-option">
 
                                         @foreach($this->GetFeatureItems($fi) as $fil_item)
-                                            @if($fi->filter_type == 'checkbox')
-                                                <div class="checkbox">
-                                                    <input id="checkbox_{{ $fil_item }}" value="{{ $fil_item }}"
-                                                           wire:model.debounce.1000ms="selected_filters.{{ $fi->id }}_{{ $fi->filter_type }}.{{ $fil_item }}"
-                                                           type="checkbox">
-                                                    <label for="checkbox_{{ $fil_item }}">
-                                                        {{ $fil_item }}
-                                                    </label>
-                                                </div>
-                                            @else
-                                                <div class="">
-                                                    <input id="checkbox_{{ $fil_item }}" value="{{ $fil_item }}"
-                                                           name="{{ $fi->title }}_{{ $fi->id }}"
-                                                           wire:click="$emit('triggerAddNewRadioItem' , {{ $fi->id }}, '{{ $fi->filter_type }}', '{{ $fil_item }}')"
-                                                           type="radio">
-                                                    <label for="checkbox_{{ $fil_item }}">
-                                                        {{ $fil_item }}
-                                                    </label>
-                                                </div>
-                                            @endif
+                                            {{--                                            @if($fi->filter_type == 'checkbox')--}}
+                                            {{--                                                <div class="checkbox">--}}
+                                            {{--                                                    <input id="checkbox_{{ $fil_item }}" value="{{ $fil_item }}"--}}
+                                            {{--                                                           wire:model.debounce.1000ms="selected_filters.{{ $fi->id }}_{{ $fi->filter_type }}.{{ $fil_item }}"--}}
+                                            {{--                                                           type="checkbox">--}}
+                                            {{--                                                    <label for="checkbox_{{ $fil_item }}">--}}
+                                            {{--                                                        {{ $fil_item }}--}}
+                                            {{--                                                    </label>--}}
+                                            {{--                                                </div>--}}
+                                            {{--                                            @else--}}
+                                            {{--                                                <div class="">--}}
+                                            {{--                                                    <input id="checkbox_{{ $fil_item }}" value="{{ $fil_item }}"--}}
+                                            {{--                                                           name="{{ $fi->title }}_{{ $fi->id }}"--}}
+                                            {{--                                                           wire:click="$emit('triggerAddNewRadioItem' , {{ $fi->id }}, '{{ $fi->filter_type }}', '{{ $fil_item }}')"--}}
+                                            {{--                                                           type="radio">--}}
+                                            {{--                                                    <label for="checkbox_{{ $fil_item }}">--}}
+                                            {{--                                                        {{ $fil_item }}--}}
+                                            {{--                                                    </label>--}}
+                                            {{--                                                </div>--}}
+                                            {{--                                            @endif--}}
 
+
+                                            <div class="checkbox">
+                                                <input id="checkbox_{{ $fil_item }}" value="{{ $fil_item }}"
+                                                       wire:model.debounce.1000ms="selected_filters.{{ $fi->id }}_{{ $fi->filter_type }}.{{ $fil_item }}"
+                                                       type="checkbox">
+                                                <label for="checkbox_{{ $fil_item }}">
+                                                    {{ $fil_item }}
+                                                </label>
+                                            </div>
 
                                         @endforeach
 
@@ -182,12 +191,14 @@
                                                                 @if($pro->quantity)
                                                                     @if($pro->calculate_discount_percent())
                                                                         <div class="price-value-wrapper">
-                                                                            {{ number_format($pro->discount_price) ?: '---' }} <span
+                                                                            {{ number_format($pro->discount_price) ?: '---' }}
+                                                                            <span
                                                                                 class="price-currency">{{ __('Toman') }}</span>
                                                                         </div>
                                                                     @else
                                                                         <div class="price-value-wrapper">
-                                                                            {{ number_format($pro->price) ?: '---' }} <span
+                                                                            {{ number_format($pro->price) ?: '---' }}
+                                                                            <span
                                                                                 class="price-currency">{{ __('Toman') }}</span>
                                                                         </div>
                                                                     @endif
@@ -225,18 +236,22 @@
 
 @push('StackScript')
     <script>
-        function FilterByQuantity(){
+        function FilterByQuantity() {
             var show_only_has_quantity_filter = $('#only_available_items_checkbox').prop('checked');
-            @this.call('FilterByQuantity', show_only_has_quantity_filter);
+            @this.
+            call('FilterByQuantity', show_only_has_quantity_filter);
         }
     </script>
 
     <script type="text/javascript">
         document.addEventListener('DOMContentLoaded', function () {
-        @this.on('triggerAddNewRadioItem', (feature_id, feature_type, filter) => {
-            console.log(@this.selected_filters)
-            @this.call('AddNewRadioFilterItem', feature_id, feature_type, filter);
-        });
+            @this.
+            on('triggerAddNewRadioItem', (feature_id, feature_type, filter) => {
+                console.log(@this.selected_filters
+            )
+                @this.
+                call('AddNewRadioFilterItem', feature_id, feature_type, filter);
+            });
         })
     </script>
 @endpush

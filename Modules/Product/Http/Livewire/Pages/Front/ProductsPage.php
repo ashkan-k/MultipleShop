@@ -71,21 +71,33 @@ class ProductsPage extends Component
 
                 $filter = array_values($filter);
 
-                if ($feature_type == 'checkbox') {
-                    $filter = array_filter($filter, function ($item) {
-                        return $item !== false;
-                    });
+                //
+                $filter = array_filter($filter, function ($item) {
+                    return $item !== false;
+                });
 
-                    if ($filter){
-                        $this->products = $this->products->whereHas('product_features', function ($query) use ($filter, $feature_id) {
-                            return $query->whereIn('value', $filter)->where('feature_id', $feature_id);
-                        });
-                    }
-                } else {
+                if ($filter) {
                     $this->products = $this->products->whereHas('product_features', function ($query) use ($filter, $feature_id) {
-                        return $query->where('value', $filter[0])->where('feature_id', $feature_id);
+                        return $query->whereIn('value', $filter)->where('feature_id', $feature_id);
                     });
                 }
+                //
+
+//                if ($feature_type == 'checkbox') {
+//                    $filter = array_filter($filter, function ($item) {
+//                        return $item !== false;
+//                    });
+//
+//                    if ($filter) {
+//                        $this->products = $this->products->whereHas('product_features', function ($query) use ($filter, $feature_id) {
+//                            return $query->whereIn('value', $filter)->where('feature_id', $feature_id);
+//                        });
+//                    }
+//                } else {
+//                    $this->products = $this->products->whereHas('product_features', function ($query) use ($filter, $feature_id) {
+//                        return $query->where('value', $filter[0])->where('feature_id', $feature_id);
+//                    });
+//                }
 
             }
         }
@@ -109,11 +121,11 @@ class ProductsPage extends Component
     public function GetFeatureItems($feature)
     {
         $items_array = explode('،', $feature->filter_items);
-        if ($this->items_search){
-           return array_filter(explode('،', $feature->filter_items), function($v) use ($feature, $items_array){
+        if ($this->items_search) {
+            return array_filter(explode('،', $feature->filter_items), function ($v) use ($feature, $items_array) {
                 try {
                     return str_contains($v, $this->items_search[$feature->id]);
-                }catch (\Exception $exception){
+                } catch (\Exception $exception) {
                     return $items_array;
                 }
             });
@@ -131,7 +143,8 @@ class ProductsPage extends Component
 
         $data = [
             'products' => $this->products->paginate($this->pagination),
-            'filters' => $this->object->features()->whereIn('filter_type', ['checkbox', 'radio'])->get(),
+            'filters' => $this->object->features()->whereIn('filter_type', ['checkbox', 'radio'])
+                ->orderBy('index')->get(),
         ];
 
         return view('product::livewire.pages.front.products-page', $data);
