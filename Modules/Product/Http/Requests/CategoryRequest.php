@@ -22,6 +22,7 @@ class CategoryRequest extends FormRequest
                 'boolean',
                 Rule::unique('categories', 'is_best')->ignore($this->category)
             ],
+            'index' => 'nullable|numeric',
             'is_special' => 'nullable|boolean',
             'icon_name' => 'required_if:is_special,1',
             'slug' => [
@@ -32,7 +33,7 @@ class CategoryRequest extends FormRequest
                 'nullable',
                 Rule::unique('categories', 'en_slug')->ignore($this->category)
             ],
-            'image' => 'mimes:jpeg,png,bmp,jpg',
+            'image' => 'mimes:jpeg,png,bmp,jpg,gif,webp',
             'parent_id' => 'nullable|exists:categories,id',
         ];
     }

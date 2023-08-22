@@ -125,6 +125,7 @@
                                 <th>والد</th>
                                 <th>نوع</th>
                                 <th>عکس</th>
+                                <th>ترتیب</th>
                                 <th>عملیات</th>
                             </tr>
                             </thead>
@@ -166,6 +167,8 @@
                                             </a>
                                         </div>
                                     </td>
+
+                                    <td>{{ $item->index ?: '---'  }}</td>
 
                                     <td class="">
                                         <a href="{{ route('features.index') }}?category={{ $item->id }}" class="btn btn-bg-light btn-color-muted btn-active-color-primary btn-sm px-4 me-2">فیلتر ها</a>

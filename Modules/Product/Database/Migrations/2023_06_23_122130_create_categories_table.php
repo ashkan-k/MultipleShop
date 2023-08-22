@@ -25,6 +25,8 @@ return new class extends Migration
             $table->boolean('is_best')->default(false);
             $table->string('icon_name')->nullable();
 
+            $table->integer('index')->default(1);
+
             $table->text('image')->nullable();
             $table->foreignId('parent_id')->nullable()->constrained('categories')->cascadeOnUpdate()->nullOnDelete();
             $table->timestamps();

@@ -25,7 +25,7 @@ class BlogCategoryRequest extends FormRequest
                 'nullable',
                 Rule::unique('blog_categories', 'en_slug')->ignore($this->category)
             ],
-            'image' => 'mimes:jpeg,png,bmp,jpg',
+            'image' => 'mimes:jpeg,png,bmp,jpg,gif,webp',
         ];
     }
 

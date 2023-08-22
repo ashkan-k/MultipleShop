@@ -13,9 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('carts', function (Blueprint $table) {
-            $table->foreignId('size_id')->nullable()->constrained()->onUpdate('cascade')->onDelete('cascade');
-
+        Schema::table('blogs', function (Blueprint $table) {
+            $table->text('en_text')->nullable();
         });
     }
 

@@ -18,7 +18,7 @@ class TicketRequest extends FormRequest
             'text' => 'required',
             'ticket_category_id' => 'required|exists:ticket_categories,id',
             'user_id' => 'nullable|exists:users,id',
-            'file' => 'nullable|mimes:jpeg,png,bmp,jpg,txt,pdf',
+            'file' => 'nullable|mimes:jpeg,png,bmp,jpg,gif,webp,txt,pdf',
         ];
     }
 

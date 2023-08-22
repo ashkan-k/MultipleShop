@@ -26,7 +26,7 @@ class ProfileRequest extends FormRequest
                     'nullable',
                     Rule::unique('users', 'username')->ignore($this->user())
                 ],
-                'avatar' => 'image|mimes:jpeg,png,bmp,jpg',
+                'avatar' => 'image|mimes:jpeg,png,bmp,jpg,gif,webp',
                 'phone' => [
                     'nullable',
                     'min:11',

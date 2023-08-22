@@ -17,7 +17,7 @@ class GuideRequest extends FormRequest
             'title' => 'required|string',
             'en_title' => 'required|string',
             'link' => 'required|url',
-            'image' => 'image|mimes:jpeg,png,bmp,jpg,svg',
+            'image' => 'image|mimes:jpeg,png,bmp,jpg,gif,webp',
         ];
 
         if (request()->method() == 'POST'){

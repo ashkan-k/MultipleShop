@@ -17,7 +17,7 @@ class SliderRequest extends FormRequest
             'title' => 'required|string',
             'url' => 'required|url',
             'priority' => 'required|numeric',
-            'image' => 'mimes:jpeg,png,bmp,jpg',
+            'image' => 'mimes:jpeg,png,bmp,jpg,gif,webp',
         ];
 
         if (request()->method() == 'POST'){

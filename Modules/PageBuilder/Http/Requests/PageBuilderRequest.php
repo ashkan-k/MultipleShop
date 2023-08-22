@@ -30,7 +30,7 @@ class PageBuilderRequest extends FormRequest
                 Rule::unique('page_builders', 'en_slug')->ignore($this->page)
             ],
             'icon_name' => 'required_if:is_special,1',
-            'image' => 'nullable|image|mimes:jpeg,png,bmp,jpg',
+            'image' => 'nullable|image|mimes:jpeg,png,bmp,jpg,gif,webp',
             'schema_type' => 'required|in:' . implode(',', EnumHelpers::$PageGoogleShcemaEnum),
         ];
     }

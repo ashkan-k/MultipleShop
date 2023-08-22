@@ -29,7 +29,7 @@ class BlogRequest extends FormRequest
             'text' => 'required',
             'en_text' => 'nullable',
             'status' => 'in:draft,publish,done',
-            'image' => 'mimes:jpeg,png,bmp,jpg',
+            'image' => 'mimes:jpeg,png,bmp,jpg,gif,webp',
             'category_id' => 'required|exists:blog_categories,id',
             'schema_type' => 'required|in:' . implode(',', EnumHelpers::$BlogGoogleShcemaEnum),
         ];

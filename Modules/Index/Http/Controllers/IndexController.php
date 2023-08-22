@@ -27,7 +27,7 @@ class IndexController extends Controller
 
         $special_categories = Category::withCount('products')
             ->where('is_special', 1)
-            ->limit(6)->get();
+            ->limit(6)->orderBy('index')->get();
 
         $special_products = Product::ActiveProducts()->where('is_special', 1)->get();
         $latest_products = Product::ActiveProducts()->latest()->limit(10)->get();

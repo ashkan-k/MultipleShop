@@ -37,7 +37,7 @@ class PageBuilder extends Model
 
     public static function GetFontAwesomeIcons()
     {
-        $data = File::get(base_path() . '/Modules/Product/Helpers/font-awesome-icons-json.json');
+        $data = File::get(base_path() . '/Modules/PageBuilder/Helpers/font-awesome-icons-json.json');
 
         $icons = json_decode($data, true);
         return $icons['solid'];

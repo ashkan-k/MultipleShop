@@ -15,7 +15,7 @@ class PosterRequest extends FormRequest
     {
         $rules =  [
             'link' => 'required|url',
-            'image' => 'image|mimes:jpeg,png,bmp,jpg',
+            'image' => 'image|mimes:jpeg,png,bmp,jpg,gif,webp',
             'location' => 'required|in:top,center,bottom',
         ];
 

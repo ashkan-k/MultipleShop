@@ -23,6 +23,7 @@ class Category extends Model
         'is_special',
         'is_best',
         'icon_name',
+        'index',
     ];
 
     protected $search_fields  = [
@@ -52,6 +53,14 @@ class Category extends Model
 
         if (!$this->is_special){
             $this->icon_name = null;
+        }
+
+        if (!$this->index) {
+            $index = 1;
+            if ($last_obj = Category::latest()->first()) {
+                $index = $last_obj->index + 1;
+            }
+            $this->index = $index;
         }
 
         try {

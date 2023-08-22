@@ -13,9 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('features', function (Blueprint $table) {
-            $table->boolean('is_use_cart')->default(false);
-            $table->boolean('is_use_cart_required')->default(false);
+        Schema::table('categories', function (Blueprint $table) {
+            $table->integer('index')->default(1);
         });
     }
 

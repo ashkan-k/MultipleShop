@@ -32,7 +32,7 @@ class ProductRequest extends FormRequest
            'discount_price' => 'nullable|numeric',
             'discount_start_date' => 'nullable|jdate:Y-m-d|after:' . \verta()->subDay(),
             'discount_end_date' => 'nullable|jdate:Y-m-d|after:' . \verta()->subDay(),
-            'image' => 'image|mimes:jpeg,png,bmp,jpg',
+            'image' => 'image|mimes:jpeg,png,bmp,jpg,gif,webp',
             'user_id' => 'required|exists:users,id',
             'category_id' => 'required|exists:categories,id',
 //            'color_id' => 'nullable|exists:colors,id',

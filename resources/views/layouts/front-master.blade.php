@@ -80,7 +80,7 @@
 
         @php
             if (!$main_categories = GetCache('main_categories')) {
-                $main_categories = AddCache('main_categories', \Modules\Product\Entities\Category::whereNull('parent_id')->with(['children'])->get());
+                $main_categories = AddCache('main_categories', \Modules\Product\Entities\Category::whereNull('parent_id')->with(['children'])->orderBy('index')->get());
             }
         @endphp
 
@@ -106,7 +106,7 @@
 
                                 @php
                                     if (!$children_1 = GetCache('categories_' . $main_cat->id)) {
-                                        $children_1 = AddCache('categories_' . $main_cat->id, $main_cat->children()->with(['children'])->get());
+                                        $children_1 = AddCache('categories_' . $main_cat->id, $main_cat->children()->with(['children'])->orderBy('index')->get());
                                     }
                                 @endphp
 
@@ -124,7 +124,7 @@
 
                                                 @php
                                                     if (!$children_2 = GetCache('categories_' . $child_1->id)) {
-                                                        $children_2 = AddCache('categories_' . $child_1->id, $child_1->children()->with(['children'])->get());
+                                                        $children_2 = AddCache('categories_' . $child_1->id, $child_1->children()->with(['children'])->orderBy('index')->get());
                                                     }
                                                 @endphp
 
@@ -297,7 +297,7 @@
 
                     @php
                         if (!$main_categories = GetCache('main_categories')) {
-                            $main_categories = AddCache('main_categories', \Modules\Product\Entities\Category::whereNull('parent_id')->with(['children'])->get());
+                            $main_categories = AddCache('main_categories', \Modules\Product\Entities\Category::whereNull('parent_id')->with(['children'])->orderBy('index')->get());
                         }
                     @endphp
 
@@ -313,7 +313,7 @@
 
                                     @php
                                         if (!$children_1 = GetCache('categories_' . $main_cat->id)) {
-                                            $children_1 = AddCache('categories_' . $main_cat->id, $main_cat->children()->with(['children'])->get());
+                                            $children_1 = AddCache('categories_' . $main_cat->id, $main_cat->children()->with(['children'])->orderBy('index')->get());
                                         }
                                     @endphp
 
@@ -349,7 +349,7 @@
 
                                                     @php
                                                         if (!$children_2 = GetCache('categories_' . $child_1->id)) {
-                                                            $children_2 = AddCache('categories_' . $child_1->id, $child_1->children()->with(['children'])->get());
+                                                            $children_2 = AddCache('categories_' . $child_1->id, $child_1->children()->with(['children'])->orderBy('index')->get());
                                                         }
                                                     @endphp
 

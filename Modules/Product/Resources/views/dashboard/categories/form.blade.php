@@ -135,6 +135,26 @@
 
                                     </div>
 
+                                    <div class="d-flex flex-column mb-8 fv-row">
+                                        <label for="id_index"
+                                               class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                            <span>ترتیب نمایش</span>
+                                        </label>
+
+                                        <input type="number" id="id_index" class="form-control form-control-solid"
+                                               value="@if(old('index')){{ old('index') }}@elseif(isset($object->index)){{ $object->index }}@endif"
+                                               placeholder="ترتیب نمایش را وارد کنید" name="index"/>
+
+                                        @error('index')
+                                        <div class="fv-plugins-message-container invalid-feedback">
+                                            <div data-field="meta_title" data-validator="notEmpty">
+                                                {{ $message }}
+                                            </div>
+                                        </div>
+                                        @enderror
+
+                                    </div>
+
                                     <div class=" d-flex flex-column mb-8 fv-row">
                                         <label for="id_parent_id"
                                                class="d-flex align-items-center fs-6 fw-semibold mb-2">
