@@ -252,35 +252,20 @@
                                     <div class="product-variants default">
                                         <span>{{ $op_f->title }}: </span>
 
-                                        @if($op_f->filter_type == 'checkbox')
-
-                                            @foreach(explode('،', $op_f->filter_items) as $item)
-                                                <div class="" style="float: left !important;">
-                                                    <input type="checkbox" name="size_id" id="id_size_{{ $item }}" class="feature_options"
-                                                           wire:click="$emit('triggerAddNewFeatureItem' , {{ $op_f->id }}, '{{ $op_f->filter_type }}', '{{ $item }}')"
-                                                           {{--                                                           wire:model.defer="cart_size"--}}
-                                                           value="{{ $item }}">
-                                                    <label for="id_size_{{ $item }}" style="content: '' !important;">
-                                                        {{ $item ?: '---' }}
-                                                    </label>
-                                                </div>
-                                            @endforeach
-
-                                        @else
-
+                                        <fieldset id="group{{ $op_f->id }}">
                                             @foreach(explode('،', $op_f->filter_items) as $item)
                                                 <div class="radio">
-                                                    <input type="radio" name="size_id" id="id_size_{{ $item }}" class="feature_options"
+                                                    <input type="radio" name="option_{{ $op_f->id }}" id="id_option_{{ $item }}"
+                                                           class="feature_options"
                                                            wire:click="$emit('triggerAddNewFeatureItem' , {{ $op_f->id }}, '{{ $op_f->filter_type }}', '{{ $item }}')"
                                                            {{--                                                           wire:model.defer="cart_size"--}}
                                                            value="{{ $item }}">
-                                                    <label for="id_size_{{ $item }}">
+                                                    <label for="id_option_{{ $item }}">
                                                         {{ $item ?: '---' }}
                                                     </label>
                                                 </div>
                                             @endforeach
-
-                                        @endif
+                                        </fieldset>
 
                                     </div>
                                 @endforeach
@@ -354,7 +339,8 @@
 
                                         @if($object->quantity > 0)
 
-                                            <div wire:loading.remove wire:loading.attr="is_loading" class="parent-btn" id="id_add_to_cart_button">
+                                            <div wire:loading.remove wire:loading.attr="is_loading" class="parent-btn"
+                                                 id="id_add_to_cart_button">
                                                 <a wire:click="AddRemoveCart('add')" class="dk-btn dk-btn-info">
                                                     {{ __('Add to cart') }}
                                                     <i class="now-ui-icons shopping_cart-simple"></i>
@@ -1000,19 +986,22 @@
 @endsection
 
 @push('StackScript')
-{{--    <script>--}}
-{{--        $('#id_add_to_cart_button').on('click', function () {--}}
-{{--            $('#id_add_to_cart_button').hide();--}}
-{{--            $('#id_add_to_cart_button_loading').show();--}}
-{{--        })--}}
-{{--    </script>--}}
+    {{--    <script>--}}
+    {{--        $('#id_add_to_cart_button').on('click', function () {--}}
+    {{--            $('#id_add_to_cart_button').hide();--}}
+    {{--            $('#id_add_to_cart_button_loading').show();--}}
+    {{--        })--}}
+    {{--    </script>--}}
 
     <script type="text/javascript">
         document.addEventListener('DOMContentLoaded', function () {
-        @this.on('triggerAddNewFeatureItem', (feature_id, feature_type, filter) => {
-            console.log(@this.selected_filters)
-        @this.call('AddNewFeatureItem', feature_id, feature_type, filter);
-        });
+            @this.
+            on('triggerAddNewFeatureItem', (feature_id, feature_type, filter) => {
+                console.log(@this.selected_filters
+            )
+                @this.
+                call('AddNewFeatureItem', feature_id, feature_type, filter);
+            });
         })
     </script>
 
