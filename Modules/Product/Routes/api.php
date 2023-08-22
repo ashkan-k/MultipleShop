@@ -32,7 +32,9 @@ Route::middleware('check_admin')->group(function () {
     Route::get('features/{category}', [FeatureController::class, 'list']);
     Route::post('features', [FeatureController::class, 'store']);
     Route::post('features/{feature}', [FeatureController::class, 'update']);
+    Route::delete('features/{feature}', [FeatureController::class, 'delete']);
     Route::get('features/items/{feature}', [FeatureController::class, 'feature_filter_items']);
+    Route::post('features/index/change', [FeatureController::class, 'feature_index_change']);
 
     // Product Features
     Route::resource('products-features', ApiProductFeatureController::class);

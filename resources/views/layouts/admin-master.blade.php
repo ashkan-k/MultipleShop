@@ -5346,6 +5346,7 @@ Like: www.facebook.com/keenthemes
 
 {{--<script src="/persian_datetimepicker/persian-date.min.js"></script>--}}
 <script src="/persian_datetimepicker/js/persianDatepicker.min.js"></script>
+<script src="/helpers/js/jquery-ui.js"></script>
 
 <script>
     var app = angular.module("myApp", []);

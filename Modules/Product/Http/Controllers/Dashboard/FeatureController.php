@@ -39,7 +39,7 @@ class FeatureController extends Controller
     {
         $objects = $category->features()->with(['category'])
             ->Search(request('search'))
-            ->latest()->get();
+            ->orderBy('index')->get();
         return $this->SuccessResponse($objects);
     }
 
@@ -57,10 +57,25 @@ class FeatureController extends Controller
         return $this->SuccessResponse('آیتم مورد نظر با موفقیت ویرایش شد.');
     }
 
+    public function delete(Feature $feature)
+    {
+        $feature->delete();
+        return $this->SuccessResponse('آیتم مورد نظر با موفقیت حذف شد.');
+    }
+
     public function feature_filter_items(Feature $feature)
     {
         $items = explode('،', $feature->filter_items);
         return $this->SuccessResponse($items);
+    }
+
+    public function feature_index_change()
+    {
+        $objects_data = \request('data', []);
+        foreach ($objects_data as $id => $new_index) {
+            Feature::where('id', $id)->update(['index' => $new_index]);
+        }
+        return $this->SuccessResponse([]);
     }
     //
 }

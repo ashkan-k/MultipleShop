@@ -1,17 +1,17 @@
 function parseError(e, msg='خطا در دریافت اطلاعات') {
               let statusCode = e.status;
               if (statusCode === 404) {
-                  createToast('error', 'صفحه یا مسیر مورد نظر یافت نشد. ممکن‌ است دسترسی لازم را نداشته باشید.');
+                  showToast('صفحه یا مسیر مورد نظر یافت نشد. ممکن‌ است دسترسی لازم را نداشته باشید.', 'error');
               } else if (statusCode === 403) {
-                  createToast('error', 'شما دسترسی به این آیتم را ندارید.');
+                  showToast('شما دسترسی به این آیتم را ندارید.', 'error');
               } else {
                   try {
                       let error = e.data['non_field_errors'][0];
                       if (error) {
-                          createToast('error', error);
+                          showToast(error, 'error');
                       }
                   } catch (e) {
-                      createToast('error', msg);
+                      showToast(msg, 'error');
                   }
               }
           }

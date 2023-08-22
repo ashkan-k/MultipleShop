@@ -28,6 +28,21 @@ class Feature extends Model
         'category.title',
     ];
 
+    protected $appends = [
+        'filter_item_names',
+        'filter_type_name',
+    ];
+
+    public function getFilterItemNamesAttribute()
+    {
+        return $this->get_filter_item_names();
+    }
+
+    public function getFilterTypeNameAttribute()
+    {
+        return $this->get_filter_type();
+    }
+
     public function save(array $options = [])
     {
         if (!$this->is_use_cart){
@@ -53,6 +68,11 @@ class Feature extends Model
            return 'متنی';
        }
         return 'ندارد';
+    }
+
+    public function get_filter_item_names()
+    {
+        return $this->filter_items ? str_replace('،', ' ,', $this->filter_items) : '---';
     }
 
     protected static function newFactory()
