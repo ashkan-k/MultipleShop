@@ -20,6 +20,7 @@ class Feature extends Model
         'filter_items',
         'is_use_cart',
         'is_use_cart_required',
+        'index',
     ];
 
     protected $search_fields  = [
@@ -31,6 +32,13 @@ class Feature extends Model
     {
         if (!$this->is_use_cart){
             $this->is_use_cart_required = 0;
+        }
+        if (!$this->index) {
+            $index = 1;
+            if ($last_obj = Feature::latest()->first()) {
+                $index = $last_obj->index + 1;
+            }
+            $this->index = $index;
         }
         return parent::save($options);
     }

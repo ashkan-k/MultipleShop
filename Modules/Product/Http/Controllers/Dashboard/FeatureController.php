@@ -35,6 +35,14 @@ class FeatureController extends Controller
     //
 
     // Web Apis Routes
+    public function list(Category $category)
+    {
+        $objects = $category->features()->with(['category'])
+            ->Search(request('search'))
+            ->latest()->get();
+        return $this->SuccessResponse($objects);
+    }
+
     public function store(FeatureRequest $request)
     {
         Feature::create($request->validated());

@@ -75,42 +75,44 @@
                         <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_table_items">
                             <thead>
                             <tr class="text-start text-muted fw-bold fs-7 text-uppercase gs-0">
-                                <th class="w-10px pe-2">
-                                    <div class="form-check form-check-sm form-check-custom form-check-solid me-3">
-                                        <input class="form-check-input" type="checkbox" data-kt-check="true"
-                                               id="checkAll" ng-model="select_all"
-                                               ng-checked="items.length == selected_items.length"
-                                               ng-change="AddItemsToBulkAction(<?php echo json_encode($objects->pluck('id')->toArray()); ?>, select_all)"
-                                               data-kt-check-target="#kt_table_items .form-check-input"/>
-                                    </div>
-                                </th>
+{{--                                <th class="w-10px pe-2">--}}
+{{--                                    <div class="form-check form-check-sm form-check-custom form-check-solid me-3">--}}
+{{--                                        <input class="form-check-input" type="checkbox" data-kt-check="true"--}}
+{{--                                               id="checkAll" ng-model="select_all"--}}
+{{--                                               ng-checked="items.length == selected_items.length"--}}
+{{--                                               ng-change="AddItemsToBulkAction(<?php echo json_encode($objects->pluck('id')->toArray()); ?>, select_all)"--}}
+{{--                                               data-kt-check-target="#kt_table_items .form-check-input"/>--}}
+{{--                                    </div>--}}
+{{--                                </th>--}}
                                 <th>دسته بندی</th>
                                 <th>عنوان فیلتر</th>
                                 <th>نوع فیلتر</th>
                                 <th>گزینه های فیلتر</th>
+                                <th>ترتیب نمایش</th>
                                 <th>عملیات</th>
                             </tr>
                             </thead>
                             <tbody class="text-gray-600 fw-semibold">
 
-                            @foreach ($objects as $item)
-                                <tr>
-                                    <td>
-                                        <div class="form-check form-check-sm form-check-custom form-check-solid">
-                                            <input type="checkbox" ng-model="bulk_checkbox_{{ $item->id }}"
-                                                   ng-checked="selected_items.includes({{ $item->id }})"
-                                                   ng-change="AddItemsToBulkAction('{{ $item->id }}', bulk_checkbox_{{ $item->id }})"
-                                                   class="form-check-input">
-                                        </div>
-                                    </td>
+                                <tr style="cursor: pointer" ng-repeat="(key, item) in items">
+{{--                                    <td>--}}
+{{--                                        <div class="form-check form-check-sm form-check-custom form-check-solid">--}}
+{{--                                            <input type="checkbox" ng-model="bulk_checkbox_{{ $item->id }}"--}}
+{{--                                                   ng-checked="selected_items.includes({{ $item->id }})"--}}
+{{--                                                   ng-change="AddItemsToBulkAction('{{ $item->id }}', bulk_checkbox_{{ $item->id }})"--}}
+{{--                                                   class="form-check-input">--}}
+{{--                                        </div>--}}
+{{--                                    </td>--}}
 
-                                    <td>{{$item->category ? $item->category->title : 'ندارد'}}</td>
+                                    <td>[[ item.category.title ? item.category.title : '---' ]]</td>
 
-                                    <td>{{ $item->title ?: '---'  }}</td>
+                                    <td>[[ item.title ? item.title : '---' ]]</td>
 
-                                    <td>{{ $item->get_filter_type()  }}</td>
+                                    <td>[[ item.filter_type ? item.filter_type : '---' ]]</td>
 
-                                    <td>{{ $item->filter_items ? str_replace('،', ' ,', $item->filter_items) : '---'  }}</td>
+                                    <td>[[ item.filter_items ? item.filter_items : '---' ]]</td>
+
+                                    <td>[[ item.index ? item.index : '---' ]]</td>
 
                                     <td class="">
                                         <a href="#"
@@ -122,22 +124,22 @@
                                             class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4"
                                             data-kt-menu="true">
                                             <div class="menu-item px-3">
-                                                <a ng-click="AddEditFeatureModal({{ $item }})" class="menu-link px-3"
+                                                <a ng-click="AddEditFeatureModal(item)" class="menu-link px-3"
                                                    data-kt-features-table-filter="delete_row">ویرایش</a>
                                             </div>
                                             <div class="menu-item px-3">
 
-                                                <form
-                                                    action="{{ route('features.destroy' , $item->id) }}?next_url={{ request()->fullUrl() }}"
-                                                    id="delete_form_{{ $loop->index }}" method="post">
-                                                    @csrf
-                                                    @method('DELETE')
+{{--                                                <form--}}
+{{--                                                    action="{{ route('features.destroy' , $item->id) }}?next_url={{ request()->fullUrl() }}"--}}
+{{--                                                    id="delete_form_{{ $loop->index }}" method="post">--}}
+{{--                                                    @csrf--}}
+{{--                                                    @method('DELETE')--}}
 
-                                                    <a onclick="return Delete('{{ $loop->index }}')"
-                                                       class="menu-link px-3"
-                                                       data-kt-features-table-filter="delete_row">حذف</a>
+{{--                                                    <a onclick="return Delete('{{ $loop->index }}')"--}}
+{{--                                                       class="menu-link px-3"--}}
+{{--                                                       data-kt-features-table-filter="delete_row">حذف</a>--}}
 
-                                                </form>
+{{--                                                </form>--}}
 
 
                                             </div>
@@ -145,20 +147,19 @@
                                         <!--end::Menu-->
                                     </td>
                                 </tr>
-                            @endforeach
 
                             </tbody>
                         </table>
                         <!--end::Table-->
 
-                        <div class="row">
-                            @include('dashboard.section.components.bulk_actions.bulk_actions', ['actions' => [['delete', 'حذف کردن']], 'items' => $objects])
-                            @include('dashboard.section.components.filters.limit_select_box')
+{{--                        <div class="row">--}}
+{{--                            @include('dashboard.section.components.bulk_actions.bulk_actions', ['actions' => [['delete', 'حذف کردن']], 'items' => $objects])--}}
+{{--                            @include('dashboard.section.components.filters.limit_select_box')--}}
 
 
-                            {{ $objects->onEachSide(3)->withQueryString()->links('dashboard.section.components.pagination') }}
+{{--                            {{ $objects->onEachSide(3)->withQueryString()->links('dashboard.section.components.pagination') }}--}}
 
-                        </div>
+{{--                        </div>--}}
 
                     </div>
                     <!--end::کارت body-->
@@ -317,13 +318,16 @@
         $('#id_feature_id').select2();
 
         app.controller('myCtrl', function ($scope, $http) {
-            @include('dashboard.section.components.bulk_actions.bulk_actions_js', ['items' => $objects, 'model' => \Modules\Product\Entities\Feature::class])
+{{--            @include('dashboard.section.components.bulk_actions.bulk_actions_js', ['items' => $objects, 'model' => \Modules\Product\Entities\Feature::class])--}}
 
+            $scope.items = [];
             $scope.instance = {};
             $scope.question = {};
             $scope.temp_filter_items = [];
 
             $scope.init = function () {
+                $scope.GetFeatures();
+
                 $scope.temp_filter_items = [{
                     text: "",
                 },];
@@ -383,6 +387,21 @@
 
                     }
                 }
+            }
+
+            $scope.GetFeatures = function () {
+                $scope.is_submited = true;
+
+                var url = `/api/products/features/{{ $category->id }}`
+
+                $http.get(url).then(res => {
+                    console.log(res['data']['data'])
+                    $scope.is_submited = false;
+                    $scope.items = res['data']['data'];
+                }).catch(err => {
+                    $scope.is_submited = false;
+                    showToast('خطایی رخ داد.', 'error');
+                });
             }
 
             $scope.SubmitAddEditFeature = function () {

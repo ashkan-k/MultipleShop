@@ -29,6 +29,7 @@ Route::prefix('galleries')->middleware('check_admin')->group(function () {
 
 Route::middleware('check_admin')->group(function () {
     // Features
+    Route::get('features/{category}', [FeatureController::class, 'list']);
     Route::post('features', [FeatureController::class, 'store']);
     Route::post('features/{feature}', [FeatureController::class, 'update']);
     Route::get('features/items/{feature}', [FeatureController::class, 'feature_filter_items']);
