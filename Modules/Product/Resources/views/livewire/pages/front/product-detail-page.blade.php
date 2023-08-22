@@ -254,16 +254,20 @@
 
                                         <fieldset id="group{{ $op_f->id }}">
                                             @foreach(explode('،', $op_f->filter_items) as $item)
-                                                <div class="radio">
-                                                    <input type="radio" name="option_{{ $op_f->id }}" id="id_option_{{ $item }}"
-                                                           class="feature_options"
-                                                           wire:click="$emit('triggerAddNewFeatureItem' , {{ $op_f->id }}, '{{ $op_f->filter_type }}', '{{ $item }}')"
-                                                           {{--                                                           wire:model.defer="cart_size"--}}
-                                                           value="{{ $item }}">
-                                                    <label for="id_option_{{ $item }}">
-                                                        {{ $item ?: '---' }}
-                                                    </label>
-                                                </div>
+
+                                                @if(in_array($item, $object_features_values))
+                                                    <div class="radio">
+                                                        <input type="radio" name="option_{{ $op_f->id }}" id="id_option_{{ $item }}"
+                                                               class="feature_options"
+                                                               wire:click="$emit('triggerAddNewFeatureItem' , {{ $op_f->id }}, '{{ $op_f->filter_type }}', '{{ $item }}')"
+                                                               {{--                                                           wire:model.defer="cart_size"--}}
+                                                               value="{{ $item }}">
+                                                        <label for="id_option_{{ $item }}">
+                                                            {{ $item ?: '---' }}
+                                                        </label>
+                                                    </div>
+                                                @endif
+
                                             @endforeach
                                         </fieldset>
 

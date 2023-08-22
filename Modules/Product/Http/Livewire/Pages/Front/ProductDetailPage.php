@@ -220,6 +220,8 @@ class ProductDetailPage extends Component
             'bottom_features' => $this->object->product_features()->whereIn('place', ['down', 'both'])->with('feature')->get(),
             'may_like_products' => Product::ActiveProducts()->where('brand_id', $this->object->brand_id)->get(),
             'related_products' => Product::ActiveProducts()->where('category_id', $this->object->category_id)->get(),
+
+            'object_features_values' => $this->object->feature_values(),
         ];
 
         $data['option_features'] = $this->object->category ? $this->object->category->features()
