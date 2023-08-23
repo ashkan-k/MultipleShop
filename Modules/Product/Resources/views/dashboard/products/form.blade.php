@@ -398,12 +398,13 @@
                                                         type="reset" data-kt-ecommerce-settings-type="cancel"
                                                         class="btn btn-light me-3">انصراف
                                                 </button>
-                                               @if(isset($object->id))
-                                                    <button onclick="window.location.href='{{ route('products.duplicate', $object->id) }}'"
-                                                            type="button" data-kt-ecommerce-settings-type="cancel"
-                                                            class="btn btn-primary me-3">کپی
+                                                @if(isset($object->id))
+                                                    <button
+                                                        onclick="window.location.href='{{ route('products.duplicate', $object->id) }}'"
+                                                        type="button" data-kt-ecommerce-settings-type="cancel"
+                                                        class="btn btn-primary me-3">کپی
                                                     </button>
-                                               @endif
+                                                @endif
                                                 <button type="submit" data-kt-ecommerce-settings-type="submit"
                                                         class="btn btn-primary">
                                                     <span class="indicator-label">ذخیره</span>
@@ -543,7 +544,7 @@
 
                                     <td>[[ item['feature']['title'] ]]</td>
 
-                                    <td>[[ item['value'] ]]</td>
+                                    <td>[[ GetRawValue(item['value']) ]]</td>
 
                                     <td>[[ item['get_place'] ]]</td>
 
@@ -678,7 +679,7 @@
                                 </label>
 
                                 <select ng-model="feature_id" id="id_feature_id" name="contents"
-{{--                                        data-kt-select2="true"--}}
+                                        {{--                                        data-kt-select2="true"--}}
                                         ng-options="item.id as item.title for item in features"
                                         class="form-control">
                                 </select>
@@ -695,7 +696,7 @@
                                         ng-if="feature['filter_type'] == 'checkbox' || feature['filter_type'] == 'radio'"
                                         ng-options="item as item for item in filter_items"
                                         class="form-control">
-{{--                                    <option value="" disabled>مقدار را انتخاب کنید</option>--}}
+                                    {{--                                    <option value="" disabled>مقدار را انتخاب کنید</option>--}}
                                     <option value="">هیچ</option>
                                 </select>
 
@@ -907,8 +908,11 @@
                 if (obj) {
                     $scope.obj = obj;
                     $scope.feature_id = obj['feature_id'];
-                    if ($scope.obj['value'] && $scope.obj['feature']['filter_type'] != 'text'){
-                        $scope.obj['value'] = $scope.obj['value'].split(',');
+                    if ($scope.obj['value'] && $scope.obj['feature']['filter_type'] != 'text') {
+                        if (!Array.isArray($scope.obj['value'])) {
+                            $scope.obj['value'] = $scope.obj['value'].split(',');
+                        }
+                        console.log($scope.obj['value'])
                     }
                 }
                 console.log($scope.obj)
@@ -952,6 +956,10 @@
                 });
             };
 
+            $scope.GetRawValue = function (value) {
+                return value ? value.toString() : '';
+            }
+
             $scope.SubmitAddEditFeature = function (type = 'create') {
                 if (!$scope.obj['feature_id']) {
                     showToast('فیلد ویژگی اجباری است!', 'error');
@@ -965,8 +973,6 @@
                     showToast('فیلد جایگاه ویژگی اجباری است!', 'error');
                     return;
                 }
-
-                console.log($scope.obj.value.toString())
 
                 $scope.obj['value'] = $scope.obj['value'].toString();
                 $scope.obj['product_id'] = {{ $object->id }};
