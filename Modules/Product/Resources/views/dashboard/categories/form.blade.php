@@ -9,12 +9,12 @@
 @endsection
 
 @section('Styles')
-    <style>
-        .select2-results__option--selectable {
-            font-family: FontAwesome !important;
-            font-style: normal !important;
-        }
-    </style>
+{{--    <style>--}}
+{{--        .select2-results__option--selectable {--}}
+{{--            font-family: FontAwesome !important;--}}
+{{--            font-style: normal !important;--}}
+{{--        }--}}
+{{--    </style>--}}
 @endsection
 @section('content')
     <div class="d-flex flex-column flex-column-fluid" ng-init="init()">
@@ -240,12 +240,12 @@
                                         </label>
 
                                         <select id="id_icon_name" name="icon_name"
-                                                data-kt-select2="true"
+                                                data-kt-select2="true" ng-model="selected_icon"
                                                 class="form-control form-control-solid">
                                             @foreach($icons as $icon)
                                                 <option
-                                                    @if((isset($object->icon_name) && $object->icon_name == $icon['name']) || old('icon_name') == $icon['name']) selected
-                                                    @endif value="{{ $icon['name'] }}">&#x{{ $icon['unicode'] }};  {{ $icon['name'] }}
+                                                    @if((isset($object->icon_name) && $object->icon_name == $icon) || old('icon_name') == $icon) selected
+                                                    @endif value="{{ $icon }}">{{ $icon }}
                                                 </option>
                                             @endforeach
                                         </select>
@@ -257,6 +257,8 @@
                                             </div>
                                         </div>
                                         @enderror
+
+                                        <p ng-show="selected_icon" class="mt-3">پیش نمایش: &nbsp;&nbsp; <i class="fa fa-[[ selected_icon ]]" style="font-size: 40px"></i></p>
 
                                     </div>
 
@@ -386,6 +388,7 @@
             $scope.is_english = false;
             $scope.is_special = false;
             $scope.is_best = false;
+            $scope.selected_icon = @if(isset($object) && $object->icon_name) '{{ $object->icon_name }}' @else null @endif;
 
             $scope.init = function () {
                 @if((isset($object) && $object->is_special) || old('is_special'))

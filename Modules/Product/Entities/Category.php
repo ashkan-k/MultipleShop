@@ -51,10 +51,6 @@ class Category extends Model
         }
         $this->en_slug = Slugify($this->en_slug);
 
-        if (!$this->is_special){
-            $this->icon_name = null;
-        }
-
         if (!$this->index) {
             $index = 1;
             if ($last_obj = Category::latest()->first()) {
@@ -113,26 +109,26 @@ class Category extends Model
         return \Modules\Product\Database\factories\CategoryFactory::new();
     }
 
-//    public static function GetFontAwesomeIcons()
-//    {
-//        $icons = File::get(base_path() . '/Modules/Product/Helpers/font-awesome-icons.txt');
-//
-//        $icons = str_replace("\n", '', $icons);
-//        $icons = str_replace("'", '', $icons);
-//
-//        $icons = explode(',', $icons);
-//        array_pop($icons);
-//
-//        return $icons;
-//    }
-
     public static function GetFontAwesomeIcons()
     {
-        $data = File::get(base_path() . '/Modules/Product/Helpers/font-awesome-icons-json.json');
+        $icons = File::get(base_path() . '/Modules/Product/Helpers/font-awesome-icons.txt');
 
-        $icons = json_decode($data, true);
-        return $icons['solid'];
+        $icons = str_replace("\n", '', $icons);
+        $icons = str_replace("'", '', $icons);
+
+        $icons = explode(',', $icons);
+        array_pop($icons);
+
+        return $icons;
     }
+
+//    public static function GetFontAwesomeIcons()
+//    {
+//        $data = File::get(base_path() . '/Modules/Product/Helpers/font-awesome-icons-json.json');
+//
+//        $icons = json_decode($data, true);
+//        return $icons['solid'];
+//    }
 
     public function scopeFindBySlug($query, $lang, $slug)
     {
