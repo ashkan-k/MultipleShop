@@ -907,7 +907,7 @@
                 if (obj) {
                     $scope.obj = obj;
                     $scope.feature_id = obj['feature_id'];
-                    if ($scope.obj['value']){
+                    if ($scope.obj['value'] && $scope.obj['feature']['filter_type'] != 'text'){
                         $scope.obj['value'] = $scope.obj['value'].split(',');
                     }
                 }
