@@ -355,6 +355,7 @@
             }
 
             $scope.AddEditFeatureModal = function (obj) {
+                $scope.instance = {};
                 $scope.temp_filter_items = [{
                     text: "",
                 },];
@@ -514,6 +515,8 @@
                     $scope.is_submited = false;
                     $('#addEditFeatureModal').modal('hide');
                     $scope.GetFeatures();
+
+                    $scope.instance = {};
                     $scope.temp_filter_items = [{
                         text: "",
                     },];
