@@ -907,7 +907,9 @@
                 if (obj) {
                     $scope.obj = obj;
                     $scope.feature_id = obj['feature_id'];
-                    $scope.obj['value'] = $scope.obj['value'].split(',');
+                    if ($scope.obj['value']){
+                        $scope.obj['value'] = $scope.obj['value'].split(',');
+                    }
                 }
                 console.log($scope.obj)
                 $('#addEditFeatureModal').modal('show');
