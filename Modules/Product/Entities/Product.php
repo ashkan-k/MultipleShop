@@ -226,44 +226,9 @@ class Product extends Model
         return $this->belongsTo(Category::class);
     }
 
-    public function brand()
-    {
-        return $this->belongsTo(Brand::class);
-    }
-
-    public function color()
-    {
-        return $this->belongsTo(Color::class);
-    }
-
-    public function size()
-    {
-        return $this->belongsTo(Size::class);
-    }
-
     public function features()
     {
         return $this->belongsToMany(Feature::class, 'product_features');
-    }
-
-    public function colors()
-    {
-        return $this->belongsToMany(Color::class, 'product_colors');
-    }
-
-    public function colors_pluck_id()
-    {
-        return $this->belongsToMany(Color::class, 'product_colors')->pluck('color_id')->toArray();
-    }
-
-    public function sizes()
-    {
-        return $this->belongsToMany(Size::class, 'product_sizes');
-    }
-
-    public function sizes_pluck_id()
-    {
-        return $this->belongsToMany(Size::class, 'product_sizes')->pluck('size_id')->toArray();
     }
 
     public function product_features()

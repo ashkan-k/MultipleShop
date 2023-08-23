@@ -236,12 +236,13 @@
                                     <div class="d-flex flex-column mb-8 fv-row">
                                         <label for="id_icon_name"
                                                class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                            <span class="required">آیکون</span>
+                                            <span>آیکون</span>
                                         </label>
 
                                         <select id="id_icon_name" name="icon_name"
                                                 data-kt-select2="true" ng-model="selected_icon"
                                                 class="form-control form-control-solid">
+                                            <option value="">بدون آیکون</option>
                                             @foreach($icons as $icon)
                                                 <option
                                                     @if((isset($object->icon_name) && $object->icon_name == $icon) || old('icon_name') == $icon) selected

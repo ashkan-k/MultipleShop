@@ -15,8 +15,8 @@ return new class extends Migration {
     {
         Schema::create('product_features', function (Blueprint $table) {
             $table->id();
-            $table->string('value');
-            $table->enum('place', EnumHelpers::$ProductFeatureTypeTypeEnum)->nullable();
+            $table->string('value')->nullable();
+            $table->enum('place', EnumHelpers::$ProductFeatureTypeTypeEnum)->default('down')->nullable();
             $table->foreignId('product_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignId('feature_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->timestamps();

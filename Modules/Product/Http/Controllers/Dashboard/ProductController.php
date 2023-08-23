@@ -58,8 +58,12 @@ class ProductController extends Controller
         $image = $this->UploadFile($request, 'image', 'product_images', $request->title);
 
         $product = Product::create(array_merge($request->validated(), ['image' => $image]));
-        $product->colors()->sync($request->color_id);
-        $product->sizes()->sync($request->size_id);
+
+        // Attach all category features for our product for initialization
+        $category_features = $product->category->features()->pluck('id')->map(function ($feature_id) {
+            return ['feature_id' => $feature_id, 'place' => 'down'];
+        });
+        $product->features()->attach($category_features);
 
         return $this->SuccessRedirect('آیتم مورد نظر با موفقیت ثبت شد.', 'products.index');
     }

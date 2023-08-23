@@ -35,7 +35,6 @@ class ProductRequest extends FormRequest
             'image' => 'image|mimes:jpeg,png,bmp,jpg,gif,webp',
             'user_id' => 'required|exists:users,id',
             'category_id' => 'required|exists:categories,id',
-//            'color_id' => 'nullable|exists:colors,id',
             'color_id.*' => 'numeric|exists:colors,id',
             'size_id.*' => 'numeric|exists:sizes,id',
             'brand_id' => 'nullable|exists:brands,id',
