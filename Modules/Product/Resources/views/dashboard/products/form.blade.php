@@ -691,7 +691,7 @@
                                     <span class="required">مقدار</span>
                                 </label>
 
-                                <select ng-model="obj.value" id="id_value" name="contents"
+                                <select ng-model="obj.value" id="id_value" name="contents" multiple
                                         ng-if="feature['filter_type'] == 'checkbox' || feature['filter_type'] == 'radio'"
                                         ng-options="item as item for item in filter_items"
                                         class="form-control">
@@ -823,9 +823,6 @@
             filebrowserUploadUrl: '{{ route('upload_ckeditor_image') }}',
             filebrowserImageUploadUrl: '{{ route('upload_ckeditor_image') }}'
         });
-
-        $('#id_color_id').select2();
-        $('#id_size_id').select2();
     </script>
 
     <script>
@@ -910,6 +907,7 @@
                 if (obj) {
                     $scope.obj = obj;
                     $scope.feature_id = obj['feature_id'];
+                    $scope.obj['value'] = $scope.obj['value'].split(',');
                 }
                 console.log($scope.obj)
                 $('#addEditFeatureModal').modal('show');
@@ -957,7 +955,7 @@
                     showToast('فیلد ویژگی اجباری است!', 'error');
                     return;
                 }
-                if (!$scope.obj['value']) {
+                if (!$scope.obj['value'] || $scope.obj['value'] == '') {
                     showToast('فیلد مقدار اجباری است!', 'error');
                     return;
                 }
@@ -966,6 +964,9 @@
                     return;
                 }
 
+                console.log($scope.obj.value.toString())
+
+                $scope.obj['value'] = $scope.obj['value'].toString();
                 $scope.obj['product_id'] = {{ $object->id }};
 
                 $scope.is_submited = true;
