@@ -325,11 +325,14 @@
             }
 
             $scope.$watch('instance.filter_type', function (newValue, oldValue) {
-                if (newValue == 'checkbox' || newValue == 'radio') {
-                    // $scope.temp_filter_items = [{
-                    //     text: "",
-                    // },];
-                }
+                // if ((newValue == 'checkbox' || newValue == 'radio') && !$scope.is_opening_modal) {
+                // if (newValue == 'checkbox' || newValue == 'radio') {
+                //     if ($scope.instance['filter_type'] == 'text'){
+                //         $scope.temp_filter_items = [{
+                //             text: "",
+                //         },];
+                //     }
+                // }
             });
 
             $scope.$watch('search', function (newValue, oldValue) {
@@ -352,8 +355,16 @@
             }
 
             $scope.AddEditFeatureModal = function (obj) {
+                $scope.temp_filter_items = [{
+                    text: "",
+                },];
+
+                $scope.is_opening_modal = false;
+
                 if (obj) {
+                    $scope.is_opening_modal = true;
                     $scope.instance = obj;
+                    $scope.is_opening_modal = false;
                     if (obj.is_filter) {
                         $('#id_is_filter').prop('checked', true);
                     } else {
@@ -377,19 +388,16 @@
 
             $scope.FormatFilterItems = function () {
                 if ($scope.instance['filter_items']) {
-                    console.log($scope.instance)
-                    console.log($scope.instance['filter_items'])
-                    var yes = $scope.instance['filter_items'].split('،');
-                    console.log($scope.instance['filter_items'])
-                    if (yes) {
+                    var current_object_filter_items = $scope.instance['filter_items'].split('،');
+                    if (current_object_filter_items) {
 
                         $scope.temp_filter_items = [];
-                        for (const item in yes) {
+                        for (const item in current_object_filter_items) {
                             if (item == '_indexOf') {
                                 break;
                             }
                             $scope.temp_filter_items.push({
-                                text: yes[item],
+                                text: current_object_filter_items[item],
                             })
                         }
 
@@ -465,6 +473,8 @@
                             return false;
                         }
                     }
+                }else {
+                    $scope.instance['filter_items'] = [];
                 }
 
                 var temp_filter_items = '';
@@ -504,6 +514,9 @@
                     $scope.is_submited = false;
                     $('#addEditFeatureModal').modal('hide');
                     $scope.GetFeatures();
+                    $scope.temp_filter_items = [{
+                        text: "",
+                    },];
                     // setTimeout(() => {
                     //     location.reload()
                     // }, 500)
