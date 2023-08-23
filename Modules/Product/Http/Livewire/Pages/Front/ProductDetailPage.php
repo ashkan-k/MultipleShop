@@ -143,19 +143,19 @@ class ProductDetailPage extends Component
 
             if ($this->cart_count < 1) {
                 $this->dispatchBrowserEvent('addToCartError', ['message' => __('The number of orders must be at least one!')]);
-                  $this->is_loading = false;
+                $this->is_loading = false;
                 return;
             }
             if ($this->cart_count > $this->object->quantity) {
                 $this->dispatchBrowserEvent('addToCartError', ['message' => __('The order quantity is more than the available quantity!')]);
-                  $this->is_loading = false;
+                $this->is_loading = false;
                 return;
             }
 
             foreach ($this->required_feature_options as $option_id => $option_title) {
                 if (!isset($this->selected_features[$option_id]) || !$this->selected_features[$option_id]) {
                     $this->dispatchBrowserEvent('addToCartError', ['message' => __('validation.required', ['attribute' => $option_title])]);
-                      $this->is_loading = false;
+                    $this->is_loading = false;
                     return;
                 }
             }
@@ -218,24 +218,27 @@ class ProductDetailPage extends Component
             'wish_lists' => $this->object->wish_lists()->get(),
             'top_features' => $this->object->product_features()->whereIn('place', ['up', 'both'])->with('feature')->get(),
             'bottom_features' => $this->object->product_features()->whereIn('place', ['down', 'both'])->with('feature')->get(),
-            'may_like_products' => Product::ActiveProducts()->where('brand_id', $this->object->brand_id)->get(),
+            'may_like_products' => Product::ActiveProducts()->where('user_id', $this->object->user_id)->get(),
             'related_products' => Product::ActiveProducts()->where('category_id', $this->object->category_id)->get(),
 
             'object_features_values' => $this->object->feature_values(),
         ];
 
-        //        $object_features_values = $this->object->feature_values();
-////        dd($object_features_values->toArray());
-//        $data['object_features_values'] = $object_features_values->map(function ($item) {
-//            return explode(',', $item); // Explode the string field into an array using commas as the delimiter
-//        })->toArray();
+        $object_features_values = $this->object->feature_values();
+        $new_feature = [];
+        foreach ($object_features_values as $item) {
+            $exploded = explode(',', $item);
+            $new_feature = array_merge($new_feature, $exploded);
+        }
+        $data['object_features_values'] = $new_feature;
 
-//        dd( $data['object_features_values'], array_values($data['object_features_values']));
-
-        $data['option_features'] = $this->object->category ? $this->object->category->features()
-            ->where('is_use_cart', 1)->get() : [];
-
-        dd($data['option_features']);
+        $data['option_features'] = [];
+        if ($this->object->category) {
+            $data['option_features'] = $this->object->category->features()
+                ->whereIn('id', $this->object->features()->pluck('features.id')->toArray())
+                ->whereIn('filter_type', ['checkbox', 'radio'])
+                ->where('is_use_cart', 1)->get();
+        }
 
         $this->required_feature_options = $data['option_features']->where('is_use_cart_required', 1)->pluck('title', 'id')->toArray();
 

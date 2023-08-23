@@ -218,7 +218,7 @@
                                     @foreach($top_features as $top_f)
                                         <li>
                                             <span>{{ $top_f->feature->title ?: '---' }}: </span>
-                                            <span> {{ $top_f->value ?: '---' }} </span>
+                                            <span> {{ implode('، ', explode(',', $top_f->value)) ?: '---' }} </span>
                                         </li>
                                     @endforeach
 

@@ -238,7 +238,7 @@ class Product extends Model
 
     public function feature_values()
     {
-        return ProductFeature::where('product_id', $this->id)->pluck('value')->toArray();
+        return ProductFeature::where('product_id', $this->id)->pluck('value');
     }
 
     public function galleries()
