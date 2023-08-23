@@ -55,8 +55,8 @@
                                                     <th title="{{ $item->text }}">{{ \Illuminate\Support\Str::limit($item->text, 25) }}</th>
 
                                                     <th scope="col">
-                                                        <span
-                                                            class="badge badge-{{ $item->get_status_class() }}">{{ $item->get_status() }}</span></h1>
+                                                        <span onclick="window.location.href = '{{ route('front.ticket-answers.show',  ['locale' => $lang, 'ticket' => $item->ticket_number]) }}'" style="cursor:pointer;"
+                                                            class="badge badge-{{ $item->get_status_class() }}">{{ $item->get_status() }}</span>
                                                     </th>
 
                                                     <th scope="col">
