@@ -97,29 +97,29 @@
                             </thead>
                             <tbody class="text-gray-600 fw-semibold" id="sortable_items">
 
-                                <tr style="cursor: pointer" ng-repeat="(key, item) in items" id="[[item.id]]">
-                                    <td>[[ item.category.title ? item.category.title : '---' ]]</td>
+                            <tr style="cursor: pointer" ng-repeat="(key, item) in items" id="[[item.id]]">
+                                <td>[[ item.category.title ? item.category.title : '---' ]]</td>
 
-                                    <td>[[ item.title ? item.title : '---' ]]</td>
+                                <td>[[ item.title ? item.title : '---' ]]</td>
 
-                                    <td>[[ item.filter_type_name ? item.filter_type_name : '---' ]]</td>
+                                <td>[[ item.filter_type_name ? item.filter_type_name : '---' ]]</td>
 
-                                    <td>[[ item.filter_item_names ? item.filter_item_names : '---' ]]</td>
+                                <td>[[ item.filter_item_names ? item.filter_item_names : '---' ]]</td>
 
-                                    <td>[[ item.index ? item.index : '---' ]]</td>
+                                <td>[[ item.index ? item.index : '---' ]]</td>
 
-                                    <td class="">
-                                        <a ng-click="AddEditFeatureModal(item)"
-                                           class="btn btn-bg-light btn-color-muted btn-active-color-primary btn-sm px-4 me-2">
-                                            ویرایش
-                                        </a>
+                                <td class="">
+                                    <a ng-click="AddEditFeatureModal(item)"
+                                       class="btn btn-bg-light btn-color-muted btn-active-color-primary btn-sm px-4 me-2">
+                                        ویرایش
+                                    </a>
 
-                                        <a ng-click="RemoveFeature(item.id)"
-                                           class="btn btn-bg-light btn-color-muted btn-active-color-primary btn-sm px-4 me-2">
-                                            حذف
-                                        </a>
-                                    </td>
-                                </tr>
+                                    <a ng-click="RemoveFeature(item.id)"
+                                       class="btn btn-bg-light btn-color-muted btn-active-color-primary btn-sm px-4 me-2">
+                                        حذف
+                                    </a>
+                                </td>
+                            </tr>
 
                             </tbody>
                         </table>
@@ -183,10 +183,12 @@
                                 <option value="radio">دکمه رادیویی</option>
                                 <option value="text">متنی</option>
                             </select>
-                            <p ng-if="instance.filter_type == 'text'" class="text-danger">تکست باکس امکان فیلتر کردن ندارد. فقط جنبه ی نمایشی خواهد داشت.</p>
+                            <p ng-if="instance.filter_type == 'text'" class="text-danger">تکست باکس امکان فیلتر کردن
+                                ندارد. فقط جنبه ی نمایشی خواهد داشت.</p>
                         </div>
 
-                        <div ng-show="(instance.filter_type == 'checkbox' || instance.filter_type == 'radio')" class="d-flex flex-column mb-8 fv-row">
+                        <div ng-show="(instance.filter_type == 'checkbox' || instance.filter_type == 'radio')"
+                             class="d-flex flex-column mb-8 fv-row">
                             <label for="id_is_use_cart" class="d-flex align-items-center fs-6 fw-semibold mb-2">
                                 <span class="required">آیا به عنوان ویژگی خرید استفاده شود؟</span>
                             </label>
@@ -197,7 +199,8 @@
                         </div>
 
                         <div ng-show="instance.is_use_cart" class="d-flex flex-column mb-8 fv-row">
-                            <label for="id_is_use_cart_required" class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                            <label for="id_is_use_cart_required"
+                                   class="d-flex align-items-center fs-6 fw-semibold mb-2">
                                 <span class="required">آیا الزامی است؟</span>
                             </label>
 
@@ -226,10 +229,12 @@
                             </div>
 
                             <div class="col-12 text-justify mt-5">
-                                <h5 ng-click="temp_filter_items.unshift({ text: '', index: id+1 })" style="cursor: pointer">
+                                <h5 ng-click="temp_filter_items.unshift({ text: '', index: id+1 })"
+                                    style="cursor: pointer">
 
-                                    افزودن مورد جدید به اول لیست &nbsp;<a class="text-center" type="button" style="cursor: pointer"
-                                       ng-click="temp_filter_items.push({ text: '', index: id+1 })"><i
+                                    افزودن مورد جدید به اول لیست &nbsp;<a class="text-center" type="button"
+                                                                          style="cursor: pointer"
+                                                                          ng-click="temp_filter_items.unshift({ text: '', index: id+1 })"><i
                                             class="text-center  fa fa-plus trash-custom text-success"></i></a>
                                 </h5>
                             </div>
@@ -309,6 +314,7 @@
             $scope.question = {};
             $scope.temp_filter_items = [];
             $scope.search = '';
+            $scope.is_opening_modal = false;
 
             $scope.init = function () {
                 $scope.GetFeatures();
@@ -320,9 +326,9 @@
 
             $scope.$watch('instance.filter_type', function (newValue, oldValue) {
                 if (newValue == 'checkbox' || newValue == 'radio') {
-                    $scope.instance.filter_items = [{
-                        text: "",
-                    },];
+                    // $scope.temp_filter_items = [{
+                    //     text: "",
+                    // },];
                 }
             });
 
@@ -350,17 +356,17 @@
                     $scope.instance = obj;
                     if (obj.is_filter) {
                         $('#id_is_filter').prop('checked', true);
-                    }else {
+                    } else {
                         $('#id_is_filter').prop('checked', false);
                     }
                     if (obj.is_use_cart) {
                         $('#id_is_use_cart').prop('checked', true);
-                    }else {
+                    } else {
                         $('#id_is_use_cart').prop('checked', false);
                     }
                     if (obj.is_use_cart_required) {
                         $('#id_is_use_cart_required').prop('checked', true);
-                    }else {
+                    } else {
                         $('#id_is_use_cart_required').prop('checked', false);
                     }
 
@@ -369,18 +375,21 @@
                 $('#addEditFeatureModal').modal('show');
             }
 
-            $scope.FormatFilterItems = function (){
+            $scope.FormatFilterItems = function () {
                 if ($scope.instance['filter_items']) {
-                    $scope.instance['filter_items'] = $scope.instance['filter_items'].split('،');
-                    if ($scope.instance['filter_items']) {
+                    console.log($scope.instance)
+                    console.log($scope.instance['filter_items'])
+                    var yes = $scope.instance['filter_items'].split('،');
+                    console.log($scope.instance['filter_items'])
+                    if (yes) {
 
                         $scope.temp_filter_items = [];
-                        for (const item in $scope.instance['filter_items']) {
+                        for (const item in yes) {
                             if (item == '_indexOf') {
                                 break;
                             }
                             $scope.temp_filter_items.push({
-                                text: $scope.instance['filter_items'][item],
+                                text: yes[item],
                             })
                         }
 

@@ -224,8 +224,18 @@ class ProductDetailPage extends Component
             'object_features_values' => $this->object->feature_values(),
         ];
 
+        //        $object_features_values = $this->object->feature_values();
+////        dd($object_features_values->toArray());
+//        $data['object_features_values'] = $object_features_values->map(function ($item) {
+//            return explode(',', $item); // Explode the string field into an array using commas as the delimiter
+//        })->toArray();
+
+//        dd( $data['object_features_values'], array_values($data['object_features_values']));
+
         $data['option_features'] = $this->object->category ? $this->object->category->features()
             ->where('is_use_cart', 1)->get() : [];
+
+        dd($data['option_features']);
 
         $this->required_feature_options = $data['option_features']->where('is_use_cart_required', 1)->pluck('title', 'id')->toArray();
 
