@@ -550,7 +550,7 @@
                                              <div class="container">
                                                   <div class="row">
 
-                                                   <div class="col-6">
+                                                   <div class="col-6" id="id_feature_items_list_[[ item.id ]]" data-all-feature-items-list="[[ item['value'] ]]">
                                                            <label ng-show="item['feature']['filter_type'] != 'text'"
                                                                   ng-repeat="(key2, item2) in item['feature']['filter_items'].split('،')"
                                                                   class="form-check form-check-custom form-check-solid mt-1">
@@ -558,8 +558,8 @@
                                                                        ng-checked="CheckSelectedFeatureExistInFeatureItems(item['value'], item2)"
                                                                        id="id_feature_item_[[ item.id ]]_[[ key2 ]]"
                                                                        onchange="itemChanged(this)"
+                                                                       data-list-index="[[ key2 ]]"
                                                                        data-product-feature-id="[[ item.id ]]"
-                                                                       data-all-feature-items-list="[[ item['value'] ]]"
                                                                        type="checkbox"
                                                                        value="[[ item2 ]]">
                                                                 <span class="fw-semibold ps-2 fs-6"> [[ item2 ]]</span>
@@ -941,26 +941,25 @@
             var status = event.checked;
             var value = event.value;
             var feature_id = $(`#${event.id}`).attr('data-product-feature-id');
+            var list_index = $(`#${event.id}`).attr('data-list-index');
 
-            var all_feature_items_list = $(`#${event.id}`).attr('data-all-feature-items-list');
-            console.log(all_feature_items_list)
+            var all_feature_items_list = $(`#id_feature_items_list_${feature_id}`).attr('data-all-feature-items-list');
+
             if (!Array.isArray(all_feature_items_list)) {
                 all_feature_items_list = all_feature_items_list.split(',');
             }
 
-            // console.log(status)
-            // console.log(value)
-            // console.log(feature_id)
-            // console.log(all_feature_items_list)
+            console.log(all_feature_items_list)
+            console.log(list_index)
+            console.log(all_feature_items_list[list_index])
 
             if (status) {
                 all_feature_items_list.push(value);
             } else {
-                all_feature_items_list.splice(value, 1);
+                all_feature_items_list.splice(list_index, 1);
             }
 
-            console.log(all_feature_items_list)
-            console.log(feature_id)
+            $(`#id_feature_items_list_#${feature_id}`).attr('data-all-feature-items-list', all_feature_items_list.toString());
 
             angular.element(event).scope().ChangeFeatureItemValue(event.checked, event.id);
         }
