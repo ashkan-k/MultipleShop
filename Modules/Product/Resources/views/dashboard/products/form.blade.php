@@ -578,6 +578,9 @@
                                                      <div class="col-8">
                                                          <span class="fw-semibold ps-2 fs-6">مقدار:</span>
                                                         <input value="[[ item.value ]]" type="text"
+                                                               id="id_feature_item_[[ item.id ]]_[[ key2 ]]"
+                                                               data-product-feature-id="[[ item.id ]]"
+                                                               onblur="itemTextTypeChanged(this)"
                                                                class="form-control form-control-solid">
                                                     </div>
 
@@ -966,6 +969,13 @@
 
             angular.element(event).scope().ChangeFeatureItemValue(product_feature_id, all_feature_items_list.toString());
         }
+
+        function itemTextTypeChanged(event) {
+            var value = event.value;
+            var product_feature_id = $(`#${event.id}`).attr('data-product-feature-id');
+
+            angular.element(event).scope().ChangeFeatureItemValue(product_feature_id, value);
+        }
     </script>
 
     <script>
@@ -1002,26 +1012,7 @@
                 };
 
                 var url = `/api/products/products-features/${product_feature_id}`;
-
-                $http.patch(url, data).then(res => {
-                    data = {};
-                    $scope.is_submited = false;
-                    $scope.GetProductFeatures();
-                    showToast(res['data']['data'], 'success');
-                    $('#addEditFeatureModal').modal('hide');
-                }).catch(err => {
-                    $scope.is_submited = false;
-                    if (err['data']['errors']['feature_id']) {
-                        showToast(err['data']['errors']['feature_id'][0], 'error');
-                        return;
-                    }
-                    if (err['data']['errors']['product_id']) {
-                        showToast(err['data']['errors']['product_id'][0], 'error');
-                        return;
-                    }
-                    showToast('خطایی رخ داد.', 'error');
-                });
-
+                $scope.UpdateFeatureItem(url, data);
             };
 
             $scope.ChangeFeatureItemValue = function (product_feature_id, all_feature_items_list) {
@@ -1034,26 +1025,7 @@
                 };
 
                 var url = `/api/products/products-features/${product_feature_id}`;
-
-                $http.patch(url, data).then(res => {
-                    data = {};
-                    $scope.is_submited = false;
-                    $scope.GetProductFeatures();
-                    showToast(res['data']['data'], 'success');
-                    $('#addEditFeatureModal').modal('hide');
-                }).catch(err => {
-                    $scope.is_submited = false;
-                    if (err['data']['errors']['feature_id']) {
-                        showToast(err['data']['errors']['feature_id'][0], 'error');
-                        return;
-                    }
-                    if (err['data']['errors']['product_id']) {
-                        showToast(err['data']['errors']['product_id'][0], 'error');
-                        return;
-                    }
-                    showToast('خطایی رخ داد.', 'error');
-                });
-
+                $scope.UpdateFeatureItem(url, data);
             };
 
             //////////////////////////////////////////////////
@@ -1149,24 +1121,7 @@
                 if ($scope.obj['id']) {
                     var url = `/api/products/products-features/${$scope.obj['id']}`;
 
-                    $http.patch(url, $scope.obj).then(res => {
-                        $scope.is_submited = false;
-                        $scope.GetProductFeatures();
-                        showToast(res['data']['data'], 'success');
-                        $('#addEditFeatureModal').modal('hide');
-                    }).catch(err => {
-                        $scope.is_submited = false;
-                        if (err['data']['errors']['feature_id']) {
-                            showToast(err['data']['errors']['feature_id'][0], 'error');
-                            return;
-                        }
-                        if (err['data']['errors']['product_id']) {
-                            showToast(err['data']['errors']['product_id'][0], 'error');
-                            return;
-                        }
-                        showToast('خطایی رخ داد.', 'error');
-                    });
-
+                    $scope.UpdateFeatureItem(url, $scope.obj);
                 } else {
                     var url = `/api/products/products-features`;
 
@@ -1189,6 +1144,27 @@
                     });
 
                 }
+            }
+
+            $scope.UpdateFeatureItem = function (url, data) {
+                $http.patch(url, data).then(res => {
+                    $scope.is_submited = false;
+                    data = {};
+                    $scope.GetProductFeatures();
+                    showToast(res['data']['data'], 'success');
+                    $('#addEditFeatureModal').modal('hide');
+                }).catch(err => {
+                    $scope.is_submited = false;
+                    if (err['data']['errors']['feature_id']) {
+                        showToast(err['data']['errors']['feature_id'][0], 'error');
+                        return;
+                    }
+                    if (err['data']['errors']['product_id']) {
+                        showToast(err['data']['errors']['product_id'][0], 'error');
+                        return;
+                    }
+                    showToast('خطایی رخ داد.', 'error');
+                });
             }
 
             //
