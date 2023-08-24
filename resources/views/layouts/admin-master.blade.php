@@ -159,12 +159,12 @@ Like: www.facebook.com/keenthemes
                                     <span class="path3"></span>
                                 </i>
                                 @if(auth()->user()->is_staff())
-                                    @if(\Modules\Ticket\Entities\Ticket::whereStatus('waiting')->exists())
+                                    @if(\Modules\Ticket\Entities\Ticket::whereStatus('waiting')->where('is_read', 0)->exists())
                                         <span
                                             class="bullet bullet-dot bg-success h-6px w-6px position-absolute translate-middle top-0 start-50 animation-blink"></span>
                                     @endif
                                 @else
-                                    @if(auth()->user()->tickets()->whereStatus('waiting')->exists())
+                                    @if(auth()->user()->tickets()->whereStatus('answered')->where('is_read', 0)->exists())
                                         <span
                                             class="bullet bullet-dot bg-success h-6px w-6px position-absolute translate-middle top-0 start-50 animation-blink"></span>
                                     @endif

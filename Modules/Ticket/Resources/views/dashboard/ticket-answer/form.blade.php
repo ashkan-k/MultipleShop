@@ -300,10 +300,8 @@
                                             <!--begin::ارسال-->
                                             <div class="btn-group me-4">
                                                 <!--begin::ثبت-->
-                                                <span class="btn btn-primary fs-bold px-6" data-kt-inbox-form="send">
-																		<span
-                                                                            onclick="$('#ticket_frm').submit()"
-                                                                            class="indicator-label">ارسال</span>
+                                                <span onclick="$('#ticket_frm').submit()" class="btn btn-primary fs-bold px-6" data-kt-inbox-form="send">
+																		<span class="indicator-label">ارسال</span>
 																		<span class="indicator-progress">لطفا صبر کنید...</span>
 																	</span>
                                             </div>

@@ -24,6 +24,11 @@ class FrontTicketAnswerController extends Controller
     {
         $this->check_myself_queryset($ticket, 'web');
 
+        $last_answer = $ticket->answers()->latest()->first();
+        if ((!$last_answer && $ticket->user_id != auth()->id()) || ($last_answer && $last_answer->user_id != auth()->id())) {
+            $ticket->update(['is_read' => 1]);
+        }
+
         $answers = $ticket->answers()->with('user')->get();
         return view('ticket::front.ticket-answer', compact('ticket', 'answers'));
     }
@@ -42,16 +47,21 @@ class FrontTicketAnswerController extends Controller
         $ticket->answers()->create($data);
 
         if (auth()->id() != $ticket->user_id) {
-            $ticket->update(['status' => 'answered']);
+            $ticket->status = 'answered';
+
             $email_pattern = 'user_ticket_answer_submit';
             $receiver = $ticket->user ? $ticket->user->phone : '---';
             $ticket_link = route('front.ticket-answers.show', ['locale' => app()->getLocale(), 'ticket' => $ticket->ticket_number]);
         } else {
-            $ticket->update(['status' => 'waiting']);
+            $ticket->status = 'waiting';
+
             $email_pattern = 'admin_ticket_answer_submit';
             $receiver = Setting::where('key', 'email')->first()->value;
             $ticket_link = route('front.ticket-answers.show', ['locale' => app()->getLocale(), 'ticket' => $ticket->ticket_number]);
         }
+
+        $ticket->is_read = 0;
+        $ticket->save();
 
         $message = [
             $ticket,

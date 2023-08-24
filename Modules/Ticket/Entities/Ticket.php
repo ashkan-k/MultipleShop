@@ -20,6 +20,7 @@ class Ticket extends Model
         'file',
         'status',
         'ticket_number',
+        'is_read',
     ];
 
     protected $search_fields = [
@@ -29,6 +30,9 @@ class Ticket extends Model
         'user.first_name',
         'user.last_name',
         'user.phone',
+        'user.email',
+        'user.postal_code',
+        'user.username',
         'category.title',
     ];
 
