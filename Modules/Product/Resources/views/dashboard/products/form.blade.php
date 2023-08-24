@@ -552,9 +552,10 @@
 
                                                    <div class="col-6">
                                                            <label ng-show="item['feature']['filter_type'] != 'text'"
-                                                                  ng-repeat="(key2, item2) in GetRawValue(item['value']).split(',')"
+                                                                  ng-repeat="(key2, item2) in item['feature']['filter_items'].split('،')"
                                                                   class="form-check form-check-custom form-check-solid mt-1">
-                                                                <input class="form-check-input" name="communication[]"
+                                                                <input class="form-check-input"
+                                                                       ng-checked="CheckSelectedFeatureExistInFeatureItems(item['value'], item2)"
                                                                        type="checkbox"
                                                                        value="[[ item2 ]]">
                                                                 <span class="fw-semibold ps-2 fs-6"> [[ item2 ]]</span>
@@ -569,9 +570,10 @@
                                              <div class="container">
                                                   <div class="row">
 
-                                                     <div class="col-6">
+                                                     <div class="col-8">
                                                          <span class="fw-semibold ps-2 fs-6">مقدار:</span>
-                                                        <input type="text" class="form-control form-control-solid">
+                                                        <input value="[[ item.value ]]" type="text"
+                                                               class="form-control form-control-solid">
                                                     </div>
 
                                                   </div>
@@ -581,14 +583,14 @@
                                     </td>
 
                                     <td>
-{{--                                        [[ item['get_place'] ]]--}}
+                                        {{--                                        [[ item['get_place'] ]]--}}
                                         <span>
                                              <div class="container">
                                                   <div class="row">
 
                                                     <div class="col-6">
                                                          <span class="fw-semibold ps-2 fs-6">جایگاه:</span>
-                                                       <select ng-model="obj.place" id="id_place" name="contents"
+                                                       <select ng-model="item.place" id="id_place" name="contents"
                                                                class="form-control">
                                                             <option value="" disabled>جایگاه را انتخاب کنید</option>
                                                             <option value="up">بالا</option>
@@ -941,6 +943,13 @@
             $scope.init = function () {
                 $scope.GetProductFeatures();
                 $scope.GetGallery();
+            }
+
+            $scope.CheckSelectedFeatureExistInFeatureItems = function (selected_feature, current_item) {
+                if (!Array.isArray(selected_feature)){
+                    selected_feature = selected_feature.split(',');
+                }
+                return selected_feature.includes(current_item);
             }
 
             $scope.GetProductFeatures = function () {
