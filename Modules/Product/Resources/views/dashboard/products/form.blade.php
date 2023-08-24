@@ -545,15 +545,62 @@
                                     <td>[[ item['feature']['title'] ]]</td>
 
                                     <td>
-                                        <span ng-show="item['feature']['filter_type'] != 'text'" ng-repeat="(key2, item2) in GetRawValue(item['value']).split(',')">
-                                            [[ item2 ]]
-                                            <input type="checkbox" value="[[ item2 ]]" >
-                                        </span>
 
-                                        <input ng-show="item['feature']['filter_type'] == 'text'" type="text" class="form-control form-control-solid">
+                                        <span ng-show="item['feature']['filter_type'] != 'text'">
+                                             <div class="container">
+                                                  <div class="row">
+
+                                                   <div class="col-6">
+                                                           <label ng-show="item['feature']['filter_type'] != 'text'"
+                                                                  ng-repeat="(key2, item2) in GetRawValue(item['value']).split(',')"
+                                                                  class="form-check form-check-custom form-check-solid mt-1">
+                                                                <input class="form-check-input" name="communication[]"
+                                                                       type="checkbox"
+                                                                       value="[[ item2 ]]">
+                                                                <span class="fw-semibold ps-2 fs-6"> [[ item2 ]]</span>
+                                                            </label>
+                                                    </div>
+
+                                                  </div>
+                                                </div>
+                                       </span>
+
+                                        <span ng-show="item['feature']['filter_type'] == 'text'">
+                                             <div class="container">
+                                                  <div class="row">
+
+                                                     <div class="col-6">
+                                                         <span class="fw-semibold ps-2 fs-6">مقدار:</span>
+                                                        <input type="text" class="form-control form-control-solid">
+                                                    </div>
+
+                                                  </div>
+                                                </div>
+                                       </span>
+
                                     </td>
 
-                                    <td>[[ item['get_place'] ]]</td>
+                                    <td>
+{{--                                        [[ item['get_place'] ]]--}}
+                                        <span>
+                                             <div class="container">
+                                                  <div class="row">
+
+                                                    <div class="col-6">
+                                                         <span class="fw-semibold ps-2 fs-6">جایگاه:</span>
+                                                       <select ng-model="obj.place" id="id_place" name="contents"
+                                                               class="form-control">
+                                                            <option value="" disabled>جایگاه را انتخاب کنید</option>
+                                                            <option value="up">بالا</option>
+                                                            <option value="down">پایین</option>
+                                                            <option value="both">هر دو</option>
+                                                        </select>
+                                                    </div>
+
+                                                  </div>
+                                                </div>
+                                       </span>
+                                    </td>
 
                                     <td class="">
                                         <a ng-click="AddEditFeatureModal(item)"
