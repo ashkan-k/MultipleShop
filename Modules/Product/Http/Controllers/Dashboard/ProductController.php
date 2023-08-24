@@ -95,8 +95,6 @@ class ProductController extends Controller
         $data['is_special'] = $request->has('is_special') ?? false;
 
         $product->update(array_merge($data, ['image' => $image]));
-        $product->colors()->sync($data['color_id'] ?? []);
-        $product->sizes()->sync($data['size_id'] ?? []);
 
         return $this->SuccessRedirect('آیتم مورد نظر با موفقیت ویرایش شد.', 'products.edit', [], $product->id);
     }
