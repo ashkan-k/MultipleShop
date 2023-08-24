@@ -9,7 +9,11 @@
 @endsection
 
 @section('Styles')
-
+    <style>
+        .disabled-table {
+            cursor: not-allowed;
+        }
+    </style>
 @endsection
 @section('content')
     <div class="d-flex flex-column flex-column-fluid" ng-init="init()">
@@ -524,7 +528,7 @@
                         <!--begin::کارت body-->
                         <div class="card-body py-4">
                             <!--begin::Table-->
-                            <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_table_items">
+                            <table ng-class="{ 'disabled-table': is_submited }" class="table align-middle table-row-dashed fs-6 gy-5" id="kt_table_items">
                                 <thead>
                                 <tr class="text-start text-muted fw-bold fs-7 text-uppercase gs-0">
                                     <th>شناسه</th>
@@ -556,6 +560,8 @@
                                                                   ng-repeat="(key2, item2) in item['feature']['filter_items'].split('،')"
                                                                   class="form-check form-check-custom form-check-solid mt-1">
                                                                 <input class="form-check-input feature_item"
+                                                                       ng-disabled="is_submited"
+                                                                       ng-class="{ 'disabled-table': is_submited }"
                                                                        ng-checked="CheckSelectedFeatureExistInFeatureItems(item['value'], item2)"
                                                                        id="id_feature_item_[[ item.id ]]_[[ key2 ]]"
                                                                        onchange="itemChanged(this)"
@@ -578,6 +584,8 @@
                                                      <div class="col-8">
                                                          <span class="fw-semibold ps-2 fs-6">مقدار:</span>
                                                         <input value="[[ item.value ]]" type="text"
+                                                               ng-disabled="is_submited"
+                                                               ng-class="{ 'disabled-table': is_submited }"
                                                                id="id_feature_item_[[ item.id ]]_[[ key2 ]]"
                                                                data-product-feature-id="[[ item.id ]]"
                                                                onblur="itemTextTypeChanged(this)"
@@ -598,7 +606,8 @@
 
                                                     <div class="col-6">
                                                          <span class="fw-semibold ps-2 fs-6">جایگاه:</span>
-                                                       <select ng-model="item.place"
+                                                       <select ng-model="item.place" ng-disabled="is_submited"
+                                                               ng-class="{ 'disabled-table': is_submited }"
                                                                ng-change="ChangeFeatureItemPlace(item.id, item.place, item.value)"
                                                                id="id_place" name="contents"
                                                                class="form-control">
@@ -615,10 +624,10 @@
                                     </td>
 
                                     <td class="">
-                                        <a ng-click="AddEditFeatureModal(item)"
-                                           class="btn btn-bg-light btn-color-muted btn-active-color-primary btn-sm px-4 me-2">
-                                            ویرایش
-                                        </a>
+{{--                                        <a ng-click="AddEditFeatureModal(item)"--}}
+{{--                                           class="btn btn-bg-light btn-color-muted btn-active-color-primary btn-sm px-4 me-2">--}}
+{{--                                            ویرایش--}}
+{{--                                        </a>--}}
 
                                         <a ng-click="RemoveFeature(item.id)"
                                            class="btn btn-bg-light btn-color-muted btn-active-color-primary btn-sm px-4 me-2">
@@ -1031,6 +1040,8 @@
             //////////////////////////////////////////////////
 
             $scope.GetProductFeatures = function () {
+                $scope.is_submited = true;
+
                 var url = `/api/products/products-features?product_id={{ $object->id }}`
 
                 $http.get(url).then(res => {
@@ -1147,6 +1158,8 @@
             }
 
             $scope.UpdateFeatureItem = function (url, data) {
+                $scope.is_submited = true;
+
                 $http.patch(url, data).then(res => {
                     $scope.is_submited = false;
                     data = {};
