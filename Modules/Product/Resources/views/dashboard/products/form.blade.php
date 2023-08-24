@@ -556,6 +556,8 @@
                                                                   class="form-check form-check-custom form-check-solid mt-1">
                                                                 <input class="form-check-input"
                                                                        ng-checked="CheckSelectedFeatureExistInFeatureItems(item['value'], item2)"
+                                                                       ng-change="itemChanged($event, item2)"
+                                                                       ng-model="aaa"
                                                                        type="checkbox"
                                                                        value="[[ item2 ]]">
                                                                 <span class="fw-semibold ps-2 fs-6"> [[ item2 ]]</span>
@@ -951,6 +953,15 @@
                 }
                 return selected_feature.includes(current_item);
             }
+
+            $scope.itemChanged = function(event, item) {
+                console.log(event)
+                console.log(item)
+                var checkbox = event.target;
+                if (checkbox.checked) {
+                    console.log('Selected item:', item);
+                }
+            };
 
             $scope.GetProductFeatures = function () {
                 var url = `/api/products/products-features?product_id={{ $object->id }}`
