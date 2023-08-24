@@ -556,10 +556,10 @@
                                                                   class="form-check form-check-custom form-check-solid mt-1">
                                                                 <input class="form-check-input feature_item"
                                                                        ng-checked="CheckSelectedFeatureExistInFeatureItems(item['value'], item2)"
-                                                                       {{--                                                                       ng-change="itemChanged($event, item2)"--}}
                                                                        id="id_feature_item_[[ item.id ]]_[[ key2 ]]"
                                                                        onchange="itemChanged(this)"
                                                                        data-product-feature-id="[[ item.id ]]"
+                                                                       data-all-feature-items-list="[[ item['value'] ]]"
                                                                        type="checkbox"
                                                                        value="[[ item2 ]]">
                                                                 <span class="fw-semibold ps-2 fs-6"> [[ item2 ]]</span>
@@ -937,12 +937,29 @@
     </script>
 
     <script>
-        function itemChanged(event){
+        function itemChanged(event) {
             var status = event.checked;
             var value = event.value;
             var feature_id = $(`#${event.id}`).attr('data-product-feature-id');
-            console.log(status)
-            console.log(value)
+
+            var all_feature_items_list = $(`#${event.id}`).attr('data-all-feature-items-list');
+            console.log(all_feature_items_list)
+            if (!Array.isArray(all_feature_items_list)) {
+                all_feature_items_list = all_feature_items_list.split(',');
+            }
+
+            // console.log(status)
+            // console.log(value)
+            // console.log(feature_id)
+            // console.log(all_feature_items_list)
+
+            if (status) {
+                all_feature_items_list.push(value);
+            } else {
+                all_feature_items_list.splice(value, 1);
+            }
+
+            console.log(all_feature_items_list)
             console.log(feature_id)
 
             angular.element(event).scope().ChangeFeatureItemValue(event.checked, event.id);
