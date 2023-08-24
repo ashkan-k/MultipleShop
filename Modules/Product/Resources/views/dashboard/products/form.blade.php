@@ -529,7 +529,7 @@
                                 <tr class="text-start text-muted fw-bold fs-7 text-uppercase gs-0">
                                     <th>شناسه</th>
                                     <th>محصول</th>
-                                    <th>ویزگی</th>
+                                    <th>ویژگی</th>
                                     <th>مقدار</th>
                                     <th>جایگاه</th>
                                     <th>عملیات</th>
@@ -544,7 +544,14 @@
 
                                     <td>[[ item['feature']['title'] ]]</td>
 
-                                    <td>[[ GetRawValue(item['value']) ]]</td>
+                                    <td>
+                                        <span ng-show="item['feature']['filter_type'] != 'text'" ng-repeat="(key2, item2) in GetRawValue(item['value']).split(',')">
+                                            [[ item2 ]]
+                                            <input type="checkbox" value="[[ item2 ]]" >
+                                        </span>
+
+                                        <input ng-show="item['feature']['filter_type'] == 'text'" type="text" class="form-control form-control-solid">
+                                    </td>
 
                                     <td>[[ item['get_place'] ]]</td>
 
@@ -957,6 +964,7 @@
             };
 
             $scope.GetRawValue = function (value) {
+                console.log(value)
                 return value ? value.toString() : '';
             }
 
