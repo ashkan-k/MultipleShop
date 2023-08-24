@@ -39,8 +39,6 @@ class Product extends Model
         'is_special',
         'user_id',
         'category_id',
-//        'color_id',
-//        'size_id',
         'brand_id',
         'barcode',
     ];
@@ -59,9 +57,6 @@ class Product extends Model
         'user.username',
         'user.phone',
         'category.title',
-        'color.title',
-        'size.title',
-        'brand.title',
     ];
 
     protected $filter_fields = [
