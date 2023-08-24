@@ -595,7 +595,9 @@
 
                                                     <div class="col-6">
                                                          <span class="fw-semibold ps-2 fs-6">جایگاه:</span>
-                                                       <select ng-model="item.place" id="id_place" name="contents"
+                                                       <select ng-model="item.place"
+                                                               ng-change="ChangeFeatureItemPlace(item.id, item.place, item.value)"
+                                                               id="id_place" name="contents"
                                                                class="form-control">
                                                             <option value="" disabled>جایگاه را انتخاب کنید</option>
                                                             <option value="up">بالا</option>
@@ -962,8 +964,7 @@
 
             $(`#id_feature_items_list_${product_feature_id}`).attr('data-all-feature-items-list', all_feature_items_list.toString());
 
-            console.log(all_feature_items_list)
-            angular.element(event).scope().ChangeFeatureItemValue(product_feature_id, all_feature_items_list);
+            angular.element(event).scope().ChangeFeatureItemValue(product_feature_id, all_feature_items_list.toString());
         }
     </script>
 
@@ -983,17 +984,21 @@
             }
 
             $scope.CheckSelectedFeatureExistInFeatureItems = function (selected_feature, current_item) {
+                if (selected_feature === '' || selected_feature === null){
+                    selected_feature = [];
+                }
                 if (!Array.isArray(selected_feature)) {
                     selected_feature = selected_feature.split(',');
                 }
                 return selected_feature.includes(current_item);
             }
 
-            $scope.ChangeFeatureItemValue = function (product_feature_id, all_feature_items_list) {
+            $scope.ChangeFeatureItemPlace = function (product_feature_id, place, value) {
 
                 var data = {
                     'product_id': {{ $object->id }},
-                    'value': all_feature_items_list.toString(),
+                    'value': value,
+                    'place': place,
                 };
 
                 var url = `/api/products/products-features/${product_feature_id}`;
@@ -1019,6 +1024,40 @@
 
             };
 
+            $scope.ChangeFeatureItemValue = function (product_feature_id, all_feature_items_list) {
+
+                console.log(all_feature_items_list)
+
+                var data = {
+                    'product_id': {{ $object->id }},
+                    'value': all_feature_items_list,
+                };
+
+                var url = `/api/products/products-features/${product_feature_id}`;
+
+                $http.patch(url, data).then(res => {
+                    data = {};
+                    $scope.is_submited = false;
+                    $scope.GetProductFeatures();
+                    showToast(res['data']['data'], 'success');
+                    $('#addEditFeatureModal').modal('hide');
+                }).catch(err => {
+                    $scope.is_submited = false;
+                    if (err['data']['errors']['feature_id']) {
+                        showToast(err['data']['errors']['feature_id'][0], 'error');
+                        return;
+                    }
+                    if (err['data']['errors']['product_id']) {
+                        showToast(err['data']['errors']['product_id'][0], 'error');
+                        return;
+                    }
+                    showToast('خطایی رخ داد.', 'error');
+                });
+
+            };
+
+            //////////////////////////////////////////////////
+
             $scope.GetProductFeatures = function () {
                 var url = `/api/products/products-features?product_id={{ $object->id }}`
 
@@ -1042,10 +1081,8 @@
                         if (!Array.isArray($scope.obj['value'])) {
                             $scope.obj['value'] = $scope.obj['value'].split(',');
                         }
-                        console.log($scope.obj['value'])
                     }
                 }
-                console.log($scope.obj)
                 $('#addEditFeatureModal').modal('show');
             }
 
@@ -1087,7 +1124,6 @@
             };
 
             $scope.GetRawValue = function (value) {
-                console.log(value)
                 return value ? value.toString() : '';
             }
 
