@@ -868,8 +868,6 @@
             </div>
             <!--end::Modal dialog-->
         </div>
-
-        <button id="aaa">ssssssssssssssss</button>
     @endif
 @endsection
 
@@ -940,28 +938,31 @@
         function itemChanged(event) {
             var status = event.checked;
             var value = event.value;
-            var feature_id = $(`#${event.id}`).attr('data-product-feature-id');
+            var product_feature_id = $(`#${event.id}`).attr('data-product-feature-id');
             var list_index = $(`#${event.id}`).attr('data-list-index');
 
-            var all_feature_items_list = $(`#id_feature_items_list_${feature_id}`).attr('data-all-feature-items-list');
+            var all_feature_items_list = $(`#id_feature_items_list_${product_feature_id}`).attr('data-all-feature-items-list');
 
             if (!Array.isArray(all_feature_items_list)) {
                 all_feature_items_list = all_feature_items_list.split(',');
             }
 
-            console.log(all_feature_items_list)
-            console.log(list_index)
-            console.log(all_feature_items_list[list_index])
-
             if (status) {
                 all_feature_items_list.push(value);
             } else {
-                all_feature_items_list.splice(list_index, 1);
+                all_feature_items_list = $.grep(all_feature_items_list, function(arrau_value, index) {
+                    return arrau_value !== value;
+                });
             }
 
-            $(`#id_feature_items_list_#${feature_id}`).attr('data-all-feature-items-list', all_feature_items_list.toString());
+            var all_feature_items_list = all_feature_items_list.filter(function(item) {
+                return item !== '';
+            });
 
-            angular.element(event).scope().ChangeFeatureItemValue(event.checked, event.id);
+            $(`#id_feature_items_list_${product_feature_id}`).attr('data-all-feature-items-list', all_feature_items_list.toString());
+
+            console.log(all_feature_items_list)
+            angular.element(event).scope().ChangeFeatureItemValue(product_feature_id, all_feature_items_list);
         }
     </script>
 
@@ -987,7 +988,7 @@
                 return selected_feature.includes(current_item);
             }
 
-            $scope.ChangeFeatureItemValue = function (event, item_id) {
+            $scope.ChangeFeatureItemValue = function (product_feature_id, all_feature_items_list) {
             };
 
             $scope.GetProductFeatures = function () {
