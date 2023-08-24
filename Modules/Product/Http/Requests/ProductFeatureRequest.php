@@ -19,9 +19,9 @@ class ProductFeatureRequest extends FormRequest
         if ($this->request->has('id')){
             $product_feature = ProductFeature::find($this->request->get('id'));
         }
-        return [
+
+        $rules = [
             'feature_id' => [
-                'required',
                 'exists:features,id',
 //                Rule::unique('product_features', 'feature_id')->ignore($product_feature)
             ],
@@ -33,6 +33,12 @@ class ProductFeatureRequest extends FormRequest
             'value' => 'required',
             'place' => 'nullable|in:up,down,both',
         ];
+
+        if (request()->method() == 'post'){
+            $rules['feature_id'] .= 'required';
+        }
+
+        return $rules;
     }
 
     /**

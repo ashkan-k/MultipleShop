@@ -550,7 +550,8 @@
                                              <div class="container">
                                                   <div class="row">
 
-                                                   <div class="col-6" id="id_feature_items_list_[[ item.id ]]" data-all-feature-items-list="[[ item['value'] ]]">
+                                                   <div class="col-6" id="id_feature_items_list_[[ item.id ]]"
+                                                        data-all-feature-items-list="[[ item['value'] ]]">
                                                            <label ng-show="item['feature']['filter_type'] != 'text'"
                                                                   ng-repeat="(key2, item2) in item['feature']['filter_items'].split('،')"
                                                                   class="form-check form-check-custom form-check-solid mt-1">
@@ -950,12 +951,12 @@
             if (status) {
                 all_feature_items_list.push(value);
             } else {
-                all_feature_items_list = $.grep(all_feature_items_list, function(arrau_value, index) {
+                all_feature_items_list = $.grep(all_feature_items_list, function (arrau_value, index) {
                     return arrau_value !== value;
                 });
             }
 
-            var all_feature_items_list = all_feature_items_list.filter(function(item) {
+            var all_feature_items_list = all_feature_items_list.filter(function (item) {
                 return item !== '';
             });
 
@@ -989,6 +990,33 @@
             }
 
             $scope.ChangeFeatureItemValue = function (product_feature_id, all_feature_items_list) {
+
+                var data = {
+                    'product_id': {{ $object->id }},
+                    'value': all_feature_items_list.toString(),
+                };
+
+                var url = `/api/products/products-features/${product_feature_id}`;
+
+                $http.patch(url, data).then(res => {
+                    data = {};
+                    $scope.is_submited = false;
+                    $scope.GetProductFeatures();
+                    showToast(res['data']['data'], 'success');
+                    $('#addEditFeatureModal').modal('hide');
+                }).catch(err => {
+                    $scope.is_submited = false;
+                    if (err['data']['errors']['feature_id']) {
+                        showToast(err['data']['errors']['feature_id'][0], 'error');
+                        return;
+                    }
+                    if (err['data']['errors']['product_id']) {
+                        showToast(err['data']['errors']['product_id'][0], 'error');
+                        return;
+                    }
+                    showToast('خطایی رخ داد.', 'error');
+                });
+
             };
 
             $scope.GetProductFeatures = function () {
