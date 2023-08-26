@@ -9,12 +9,17 @@
 @endsection
 
 @section('Styles')
-{{--    <style>--}}
-{{--        .select2-results__option--selectable {--}}
-{{--            font-family: FontAwesome !important;--}}
-{{--            font-style: normal !important;--}}
-{{--        }--}}
-{{--    </style>--}}
+    {{--    <style>--}}
+    {{--        .select2-results__option--selectable {--}}
+    {{--            font-family: FontAwesome !important;--}}
+    {{--            font-style: normal !important;--}}
+    {{--        }--}}
+    {{--    </style>--}}
+    <style>
+        .select2-results__option {
+            padding-right: 30px !important;
+        }
+    </style>
 @endsection
 @section('content')
     <div class="d-flex flex-column flex-column-fluid" ng-init="init()">
@@ -165,13 +170,22 @@
                                                 data-kt-select2="true"
                                                 class="form-control form-control-solid">
                                             <option value="">بدون والد</option>
-                                            @foreach($parents as $parent)
 
+                                            @foreach($parents as $parent)
                                                 <option
                                                     @if(isset($object->parent_id) && $object->parent_id == $parent->id) selected
                                                     @endif value="{{ $parent->id }}">{{ $parent->title }}
                                                 </option>
-
+                                                @if(count($parent->children))
+                                                    <optgroup>
+                                                        @foreach($parent->children as $child)
+                                                            <option
+                                                                @if(isset($object->parent_id) && $object->parent_id == $child->id) selected
+                                                                @endif value="{{ $child->id }}">{{ $child->title }}
+                                                            </option>
+                                                        @endforeach
+                                                    </optgroup>
+                                                @endif
                                             @endforeach
                                         </select>
 
@@ -259,7 +273,8 @@
                                         </div>
                                         @enderror
 
-                                        <p ng-show="selected_icon" class="mt-3">پیش نمایش: &nbsp;&nbsp; <i class="fa fa-[[ selected_icon ]]" style="font-size: 40px"></i></p>
+                                        <p ng-show="selected_icon" class="mt-3">پیش نمایش: &nbsp;&nbsp; <i
+                                                class="fa fa-[[ selected_icon ]]" style="font-size: 40px"></i></p>
 
                                     </div>
 
@@ -389,7 +404,8 @@
             $scope.is_english = false;
             $scope.is_special = false;
             $scope.is_best = false;
-            $scope.selected_icon = @if(isset($object) && $object->icon_name) '{{ $object->icon_name }}' @else null @endif;
+            $scope.selected_icon = @if(isset($object) && $object->icon_name) '{{ $object->icon_name }}'
+            @else null @endif;
 
             $scope.init = function () {
                 @if((isset($object) && $object->is_special) || old('is_special'))

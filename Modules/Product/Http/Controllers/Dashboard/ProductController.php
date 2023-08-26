@@ -46,7 +46,7 @@ class ProductController extends Controller
     public function create()
     {
         $users = User::all();
-        $categories = Category::all();
+        $categories = Category::whereNull('parent_id')->with(['children'])->get();
         $brands = Brand::all();
         $colors = Color::all();
         $sizes = Size::all();

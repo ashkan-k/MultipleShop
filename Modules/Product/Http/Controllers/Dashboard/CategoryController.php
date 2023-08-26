@@ -37,7 +37,8 @@ class CategoryController extends Controller
 
     public function create()
     {
-        $parents = Category::all();
+        $parents =  Category::with('children')->whereNull('parent_id')->get();
+//        dd($parents);
         $icons = Category::GetFontAwesomeIcons();
 
         return view('product::dashboard.categories.form', compact('parents', 'icons'));
