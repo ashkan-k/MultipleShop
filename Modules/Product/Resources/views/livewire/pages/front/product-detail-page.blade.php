@@ -298,7 +298,7 @@
                                 </div>
                                 <span class="price-currency">{{ __('Toman') }}</span>
 
-{{--                                @dd($object->price)--}}
+                                {{--                                @dd($object->price)--}}
 
                                 @if($object->calculate_discount_percent())
                                     <div class="price-discount" data-title="{{ __('Discount') }}">
@@ -358,48 +358,48 @@
 
                                     @endif
 
-{{--                                    @if(isset($user_cart))--}}
+                                    {{--                                    @if(isset($user_cart))--}}
 
-{{--                                        <div class="parent-btn">--}}
-{{--                                            <a wire:click="AddRemoveCart('remove')" class="dk-btn dk-btn-info">--}}
-{{--                                                {{ __('Remove from cart') }}--}}
-{{--                                                <i class="now-ui-icons shopping_cart-simple"></i>--}}
-{{--                                            </a>--}}
-{{--                                        </div>--}}
+                                    {{--                                        <div class="parent-btn">--}}
+                                    {{--                                            <a wire:click="AddRemoveCart('remove')" class="dk-btn dk-btn-info">--}}
+                                    {{--                                                {{ __('Remove from cart') }}--}}
+                                    {{--                                                <i class="now-ui-icons shopping_cart-simple"></i>--}}
+                                    {{--                                            </a>--}}
+                                    {{--                                        </div>--}}
 
-{{--                                    @else--}}
+                                    {{--                                    @else--}}
 
-{{--                                        @if($object->quantity > 0)--}}
+                                    {{--                                        @if($object->quantity > 0)--}}
 
-{{--                                            <div wire:loading.remove wire:loading.attr="is_loading" class="parent-btn"--}}
-{{--                                                 id="id_add_to_cart_button">--}}
-{{--                                                <a wire:click="AddRemoveCart('add')" class="dk-btn dk-btn-info">--}}
-{{--                                                    {{ __('Add to cart') }}--}}
-{{--                                                    <i class="now-ui-icons shopping_cart-simple"></i>--}}
-{{--                                                </a>--}}
-{{--                                            </div>--}}
+                                    {{--                                            <div wire:loading.remove wire:loading.attr="is_loading" class="parent-btn"--}}
+                                    {{--                                                 id="id_add_to_cart_button">--}}
+                                    {{--                                                <a wire:click="AddRemoveCart('add')" class="dk-btn dk-btn-info">--}}
+                                    {{--                                                    {{ __('Add to cart') }}--}}
+                                    {{--                                                    <i class="now-ui-icons shopping_cart-simple"></i>--}}
+                                    {{--                                                </a>--}}
+                                    {{--                                            </div>--}}
 
-{{--                                            <div class="parent-btn" wire:loading="is_loading"--}}
-{{--                                                 id="id_add_to_cart_button_loading">--}}
-{{--                                                <a style="cursor: not-allowed !important;"--}}
-{{--                                                   class="dk-btn dk-btn-info disabled">--}}
-{{--                                                    {{ __('Add to cart') }}--}}
-{{--                                                    <i class="now-ui-icons shopping_cart-simple"></i>--}}
-{{--                                                </a>--}}
-{{--                                            </div>--}}
+                                    {{--                                            <div class="parent-btn" wire:loading="is_loading"--}}
+                                    {{--                                                 id="id_add_to_cart_button_loading">--}}
+                                    {{--                                                <a style="cursor: not-allowed !important;"--}}
+                                    {{--                                                   class="dk-btn dk-btn-info disabled">--}}
+                                    {{--                                                    {{ __('Add to cart') }}--}}
+                                    {{--                                                    <i class="now-ui-icons shopping_cart-simple"></i>--}}
+                                    {{--                                                </a>--}}
+                                    {{--                                            </div>--}}
 
-{{--                                        @else--}}
+                                    {{--                                        @else--}}
 
-{{--                                            <div class="parent-btn">--}}
-{{--                                                <a class="dk-btn dk-btn-grey" style="cursor: not-allowed" disabled>--}}
-{{--                                                    {{ __('Unavailable') }}--}}
-{{--                                                    <i class="now-ui-icons shopping_cart-simple"></i>--}}
-{{--                                                </a>--}}
-{{--                                            </div>--}}
+                                    {{--                                            <div class="parent-btn">--}}
+                                    {{--                                                <a class="dk-btn dk-btn-grey" style="cursor: not-allowed" disabled>--}}
+                                    {{--                                                    {{ __('Unavailable') }}--}}
+                                    {{--                                                    <i class="now-ui-icons shopping_cart-simple"></i>--}}
+                                    {{--                                                </a>--}}
+                                    {{--                                            </div>--}}
 
-{{--                                        @endif--}}
+                                    {{--                                        @endif--}}
 
-{{--                                    @endif--}}
+                                    {{--                                    @endif--}}
                                 @else
 
                                     @if($object->quantity > 0)
@@ -514,18 +514,17 @@
                                                 <ul class="params-list">
 
                                                     @foreach($bottom_features as $bottom_f)
-                                                        <li>
+                                                        <li class="mt-3">
                                                             <div class="params-list-key">
                                                                 <span
                                                                     class="block">{{ $bottom_f->feature->title ?: '---' }}</span>
                                                             </div>
                                                             <div class="params-list-value">
                                                                     <span class="block">
-                                                                        <ul>
-                                                                            @foreach(explode(',', $bottom_f->value) as $feature)
-                                                                                <li>{{ $feature ?: '---' }}</li>
-                                                                            @endforeach
-                                                                        </ul>
+                                                                        @foreach(explode(',', $bottom_f->value) as $feature)
+                                                                            {{ $feature ?: '---' }}
+                                                                            <br>
+                                                                        @endforeach
                                                                     </span>
                                                             </div>
                                                         </li>
