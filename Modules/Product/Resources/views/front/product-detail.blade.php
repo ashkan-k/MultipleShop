@@ -15,6 +15,7 @@
 @endsection
 
 @section('content')
+{{--    @dd($product)--}}
     @livewire('product::pages.front.product-detail-page' , [
 
         'titlePage' => 'دسته بندی ها',

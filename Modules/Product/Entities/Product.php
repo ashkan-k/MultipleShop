@@ -139,7 +139,7 @@ class Product extends Model
 
     public function calculate_discount_percent()
     {
-        if (!$this->discount_price) {
+        if (!$this->discount_price || !$this->discount_start_date || !$this->discount_end_date) {
             return 0;
         }
 
@@ -152,7 +152,7 @@ class Product extends Model
         }
 
         $discount_percent = round(($this->discount_price * 100) / $this->price);
-        return $discount_percent;
+        return 100 - $discount_percent;
     }
 
     public function get_title($lang)

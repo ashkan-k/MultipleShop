@@ -257,7 +257,8 @@
 
                                                 @if(in_array($item, $object_features_values))
                                                     <div class="radio">
-                                                        <input type="radio" name="option_{{ $op_f->id }}" id="id_option_{{ $item }}"
+                                                        <input type="radio" name="option_{{ $op_f->id }}"
+                                                               id="id_option_{{ $item }}"
                                                                class="feature_options"
                                                                wire:click="$emit('triggerAddNewFeatureItem' , {{ $op_f->id }}, '{{ $op_f->filter_type }}', '{{ $item }}')"
                                                                {{--                                                           wire:model.defer="cart_size"--}}
@@ -301,6 +302,8 @@
                                     @endif
                                 </div>
                                 <span class="price-currency">{{ __('Toman') }}</span>
+
+{{--                                @dd($object->price)--}}
 
                                 @if($object->calculate_discount_percent())
                                     <div class="price-discount" data-title="{{ __('Discount') }}">
@@ -493,7 +496,11 @@
                                                             </div>
                                                             <div class="params-list-value">
                                                                     <span class="block">
-                                                                        {{ $bottom_f->value ?: '---' }}
+                                                                        <ul>
+                                                                            @foreach(explode(',', $bottom_f->value) as $feature)
+                                                                                <li>{{ $feature ?: '---' }}</li>
+                                                                            @endforeach
+                                                                        </ul>
                                                                     </span>
                                                             </div>
                                                         </li>

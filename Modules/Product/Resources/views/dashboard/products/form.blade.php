@@ -528,11 +528,12 @@
                         <!--begin::کارت body-->
                         <div class="card-body py-4">
                             <!--begin::Table-->
-                            <table ng-class="{ 'disabled-table': is_submited }" class="table align-middle table-row-dashed fs-6 gy-5" id="kt_table_items">
+                            <table
+{{--                                ng-class="{ 'disabled-table': is_submited }" --}}
+                                class="table align-middle table-row-dashed fs-6 gy-5" id="kt_table_items">
                                 <thead>
                                 <tr class="text-start text-muted fw-bold fs-7 text-uppercase gs-0">
                                     <th>شناسه</th>
-                                    <th>محصول</th>
                                     <th>ویژگی</th>
                                     <th>مقدار</th>
                                     <th>جایگاه</th>
@@ -543,8 +544,6 @@
 
                                 <tr ng-repeat="(key, item) in feature_items">
                                     <td>[[ key + 1 ]]</td>
-
-                                    <td>[[ item['product']['title'] ]]</td>
 
                                     <td>[[ item['feature']['title'] ]]</td>
 
@@ -560,8 +559,7 @@
                                                                   ng-repeat="(key2, item2) in item['feature']['filter_items'].split('،')"
                                                                   class="form-check form-check-custom form-check-solid mt-1">
                                                                 <input class="form-check-input feature_item"
-                                                                       ng-disabled="is_submited"
-                                                                       ng-class="{ 'disabled-table': is_submited }"
+{{--                                                                       ng-class="{ 'disabled-table': is_submited }" ng-disabled="is_submited"--}}
                                                                        ng-checked="CheckSelectedFeatureExistInFeatureItems(item['value'], item2)"
                                                                        id="id_feature_item_[[ item.id ]]_[[ key2 ]]"
                                                                        onchange="itemChanged(this)"
@@ -584,8 +582,7 @@
                                                      <div class="col-8">
                                                          <span class="fw-semibold ps-2 fs-6">مقدار:</span>
                                                         <input value="[[ item.value ]]" type="text"
-                                                               ng-disabled="is_submited"
-                                                               ng-class="{ 'disabled-table': is_submited }"
+{{--                                                               ng-class="{ 'disabled-table': is_submited }" ng-disabled="is_submited"--}}
                                                                id="id_feature_item_[[ item.id ]]_[[ key2 ]]"
                                                                data-product-feature-id="[[ item.id ]]"
                                                                onblur="itemTextTypeChanged(this)"
@@ -606,8 +603,8 @@
 
                                                     <div class="col-6">
                                                          <span class="fw-semibold ps-2 fs-6">جایگاه:</span>
-                                                       <select ng-model="item.place" ng-disabled="is_submited"
-                                                               ng-class="{ 'disabled-table': is_submited }"
+                                                       <select ng-model="item.place"
+{{--                                                               ng-class="{ 'disabled-table': is_submited }" ng-disabled="is_submited"--}}
                                                                ng-change="ChangeFeatureItemPlace(item.id, item.place, item.value)"
                                                                id="id_place" name="contents"
                                                                class="form-control">

@@ -346,7 +346,7 @@
             $scope.ChangeFeaturePosition = function () {
                 var data = Object.assign({}, ...$("#sortable_items").sortable('toArray', {attribute: 'id'}).map((i, n) => ({[i]: n + 1})))
 
-                $http.post(`/api/products/features/index/change/`, {'data': data}).then(res => {
+                $http.post(`/api/products/features/index/change`, {'data': data}).then(res => {
                     $scope.GetFeatures();
                     showToast('تغییر چیدمان با موفقیت انجام شد.', 'success');
                 }).catch(err => {

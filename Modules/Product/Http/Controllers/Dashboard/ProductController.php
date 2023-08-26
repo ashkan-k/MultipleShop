@@ -65,7 +65,7 @@ class ProductController extends Controller
         });
         $product->features()->attach($category_features);
 
-        return $this->SuccessRedirect('آیتم مورد نظر با موفقیت ثبت شد.', 'products.index');
+        return $this->SuccessRedirect('آیتم مورد نظر با موفقیت ثبت شد.', 'products.edit', [], $product->id);
     }
 
     public function edit(Product $product)
@@ -112,6 +112,7 @@ class ProductController extends Controller
     public function duplicate(Product $product)
     {
         $new_product = $product->replicate();
+        $new_product->is_active = 0;
         $new_product->save();
 
         // Duplicate the associated files

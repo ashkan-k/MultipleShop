@@ -36,6 +36,7 @@ class FrontProductController extends Controller
     public function product_detail($lang, $slug)
     {
         $product = Product::FindBySlug($lang, $slug);
+//        dd($product->get_title($lang));
         abort_unless((auth()->check() && auth()->user()->is_staff()) || $product->is_active, 404);
 
         // Seo
