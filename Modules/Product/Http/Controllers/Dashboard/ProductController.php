@@ -46,7 +46,7 @@ class ProductController extends Controller
     public function create()
     {
         $users = User::all();
-        $categories = Category::whereNull('parent_id')->with(['children'])->get();
+        $categories = Category::with('children')->whereNull('parent_id')->orderBy('title')->get();
         $brands = Brand::all();
         $colors = Color::all();
         $sizes = Size::all();
@@ -71,7 +71,7 @@ class ProductController extends Controller
     public function edit(Product $product)
     {
         $users = User::all();
-        $categories = Category::all();
+        $categories = Category::with('children')->whereNull('parent_id')->orderBy('title')->get();
         $brands = Brand::all();
         $colors = Color::all();
         $sizes = Size::all();

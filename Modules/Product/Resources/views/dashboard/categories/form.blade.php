@@ -177,15 +177,14 @@
                                                     @endif value="{{ $parent->id }}">{{ $parent->title }}
                                                 </option>
                                                 @if(count($parent->children))
-                                                    <optgroup>
-                                                        @foreach($parent->children as $child)
+                                                        @foreach($parent->children()->orderBy('title')->get() as $child)
                                                             <option
                                                                 @if(isset($object->parent_id) && $object->parent_id == $child->id) selected
                                                                 @endif value="{{ $child->id }}">- {{ $child->title }}
                                                             </option>
 
                                                             @if(count($child->children))
-                                                                    @foreach($child->children as $child_2)
+                                                                    @foreach($child->children()->orderBy('title')->get() as $child_2)
                                                                         <option
                                                                             @if(isset($object->parent_id) && $object->parent_id == $child_2->id) selected
                                                                             @endif value="{{ $child_2->id }}">
@@ -193,7 +192,7 @@
                                                                         </option>
 
                                                                     @if(count($child_2->children))
-                                                                        @foreach($child_2->children as $child_3)
+                                                                        @foreach($child_2->children()->orderBy('title')->get() as $child_3)
                                                                             <option
                                                                                 @if(isset($object->parent_id) && $object->parent_id == $child_3->id) selected
                                                                                 @endif value="{{ $child_3->id }}">
@@ -206,7 +205,6 @@
                                                             @endif
 
                                                         @endforeach
-                                                    </optgroup>
                                                 @endif
                                             @endforeach
                                         </select>

@@ -14,6 +14,12 @@
             cursor: not-allowed;
         }
     </style>
+
+    <style>
+        .select2-results__option {
+            padding-right: 30px !important;
+        }
+    </style>
 @endsection
 @section('content')
     <div class="d-flex flex-column flex-column-fluid" ng-init="init()">
@@ -205,14 +211,44 @@
                                                 data-kt-select2="true"
                                                 class="form-control form-control-solid">
                                             <option value="" disabled>دسته بندی را انتخاب کنید</option>
-                                            @foreach($categories as $category)
 
+                                            @foreach($categories as $category)
                                                 <option
                                                     @if(isset($object->category_id) && $object->category_id == $category->id) selected
                                                     @endif value="{{ $category->id }}">{{ $category->title }}
                                                 </option>
+                                                @if(count($category->children))
+                                                    @foreach($category->children()->orderBy('title')->get() as $child)
+                                                        <option
+                                                            @if(isset($object->category_id) && $object->category_id == $child->id) selected
+                                                            @endif value="{{ $child->id }}">- {{ $child->title }}
+                                                        </option>
 
+                                                        @if(count($child->children))
+                                                            @foreach($child->children()->orderBy('title')->get() as $child_2)
+                                                                <option
+                                                                    @if(isset($object->category_id) && $object->category_id == $child_2->id) selected
+                                                                    @endif value="{{ $child_2->id }}">
+                                                                    -- {{ $child_2->title }}
+                                                                </option>
+
+                                                                @if(count($child_2->children))
+                                                                    @foreach($child_2->children()->orderBy('title')->get() as $child_3)
+                                                                        <option
+                                                                            @if(isset($object->category_id) && $object->category_id == $child_3->id) selected
+                                                                            @endif value="{{ $child_3->id }}">
+                                                                            --- {{ $child_3->title }}
+                                                                        </option>
+                                                                    @endforeach
+                                                                @endif
+
+                                                            @endforeach
+                                                        @endif
+
+                                                    @endforeach
+                                                @endif
                                             @endforeach
+
                                         </select>
 
                                         @error('category_id')

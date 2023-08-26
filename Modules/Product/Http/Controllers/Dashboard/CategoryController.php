@@ -37,8 +37,7 @@ class CategoryController extends Controller
 
     public function create()
     {
-        $parents =  Category::with('children')->whereNull('parent_id')->get();
-//        dd($parents);
+        $parents =  Category::with('children')->whereNull('parent_id')->orderBy('title')->get();
         $icons = Category::GetFontAwesomeIcons();
 
         return view('product::dashboard.categories.form', compact('parents', 'icons'));
@@ -54,7 +53,7 @@ class CategoryController extends Controller
 
     public function edit(Category $category)
     {
-        $parents = Category::whereNot('id', $category->id)->get();
+        $parents =  Category::with('children')->whereNull('parent_id')->orderBy('title')->get();
         $icons = Category::GetFontAwesomeIcons();
 
         return view('product::dashboard.categories.form', compact('parents', 'icons'))->with('object', $category);
