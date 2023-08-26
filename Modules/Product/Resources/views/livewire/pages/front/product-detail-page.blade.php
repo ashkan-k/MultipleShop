@@ -514,7 +514,7 @@
                                                 <ul class="params-list">
 
                                                     @foreach($bottom_features as $bottom_f)
-                                                        <li class="mt-3">
+                                                        <li class="mt-4">
                                                             <div class="params-list-key">
                                                                 <span
                                                                     class="block">{{ $bottom_f->feature->title ?: '---' }}</span>
