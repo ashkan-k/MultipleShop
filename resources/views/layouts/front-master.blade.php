@@ -98,7 +98,7 @@
 
                         <li class="sub-menu">
                             <a href="#"><i class="fa-{{ $main_cat->get_icon() }}"
-                                           style="font: normal normal normal 20px/1 FontAwesome;"></i> {{ $main_cat->get_title($lang) ?: '---' }}</a>
+                                           style="font: normal normal normal 10px/1 FontAwesome;"></i> {{ $main_cat->get_title($lang) ?: '---' }}</a>
                             <ul>
                                 <li>
                                     <a href="#"></a>
@@ -116,7 +116,7 @@
 
                                         <li class="sub-menu">
                                             <a href="#"><i class="fa-{{ $child_1->get_icon() }}"
-                                                           style="font: normal normal normal 20px/1 FontAwesome;"></i> {{ $child_1->get_title($lang) ?: '---' }}</a>
+                                                           style="font: normal normal normal 10px/1 FontAwesome;"></i> {{ $child_1->get_title($lang) ?: '---' }}</a>
                                             <ul>
                                                 <li>
                                                     <a href="#"></a>
@@ -134,7 +134,7 @@
 
                                                         <li class="sub-menu">
                                                             <a href="#"><i class="fa-{{ $child_2->get_icon() }}"
-                                                                           style="font: normal normal normal 20px/1 FontAwesome;"></i> {{ $child_2->get_title($lang) ?: '---' }}</a>
+                                                                           style="font: normal normal normal 10px/1 FontAwesome;"></i> {{ $child_2->get_title($lang) ?: '---' }}</a>
                                                             <ul>
                                                                 <li>
                                                                     <a href="#"></a>
@@ -150,7 +150,7 @@
 
                                                                     <li>
                                                                         <a href="{{ route('category.products', $child_3->get_slug($lang)) }}"><i class="fa-{{ $child_3->get_icon() }}"
-                                                                                                                                                 style="font: normal normal normal 20px/1 FontAwesome;"></i> {{ $child_3->get_title($lang) ?: '---' }}</a>
+                                                                                                                                                 style="font: normal normal normal 10px/1 FontAwesome;"></i> {{ $child_3->get_title($lang) ?: '---' }}</a>
                                                                     </li>
 
                                                                 @endforeach
@@ -162,7 +162,7 @@
 
                                                         <li>
                                                             <a href="{{ route('category.products', $child_2->get_slug($lang)) }}"><i class="fa-{{ $child_2->get_icon() }}"
-                                                                                                                                     style="font: normal normal normal 20px/1 FontAwesome;"></i> {{ $child_2->get_title($lang) ?: '---' }}</a>
+                                                                                                                                     style="font: normal normal normal 10px/1 FontAwesome;"></i> {{ $child_2->get_title($lang) ?: '---' }}</a>
                                                         </li>
 
                                                     @endif
@@ -176,7 +176,7 @@
 
                                         <li>
                                             <a href="{{ route('category.products', $child_1->get_slug($lang)) }}"><i class="fa-{{ $child_1->get_icon() }}"
-                                                                                                                     style="font: normal normal normal 20px/1 FontAwesome;"></i> {{ $child_1->get_title($lang) ?: '---' }}</a>
+                                                                                                                     style="font: normal normal normal 10px/1 FontAwesome;"></i> {{ $child_1->get_title($lang) ?: '---' }}</a>
                                         </li>
 
                                     @endif
@@ -190,7 +190,7 @@
 
                         <li>
                             <a href="{{ route('category.products', $main_cat->get_slug($lang)) }}"><i class="fa-{{ $main_cat->get_icon() }}"
-                                                                                                      style="font: normal normal normal 20px/1 FontAwesome;"></i> {{ $main_cat->get_title($lang) ?: '---' }}</a>
+                                                                                                      style="font: normal normal normal 10px/1 FontAwesome;"></i> {{ $main_cat->get_title($lang) ?: '---' }}</a>
                         </li>
 
                     @endif
@@ -307,7 +307,7 @@
                             <li class="list-item list-item-has-children mega-menu mega-menu-col-5">
                                 <a class="nav-link"
                                    href="#"><i class="fa-{{ $main_cat->get_icon() }}"
-                                               style="font: normal normal normal 20px/1 FontAwesome;"></i> {{ $main_cat->get_title($lang) ?: '---' }}
+                                               style="font: normal normal normal 10px/1 FontAwesome;"></i> {{ $main_cat->get_title($lang) ?: '---' }}
                                 </a>
                                 <ul class="sub-menu nav">
 
@@ -343,7 +343,7 @@
                                                 <i class="now-ui-icons arrows-1_minimal-left"></i><a
                                                     class="main-list-item nav-link"
                                                     href="#"><i class="fa-{{ $child_1->get_icon() }}"
-                                                                style="font: normal normal normal 20px/1 FontAwesome;"></i> {{ $child_1->get_title($lang) ?: '---' }}</a>
+                                                                style="font: normal normal normal 10px/1 FontAwesome;"></i> {{ $child_1->get_title($lang) ?: '---' }}</a>
 
                                                 <ul class="sub-menu nav">
 
@@ -361,7 +361,7 @@
                                                                 <i class="now-ui-icons arrows-1_minimal-left"></i><a
                                                                     class="main-list-item nav-link"
                                                                     href="#"><i class="fa-{{ $child_2->get_icon() }}"
-                                                                                style="font: normal normal normal 20px/1 FontAwesome;"></i> {{ $child_2->get_title($lang) ?: '---' }}</a>
+                                                                                style="font: normal normal normal 10px/1 FontAwesome;"></i> {{ $child_2->get_title($lang) ?: '---' }}</a>
                                                                 <ul class="sub-menu nav">
 
                                                                     @php
@@ -375,7 +375,7 @@
                                                                         <li class="list-item">
                                                                             <a class="nav-link"
                                                                                href="{{ route('category.products', $child_3->get_slug($lang)) }}"><i class="fa-{{ $child_3->get_icon() }}"
-                                                                                                                                                     style="font: normal normal normal 20px/1 FontAwesome;"></i> {{ $child_3->get_title($lang) ?: '---' }}</a>
+                                                                                                                                                     style="font: normal normal normal 10px/1 FontAwesome;"></i> {{ $child_3->get_title($lang) ?: '---' }}</a>
                                                                         </li>
 
                                                                     @endforeach
@@ -388,7 +388,7 @@
                                                             <li class="list-item">
                                                                 <a class="nav-link"
                                                                    href="{{ route('category.products', $child_2->get_slug($lang)) }}"><i class="fa-{{ $child_2->get_icon() }}"
-                                                                                                                                         style="font: normal normal normal 20px/1 FontAwesome;"></i> {{ $child_2->get_title($lang) ?: '---' }}</a>
+                                                                                                                                         style="font: normal normal normal 10px/1 FontAwesome;"></i> {{ $child_2->get_title($lang) ?: '---' }}</a>
                                                             </li>
 
                                                         @endif
@@ -404,7 +404,7 @@
                                                 <i class="now-ui-icons arrows-1_minimal-left"></i><a
                                                     class="main-list-item nav-link"
                                                     href="{{ route('category.products', $child_1->get_slug($lang)) }}"><i class="fa-{{ $child_1->get_icon() }}"
-                                                                                                                          style="font: normal normal normal 20px/1 FontAwesome;"></i> {{ $child_1->get_title($lang) ?: '---' }}</a>
+                                                                                                                          style="font: normal normal normal 10px/1 FontAwesome;"></i> {{ $child_1->get_title($lang) ?: '---' }}</a>
                                             </li>
 
                                         @endif
@@ -420,7 +420,7 @@
                             <li class="list-item">
                                 <a class="nav-link"
                                    href="{{ route('category.products', $main_cat->get_slug($lang)) }}"><i class="fa-{{ $main_cat->get_icon() }}"
-                                                                                                          style="font: normal normal normal 20px/1 FontAwesome;"></i> {{ $main_cat->get_title($lang) ?: '---' }}</a>
+                                                                                                          style="font: normal normal normal 10px/1 FontAwesome;"></i> {{ $main_cat->get_title($lang) ?: '---' }}</a>
                             </li>
                         @endif
 

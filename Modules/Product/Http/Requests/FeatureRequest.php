@@ -18,7 +18,7 @@ class FeatureRequest extends FormRequest
             'title' => [
                 'string',
                 'required',
-                Rule::unique('features', 'title')->ignore($this->feature)
+//                Rule::unique('features', 'title')->ignore($this->feature)
             ],
             'category_id' => [
                 'required',

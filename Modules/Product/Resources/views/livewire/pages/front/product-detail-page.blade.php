@@ -230,11 +230,6 @@
                             <div class="product-directory default">
                                 <ul>
                                     <li>
-                                        <span>{{ __('Brand') }}</span> :
-                                        <span
-                                            class="product-brand-title">{{ $object->brand ? $object->brand->title : '---' }}</span>
-                                    </li>
-                                    <li>
                                         <span>{{ __('Category') }}</span> :
                                         <a href="{{ route('category.products', [
                     'locale' => $lang,
@@ -333,48 +328,78 @@
                             <div class="product-add default">
 
                                 @auth
-                                    @if(isset($user_cart))
+                                    @if($object->quantity > 0)
 
-                                        <div class="parent-btn">
-                                            <a wire:click="AddRemoveCart('remove')" class="dk-btn dk-btn-info">
-                                                {{ __('Remove from cart') }}
+                                        <div wire:loading.remove wire:loading.attr="is_loading" class="parent-btn"
+                                             id="id_add_to_cart_button">
+                                            <a wire:click="AddRemoveCart('add')" class="dk-btn dk-btn-info">
+                                                {{ __('Add to cart') }}
+                                                <i class="now-ui-icons shopping_cart-simple"></i>
+                                            </a>
+                                        </div>
+
+                                        <div class="parent-btn" wire:loading="is_loading"
+                                             id="id_add_to_cart_button_loading">
+                                            <a style="cursor: not-allowed !important;"
+                                               class="dk-btn dk-btn-info disabled">
+                                                {{ __('Add to cart') }}
                                                 <i class="now-ui-icons shopping_cart-simple"></i>
                                             </a>
                                         </div>
 
                                     @else
 
-                                        @if($object->quantity > 0)
-
-                                            <div wire:loading.remove wire:loading.attr="is_loading" class="parent-btn"
-                                                 id="id_add_to_cart_button">
-                                                <a wire:click="AddRemoveCart('add')" class="dk-btn dk-btn-info">
-                                                    {{ __('Add to cart') }}
-                                                    <i class="now-ui-icons shopping_cart-simple"></i>
-                                                </a>
-                                            </div>
-
-                                            <div class="parent-btn" wire:loading="is_loading"
-                                                 id="id_add_to_cart_button_loading">
-                                                <a style="cursor: not-allowed !important;"
-                                                   class="dk-btn dk-btn-info disabled">
-                                                    {{ __('Add to cart') }}
-                                                    <i class="now-ui-icons shopping_cart-simple"></i>
-                                                </a>
-                                            </div>
-
-                                        @else
-
-                                            <div class="parent-btn">
-                                                <a class="dk-btn dk-btn-grey" style="cursor: not-allowed" disabled>
-                                                    {{ __('Unavailable') }}
-                                                    <i class="now-ui-icons shopping_cart-simple"></i>
-                                                </a>
-                                            </div>
-
-                                        @endif
+                                        <div class="parent-btn">
+                                            <a class="dk-btn dk-btn-grey" style="cursor: not-allowed" disabled>
+                                                {{ __('Unavailable') }}
+                                                <i class="now-ui-icons shopping_cart-simple"></i>
+                                            </a>
+                                        </div>
 
                                     @endif
+
+{{--                                    @if(isset($user_cart))--}}
+
+{{--                                        <div class="parent-btn">--}}
+{{--                                            <a wire:click="AddRemoveCart('remove')" class="dk-btn dk-btn-info">--}}
+{{--                                                {{ __('Remove from cart') }}--}}
+{{--                                                <i class="now-ui-icons shopping_cart-simple"></i>--}}
+{{--                                            </a>--}}
+{{--                                        </div>--}}
+
+{{--                                    @else--}}
+
+{{--                                        @if($object->quantity > 0)--}}
+
+{{--                                            <div wire:loading.remove wire:loading.attr="is_loading" class="parent-btn"--}}
+{{--                                                 id="id_add_to_cart_button">--}}
+{{--                                                <a wire:click="AddRemoveCart('add')" class="dk-btn dk-btn-info">--}}
+{{--                                                    {{ __('Add to cart') }}--}}
+{{--                                                    <i class="now-ui-icons shopping_cart-simple"></i>--}}
+{{--                                                </a>--}}
+{{--                                            </div>--}}
+
+{{--                                            <div class="parent-btn" wire:loading="is_loading"--}}
+{{--                                                 id="id_add_to_cart_button_loading">--}}
+{{--                                                <a style="cursor: not-allowed !important;"--}}
+{{--                                                   class="dk-btn dk-btn-info disabled">--}}
+{{--                                                    {{ __('Add to cart') }}--}}
+{{--                                                    <i class="now-ui-icons shopping_cart-simple"></i>--}}
+{{--                                                </a>--}}
+{{--                                            </div>--}}
+
+{{--                                        @else--}}
+
+{{--                                            <div class="parent-btn">--}}
+{{--                                                <a class="dk-btn dk-btn-grey" style="cursor: not-allowed" disabled>--}}
+{{--                                                    {{ __('Unavailable') }}--}}
+{{--                                                    <i class="now-ui-icons shopping_cart-simple"></i>--}}
+{{--                                                </a>--}}
+{{--                                            </div>--}}
+
+{{--                                        @endif--}}
+
+{{--                                    @endif--}}
                                 @else
 
                                     @if($object->quantity > 0)
@@ -1045,6 +1070,7 @@
 
         window.addEventListener('cartStatusUpdated', event => {
             console.log(event['detail']['cart_count'])
+            showToast('با موفقیت به سبد خرید اضافه شد.', 'success');
             var count = event['detail']['cart_count'];
             if (count > 0) {
                 $('#cart_count_badge').html(count);
