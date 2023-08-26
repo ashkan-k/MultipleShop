@@ -522,8 +522,12 @@
                                                             <div class="params-list-value">
                                                                     <span class="block">
                                                                         @foreach(explode(',', $bottom_f->value) as $feature)
-                                                                            {{ $feature ?: '---' }}
-                                                                            <br>
+
+                                                                            <div @if($loop->index > 0) class="mt-3" @endif>
+                                                                                {{ $feature ?: '---' }}
+                                                                                 <br>
+                                                                            </div>
+
                                                                         @endforeach
                                                                     </span>
                                                             </div>
