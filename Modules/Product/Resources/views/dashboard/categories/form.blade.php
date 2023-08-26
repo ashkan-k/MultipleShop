@@ -181,8 +181,30 @@
                                                         @foreach($parent->children as $child)
                                                             <option
                                                                 @if(isset($object->parent_id) && $object->parent_id == $child->id) selected
-                                                                @endif value="{{ $child->id }}">{{ $child->title }}
+                                                                @endif value="{{ $child->id }}">- {{ $child->title }}
                                                             </option>
+
+                                                            @if(count($child->children))
+                                                                    @foreach($child->children as $child_2)
+                                                                        <option
+                                                                            @if(isset($object->parent_id) && $object->parent_id == $child_2->id) selected
+                                                                            @endif value="{{ $child_2->id }}">
+                                                                            -- {{ $child_2->title }}
+                                                                        </option>
+
+                                                                    @if(count($child_2->children))
+                                                                        @foreach($child_2->children as $child_3)
+                                                                            <option
+                                                                                @if(isset($object->parent_id) && $object->parent_id == $child_3->id) selected
+                                                                                @endif value="{{ $child_3->id }}">
+                                                                                --- {{ $child_3->title }}
+                                                                            </option>
+                                                                        @endforeach
+                                                                    @endif
+
+                                                                    @endforeach
+                                                            @endif
+
                                                         @endforeach
                                                     </optgroup>
                                                 @endif
