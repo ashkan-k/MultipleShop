@@ -589,7 +589,7 @@
                         <div class="card-body py-4">
                             <!--begin::Table-->
                             <table
-{{--                                ng-class="{ 'disabled-table': is_submited }" --}}
+                                {{--                                ng-class="{ 'disabled-table': is_submited }" --}}
                                 class="table align-middle table-row-dashed fs-6 gy-5" id="kt_table_items">
                                 <thead>
                                 <tr class="text-start text-muted fw-bold fs-7 text-uppercase gs-0">
@@ -619,7 +619,7 @@
                                                                   ng-repeat="(key2, item2) in item['feature']['filter_items'].split('،')"
                                                                   class="form-check form-check-custom form-check-solid mt-1">
                                                                 <input class="form-check-input feature_item"
-{{--                                                                       ng-class="{ 'disabled-table': is_submited }" ng-disabled="is_submited"--}}
+                                                                       {{--                                                                       ng-class="{ 'disabled-table': is_submited }" ng-disabled="is_submited"--}}
                                                                        ng-checked="CheckSelectedFeatureExistInFeatureItems(item['value'], item2)"
                                                                        id="id_feature_item_[[ item.id ]]_[[ key2 ]]"
                                                                        onchange="itemChanged(this)"
@@ -642,7 +642,7 @@
                                                      <div class="col-8">
                                                          <span class="fw-semibold ps-2 fs-6">مقدار:</span>
                                                         <input value="[[ item.value ]]" type="text"
-{{--                                                               ng-class="{ 'disabled-table': is_submited }" ng-disabled="is_submited"--}}
+                                                               {{--                                                               ng-class="{ 'disabled-table': is_submited }" ng-disabled="is_submited"--}}
                                                                id="id_feature_item_[[ item.id ]]_[[ key2 ]]"
                                                                data-product-feature-id="[[ item.id ]]"
                                                                onblur="itemTextTypeChanged(this)"
@@ -664,7 +664,7 @@
                                                     <div class="col-6">
                                                          <span class="fw-semibold ps-2 fs-6">جایگاه:</span>
                                                        <select ng-model="item.place"
-{{--                                                               ng-class="{ 'disabled-table': is_submited }" ng-disabled="is_submited"--}}
+                                                               {{--                                                               ng-class="{ 'disabled-table': is_submited }" ng-disabled="is_submited"--}}
                                                                ng-change="ChangeFeatureItemPlace(item.id, item.place, item.value)"
                                                                id="id_place" name="contents"
                                                                class="form-control">
@@ -681,10 +681,10 @@
                                     </td>
 
                                     <td class="">
-{{--                                        <a ng-click="AddEditFeatureModal(item)"--}}
-{{--                                           class="btn btn-bg-light btn-color-muted btn-active-color-primary btn-sm px-4 me-2">--}}
-{{--                                            ویرایش--}}
-{{--                                        </a>--}}
+                                        {{--                                        <a ng-click="AddEditFeatureModal(item)"--}}
+                                        {{--                                           class="btn btn-bg-light btn-color-muted btn-active-color-primary btn-sm px-4 me-2">--}}
+                                        {{--                                            ویرایش--}}
+                                        {{--                                        </a>--}}
 
                                         <a ng-click="RemoveFeature(item.id)"
                                            class="btn btn-bg-light btn-color-muted btn-active-color-primary btn-sm px-4 me-2">
@@ -851,6 +851,57 @@
                                     <option value="both">هر دو</option>
                                 </select>
                             </div>
+
+
+
+
+                            <div class="d-flex flex-column mb-8 fv-row">
+                                <!--begin::Tags-->
+                                <label for="id_feature_price" class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                    <span class="required">قیمت</span>
+                                </label>
+
+                                <input type="number" ng-model="obj.price" id="id_feature_price" name="price"
+                                       class="form-control">
+                            </div>
+
+                            <div class="d-flex flex-column mb-8 fv-row">
+                                <!--begin::Tags-->
+                                <label for="id_feature_discount_price"
+                                       class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                    <span class="required">قیمت تخفیفی</span>
+                                </label>
+
+                                <input type="number" ng-model="obj.discount_price" id="id_feature_discount_price"
+                                       name="discount_price" class="form-control">
+                            </div>
+
+                            <div class="d-flex flex-column mb-8 fv-row">
+                                <!--begin::Tags-->
+                                <label for="id_feature_discount_start_date"
+                                       class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                    <span class="required">تاریخ شروع تخفیف</span>
+                                </label>
+
+                                <input type="text" ng-model="obj.discount_start_date"
+                                       id="id_feature_discount_start_date" name="discount_start_date"
+                                       class="form-control">
+                            </div>
+
+                            <div class="d-flex flex-column mb-8 fv-row">
+                                <!--begin::Tags-->
+                                <label for="id_feature_discount_end_date"
+                                       class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                    <span class="required">تاریخ پایان تخفیف</span>
+                                </label>
+
+                                <input type="text" ng-model="obj.discount_end_date" id="id_feature_discount_end_date"
+                                       name="discount_end_date" class="form-control">
+                            </div>
+
+
+
+
 
                             <div class="text-center">
                                 <button ng-disabled="is_submited" onclick="$('#addEditFeatureModal').modal('hide');"
@@ -1060,7 +1111,7 @@
             }
 
             $scope.CheckSelectedFeatureExistInFeatureItems = function (selected_feature, current_item) {
-                if (selected_feature === '' || selected_feature === null){
+                if (selected_feature === '' || selected_feature === null) {
                     selected_feature = [];
                 }
                 if (!Array.isArray(selected_feature)) {

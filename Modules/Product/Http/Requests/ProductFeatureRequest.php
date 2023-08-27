@@ -32,6 +32,11 @@ class ProductFeatureRequest extends FormRequest
             ],
             'value' => 'nullable',
             'place' => 'nullable|in:up,down,both',
+
+            'price' => 'nullable|numeric',
+            'discount_price' => 'nullable|numeric',
+            'discount_start_date' => 'nullable|jdate:Y-m-d|after:' . \verta()->subDay(),
+            'discount_end_date' => 'nullable|jdate:Y-m-d|after:' . \verta()->subDay(),
         ];
 
         if (request()->method() == 'post'){
