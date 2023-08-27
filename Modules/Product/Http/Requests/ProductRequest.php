@@ -40,6 +40,7 @@ class ProductRequest extends FormRequest
             'brand_id' => 'nullable|exists:brands,id',
             'is_active' => 'boolean',
             'is_special' => 'boolean',
+            'is_virtual' => 'boolean',
         ];
 
         if (request()->method() == 'POST'){

@@ -93,6 +93,7 @@ class ProductController extends Controller
 
         $data['is_active'] = $request->has('is_active') ?? false;
         $data['is_special'] = $request->has('is_special') ?? false;
+        $data['is_virtual'] = $request->has('is_virtual') ?? false;
 
         $product->update(array_merge($data, ['image' => $image]));
 

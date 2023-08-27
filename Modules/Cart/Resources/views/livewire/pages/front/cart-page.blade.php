@@ -81,7 +81,7 @@
                                 <div class="checkout-summary-main">
                                     <ul class="checkout-summary-summary">
                                         <li><span>{{ __('Total Amount') }} ({{ count($objects) }} {{ __('items') }})</span><span>{{ number_format($total_amount) }} {{ __('Toman') }}</span></li>
-                                        <li><span>{{ __('Postal Cost') }}</span><span>{{ number_format($settings['postal_cost']->value) }} {{ __('Toman') }}</span></li>
+{{--                                        <li><span>{{ __('Postal Cost') }}</span><span>{{ number_format($settings['postal_cost']->value) }} {{ __('Toman') }}</span></li>--}}
                                         {{--                                    <li>--}}
                                         {{--                                        <span>هزینه ارسال</span>--}}
                                         {{--                                        <span>وابسته به آدرس<span class="wiki wiki-holder"><span--}}

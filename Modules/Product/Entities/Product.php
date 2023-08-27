@@ -41,6 +41,7 @@ class Product extends Model
         'category_id',
         'brand_id',
         'barcode',
+        'is_virtual',
     ];
 
     protected $search_fields = [

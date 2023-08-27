@@ -404,6 +404,30 @@
                                     </div>
 
                                     <div class="d-flex flex-column mb-8 fv-row">
+                                        <label for="id_is_virtual"
+                                               class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                            <span>آیا محصول مجازی است؟</span>
+
+                                        </label>
+
+                                        <div class="form-check form-check-solid form-switch form-check-custom fv-row">
+                                            <input @if(isset($object) && $object->is_virtual) checked
+                                                   @elseif(old('is_virtual')) checked @endif  name="is_virtual"
+                                                   class="form-check-input w-45px h-30px" type="checkbox"
+                                                   id="id_is_virtual" value="1">
+                                            <label class="form-check-label" for="id_is_virtual"></label>
+                                        </div>
+
+                                        @error('is_virtual')
+                                        <div class="fv-plugins-message-container invalid-feedback">
+                                            <div data-field="meta_title" data-validator="notEmpty">
+                                                {{ $message }}
+                                            </div>
+                                        </div>
+                                        @enderror
+                                    </div>
+
+                                    <div class="d-flex flex-column mb-8 fv-row">
                                         <label for="id_image" class="d-flex align-items-center fs-6 fw-semibold mb-2">
                                             <span class="required">عکس</span>
                                         </label>

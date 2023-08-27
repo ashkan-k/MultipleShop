@@ -21,7 +21,6 @@ return new class extends Migration
             $table->string('en_slug')->nullable();
 
             $table->boolean('is_active')->default(true);
-//            $table->enum('status', EnumHelpers::$PlaceTypesEnum)->default('restaurant');
             $table->text('description');
             $table->text('en_description')->nullable();
             $table->integer('view_count')->default(0);
@@ -35,6 +34,8 @@ return new class extends Migration
             $table->string('discount_start_date')->nullable();
             $table->string('discount_end_date')->nullable();
             $table->boolean('is_special')->default(false);
+
+            $table->boolean('is_virtual')->default(false);
 
             $table->foreignId('user_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignId('category_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
