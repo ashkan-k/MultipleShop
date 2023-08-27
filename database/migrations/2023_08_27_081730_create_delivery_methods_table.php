@@ -13,8 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('orders', function (Blueprint $table) {
-            $table->foreignId('delivery_method_id')->nullable()->constrained()->onUpdate('cascade')->onDelete('cascade');
+        Schema::create('delivery_methods', function (Blueprint $table) {
+            $table->id();
+            $table->string('title');
+            $table->string('amount');
+
+            $table->timestamps();
         });
     }
 
@@ -25,8 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('', function (Blueprint $table) {
-
-        });
+        Schema::dropIfExists('delivery_methods');
     }
 };

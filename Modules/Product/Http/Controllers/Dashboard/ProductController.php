@@ -76,7 +76,7 @@ class ProductController extends Controller
         $colors = Color::all();
         $sizes = Size::all();
 
-        $features = $product->category->features()->get(['id', 'title', 'filter_type'])->toArray();
+        $features = $product->category->features()->get(['id', 'title', 'filter_type', 'is_use_cart'])->toArray();
 
         return view('product::dashboard.products.form', compact('users', 'categories', 'brands', 'colors', 'sizes', 'features'))->with('object', $product);
     }

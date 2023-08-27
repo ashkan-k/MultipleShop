@@ -13,8 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('orders', function (Blueprint $table) {
-            $table->foreignId('delivery_method_id')->nullable()->constrained()->onUpdate('cascade')->onDelete('cascade');
+        Schema::table('product_features', function (Blueprint $table) {
+            $table->string('price')->nullable();
+            $table->string('discount_price')->nullable();
+            $table->string('discount_start_date')->nullable();
+            $table->string('discount_end_date')->nullable();
         });
     }
 

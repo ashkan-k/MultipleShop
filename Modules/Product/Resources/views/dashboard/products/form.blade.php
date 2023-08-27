@@ -854,7 +854,7 @@
 
 
 
-
+                        <div ng-show="feature.is_use_cart">
                             <div class="d-flex flex-column mb-8 fv-row">
                                 <!--begin::Tags-->
                                 <label for="id_feature_price" class="d-flex align-items-center fs-6 fw-semibold mb-2">
@@ -869,7 +869,7 @@
                                 <!--begin::Tags-->
                                 <label for="id_feature_discount_price"
                                        class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                    <span class="required">قیمت تخفیفی</span>
+                                    <span>قیمت تخفیفی</span>
                                 </label>
 
                                 <input type="number" ng-model="obj.discount_price" id="id_feature_discount_price"
@@ -880,7 +880,7 @@
                                 <!--begin::Tags-->
                                 <label for="id_feature_discount_start_date"
                                        class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                    <span class="required">تاریخ شروع تخفیف</span>
+                                    <span>تاریخ شروع تخفیف</span>
                                 </label>
 
                                 <input type="text" ng-model="obj.discount_start_date"
@@ -892,12 +892,13 @@
                                 <!--begin::Tags-->
                                 <label for="id_feature_discount_end_date"
                                        class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                    <span class="required">تاریخ پایان تخفیف</span>
+                                    <span>تاریخ پایان تخفیف</span>
                                 </label>
 
                                 <input type="text" ng-model="obj.discount_end_date" id="id_feature_discount_end_date"
                                        name="discount_end_date" class="form-control">
                             </div>
+                        </div>
 
 
 
@@ -1276,6 +1277,13 @@
 
                 $scope.obj['value'] = $scope.obj['value'].toString();
                 $scope.obj['product_id'] = {{ $object->id }};
+
+                if ($('#id_feature_discount_start_date').val()){
+                    $scope.obj['discount_start_date'] = $('#id_feature_discount_start_date').val();
+                }
+                if ($('#id_feature_discount_end_date').val()){
+                    $scope.obj['discount_end_date'] = $('#id_feature_discount_end_date').val();
+                }
 
                 $scope.is_submited = true;
 

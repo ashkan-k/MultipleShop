@@ -30,6 +30,8 @@ return new class extends Migration
 
             $table->string('amount')->default(0);
 
+            $table->foreignId('delivery_method_id')->nullable()->constrained()->onUpdate('cascade')->onDelete('cascade');
+
             $table->enum('payment_type', EnumHelpers::$PaymentTypeEnum)->default('online');
             $table->enum('status', EnumHelpers::$OrderStatusEnum)->default('sending');
 
