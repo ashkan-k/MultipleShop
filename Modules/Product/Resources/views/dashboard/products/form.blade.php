@@ -1055,6 +1055,48 @@
             },
         });
         $("#id_discount_end_date").attr('autocomplete', 'off');
+
+        //////////////
+
+        $('#id_feature_discount_start_date').persianDatepicker({
+            theme: 'dark',
+            format: 'YYYY-MM-DD',
+            initialValueType: 'persian',
+            timePicker: {
+                enabled: false
+            },
+            autoClose: true,
+            calendar: {
+                persian: {
+                    locale: 'fa'
+                }
+            },
+            onSelect: function () {
+                $('#id_feature_discount_start_date').val($('#id_feature_discount_start_date').val().replaceAll('/', '-'))
+            },
+        });
+        $("#id_feature_discount_start_date").attr('autocomplete', 'off');
+
+        //////////////
+
+        $('#id_feature_discount_end_date').persianDatepicker({
+            theme: 'dark',
+            format: 'YYYY-MM-DD',
+            initialValueType: 'persian',
+            timePicker: {
+                enabled: false
+            },
+            autoClose: true,
+            calendar: {
+                persian: {
+                    locale: 'fa'
+                }
+            },
+            onSelect: function () {
+                $('#id_feature_discount_end_date').val($('#id_feature_discount_end_date').val().replaceAll('/', '-'))
+            },
+        });
+        $("#id_feature_discount_end_date").attr('autocomplete', 'off');
     </script>
 
     <script>
