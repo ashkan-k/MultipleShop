@@ -1,11 +1,11 @@
 <?php
 
-use App\Enums\EnumHelpers;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-return new class extends Migration {
+return new class extends Migration
+{
     /**
      * Run the migrations.
      *
@@ -13,19 +13,11 @@ return new class extends Migration {
      */
     public function up()
     {
-        Schema::create('product_features', function (Blueprint $table) {
-            $table->id();
-            $table->string('value')->nullable();
-            $table->enum('place', EnumHelpers::$ProductFeatureTypeTypeEnum)->default('down')->nullable();
-
+        Schema::table('product_features', function (Blueprint $table) {
             $table->string('price')->nullable();
             $table->string('discount_price')->nullable();
             $table->string('discount_start_date')->nullable();
             $table->string('discount_end_date')->nullable();
-
-            $table->foreignId('product_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
-            $table->foreignId('feature_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
-            $table->timestamps();
         });
     }
 
@@ -36,6 +28,8 @@ return new class extends Migration {
      */
     public function down()
     {
-        Schema::dropIfExists('product_features');
+        Schema::table('', function (Blueprint $table) {
+
+        });
     }
 };
