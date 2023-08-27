@@ -65,9 +65,6 @@
                                         <td>{{ __('Order status: Awaiting shipment') }}</td>
                                     </tr>
                                     <tr>
-                                        <th scope="row">{{ __('Postal Cost') }} : {{ number_format($settings['postal_cost']->value) }}</th>
-                                    </tr>
-                                    <tr>
                                         <th scope="row">{{ __('Address') }} : {{ $payment->order->address }}</th>
                                     </tr>
                                     </tbody>

@@ -700,14 +700,6 @@
                             <span class="menu-title">تنظیمات درباره ما</span>
                         </a>
 
-                        <a class="menu-link @if(\Illuminate\Support\Facades\Route::current()->getName() == 'dynamic_form' && str_contains(request()->url(), 'postal_cost')) active @endif"
-                           href="{{ route('dynamic_form', ['key' => 'postal_cost']) }}">
-													<span class="menu-bullet">
-														<span class="bullet bullet-dot"></span>
-													</span>
-                            <span class="menu-title">تنظیم هزینه پستی</span>
-                        </a>
-
                         <a class="menu-link @if(\Illuminate\Support\Facades\Route::current()->getName() == 'multiple_dynamic_form' && str_contains(request()->url(), 'footer_right_links')) active @endif"
                            href="{{ route('multiple_dynamic_form', ['key' => 'footer_right_links']) }}">
 													<span class="menu-bullet">
