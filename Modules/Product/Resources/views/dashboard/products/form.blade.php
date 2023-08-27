@@ -597,6 +597,10 @@
                                     <th>ویژگی</th>
                                     <th>مقدار</th>
                                     <th>جایگاه</th>
+                                    <th>قیمت</th>
+                                    <th>قیمت تخفیفی</th>
+                                    <th>تاریخ شروع تخفیف</th>
+                                    <th>تاریخ پایان تخفیف</th>
                                     <th>عملیات</th>
                                 </tr>
                                 </thead>
@@ -673,6 +677,86 @@
                                                             <option value="down">پایین</option>
                                                             <option value="both">هر دو</option>
                                                         </select>
+                                                    </div>
+
+                                                  </div>
+                                                </div>
+                                       </span>
+                                    </td>
+
+                                    <td>
+                                         <span>
+                                             <div class="container">
+                                                  <div class="row">
+
+                                                     <div class="col-8">
+                                                         <span class="fw-semibold ps-2 fs-6">قیمت:</span>
+                                                        <input value="[[ item.price ]]" type="number"
+                                                               id="id_item_price_[[ item.id ]]_[[ key2 ]]"
+                                                               data-product-feature-id="[[ item.id ]]"
+                                                               onblur="ItemPriceRelatedFieldsChanged(this)"
+                                                               name="price"
+                                                               class="form-control form-control-solid">
+                                                    </div>
+
+                                                  </div>
+                                                </div>
+                                       </span>
+                                    </td>
+
+                                    <td>
+                                         <span>
+                                             <div class="container">
+                                                  <div class="row">
+
+                                                     <div class="col-8">
+                                                         <span class="fw-semibold ps-2 fs-6">قیمت تخفیفی:</span>
+                                                        <input value="[[ item.discount_price ]]" type="number"
+                                                               id="id_item_discount_price_[[ item.id ]]_[[ key2 ]]"
+                                                               data-product-feature-id="[[ item.id ]]"
+                                                               onblur="ItemPriceRelatedFieldsChanged(this)"
+                                                               name="discount_price"
+                                                               class="form-control form-control-solid">
+                                                    </div>
+
+                                                  </div>
+                                                </div>
+                                       </span>
+                                    </td>
+
+                                    <td>
+                                         <span>
+                                             <div class="container">
+                                                  <div class="row">
+
+                                                     <div class="col-10">
+                                                         <span class="fw-semibold ps-2 fs-6">تاریخ شروع تخفیف:</span>
+                                                        <input value="[[ item.discount_start_date ]]" type="text"
+                                                               id="id_item_discount_start_date_[[ item.id ]]_[[ key2 ]]"
+                                                               data-product-feature-id="[[ item.id ]]"
+                                                               onblur="ItemPriceRelatedFieldsChanged(this)"
+                                                               name="discount_start_date"
+                                                               class="form-control form-control-solid discount_start_date_picker">
+                                                    </div>
+
+                                                  </div>
+                                                </div>
+                                       </span>
+                                    </td>
+
+                                    <td>
+                                         <span>
+                                             <div class="container">
+                                                  <div class="row">
+
+                                                     <div class="col-10">
+                                                         <span class="fw-semibold ps-2 fs-6">تاریخ پایان تخفیف:</span>
+                                                        <input value="[[ item.discount_end_date ]]" type="text"
+                                                               id="id_item_discount_end_date_[[ item.id ]]_[[ key2 ]]"
+                                                               data-product-feature-id="[[ item.id ]]"
+                                                               onblur="ItemPriceRelatedFieldsChanged(this)"
+                                                               name="discount_end_date"
+                                                               class="form-control form-control-solid discount_end_date_picker">
                                                     </div>
 
                                                   </div>
@@ -1130,6 +1214,18 @@
             angular.element(event).scope().ChangeFeatureItemValue(product_feature_id, all_feature_items_list.toString());
         }
 
+        function ItemPriceRelatedFieldsChanged(event) {
+            var value = event.value;
+            var field_name = event.name;
+            var product_feature_id = $(`#${event.id}`).attr('data-product-feature-id');
+
+            console.log(value)
+            console.log(product_feature_id)
+            console.log(field_name)
+
+            angular.element(event).scope().ChangeItemPriceRelatedFields(field_name, product_feature_id, value);
+        }
+
         function itemTextTypeChanged(event) {
             var value = event.value;
             var product_feature_id = $(`#${event.id}`).attr('data-product-feature-id');
@@ -1183,6 +1279,17 @@
                     'product_id': {{ $object->id }},
                     'value': all_feature_items_list,
                 };
+
+                var url = `/api/products/products-features/${product_feature_id}`;
+                $scope.UpdateFeatureItem(url, data);
+            };
+
+            $scope.ChangeItemPriceRelatedFields = function (field_name, product_feature_id, value) {
+                var data = {
+                    'product_id': {{ $object->id }},
+                };
+
+                data[field_name] = value;
 
                 var url = `/api/products/products-features/${product_feature_id}`;
                 $scope.UpdateFeatureItem(url, data);
