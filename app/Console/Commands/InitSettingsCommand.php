@@ -39,6 +39,8 @@ class InitSettingsCommand extends Command
         'show_guides' => 1,
         'show_footer_help_links' => 1,
 
+        'postal_cost' => 10000,
+
         # Seo
         'default_blog_schema_type' => 'generic_article',
         'default_pages_schema_type' => 'article',

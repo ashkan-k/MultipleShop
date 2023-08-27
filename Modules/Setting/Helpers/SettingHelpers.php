@@ -38,6 +38,15 @@ class SettingHelpers
             ]
         ],
 
+        'postal_cost' => [
+            'title' => 'هزینه پستی',
+            'key' => 'postal_cost',
+            'has_active_status' => false,
+            'field' => [
+                'type' => 'text',
+            ],
+        ],
+
         'comment_terms_page' => [
             'title' => 'صفحه مقررات ثبت نظر',
             'key' => 'comment_terms_page',

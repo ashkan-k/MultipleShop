@@ -18,7 +18,7 @@
                                 </h1>
                             @else
                                 <h1>
-                                    the Order <a href="#">{{ $payment->order->order_number }}</a> was successfully
+                                    the Order <a onclick="copyToClipboard('{{ $payment->order->order_number }}')">{{ $payment->order->order_number }}</a> was successfully
                                     registered in the system.
                                 </h1>
                             @endif
@@ -65,6 +65,9 @@
                                         <td>{{ __('Order status: Awaiting shipment') }}</td>
                                     </tr>
                                     <tr>
+                                        <th scope="row">{{ __('Postal Cost') }} : {{ number_format($settings['postal_cost']->value) }}</th>
+                                    </tr>
+                                    <tr>
                                         <th scope="row">{{ __('Address') }} : {{ $payment->order->address }}</th>
                                     </tr>
                                     </tbody>
@@ -77,4 +80,27 @@
         </div>
     </main>
 
+@endsection
+
+@section('scripts')
+    <script>
+        function copyToClipboard(text) {
+            // Create a temporary textarea element to hold the text to copy
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+
+            // Make the textarea non-editable and add it to the DOM
+            textarea.setAttribute('readonly', '');
+            document.body.appendChild(textarea);
+
+            // Select the text and copy it to the clipboard
+            textarea.select();
+            document.execCommand('copy');
+
+            // Remove the textarea from the DOM
+            document.body.removeChild(textarea);
+
+            showToast('{{ __('The order code was copied.') }}', 'success');
+        }
+    </script>
 @endsection
